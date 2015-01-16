@@ -12,6 +12,9 @@
 		2AADF4E81A695B9D0026EF9D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E71A695B9D0026EF9D /* ViewController.m */; };
 		2AADF4ED1A695B9D0026EF9D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AADF4EC1A695B9D0026EF9D /* Images.xcassets */; };
 		2AADF4FC1A695B9E0026EF9D /* DemoStickerLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4FB1A695B9E0026EF9D /* DemoStickerLibraryTests.m */; };
+		2AADF5161A6971F50026EF9D /* UIScreen+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF5151A6971F50026EF9D /* UIScreen+TechD.m */; };
+		2AADF51D1A6972810026EF9D /* TDStickerLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF51A1A6972810026EF9D /* TDStickerLibrary.m */; };
+		2AADF51E1A6972810026EF9D /* TDStickerLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF51C1A6972810026EF9D /* TDStickerLibraryViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,14 @@
 		2AADF4F51A695B9E0026EF9D /* DemoStickerLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoStickerLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADF4FA1A695B9E0026EF9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2AADF4FB1A695B9E0026EF9D /* DemoStickerLibraryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoStickerLibraryTests.m; sourceTree = "<group>"; };
+		2AADF5131A6971F50026EF9D /* UIKit+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKit+TechD.h"; sourceTree = "<group>"; };
+		2AADF5141A6971F50026EF9D /* UIScreen+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+TechD.h"; sourceTree = "<group>"; };
+		2AADF5151A6971F50026EF9D /* UIScreen+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+TechD.m"; sourceTree = "<group>"; };
+		2AADF5191A6972810026EF9D /* TDStickerLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibrary.h; sourceTree = "<group>"; };
+		2AADF51A1A6972810026EF9D /* TDStickerLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrary.m; sourceTree = "<group>"; };
+		2AADF51B1A6972810026EF9D /* TDStickerLibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryViewController.h; sourceTree = "<group>"; };
+		2AADF51C1A6972810026EF9D /* TDStickerLibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryViewController.m; sourceTree = "<group>"; };
+		2AADF51F1A69728C0026EF9D /* ARCMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARCMacros.h; path = ../../ARCMacros.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +72,7 @@
 			children = (
 				2AADF4DE1A695B9D0026EF9D /* DemoStickerLibrary */,
 				2AADF4F81A695B9E0026EF9D /* DemoStickerLibraryTests */,
+				2AADF5101A6971D10026EF9D /* Libraries */,
 				2AADF4DD1A695B9D0026EF9D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -111,6 +123,55 @@
 				2AADF4FA1A695B9E0026EF9D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2AADF5101A6971D10026EF9D /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				2AADF5111A6971F50026EF9D /* UIKit+TechD */,
+				2AADF5171A6972280026EF9D /* TDStickerLibrary */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		2AADF5111A6971F50026EF9D /* UIKit+TechD */ = {
+			isa = PBXGroup;
+			children = (
+				2AADF5121A6971F50026EF9D /* UIKit+TechD */,
+			);
+			name = "UIKit+TechD";
+			path = "../../Libraries/UIKit+TechD";
+			sourceTree = "<group>";
+		};
+		2AADF5121A6971F50026EF9D /* UIKit+TechD */ = {
+			isa = PBXGroup;
+			children = (
+				2AADF5131A6971F50026EF9D /* UIKit+TechD.h */,
+				2AADF5141A6971F50026EF9D /* UIScreen+TechD.h */,
+				2AADF5151A6971F50026EF9D /* UIScreen+TechD.m */,
+			);
+			path = "UIKit+TechD";
+			sourceTree = "<group>";
+		};
+		2AADF5171A6972280026EF9D /* TDStickerLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				2AADF51F1A69728C0026EF9D /* ARCMacros.h */,
+				2AADF5181A6972810026EF9D /* TDStickerLibrary */,
+			);
+			name = TDStickerLibrary;
+			sourceTree = "<group>";
+		};
+		2AADF5181A6972810026EF9D /* TDStickerLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				2AADF5191A6972810026EF9D /* TDStickerLibrary.h */,
+				2AADF51A1A6972810026EF9D /* TDStickerLibrary.m */,
+				2AADF51B1A6972810026EF9D /* TDStickerLibraryViewController.h */,
+				2AADF51C1A6972810026EF9D /* TDStickerLibraryViewController.m */,
+			);
+			name = TDStickerLibrary;
+			path = ../../TDStickerLibrary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +272,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AADF51D1A6972810026EF9D /* TDStickerLibrary.m in Sources */,
+				2AADF5161A6971F50026EF9D /* UIScreen+TechD.m in Sources */,
+				2AADF51E1A6972810026EF9D /* TDStickerLibraryViewController.m in Sources */,
 				2AADF4E81A695B9D0026EF9D /* ViewController.m in Sources */,
 				2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */,
 				2AADF4E21A695B9D0026EF9D /* main.m in Sources */,
@@ -385,6 +449,7 @@
 				2AADF5011A695B9E0026EF9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2AADF5021A695B9E0026EF9D /* Build configuration list for PBXNativeTarget "DemoStickerLibraryTests" */ = {
 			isa = XCConfigurationList;
@@ -393,6 +458,7 @@
 				2AADF5041A695B9E0026EF9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
