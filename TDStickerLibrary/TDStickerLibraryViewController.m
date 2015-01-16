@@ -33,6 +33,7 @@
 {
     
     UINavigationBar               * navigationBar;
+    UIView                        * bannerView;     //  for plugin method used.
     
 }
 //  ------------------------------------------------------------------------------------------------
@@ -64,6 +65,7 @@
 - ( CGFloat ) _GetNextCreateSubviewTopPosition;
 
 - ( BOOL ) _CreateNavigationBar;
+- ( BOOL ) _CreateBannerView;
 
 
 
@@ -87,6 +89,7 @@
 - ( void ) _InitAttributes
 {
     navigationBar                   = nil;
+    bannerView                      = nil;
     
 }
 
@@ -103,6 +106,10 @@
     {
         subviewTop                  += [navigationBar bounds].size.height;
     }
+    if ( nil != bannerView )
+    {
+        subviewTop                  += [bannerView bounds].size.height;
+    }
     
     
     return subviewTop;
@@ -117,10 +124,10 @@
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetNextCreateSubviewTopPosition];
-    navigationBar                   = [[UINavigationBar alloc] initWithFrame: CGRectMake( 0, ( subviewTop + 1.0f ), screenWidth, 36)];
+    navigationBar                   = [[UINavigationBar alloc] initWithFrame: CGRectMake( 0, ( subviewTop + 1.0f ), screenWidth, 36.0f )];
     if ( nil == navigationBar )
     {
-        return YES;
+        return NO;
     }
     [navigationBar                  setBackgroundColor: [UIColor blueColor]];   // some effect at navigation bar. (錯覺嗎?, 本來應該要沒效果的)
     [[self                          view] addSubview: navigationBar];
@@ -152,6 +159,29 @@
     }];
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateBannerView
+{
+    CGFloat                         screenWidth;
+    CGFloat                         subviewTop;
+    CGRect                          bannerRect;
+    
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    subviewTop                      = [self _GetNextCreateSubviewTopPosition];
+    bannerRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, 48.0f );
+    bannerView                      = [[UIView alloc] initWithFrame: bannerRect];
+    if ( nil == bannerView )
+    {
+        return NO;
+    }
+    
+    [bannerView                     setBackgroundColor: [UIColor grayColor]];
+    [[self                          view] addSubview: bannerView];
+    
+    return YES;
+}
+
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -182,6 +212,7 @@
     [self                           _InitAttributes];
     
     [self                           _CreateNavigationBar];
+    [self                           _CreateBannerView];
     
     [[self view] setBackgroundColor: [UIColor darkGrayColor]];
     NSLog( @"%s",  [NSStringFromCGRect( [[self view] bounds] ) UTF8String] );
@@ -195,6 +226,11 @@
     {
         SAFE_ARC_RELEASE( navigationBar );
         SAFE_ARC_ASSIGN_POINTER_NIL( navigationBar );
+    }
+    if ( nil != bannerView )
+    {
+        SAFE_ARC_RELEASE( bannerView );
+        SAFE_ARC_ASSIGN_POINTER_NIL( bannerView );
     }
     
     SAFE_ARC_SUPER_DEALLOC();
