@@ -7,7 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#ifndef _TDSticker_Library_
+    #define _TDSticker_Library_
+
+    #import "TDStickerLibraryViewController.h"
+
+#endif  //  End of _TDSticker_Library_.
+
 
 @interface TDStickerLibrary : NSObject
 
 @end
+
