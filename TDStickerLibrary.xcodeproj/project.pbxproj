@@ -10,6 +10,8 @@
 		2AADF4BD1A69599E0026EF9D /* TDStickerLibrary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */; };
 		2AADF4BF1A69599E0026EF9D /* TDStickerLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */; };
 		2AADF4C51A69599E0026EF9D /* libTDStickerLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */; };
+		2AADF5081A695E7B0026EF9D /* TDStickerLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF5071A695E7B0026EF9D /* TDStickerLibraryViewController.m */; };
+		2AADF50E1A695E980026EF9D /* UIScreen+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF50D1A695E980026EF9D /* UIScreen+TechD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +43,12 @@
 		2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrary.m; sourceTree = "<group>"; };
 		2AADF4C41A69599E0026EF9D /* TDStickerLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TDStickerLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADF4CA1A69599E0026EF9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2AADF5061A695E7B0026EF9D /* TDStickerLibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryViewController.h; sourceTree = "<group>"; };
+		2AADF5071A695E7B0026EF9D /* TDStickerLibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryViewController.m; sourceTree = "<group>"; };
+		2AADF50B1A695E980026EF9D /* UIKit+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKit+TechD.h"; sourceTree = "<group>"; };
+		2AADF50C1A695E980026EF9D /* UIScreen+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+TechD.h"; sourceTree = "<group>"; };
+		2AADF50D1A695E980026EF9D /* UIScreen+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+TechD.m"; sourceTree = "<group>"; };
+		2AADF50F1A695F230026EF9D /* ARCMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARCMacros.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,8 +73,10 @@
 		2AADF4B01A69599E0026EF9D = {
 			isa = PBXGroup;
 			children = (
+				2AADF50F1A695F230026EF9D /* ARCMacros.h */,
 				2AADF4BB1A69599E0026EF9D /* TDStickerLibrary */,
 				2AADF4C81A69599E0026EF9D /* TDStickerLibraryTests */,
+				2AADF5051A695E600026EF9D /* Libraries */,
 				2AADF4BA1A69599E0026EF9D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,6 +95,8 @@
 			children = (
 				2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */,
 				2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */,
+				2AADF5061A695E7B0026EF9D /* TDStickerLibraryViewController.h */,
+				2AADF5071A695E7B0026EF9D /* TDStickerLibraryViewController.m */,
 			);
 			path = TDStickerLibrary;
 			sourceTree = "<group>";
@@ -103,6 +115,33 @@
 				2AADF4CA1A69599E0026EF9D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2AADF5051A695E600026EF9D /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				2AADF5091A695E980026EF9D /* UIKit+TechD */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		2AADF5091A695E980026EF9D /* UIKit+TechD */ = {
+			isa = PBXGroup;
+			children = (
+				2AADF50A1A695E980026EF9D /* UIKit+TechD */,
+			);
+			name = "UIKit+TechD";
+			path = "Libraries/UIKit+TechD";
+			sourceTree = "<group>";
+		};
+		2AADF50A1A695E980026EF9D /* UIKit+TechD */ = {
+			isa = PBXGroup;
+			children = (
+				2AADF50B1A695E980026EF9D /* UIKit+TechD.h */,
+				2AADF50C1A695E980026EF9D /* UIScreen+TechD.h */,
+				2AADF50D1A695E980026EF9D /* UIScreen+TechD.m */,
+			);
+			path = "UIKit+TechD";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AADF5081A695E7B0026EF9D /* TDStickerLibraryViewController.m in Sources */,
 				2AADF4BF1A69599E0026EF9D /* TDStickerLibrary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,6 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AADF50E1A695E980026EF9D /* UIScreen+TechD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
