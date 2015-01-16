@@ -1,0 +1,371 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2AADF4BD1A69599E0026EF9D /* TDStickerLibrary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */; };
+		2AADF4BF1A69599E0026EF9D /* TDStickerLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */; };
+		2AADF4C51A69599E0026EF9D /* libTDStickerLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2AADF4C61A69599E0026EF9D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AADF4B11A69599E0026EF9D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2AADF4B81A69599E0026EF9D;
+			remoteInfo = TDStickerLibrary;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2AADF4B71A69599E0026EF9D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				2AADF4BD1A69599E0026EF9D /* TDStickerLibrary.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTDStickerLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDStickerLibrary.h; sourceTree = "<group>"; };
+		2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrary.m; sourceTree = "<group>"; };
+		2AADF4C41A69599E0026EF9D /* TDStickerLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TDStickerLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AADF4CA1A69599E0026EF9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2AADF4B61A69599E0026EF9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AADF4C11A69599E0026EF9D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AADF4C51A69599E0026EF9D /* libTDStickerLibrary.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2AADF4B01A69599E0026EF9D = {
+			isa = PBXGroup;
+			children = (
+				2AADF4BB1A69599E0026EF9D /* TDStickerLibrary */,
+				2AADF4C81A69599E0026EF9D /* TDStickerLibraryTests */,
+				2AADF4BA1A69599E0026EF9D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2AADF4BA1A69599E0026EF9D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */,
+				2AADF4C41A69599E0026EF9D /* TDStickerLibraryTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AADF4BB1A69599E0026EF9D /* TDStickerLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */,
+				2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */,
+			);
+			path = TDStickerLibrary;
+			sourceTree = "<group>";
+		};
+		2AADF4C81A69599E0026EF9D /* TDStickerLibraryTests */ = {
+			isa = PBXGroup;
+			children = (
+				2AADF4C91A69599E0026EF9D /* Supporting Files */,
+			);
+			path = TDStickerLibraryTests;
+			sourceTree = "<group>";
+		};
+		2AADF4C91A69599E0026EF9D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2AADF4CA1A69599E0026EF9D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2AADF4B81A69599E0026EF9D /* TDStickerLibrary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AADF4CD1A69599E0026EF9D /* Build configuration list for PBXNativeTarget "TDStickerLibrary" */;
+			buildPhases = (
+				2AADF4B51A69599E0026EF9D /* Sources */,
+				2AADF4B61A69599E0026EF9D /* Frameworks */,
+				2AADF4B71A69599E0026EF9D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TDStickerLibrary;
+			productName = TDStickerLibrary;
+			productReference = 2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		2AADF4C31A69599E0026EF9D /* TDStickerLibraryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AADF4D01A69599E0026EF9D /* Build configuration list for PBXNativeTarget "TDStickerLibraryTests" */;
+			buildPhases = (
+				2AADF4C01A69599E0026EF9D /* Sources */,
+				2AADF4C11A69599E0026EF9D /* Frameworks */,
+				2AADF4C21A69599E0026EF9D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2AADF4C71A69599E0026EF9D /* PBXTargetDependency */,
+			);
+			name = TDStickerLibraryTests;
+			productName = TDStickerLibraryTests;
+			productReference = 2AADF4C41A69599E0026EF9D /* TDStickerLibraryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2AADF4B11A69599E0026EF9D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = TechD;
+				TargetAttributes = {
+					2AADF4B81A69599E0026EF9D = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					2AADF4C31A69599E0026EF9D = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 2AADF4B41A69599E0026EF9D /* Build configuration list for PBXProject "TDStickerLibrary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2AADF4B01A69599E0026EF9D;
+			productRefGroup = 2AADF4BA1A69599E0026EF9D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2AADF4B81A69599E0026EF9D /* TDStickerLibrary */,
+				2AADF4C31A69599E0026EF9D /* TDStickerLibraryTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2AADF4C21A69599E0026EF9D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2AADF4B51A69599E0026EF9D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AADF4BF1A69599E0026EF9D /* TDStickerLibrary.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AADF4C01A69599E0026EF9D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2AADF4C71A69599E0026EF9D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2AADF4B81A69599E0026EF9D /* TDStickerLibrary */;
+			targetProxy = 2AADF4C61A69599E0026EF9D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2AADF4CB1A69599E0026EF9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2AADF4CC1A69599E0026EF9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2AADF4CE1A69599E0026EF9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		2AADF4CF1A69599E0026EF9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		2AADF4D11A69599E0026EF9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TDStickerLibraryTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2AADF4D21A69599E0026EF9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TDStickerLibraryTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2AADF4B41A69599E0026EF9D /* Build configuration list for PBXProject "TDStickerLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AADF4CB1A69599E0026EF9D /* Debug */,
+				2AADF4CC1A69599E0026EF9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2AADF4CD1A69599E0026EF9D /* Build configuration list for PBXNativeTarget "TDStickerLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AADF4CE1A69599E0026EF9D /* Debug */,
+				2AADF4CF1A69599E0026EF9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2AADF4D01A69599E0026EF9D /* Build configuration list for PBXNativeTarget "TDStickerLibraryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AADF4D11A69599E0026EF9D /* Debug */,
+				2AADF4D21A69599E0026EF9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2AADF4B11A69599E0026EF9D /* Project object */;
+}
