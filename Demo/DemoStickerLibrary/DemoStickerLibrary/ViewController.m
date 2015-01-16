@@ -7,9 +7,9 @@
 //
 
 #import "UIKit+TechD.h"
+#import "TDStickerLibrary.h"
 
 #import "ViewController.h"
-#import "TDStickerLibraryViewController.h"
 
 @interface ViewController ()
 
