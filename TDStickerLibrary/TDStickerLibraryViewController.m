@@ -35,6 +35,8 @@
     UINavigationBar               * navigationBar;
     UIView                        * bannerView;     //  for plugin method used.
     
+    UIScrollView                  * tabMenu;
+    
 }
 //  ------------------------------------------------------------------------------------------------
 
@@ -66,7 +68,7 @@
 
 - ( BOOL ) _CreateNavigationBar;
 - ( BOOL ) _CreateBannerView;
-
+- ( BOOL ) _CreatetabMenu;
 
 
 @end
@@ -91,6 +93,7 @@
     navigationBar                   = nil;
     bannerView                      = nil;
     
+    tabMenu                         = nil;
 }
 
 
@@ -109,6 +112,10 @@
     if ( nil != bannerView )
     {
         subviewTop                  += [bannerView bounds].size.height;
+    }
+    if ( nil != tabMenu )
+    {
+        subviewTop                  += [tabMenu bounds].size.height;
     }
     
     
@@ -177,10 +184,29 @@
     
     [bannerView                     setBackgroundColor: [UIColor grayColor]];
     [[self                          view] addSubview: bannerView];
-    
     return YES;
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreatetabMenu
+{
+    CGFloat                         screenWidth;
+    CGFloat                         subviewTop;
+    CGRect                          tabMenuRect;
+    
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    subviewTop                      = [self _GetNextCreateSubviewTopPosition];
+    tabMenuRect                     = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, 48.0f );
+    tabMenu                         = [[UIScrollView alloc] initWithFrame: tabMenuRect];
+    if ( nil == tabMenu )
+    {
+        return NO;
+    }
+    
+    [tabMenu                        setBackgroundColor: [UIColor blackColor]];
+    [[self                          view] addSubview: tabMenu];
+    return YES;
+}
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -213,6 +239,7 @@
     
     [self                           _CreateNavigationBar];
     [self                           _CreateBannerView];
+    [self                           _CreatetabMenu];
     
     [[self view] setBackgroundColor: [UIColor darkGrayColor]];
     NSLog( @"%s",  [NSStringFromCGRect( [[self view] bounds] ) UTF8String] );
@@ -231,6 +258,11 @@
     {
         SAFE_ARC_RELEASE( bannerView );
         SAFE_ARC_ASSIGN_POINTER_NIL( bannerView );
+    }
+    if ( nil != tabMenu )
+    {
+        SAFE_ARC_RELEASE( tabMenu );
+        SAFE_ARC_ASSIGN_POINTER_NIL( tabMenu );
     }
     
     SAFE_ARC_SUPER_DEALLOC();
