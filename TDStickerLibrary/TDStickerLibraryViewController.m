@@ -155,6 +155,11 @@
     {
         [titleItem                  setLeftBarButtonItem: backItem];
     }
+
+    
+    //  width stretchy when device Orientation is changed.
+    [NSLayoutConstraint             constraintForWidthStretchy: navigationBar top: ( subviewTop + 1.0f ) height: (36.0f) in: [self view]];
+    
     return YES;
 }
 
@@ -184,6 +189,11 @@
     
     [bannerView                     setBackgroundColor: [UIColor grayColor]];
     [[self                          view] addSubview: bannerView];
+    NSLog( @" sub view top %f", subviewTop );
+    
+    //  width stretchy when device Orientation is changed.
+    [NSLayoutConstraint             constraintForWidthStretchy: bannerView top: ( subviewTop + 1.0f ) height: (48.0f) in: [self view]];
+    
     return YES;
 }
 
@@ -205,6 +215,10 @@
     
     [tabMenu                        setBackgroundColor: [UIColor blackColor]];
     [[self                          view] addSubview: tabMenu];
+    
+    //  width stretchy when device Orientation is changed.
+    [NSLayoutConstraint             constraintForWidthStretchy: tabMenu top: ( subviewTop + 1.0f ) height: (48.0f) in: [super view]];
+    
     return YES;
 }
 
@@ -276,6 +290,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+//  ------------------------------------------------------------------------------------------------
+//- (BOOL)prefersStatusBarHidden
+//{
+//    return NO;
+//}
+
+//  ------------------------------------------------------------------------------------------------
+
+
 
 /*
 #pragma mark - Navigation
