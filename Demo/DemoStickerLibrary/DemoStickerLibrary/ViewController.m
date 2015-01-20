@@ -40,7 +40,7 @@
     [button                         setBackgroundColor: [UIColor darkGrayColor]];
     [button                         setFrame: CGRectMake( 0, 0, 120, 36)];
     [button                         setCenter: CGPointMake( ( mainRect.size.width / 2.0f ), ( mainRect.size.height /2.0f ) )];
-    [button                         setTitle: @" Start" forState: UIControlStateNormal];
+    [button                         setTitle: @" Start " forState: UIControlStateNormal];
     [[self                          view] addSubview: button];
     
     UITapGestureRecognizer        * tap;
@@ -51,6 +51,23 @@
         return;
     }
     [button                         addGestureRecognizer: tap];
+    
+    
+    [button                         setTranslatesAutoresizingMaskIntoConstraints: NO];
+    
+    NSLayoutConstraint            * layoutX;
+    NSLayoutConstraint            * layoutY;
+    layoutX                         = [NSLayoutConstraint constraintWithItem: button attribute: NSLayoutAttributeCenterX relatedBy: NSLayoutRelationEqual
+                                                                      toItem: [self view] attribute:NSLayoutAttributeCenterX  multiplier: 1.0f constant: 0.0f];
+    
+    layoutY                         = [NSLayoutConstraint constraintWithItem: button attribute: NSLayoutAttributeTop relatedBy: NSLayoutRelationEqual
+                                                                      toItem: [self view] attribute: NSLayoutAttributeTopMargin multiplier: 1.0f constant: 20.0f];
+    
+    [[self view] addConstraint: layoutX];
+    [[self view] addConstraint: layoutY];
+    
+    
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -63,6 +80,8 @@
     {
         return;
     }
+    
+    
     
     [self                           presentViewController: controller animated: YES completion: nil];
     
