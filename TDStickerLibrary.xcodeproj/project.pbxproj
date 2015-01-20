@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A5689BE1A6E73B90087CCA4 /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5689BD1A6E73B90087CCA4 /* NSLayoutConstraint+TechD.m */; };
 		2AADF4BD1A69599E0026EF9D /* TDStickerLibrary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */; };
 		2AADF4BF1A69599E0026EF9D /* TDStickerLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */; };
 		2AADF4C51A69599E0026EF9D /* libTDStickerLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */; };
@@ -38,6 +39,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2A5689BC1A6E73B90087CCA4 /* NSLayoutConstraint+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+TechD.h"; sourceTree = "<group>"; };
+		2A5689BD1A6E73B90087CCA4 /* NSLayoutConstraint+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+TechD.m"; sourceTree = "<group>"; };
 		2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTDStickerLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDStickerLibrary.h; sourceTree = "<group>"; };
 		2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrary.m; sourceTree = "<group>"; };
@@ -140,6 +143,8 @@
 				2AADF50B1A695E980026EF9D /* UIKit+TechD.h */,
 				2AADF50C1A695E980026EF9D /* UIScreen+TechD.h */,
 				2AADF50D1A695E980026EF9D /* UIScreen+TechD.m */,
+				2A5689BC1A6E73B90087CCA4 /* NSLayoutConstraint+TechD.h */,
+				2A5689BD1A6E73B90087CCA4 /* NSLayoutConstraint+TechD.m */,
 			);
 			path = "UIKit+TechD";
 			sourceTree = "<group>";
@@ -232,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A5689BE1A6E73B90087CCA4 /* NSLayoutConstraint+TechD.m in Sources */,
 				2AADF5081A695E7B0026EF9D /* TDStickerLibraryViewController.m in Sources */,
 				2AADF4BF1A69599E0026EF9D /* TDStickerLibrary.m in Sources */,
 			);
@@ -397,6 +403,7 @@
 				2AADF4CF1A69599E0026EF9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2AADF4D01A69599E0026EF9D /* Build configuration list for PBXNativeTarget "TDStickerLibraryTests" */ = {
 			isa = XCConfigurationList;
@@ -405,6 +412,7 @@
 				2AADF4D21A69599E0026EF9D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
