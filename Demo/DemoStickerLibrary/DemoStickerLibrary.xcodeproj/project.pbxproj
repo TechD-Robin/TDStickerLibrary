@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A5689BB1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */; };
 		2AADF4E21A695B9D0026EF9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E11A695B9D0026EF9D /* main.m */; };
 		2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E41A695B9D0026EF9D /* AppDelegate.m */; };
 		2AADF4E81A695B9D0026EF9D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E71A695B9D0026EF9D /* ViewController.m */; };
@@ -28,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A5689B91A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+TechD.h"; sourceTree = "<group>"; };
+		2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+TechD.m"; sourceTree = "<group>"; };
 		2AADF4DC1A695B9D0026EF9D /* DemoStickerLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoStickerLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADF4E01A695B9D0026EF9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2AADF4E11A695B9D0026EF9D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				2AADF5131A6971F50026EF9D /* UIKit+TechD.h */,
 				2AADF5141A6971F50026EF9D /* UIScreen+TechD.h */,
 				2AADF5151A6971F50026EF9D /* UIScreen+TechD.m */,
+				2A5689B91A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.h */,
+				2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */,
 			);
 			path = "UIKit+TechD";
 			sourceTree = "<group>";
@@ -274,6 +279,7 @@
 			files = (
 				2AADF51D1A6972810026EF9D /* TDStickerLibrary.m in Sources */,
 				2AADF5161A6971F50026EF9D /* UIScreen+TechD.m in Sources */,
+				2A5689BB1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m in Sources */,
 				2AADF51E1A6972810026EF9D /* TDStickerLibraryViewController.m in Sources */,
 				2AADF4E81A695B9D0026EF9D /* ViewController.m in Sources */,
 				2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */,
