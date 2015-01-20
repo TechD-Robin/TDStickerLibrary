@@ -1,8 +1,8 @@
 //
-//  UIScreen+TechD.h
+//  NSLayoutConstraint+TechD.h
 //  UIKit+TechD
 //
-//  Created by Robin Hsu on 2015/1/16.
+//  Created by Robin Hsu on 2015/1/20.
 //  Copyright (c) 2015年 TechD. All rights reserved.
 //
 
@@ -11,23 +11,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIScreen (TechD)
+//  ------------------------------------------------------------------------------------------------
+@interface NSLayoutConstraint (TechD)
 
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
-/**
- *  @brief easy to get the height of status bar.
- *
- *  @return     height of status bar.
- */
-- ( CGFloat ) getStatusBarHeight;
-
++ ( BOOL ) constraintForWidthStretchy:(UIView *)subView top:(CGFloat)top height:(CGFloat)height in:(UIView *)superView;
 
 //  ------------------------------------------------------------------------------------------------
-
 
 @end
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-
