@@ -38,6 +38,8 @@
     
     UIScrollView                  * tabMenu;
     
+    TDStickerLibraryCustomization * customizationParam;
+    
     TDStickerLibraryTabInfo       * tabInfo;
     
     
@@ -66,6 +68,10 @@
  *  initial the attributes of class.
  */
 - ( void ) _InitAttributes;
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _LoadSystemConfigure;
+
 
 //  ------------------------------------------------------------------------------------------------
 - ( CGFloat ) _GetNextCreateSubviewTopPosition;
@@ -99,9 +105,26 @@
     
     tabMenu                         = nil;
     
+    customizationParam              = nil;
+    
     tabInfo                         = nil;
 }
 
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _LoadSystemConfigure
+{
+    tabInfo                         = [TDStickerLibraryTabInfo loadData: [customizationParam tabFilename]];
+    if ( nil == tabInfo )
+    {
+        return;
+    }
+    
+    
+    
+    
+    
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -249,21 +272,11 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-#pragma mark overwrite implementation of UIViewController
+#pragma mark overwrite implementation of NSObject.
 //  ------------------------------------------------------------------------------------------------
-- (void)viewDidLoad
+- ( id ) init
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self                           _InitAttributes];
-    
-    [self                           _CreateNavigationBar];
-    [self                           _CreateBannerView];
-    [self                           _CreatetabMenu];
-    
-    [[self view] setBackgroundColor: [UIColor darkGrayColor]];
-    NSLog( @"%s",  [NSStringFromCGRect( [[self view] bounds] ) UTF8String] );
-    
+    return [self initWithCustomization: nil];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -284,6 +297,13 @@
         SAFE_ARC_RELEASE( tabMenu );
         SAFE_ARC_ASSIGN_POINTER_NIL( tabMenu );
     }
+    
+    if ( nil != customizationParam )
+    {
+        SAFE_ARC_RETAIN( customizationParam );
+        SAFE_ARC_ASSIGN_POINTER_NIL( customizationParam );
+    }
+    
     if ( nil != tabInfo )
     {
         SAFE_ARC_RETAIN( tabInfo );
@@ -294,6 +314,22 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark overwrite implementation of UIViewController.
+//  ------------------------------------------------------------------------------------------------
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    [self                           _CreateNavigationBar];
+    [self                           _CreateBannerView];
+    [self                           _CreatetabMenu];
+    
+    [[self view] setBackgroundColor: [UIColor darkGrayColor]];
+    NSLog( @"%s",  [NSStringFromCGRect( [[self view] bounds] ) UTF8String] );
+    
+}
+
 //  ------------------------------------------------------------------------------------------------
 - (void)didReceiveMemoryWarning
 {
@@ -318,12 +354,15 @@
     {
         return nil;
     }
+    [self                           _InitAttributes];
     
-    //  when object is nil, system create a default object.
+    //  when customization is nil, system create a default object.
     if ( nil == customization )
     {
         customization               = [[TDStickerLibraryCustomization alloc] init];
     }
+    customizationParam              = customization;
+    [self                           _LoadSystemConfigure];
     
     return self;
 }

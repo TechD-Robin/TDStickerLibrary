@@ -10,6 +10,7 @@
     #import "ARCMacros.h"
 #endif  //  End of __ARCMacros_H__.
 
+#import "ZipArchive.h"
 #import "TDStickerLibraryTabInfo.h"
 
 //  ------------------------------------------------------------------------------------------------
@@ -32,6 +33,9 @@
 #pragma mark declare property ()
 @interface TDStickerLibraryTabInfo()
 {
+    NSMutableDictionary           * unzipDataContainer;
+    
+    NSDictionary                  * configureData;      //  json struct.
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -59,6 +63,8 @@
  */
 - ( void ) _InitAttributes;
 
+- ( BOOL ) _UnZipConfigureFile:(NSString *)filename;
+- ( BOOL ) _GetConfigureJsonData:(NSString *)filename;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -83,12 +89,120 @@
 //  --------------------------------
 - ( void ) _InitAttributes
 {
+    unzipDataContainer              = nil;
     
+    configureData                   = nil;
 }
 
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _UnZipConfigureFile:(NSString *)filename
+{
+    if ( nil == filename )
+    {
+        return NO;
+    }
+    
+    NSFileManager                 * fileManager;
+    NSString                      * resourcePath;
+    NSString                      * filePath;
+    
+    resourcePath                    = [[NSBundle mainBundle] resourcePath];
+    fileManager                     = [NSFileManager defaultManager];
+    filePath                        = [resourcePath stringByAppendingPathComponent: [NSString stringWithFormat: @"%s.zip", [filename UTF8String]]];
+    if ( ( [fileManager fileExistsAtPath: resourcePath] == NO ) || ( [fileManager fileExistsAtPath: filePath] == NO ) )
+    {
+        NSLog( @"file %s no exist.", [filePath UTF8String] );
+        return NO;
+    }
+    
+    ZipArchive                    * zip;
+    NSDictionary                  * zipFiles;
+    
+    zipFiles                        = nil;
+    zip                             = [[ZipArchive alloc] init];
+    if ( nil == zip )
+    {
+        NSLog( @"cannot create zip archive object!" );
+        return NO;
+    }
+    
+    ////  set process call back.
+    //[zip                            setProgressBlock: ^(int percentage, int filesProcessed, unsigned long numFiles, NSString * filename )
+    // {
+    //     NSLog( @"[%d%%] %d/%ld  %s", percentage, filesProcessed, numFiles, [filename UTF8String] );
+    // }];
+    
+    if ( [zip UnzipOpenFile: filePath ] == NO )
+    {
+        NSLog( @"cannot open zip file %s.", __FUNCTION__ );
+        [zip                        UnzipCloseFile];
+        return NO;
+    }
+    zipFiles                        = [zip UnzipFileToMemory];
+    if ( nil == zipFiles )
+    {
+        NSLog( @"cannot unzip file to memory");
+        [zip                        UnzipCloseFile];
+        return NO;
+    }
+    
+    unzipDataContainer              = [[NSMutableDictionary alloc] initWithDictionary: zipFiles copyItems: YES];
+    
+    //.NSLog( @"unzip file in memory : %@", zipFiles );
+    [zip                            UnzipCloseFile];
+    
+    SAFE_ARC_RELEASE( zipFiles );
+    SAFE_ARC_ASSIGN_POINTER_NIL( zipFiles );
+    
+    SAFE_ARC_RELEASE( zip );
+    SAFE_ARC_ASSIGN_POINTER_NIL( zip );
+    return YES;
+}
 
+//  ------------------------------------------------------------------------------------------------
+//  --------------------------------
+- ( BOOL ) _GetConfigureJsonData:(NSString *)filename
+{
+    if ( nil == filename )
+    {
+        return NO;
+    }
+    
+    NSString                      * key;
+    NSDictionary                  * json;
+    NSError                       * jsonParsingError;
+    NSData                        * configure;
+    
+    json                            = nil;
+    jsonParsingError                = nil;
+    key                             = [NSString stringWithFormat: @"%s/%s.json", [filename UTF8String], [filename UTF8String]];
+    configure                       = [unzipDataContainer objectForKey: key];
+    if ( nil == configure )
+    {
+        NSLog( @"cannot get the configure from container." );
+        return NO;
+    }
+    
+    json                            = [NSJSONSerialization JSONObjectWithData: configure options:NSJSONReadingMutableContainers error: &jsonParsingError];
+    if ( nil == json )
+    {
+        if ( nil != jsonParsingError )
+        {
+            NSLog( @"%@", jsonParsingError );
+        }
+        return NO;
+    }
+    
+    configureData                   = [[NSDictionary alloc] initWithDictionary: json copyItems: YES];
+    
+    //  after get the configure, remove the data from container. (for release memory.)
+    [unzipDataContainer             removeObjectForKey: key];
+    
+    SAFE_ARC_RELEASE( json );
+    SAFE_ARC_ASSIGN_POINTER_NIL( json );
+    
+    return YES;
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -121,20 +235,24 @@
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) init
 {
-    self                            = [super init];
-    if ( nil == self )
-    {
-        return nil;
-    }
-    
-    [self                           _InitAttributes];
-    
-    return self;
+    return [self initWithFilename: nil];
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
+    if ( nil != unzipDataContainer )
+    {
+        SAFE_ARC_RELEASE( unzipDataContainer );
+        SAFE_ARC_ASSIGN_POINTER_NIL( unzipDataContainer );
+    }
+    
+    if ( nil != configureData )
+    {
+        SAFE_ARC_RELEASE( configureData );
+        SAFE_ARC_ASSIGN_POINTER_NIL( configureData );
+    }
+    
     SAFE_ARC_SUPER_DEALLOC();
 }
 
@@ -142,23 +260,61 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method create the object.
 //  ------------------------------------------------------------------------------------------------
-+ (instancetype) loadData:(NSString *)filename
+- ( instancetype ) initWithFilename:(NSString *)filename
 {
+    self                            = [super init];
+    if ( nil == self )
+    {
+        return nil;
+    }
+    
+    [self                           _InitAttributes];
     if ( nil == filename )
     {
-        return nil;
+        NSLog( @"filename is nil(%s).", __FUNCTION__ );
+        return self;
     }
-    
-    TDStickerLibraryTabInfo       * info;
-    
-    info                            = [[TDStickerLibraryTabInfo alloc] init];
-    if ( nil == info )
+
+    if ( [self _UnZipConfigureFile: filename] == NO )
     {
-        return nil;
+        return self;
+    }
+    
+    if ( [self _GetConfigureJsonData: filename] == NO )
+    {
+        return self;
     }
     
     
-    return info;
+    
+    
+    
+    return self;
+}
+
+
+//  ------------------------------------------------------------------------------------------------
++ (instancetype) loadData:(NSString *)filename
+{
+//    if ( nil == filename )
+//    {
+//        return nil;
+//    }
+//    
+//    TDStickerLibraryTabInfo       * info;
+//    
+//    info                            = [[TDStickerLibraryTabInfo alloc] init];
+//    if ( nil == info )
+//    {
+//        return nil;
+//    }
+//    if ( [info _UnZipConfigureFile: filename] == NO )
+//    {
+//        return info;
+//    }
+//    return info;
+    
+    return [[[self class] alloc] initWithFilename: filename];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -168,3 +324,18 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
