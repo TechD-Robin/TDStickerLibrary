@@ -13,6 +13,7 @@
     #import "ARCMacros.h"
 #endif  //  End of __ARCMacros_H__.
 
+#import "TDStickerLibraryTabInfo.h"
 #import "TDStickerLibraryViewController.h"
 
 //  ------------------------------------------------------------------------------------------------
@@ -36,6 +37,9 @@
     UIView                        * bannerView;     //  for plugin method used.
     
     UIScrollView                  * tabMenu;
+    
+    TDStickerLibraryTabInfo       * tabInfo;
+    
     
 }
 //  ------------------------------------------------------------------------------------------------
@@ -94,6 +98,8 @@
     bannerView                      = nil;
     
     tabMenu                         = nil;
+    
+    tabInfo                         = nil;
 }
 
 
@@ -278,11 +284,15 @@
         SAFE_ARC_RELEASE( tabMenu );
         SAFE_ARC_ASSIGN_POINTER_NIL( tabMenu );
     }
+    if ( nil != tabInfo )
+    {
+        SAFE_ARC_RETAIN( tabInfo );
+        SAFE_ARC_ASSIGN_POINTER_NIL( tabInfo );
+    }
     
     SAFE_ARC_SUPER_DEALLOC();
 }
 
-//  --------------------------------
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 - (void)didReceiveMemoryWarning
@@ -296,6 +306,39 @@
 //{
 //    return NO;
 //}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for create the object.
+//  ------------------------------------------------------------------------------------------------
+//  --------------------------------
+- ( instancetype ) initWithCustomization:(TDStickerLibraryCustomization *)customization
+{
+    self                            = [super init];
+    if ( nil == self )
+    {
+        return nil;
+    }
+    
+    //  when object is nil, system create a default object.
+    if ( nil == customization )
+    {
+        customization               = [[TDStickerLibraryCustomization alloc] init];
+    }
+    
+    return self;
+}
+
+//  ------------------------------------------------------------------------------------------------
++ (instancetype) stickerLibaray
+{
+    return [[[self class] alloc] initWithCustomization: nil];
+}
+
+//  ------------------------------------------------------------------------------------------------
++ ( instancetype ) stickerLibarayWithCustomization:(TDStickerLibraryCustomization *)customization
+{
+    return [[[self class] alloc] initWithCustomization: customization];
+}
 
 //  ------------------------------------------------------------------------------------------------
 

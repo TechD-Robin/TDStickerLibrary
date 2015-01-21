@@ -12,6 +12,7 @@
 #ifndef _TDSticker_Library_
     #define _TDSticker_Library_
 
+    #import "TDStickerLibraryCustomization.h"
     #import "TDStickerLibraryViewController.h"
 
 #endif  //  End of _TDSticker_Library_.
