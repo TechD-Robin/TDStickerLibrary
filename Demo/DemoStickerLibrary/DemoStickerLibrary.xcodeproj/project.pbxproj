@@ -43,6 +43,8 @@
 		2AB706821A6FE2FB006C6845 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706671A6FE2FB006C6845 /* README.md */; };
 		2AB706831A6FE2FB006C6845 /* ZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706691A6FE2FB006C6845 /* ZipArchive.m */; };
 		2AB706851A6FE324006C6845 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB706841A6FE324006C6845 /* libz.dylib */; };
+		2AB706931A700EB0006C6845 /* TDStickerLibraryTabInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706921A700EB0006C6845 /* TDStickerLibraryTabInfo.m */; };
+		2AB706961A700EE3006C6845 /* TDStickerLibraryCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706951A700EE3006C6845 /* TDStickerLibraryCustomization.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +132,10 @@
 		2AB706681A6FE2FB006C6845 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
 		2AB706691A6FE2FB006C6845 /* ZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipArchive.m; sourceTree = "<group>"; };
 		2AB706841A6FE324006C6845 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		2AB706911A700EB0006C6845 /* TDStickerLibraryTabInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryTabInfo.h; sourceTree = "<group>"; };
+		2AB706921A700EB0006C6845 /* TDStickerLibraryTabInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryTabInfo.m; sourceTree = "<group>"; };
+		2AB706941A700EE3006C6845 /* TDStickerLibraryCustomization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryCustomization.h; sourceTree = "<group>"; };
+		2AB706951A700EE3006C6845 /* TDStickerLibraryCustomization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryCustomization.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,8 +259,11 @@
 		2AADF5181A6972810026EF9D /* TDStickerLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				2AB706901A700EB0006C6845 /* Data */,
 				2AADF5191A6972810026EF9D /* TDStickerLibrary.h */,
 				2AADF51A1A6972810026EF9D /* TDStickerLibrary.m */,
+				2AB706941A700EE3006C6845 /* TDStickerLibraryCustomization.h */,
+				2AB706951A700EE3006C6845 /* TDStickerLibraryCustomization.m */,
 				2AADF51B1A6972810026EF9D /* TDStickerLibraryViewController.h */,
 				2AADF51C1A6972810026EF9D /* TDStickerLibraryViewController.m */,
 			);
@@ -353,6 +362,15 @@
 				2AB706661A6FE2FB006C6845 /* zip.h */,
 			);
 			path = minizip;
+			sourceTree = "<group>";
+		};
+		2AB706901A700EB0006C6845 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				2AB706911A700EB0006C6845 /* TDStickerLibraryTabInfo.h */,
+				2AB706921A700EB0006C6845 /* TDStickerLibraryTabInfo.m */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -462,6 +480,7 @@
 				2AB706781A6FE2FB006C6845 /* UIButton+AFNetworking.m in Sources */,
 				2AB7067A1A6FE2FB006C6845 /* UIProgressView+AFNetworking.m in Sources */,
 				2AADF5161A6971F50026EF9D /* UIScreen+TechD.m in Sources */,
+				2AB706961A700EE3006C6845 /* TDStickerLibraryCustomization.m in Sources */,
 				2A5689BB1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m in Sources */,
 				2AB706771A6FE2FB006C6845 /* UIAlertView+AFNetworking.m in Sources */,
 				2AB706711A6FE2FB006C6845 /* AFURLResponseSerialization.m in Sources */,
@@ -480,6 +499,7 @@
 				2AADF4E81A695B9D0026EF9D /* ViewController.m in Sources */,
 				2AB706741A6FE2FB006C6845 /* README.md in Sources */,
 				2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */,
+				2AB706931A700EB0006C6845 /* TDStickerLibraryTabInfo.m in Sources */,
 				2AB706801A6FE2FB006C6845 /* unzip.c in Sources */,
 				2AB7066C1A6FE2FB006C6845 /* AFHTTPSessionManager.m in Sources */,
 				2AADF4E21A695B9D0026EF9D /* main.m in Sources */,

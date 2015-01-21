@@ -75,7 +75,7 @@
 {
     TDStickerLibraryViewController* controller;
     
-    controller                      = [[TDStickerLibraryViewController alloc] init];
+    controller                      = [TDStickerLibraryViewController stickerLibaray];
     if ( nil == controller )
     {
         return;
