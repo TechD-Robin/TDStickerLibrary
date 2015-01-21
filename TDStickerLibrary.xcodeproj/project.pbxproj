@@ -39,6 +39,7 @@
 		2AB7062D1A6FDFE4006C6845 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706261A6FDFE4006C6845 /* README.md */; };
 		2AB7062E1A6FDFE4006C6845 /* ZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706281A6FDFE4006C6845 /* ZipArchive.m */; };
 		2AB706301A6FE00C006C6845 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB7062F1A6FE00C006C6845 /* libz.dylib */; };
+		2AB706891A6FE42F006C6845 /* TDStickerLibraryTabInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,8 @@
 		2AB706271A6FDFE4006C6845 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
 		2AB706281A6FDFE4006C6845 /* ZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipArchive.m; sourceTree = "<group>"; };
 		2AB7062F1A6FE00C006C6845 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		2AB706871A6FE42F006C6845 /* TDStickerLibraryTabInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryTabInfo.h; sourceTree = "<group>"; };
+		2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryTabInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +179,7 @@
 		2AADF4BB1A69599E0026EF9D /* TDStickerLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				2AB706861A6FE42F006C6845 /* Data */,
 				2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */,
 				2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */,
 				2AADF5061A695E7B0026EF9D /* TDStickerLibraryViewController.h */,
@@ -324,6 +328,15 @@
 			path = minizip;
 			sourceTree = "<group>";
 		};
+		2AB706861A6FE42F006C6845 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				2AB706871A6FE42F006C6845 /* TDStickerLibraryTabInfo.h */,
+				2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -413,9 +426,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AB706891A6FE42F006C6845 /* TDStickerLibraryTabInfo.m in Sources */,
 				2AB7062B1A6FDFE4006C6845 /* unzip.c in Sources */,
 				2AB7062E1A6FDFE4006C6845 /* ZipArchive.m in Sources */,
-				2A5689BE1A6E73B90087CCA4 /* NSLayoutConstraint+TechD.m in Sources */,
 				2AADF5081A695E7B0026EF9D /* TDStickerLibraryViewController.m in Sources */,
 				2AB706291A6FDFE4006C6845 /* ioapi.c in Sources */,
 				2AB7062C1A6FDFE4006C6845 /* zip.c in Sources */,
