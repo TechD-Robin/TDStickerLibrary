@@ -9,6 +9,7 @@
 //  ------------------------------------------------------------------------------------------------
 
 #import <Foundation/Foundation.h>
+#import  <CoreGraphics/CoreGraphics.h>
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -21,8 +22,15 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
 //  ------------------------------------------------------------------------------------------------
-@property( nonatomic, assign ) NSString                   * tabFilename;
+@property( nonatomic, assign ) NSString                   * inZippedPrefixPath;
+@property( nonatomic, assign ) NSString                   * tabConfigureFilename;
 
+
+
+//  for UIView.
+@property( nonatomic, assign ) CGFloat                      navigationBarHeight;
+@property( nonatomic, assign ) CGFloat                      bannerHeight;           //  when value is eaual 0, skip create banner view.
+@property( nonatomic, assign ) CGFloat                      tabMenuHeight;
 
 //  ------------------------------------------------------------------------------------------------
 

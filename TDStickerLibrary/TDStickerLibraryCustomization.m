@@ -74,7 +74,14 @@
 //  --------------------------------
 - ( void ) _InitAttributes
 {
-    [self                           setTabFilename: @"StickerLibraryTabDefault"];
+    [self                           setInZippedPrefixPath: @"StickerLibraryTabDefault"];
+    [self                           setTabConfigureFilename: @"StickerLibraryTabDefault"];
+    
+    //  for UIView.
+    [self                           setNavigationBarHeight: 36.0f];
+    [self                           setBannerHeight: 48.0f];
+    [self                           setTabMenuHeight: 72.0f];
+    
 }
 
 
@@ -96,7 +103,13 @@
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark synthesize variable.
-@synthesize tabFilename             = _tabFilename;
+@synthesize inZippedPrefixPath      = _inZippedPrefixPath;
+@synthesize tabConfigureFilename    = _tabConfigureFilename;
+
+//  for UIView.
+@synthesize navigationBarHeight     = _navigationBarHeight;
+@synthesize bannerHeight            = _bannerHeight;
+@synthesize tabMenuHeight           = _tabMenuHeight;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
