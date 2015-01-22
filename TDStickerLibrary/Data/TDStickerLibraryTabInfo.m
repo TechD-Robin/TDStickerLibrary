@@ -33,9 +33,12 @@
 #pragma mark declare property ()
 @interface TDStickerLibraryTabInfo()
 {
+    NSString                      * prefixDirectory;
+    
     NSMutableDictionary           * unzipDataContainer;
     
-    NSMutableDictionary           * configureData;      //  json struct.
+    //NSMutableDictionary           * configureData;      //  json struct.
+    NSMutableArray                * configureData;      //  json struct.
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -65,6 +68,7 @@
 
 - ( BOOL ) _UnZipConfigureFile:(NSString *)filename;
 - ( BOOL ) _GetConfigureJsonData:(NSString *)filename;
+- ( BOOL ) _ParseJsonStruct:(NSMutableDictionary *)json;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -89,6 +93,8 @@
 //  --------------------------------
 - ( void ) _InitAttributes
 {
+    prefixDirectory                 = nil;
+    
     unzipDataContainer              = nil;
     
     configureData                   = nil;
@@ -169,7 +175,7 @@
     
     json                            = nil;
     jsonParsingError                = nil;
-    key                             = [NSString stringWithFormat: @"%s/%s.json", [filename UTF8String], [filename UTF8String]];
+    key                             = [NSString stringWithFormat: @"%s/%s.json", [prefixDirectory UTF8String], [filename UTF8String]];
     configure                       = [unzipDataContainer objectForKey: key];
     if ( nil == configure )
     {
@@ -187,14 +193,20 @@
         return NO;
     }
     
-    if ( nil == configureData )
+    if ( [self _ParseJsonStruct: (NSMutableDictionary *)json] == NO )
     {
-        configureData                   = [[NSMutableDictionary alloc] initWithDictionary: json copyItems: YES];
+        NSLog( @"parse json warning." );
+        return NO;
     }
-    else
-    {
-        [configureData                  addEntriesFromDictionary: json];
-    }
+    
+    //if ( nil == configureData )
+    //{
+    //    configureData                   = [[NSMutableDictionary alloc] initWithDictionary: json copyItems: YES];
+    //}
+    //else
+    //{
+    //    [configureData                  addEntriesFromDictionary: json];
+    //}
     
     //  after get the configure, remove the data from container. (for release memory.)
     [unzipDataContainer             removeObjectForKey: key];
@@ -202,6 +214,36 @@
     SAFE_ARC_RELEASE( json );
     SAFE_ARC_ASSIGN_POINTER_NIL( json );
     
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _ParseJsonStruct:(NSMutableDictionary *)json
+{
+    if ( nil == json )
+    {
+        return NO;
+    }
+    
+    NSDictionary                  * tabData;
+    
+    tabData                         = [json objectForKey: @"Tab"];
+    if ( nil == tabData )
+    {
+        return NO;
+    }
+    
+    if ( nil == configureData )
+    {
+        //configureData                   = [[NSMutableDictionary alloc] initWithDictionary: tabData copyItems: YES];
+        configureData               = [[NSMutableArray alloc] initWithArray: (NSArray *)tabData];
+    }
+    else
+    {
+        //[configureData                  addEntriesFromDictionary: tabData];
+        [configureData              addObjectsFromArray: (NSArray *)tabData];
+    }
+
     return YES;
 }
 
@@ -236,20 +278,27 @@
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) init
 {
-    return [self initWithZipFile: nil inDirectory: nil];
+    return [self initWithZipFile: nil inZippedPath: nil inDirectory: nil];
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
+    if ( nil == prefixDirectory )
+    {
+        SAFE_ARC_ASSIGN_POINTER_NIL( prefixDirectory );
+    }
+    
     if ( nil != unzipDataContainer )
     {
+        [unzipDataContainer         removeAllObjects];
         SAFE_ARC_RELEASE( unzipDataContainer );
         SAFE_ARC_ASSIGN_POINTER_NIL( unzipDataContainer );
     }
     
     if ( nil != configureData )
     {
+        [configureData              removeAllObjects];
         SAFE_ARC_RELEASE( configureData );
         SAFE_ARC_ASSIGN_POINTER_NIL( configureData );
     }
@@ -261,7 +310,7 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method create the object.
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithZipFile:(NSString *)filename inDirectory:(NSString *)subpath
+- ( instancetype ) initWithZipFile:(NSString *)filename inZippedPath:(NSString*)prefix inDirectory:(NSString *)subpath
 {
     self                            = [super init];
     if ( nil == self )
@@ -276,6 +325,12 @@
         return self;
     }
     
+    prefixDirectory                 = prefix;
+    if ( nil == prefixDirectory )
+    {
+        prefixDirectory             = @"";
+    }
+    
     NSString                      * filePath;
     
     filePath                        = [[NSBundle mainBundle] pathForResource: filename ofType: @"zip" inDirectory: subpath];
@@ -285,7 +340,6 @@
         return self;
     }
     
-
     if ( [self _UnZipConfigureFile: filePath] == NO )
     {
         return self;
@@ -301,9 +355,68 @@
 
 
 //  ------------------------------------------------------------------------------------------------
-+ (instancetype) loadDataFromZip:(NSString *)filename inDirectory:(NSString *)subpath
++ ( instancetype ) loadDataFromZip:(NSString *)filename inZippedPath:(NSString*)prefix inDirectory:(NSString *)subpath
 {
-    return [[[self class] alloc] initWithZipFile: filename inDirectory: subpath];
+    return [[[self class] alloc] initWithZipFile: filename inZippedPath: prefix inDirectory: subpath];
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( NSInteger ) infoDataCount
+{
+    if ( nil == configureData )
+    {
+        return 0;
+    }
+    return [configureData count];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSDictionary * ) infoDataAtIndex:(NSInteger)index
+{
+    if ( 0 > index )
+    {
+        return nil;
+    }
+    [[configureData objectAtIndex: index] objectForKey: nil];
+    return [configureData objectAtIndex: index];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSDictionary * ) infoDataForKey:(NSString *)aKey
+{
+    if ( nil == aKey )
+    {
+        return nil;
+    }
+    
+    for ( NSDictionary * info in configureData )
+    {
+        if ( nil == info )
+        {
+            continue;
+        }
+        
+        if ( [[info objectForKey: @"Name"] isEqualToString: aKey] == YES )
+        {
+            return info;
+        }
+    }
+    return nil;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSData * ) imageDataForKey:(NSString *)aKey
+{
+    if ( ( nil == aKey ) || ( nil == unzipDataContainer ) )
+    {
+        return nil;
+    }
+    
+    NSString                      * key;
+    
+    key                             = [NSString stringWithFormat: @"%s/%s@2x.png", [prefixDirectory UTF8String], [aKey UTF8String]];
+    return [unzipDataContainer objectForKey: key];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -313,6 +426,7 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+
 
 
 

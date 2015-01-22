@@ -40,7 +40,7 @@
     
     TDStickerLibraryCustomization * customizationParam;
     
-    TDStickerLibraryTabInfo       * tabInfo;
+    TDStickerLibraryTabInfo       * tabConfigure;
     
     
 }
@@ -78,7 +78,8 @@
 
 - ( BOOL ) _CreateNavigationBar;
 - ( BOOL ) _CreateBannerView;
-- ( BOOL ) _CreatetabMenu;
+- ( BOOL ) _CreateTabMenu;
+- ( BOOL ) _CreateTabMenuItems;
 
 
 @end
@@ -107,15 +108,15 @@
     
     customizationParam              = nil;
     
-    tabInfo                         = nil;
+    tabConfigure                    = nil;
 }
 
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _LoadSystemConfigure
 {
-    tabInfo                         = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam tabFilename] inDirectory: @"" ];
-    if ( nil == tabInfo )
+    tabConfigure                    = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam tabFilename] inZippedPath: [customizationParam tabFilename] inDirectory: @"" ];
+    if ( nil == tabConfigure )
     {
         return;
     }
@@ -227,7 +228,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _CreatetabMenu
+- ( BOOL ) _CreateTabMenu
 {
     CGFloat                         screenWidth;
     CGFloat                         subviewTop;
@@ -247,6 +248,61 @@
     
     //  width stretchy when device Orientation is changed.
     [NSLayoutConstraint             constraintForWidthStretchy: tabMenu top: ( subviewTop + 1.0f ) height: (48.0f) in: [super view]];
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateTabMenuItems
+{
+    if ( ( nil == tabConfigure ) || ( [tabConfigure infoDataCount] == 0 ) )
+    {
+        return NO;
+    }
+    
+    NSDictionary                  * infoData;
+    NSArray                       * imagesName;
+    NSData                        * imageData;
+    
+    infoData                        = nil;
+    imagesName                      = nil;
+    imageData                       = nil;
+    for ( int i = 0; i < [tabConfigure infoDataCount]; ++i )
+    {
+        infoData                    = [tabConfigure infoDataAtIndex: i];
+        if ( nil == infoData )
+        {
+            continue;
+        }
+        
+        //  for test on here.
+        imagesName                  = [infoData objectForKey: @"Image"];
+        if ( nil == imagesName )
+        {
+            continue;
+        }
+        
+        imageData                   = [tabConfigure imageDataForKey: imagesName[1]];
+        if ( nil == imageData )
+        {
+            continue;
+        }
+        
+        
+        UIImageView               * imageView;
+        
+        imageView                   = [[UIImageView alloc] initWithImage: [UIImage imageWithData: imageData]];
+        if ( nil != imageView )
+        {
+            [tabMenu                addSubview: imageView];
+        }
+        
+//        [UIImage]
+        
+        
+        
+        
+    }
     
     return YES;
 }
@@ -304,10 +360,10 @@
         SAFE_ARC_ASSIGN_POINTER_NIL( customizationParam );
     }
     
-    if ( nil != tabInfo )
+    if ( nil != tabConfigure )
     {
-        SAFE_ARC_RETAIN( tabInfo );
-        SAFE_ARC_ASSIGN_POINTER_NIL( tabInfo );
+        SAFE_ARC_RETAIN( tabConfigure );
+        SAFE_ARC_ASSIGN_POINTER_NIL( tabConfigure );
     }
     
     SAFE_ARC_SUPER_DEALLOC();
@@ -323,7 +379,8 @@
     
     [self                           _CreateNavigationBar];
     [self                           _CreateBannerView];
-    [self                           _CreatetabMenu];
+    [self                           _CreateTabMenu];
+    [self                           _CreateTabMenuItems];
     
     [[self view] setBackgroundColor: [UIColor darkGrayColor]];
     NSLog( @"%s",  [NSStringFromCGRect( [[self view] bounds] ) UTF8String] );
