@@ -115,7 +115,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _LoadSystemConfigure
 {
-    tabConfigure                    = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam tabFilename] inZippedPath: [customizationParam tabFilename] inDirectory: @"" ];
+    tabConfigure                    = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam tabConfigureFilename] inZippedPath: [customizationParam tabConfigureFilename] inDirectory: @"" ];
     if ( nil == tabConfigure )
     {
         return;
@@ -158,10 +158,12 @@
     //  init Top bar & back button.
     CGFloat                         screenWidth;
     CGFloat                         subviewTop;
+    CGFloat                         navigationBarHight;
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetNextCreateSubviewTopPosition];
-    navigationBar                   = [[UINavigationBar alloc] initWithFrame: CGRectMake( 0, ( subviewTop + 1.0f ), screenWidth, 36.0f )];
+    navigationBarHight              = [customizationParam navigationBarHeight];
+    navigationBar                   = [[UINavigationBar alloc] initWithFrame: CGRectMake( 0, ( subviewTop + 1.0f ), screenWidth, navigationBarHight )];
     if ( nil == navigationBar )
     {
         return NO;
@@ -186,10 +188,8 @@
         [titleItem                  setLeftBarButtonItem: backItem];
     }
 
-    
     //  width stretchy when device Orientation is changed.
-    [NSLayoutConstraint             constraintForWidthStretchy: navigationBar top: ( subviewTop + 1.0f ) height: (36.0f) in: [self view]];
-    
+    [NSLayoutConstraint             constraintForWidthStretchy: navigationBar top: ( subviewTop + 1.0f ) height: navigationBarHight in: [self view]];
     return YES;
 }
 
@@ -206,11 +206,13 @@
 {
     CGFloat                         screenWidth;
     CGFloat                         subviewTop;
+    CGFloat                         bannerHeight;
     CGRect                          bannerRect;
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetNextCreateSubviewTopPosition];
-    bannerRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, 48.0f );
+    bannerHeight                    = [customizationParam bannerHeight];
+    bannerRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, bannerHeight );
     bannerView                      = [[UIView alloc] initWithFrame: bannerRect];
     if ( nil == bannerView )
     {
@@ -222,8 +224,7 @@
     NSLog( @" sub view top %f", subviewTop );
     
     //  width stretchy when device Orientation is changed.
-    [NSLayoutConstraint             constraintForWidthStretchy: bannerView top: ( subviewTop + 1.0f ) height: (48.0f) in: [self view]];
-    
+    [NSLayoutConstraint             constraintForWidthStretchy: bannerView top: ( subviewTop + 1.0f ) height: bannerHeight in: [self view]];
     return YES;
 }
 
@@ -232,11 +233,13 @@
 {
     CGFloat                         screenWidth;
     CGFloat                         subviewTop;
+    CGFloat                         tabMenuHeight;
     CGRect                          tabMenuRect;
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetNextCreateSubviewTopPosition];
-    tabMenuRect                     = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, 48.0f );
+    tabMenuHeight                   = [customizationParam tabMenuHeight];
+    tabMenuRect                     = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, tabMenuHeight );
     tabMenu                         = [[UIScrollView alloc] initWithFrame: tabMenuRect];
     if ( nil == tabMenu )
     {
@@ -247,8 +250,7 @@
     [[self                          view] addSubview: tabMenu];
     
     //  width stretchy when device Orientation is changed.
-    [NSLayoutConstraint             constraintForWidthStretchy: tabMenu top: ( subviewTop + 1.0f ) height: (48.0f) in: [super view]];
-    
+    [NSLayoutConstraint             constraintForWidthStretchy: tabMenu top: ( subviewTop + 1.0f ) height: tabMenuHeight in: [super view]];
     return YES;
 }
 
@@ -378,7 +380,12 @@
     // Do any additional setup after loading the view.
     
     [self                           _CreateNavigationBar];
-    [self                           _CreateBannerView];
+    
+    if ( [customizationParam bannerHeight] != 0.0f )
+    {
+        [self                       _CreateBannerView];
+    }
+    
     [self                           _CreateTabMenu];
     [self                           _CreateTabMenuItems];
     
