@@ -20,7 +20,18 @@
 
 
 //  ------------------------------------------------------------------------------------------------
-+ (instancetype) loadDataFromZip:(NSString *)filename inDirectory:(NSString *)subpath;
++ ( instancetype ) loadDataFromZip:(NSString *)filename inZippedPath:(NSString*)prefix inDirectory:(NSString *)subpath;
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSInteger ) infoDataCount;
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSDictionary * ) infoDataAtIndex:(NSInteger)index;
+
+- ( NSDictionary * ) infoDataForKey:(NSString *)aKey;
+
+
+- ( NSData * ) imageDataForKey:(NSString *)aKey;
 
 //  ------------------------------------------------------------------------------------------------
 
