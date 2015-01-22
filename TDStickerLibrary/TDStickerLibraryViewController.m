@@ -16,6 +16,9 @@
 #import "TDStickerLibraryTabInfo.h"
 #import "TDStickerLibraryViewController.h"
 
+#import "TDBaseTabMenuItem.h"
+
+
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
@@ -80,6 +83,8 @@
 - ( BOOL ) _CreateBannerView;
 - ( BOOL ) _CreateTabMenu;
 - ( BOOL ) _CreateTabMenuItems;
+
+- ( BOOL ) _CreateTabMenuItem:(NSArray *)imagesName index:(NSInteger)index;
 
 
 @end
@@ -284,28 +289,53 @@
             continue;
         }
         
-        imageData                   = [tabConfigure imageDataForKey: imagesName[1]];
-        if ( nil == imageData )
-        {
-            continue;
-        }
-        
-        
-        UIImageView               * imageView;
-        
-        imageView                   = [[UIImageView alloc] initWithImage: [UIImage imageWithData: imageData]];
-        if ( nil != imageView )
-        {
-            [tabMenu                addSubview: imageView];
-        }
-        
-//        [UIImage]
-        
-        
+        [self                       _CreateTabMenuItem: imagesName index: i];
+                
         
         
     }
     
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateTabMenuItem:(NSArray *)imagesName index:(NSInteger)index
+{
+    if ( ( nil == imagesName ) || ( [imagesName count] == 0 ) )
+    {
+        return NO;
+    }
+    
+    CGRect                          itemRect;
+    NSData                        * imageData;
+    NSData                        * imageHighLightData;
+    UIImage                       * image;
+    UIImage                       * imageHighLight;
+    
+    image                           = nil;
+    imageHighLight                  = nil;
+    imageData                       = nil;
+    imageHighLightData              = nil;
+    itemRect                        = CGRectZero;
+    switch ( [imagesName count] )
+    {
+        case 2: imageHighLightData  = [tabConfigure imageDataForKey: imagesName[1]];    //  don't break on here, must set imagedata.
+        case 1: imageData           = [tabConfigure imageDataForKey: imagesName[0]];    break;
+        default:                                                                        break;
+    }
+    
+    TDBaseTabMenuItem             * baseItem;
+    
+    image                           = [UIImage imageWithData: imageData];
+    imageHighLight                  = [UIImage imageWithData: imageHighLightData];
+    itemRect                        = CGRectMake( ( 4 + (index * 48 ) ), 4, 42, 42 );
+    baseItem                        = [TDBaseTabMenuItem tabMenuItemWithFrame: itemRect image: image highlightedImage: imageHighLight];
+    if ( nil == baseItem )
+    {
+        return NO;
+    }
+    
+    [tabMenu                        addSubview: baseItem];
     return YES;
 }
 
