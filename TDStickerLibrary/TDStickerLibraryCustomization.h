@@ -22,6 +22,8 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
 //  ------------------------------------------------------------------------------------------------
+@property( nonatomic, assign ) NSString                   * configureResource;
+
 @property( nonatomic, assign ) NSString                   * inZippedPrefixPath;
 @property( nonatomic, assign ) NSString                   * tabConfigureFilename;
 

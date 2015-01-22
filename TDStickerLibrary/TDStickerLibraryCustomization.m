@@ -74,6 +74,7 @@
 //  --------------------------------
 - ( void ) _InitAttributes
 {
+    [self                           setConfigureResource: @"Configure"];
     [self                           setInZippedPrefixPath: @"StickerLibraryTabDefault"];
     [self                           setTabConfigureFilename: @"StickerLibraryTabDefault"];
     
@@ -103,6 +104,7 @@
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark synthesize variable.
+@synthesize configureResource       = _configureResource;
 @synthesize inZippedPrefixPath      = _inZippedPrefixPath;
 @synthesize tabConfigureFilename    = _tabConfigureFilename;
 
