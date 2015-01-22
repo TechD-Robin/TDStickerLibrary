@@ -45,6 +45,7 @@
 		2AB706851A6FE324006C6845 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB706841A6FE324006C6845 /* libz.dylib */; };
 		2AB706931A700EB0006C6845 /* TDStickerLibraryTabInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706921A700EB0006C6845 /* TDStickerLibraryTabInfo.m */; };
 		2AB706961A700EE3006C6845 /* TDStickerLibraryCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706951A700EE3006C6845 /* TDStickerLibraryCustomization.m */; };
+		2ABD8E321A7142BC00626356 /* Configure in Resources */ = {isa = PBXBuildFile; fileRef = 2ABD8E311A7142BC00626356 /* Configure */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +137,7 @@
 		2AB706921A700EB0006C6845 /* TDStickerLibraryTabInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryTabInfo.m; sourceTree = "<group>"; };
 		2AB706941A700EE3006C6845 /* TDStickerLibraryCustomization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryCustomization.h; sourceTree = "<group>"; };
 		2AB706951A700EE3006C6845 /* TDStickerLibraryCustomization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryCustomization.m; sourceTree = "<group>"; };
+		2ABD8E311A7142BC00626356 /* Configure */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Configure; path = Resources/Configure; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 				2AADF4DE1A695B9D0026EF9D /* DemoStickerLibrary */,
 				2AADF4F81A695B9E0026EF9D /* DemoStickerLibraryTests */,
 				2AADF5101A6971D10026EF9D /* Libraries */,
+				2AB706971A7018B6006C6845 /* Resources */,
 				2AADF4DD1A695B9D0026EF9D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -373,6 +376,14 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		2AB706971A7018B6006C6845 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2ABD8E311A7142BC00626356 /* Configure */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -456,6 +467,7 @@
 				2AB7067D1A6FE2FB006C6845 /* LICENSE in Resources */,
 				2AB706731A6FE2FB006C6845 /* LICENSE in Resources */,
 				2AADF4ED1A695B9D0026EF9D /* Images.xcassets in Resources */,
+				2ABD8E321A7142BC00626356 /* Configure in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
