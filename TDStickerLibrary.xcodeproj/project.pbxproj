@@ -40,6 +40,7 @@
 		2AB706301A6FE00C006C6845 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB7062F1A6FE00C006C6845 /* libz.dylib */; };
 		2AB706891A6FE42F006C6845 /* TDStickerLibraryTabInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */; };
 		2AB7068F1A700918006C6845 /* TDStickerLibraryCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7068E1A700918006C6845 /* TDStickerLibraryCustomization.m */; };
+		2ABD8E371A714E9300626356 /* TDBaseTabMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABD8E361A714E9300626356 /* TDBaseTabMenuItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +135,8 @@
 		2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryTabInfo.m; sourceTree = "<group>"; };
 		2AB7068D1A700918006C6845 /* TDStickerLibraryCustomization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryCustomization.h; sourceTree = "<group>"; };
 		2AB7068E1A700918006C6845 /* TDStickerLibraryCustomization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryCustomization.m; sourceTree = "<group>"; };
+		2ABD8E351A714E9300626356 /* TDBaseTabMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBaseTabMenuItem.h; path = Libraries/TDBaseObjects/TDBaseObjects/TDBaseTabMenuItem.h; sourceTree = "<group>"; };
+		2ABD8E361A714E9300626356 /* TDBaseTabMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBaseTabMenuItem.m; path = Libraries/TDBaseObjects/TDBaseObjects/TDBaseTabMenuItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				2AADF5091A695E980026EF9D /* UIKit+TechD */,
+				2ABD8E341A714DAF00626356 /* TDBaseObjects */,
 				2AB706191A6FDFE4006C6845 /* ZipArchive */,
 				2AB705C01A6FDB02006C6845 /* AFNetworking */,
 			);
@@ -337,6 +341,23 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		2ABD8E341A714DAF00626356 /* TDBaseObjects */ = {
+			isa = PBXGroup;
+			children = (
+				2ABD8E381A714EB300626356 /* TDBaseObjects */,
+			);
+			name = TDBaseObjects;
+			sourceTree = "<group>";
+		};
+		2ABD8E381A714EB300626356 /* TDBaseObjects */ = {
+			isa = PBXGroup;
+			children = (
+				2ABD8E351A714E9300626356 /* TDBaseTabMenuItem.h */,
+				2ABD8E361A714E9300626356 /* TDBaseTabMenuItem.m */,
+			);
+			name = TDBaseObjects;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -435,6 +456,7 @@
 				2AB7062C1A6FDFE4006C6845 /* zip.c in Sources */,
 				2AADF4BF1A69599E0026EF9D /* TDStickerLibrary.m in Sources */,
 				2AB7062D1A6FDFE4006C6845 /* README.md in Sources */,
+				2ABD8E371A714E9300626356 /* TDBaseTabMenuItem.m in Sources */,
 				2AB7062A1A6FDFE4006C6845 /* mztools.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
