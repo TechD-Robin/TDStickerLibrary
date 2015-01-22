@@ -35,7 +35,7 @@
 {
     NSMutableDictionary           * unzipDataContainer;
     
-    NSDictionary                  * configureData;      //  json struct.
+    NSMutableDictionary           * configureData;      //  json struct.
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -102,19 +102,6 @@
         return NO;
     }
     
-    NSFileManager                 * fileManager;
-    NSString                      * resourcePath;
-    NSString                      * filePath;
-    
-    resourcePath                    = [[NSBundle mainBundle] resourcePath];
-    fileManager                     = [NSFileManager defaultManager];
-    filePath                        = [resourcePath stringByAppendingPathComponent: [NSString stringWithFormat: @"%s.zip", [filename UTF8String]]];
-    if ( ( [fileManager fileExistsAtPath: resourcePath] == NO ) || ( [fileManager fileExistsAtPath: filePath] == NO ) )
-    {
-        NSLog( @"file %s no exist.", [filePath UTF8String] );
-        return NO;
-    }
-    
     ZipArchive                    * zip;
     NSDictionary                  * zipFiles;
     
@@ -132,7 +119,7 @@
     //     NSLog( @"[%d%%] %d/%ld  %s", percentage, filesProcessed, numFiles, [filename UTF8String] );
     // }];
     
-    if ( [zip UnzipOpenFile: filePath ] == NO )
+    if ( [zip UnzipOpenFile: filename ] == NO )
     {
         NSLog( @"cannot open zip file %s.", __FUNCTION__ );
         [zip                        UnzipCloseFile];
@@ -146,7 +133,14 @@
         return NO;
     }
     
-    unzipDataContainer              = [[NSMutableDictionary alloc] initWithDictionary: zipFiles copyItems: YES];
+    if ( nil == unzipDataContainer )
+    {
+        unzipDataContainer              = [[NSMutableDictionary alloc] initWithDictionary: zipFiles copyItems: YES];
+    }
+    else
+    {
+        [unzipDataContainer             addEntriesFromDictionary: zipFiles];
+    }
     
     //.NSLog( @"unzip file in memory : %@", zipFiles );
     [zip                            UnzipCloseFile];
@@ -193,7 +187,14 @@
         return NO;
     }
     
-    configureData                   = [[NSDictionary alloc] initWithDictionary: json copyItems: YES];
+    if ( nil == configureData )
+    {
+        configureData                   = [[NSMutableDictionary alloc] initWithDictionary: json copyItems: YES];
+    }
+    else
+    {
+        [configureData                  addEntriesFromDictionary: json];
+    }
     
     //  after get the configure, remove the data from container. (for release memory.)
     [unzipDataContainer             removeObjectForKey: key];
@@ -235,7 +236,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) init
 {
-    return [self initWithFilename: nil];
+    return [self initWithZipFile: nil inDirectory: nil];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -260,7 +261,7 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method create the object.
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithFilename:(NSString *)filename
+- ( instancetype ) initWithZipFile:(NSString *)filename inDirectory:(NSString *)subpath
 {
     self                            = [super init];
     if ( nil == self )
@@ -274,8 +275,18 @@
         NSLog( @"filename is nil(%s).", __FUNCTION__ );
         return self;
     }
+    
+    NSString                      * filePath;
+    
+    filePath                        = [[NSBundle mainBundle] pathForResource: filename ofType: @"zip" inDirectory: subpath];
+    if ( [[NSFileManager defaultManager] fileExistsAtPath: filePath] == NO )
+    {
+        NSLog( @"file %s no exist.", [filePath UTF8String] );
+        return self;
+    }
+    
 
-    if ( [self _UnZipConfigureFile: filename] == NO )
+    if ( [self _UnZipConfigureFile: filePath] == NO )
     {
         return self;
     }
@@ -285,36 +296,14 @@
         return self;
     }
     
-    
-    
-    
-    
     return self;
 }
 
 
 //  ------------------------------------------------------------------------------------------------
-+ (instancetype) loadData:(NSString *)filename
++ (instancetype) loadDataFromZip:(NSString *)filename inDirectory:(NSString *)subpath
 {
-//    if ( nil == filename )
-//    {
-//        return nil;
-//    }
-//    
-//    TDStickerLibraryTabInfo       * info;
-//    
-//    info                            = [[TDStickerLibraryTabInfo alloc] init];
-//    if ( nil == info )
-//    {
-//        return nil;
-//    }
-//    if ( [info _UnZipConfigureFile: filename] == NO )
-//    {
-//        return info;
-//    }
-//    return info;
-    
-    return [[[self class] alloc] initWithFilename: filename];
+    return [[[self class] alloc] initWithZipFile: filename inDirectory: subpath];
 }
 
 //  ------------------------------------------------------------------------------------------------

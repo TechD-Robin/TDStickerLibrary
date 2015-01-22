@@ -20,7 +20,7 @@
 
 
 //  ------------------------------------------------------------------------------------------------
-+ (instancetype) loadData:(NSString *)filename;
++ (instancetype) loadDataFromZip:(NSString *)filename inDirectory:(NSString *)subpath;
 
 //  ------------------------------------------------------------------------------------------------
 
