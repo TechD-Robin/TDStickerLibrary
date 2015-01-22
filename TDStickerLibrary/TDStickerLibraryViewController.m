@@ -115,7 +115,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _LoadSystemConfigure
 {
-    tabConfigure                    = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam tabConfigureFilename] inZippedPath: [customizationParam tabConfigureFilename] inDirectory: @"" ];
+    tabConfigure                    = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam tabConfigureFilename] inZippedPath: [customizationParam tabConfigureFilename] inDirectory: [customizationParam configureResource]];
     if ( nil == tabConfigure )
     {
         return;
