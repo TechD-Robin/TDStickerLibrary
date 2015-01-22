@@ -114,7 +114,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _LoadSystemConfigure
 {
-    tabInfo                         = [TDStickerLibraryTabInfo loadData: [customizationParam tabFilename]];
+    tabInfo                         = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam tabFilename] inDirectory: @"" ];
     if ( nil == tabInfo )
     {
         return;
