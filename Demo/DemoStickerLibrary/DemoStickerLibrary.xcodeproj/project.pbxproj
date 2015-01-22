@@ -46,6 +46,7 @@
 		2AB706931A700EB0006C6845 /* TDStickerLibraryTabInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706921A700EB0006C6845 /* TDStickerLibraryTabInfo.m */; };
 		2AB706961A700EE3006C6845 /* TDStickerLibraryCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706951A700EE3006C6845 /* TDStickerLibraryCustomization.m */; };
 		2ABD8E321A7142BC00626356 /* Configure in Resources */ = {isa = PBXBuildFile; fileRef = 2ABD8E311A7142BC00626356 /* Configure */; };
+		2ABD8E3D1A714F5100626356 /* TDBaseTabMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABD8E3C1A714F5100626356 /* TDBaseTabMenuItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +139,8 @@
 		2AB706941A700EE3006C6845 /* TDStickerLibraryCustomization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryCustomization.h; sourceTree = "<group>"; };
 		2AB706951A700EE3006C6845 /* TDStickerLibraryCustomization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryCustomization.m; sourceTree = "<group>"; };
 		2ABD8E311A7142BC00626356 /* Configure */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Configure; path = Resources/Configure; sourceTree = "<group>"; };
+		2ABD8E3B1A714F5100626356 /* TDBaseTabMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBaseTabMenuItem.h; path = ../../Libraries/TDBaseObjects/TDBaseObjects/TDBaseTabMenuItem.h; sourceTree = "<group>"; };
+		2ABD8E3C1A714F5100626356 /* TDBaseTabMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBaseTabMenuItem.m; path = ../../Libraries/TDBaseObjects/TDBaseObjects/TDBaseTabMenuItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				2AADF5111A6971F50026EF9D /* UIKit+TechD */,
+				2ABD8E331A714D9500626356 /* TDBaseObjects */,
 				2AADF5171A6972280026EF9D /* TDStickerLibrary */,
 				2AB706311A6FE2FB006C6845 /* AFNetworking */,
 				2AB7065A1A6FE2FB006C6845 /* ZipArchive */,
@@ -384,6 +388,23 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		2ABD8E331A714D9500626356 /* TDBaseObjects */ = {
+			isa = PBXGroup;
+			children = (
+				2ABD8E3A1A714EC100626356 /* TDBaseObjects */,
+			);
+			name = TDBaseObjects;
+			sourceTree = "<group>";
+		};
+		2ABD8E3A1A714EC100626356 /* TDBaseObjects */ = {
+			isa = PBXGroup;
+			children = (
+				2ABD8E3B1A714F5100626356 /* TDBaseTabMenuItem.h */,
+				2ABD8E3C1A714F5100626356 /* TDBaseTabMenuItem.m */,
+			);
+			name = TDBaseObjects;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -495,6 +516,7 @@
 				2AB706961A700EE3006C6845 /* TDStickerLibraryCustomization.m in Sources */,
 				2A5689BB1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m in Sources */,
 				2AB706771A6FE2FB006C6845 /* UIAlertView+AFNetworking.m in Sources */,
+				2ABD8E3D1A714F5100626356 /* TDBaseTabMenuItem.m in Sources */,
 				2AB706711A6FE2FB006C6845 /* AFURLResponseSerialization.m in Sources */,
 				2AB706811A6FE2FB006C6845 /* zip.c in Sources */,
 				2AB706831A6FE2FB006C6845 /* ZipArchive.m in Sources */,
