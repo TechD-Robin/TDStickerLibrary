@@ -54,8 +54,13 @@
  *  initial the attributes of class.
  */
 - ( void ) _InitAttributes;
-- ( void ) _InitGestureRecognizer;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief initial the tap Gesture Recongnizer of class.
+ *  initial the tap Gesture Recongnizer of class.
+ */
+- ( void ) _InitGestureRecognizer;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -76,13 +81,11 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
 - ( void ) _InitAttributes
 {
     [self                           setBackgroundColor: [UIColor clearColor]];
     [self                           setContentMode: UIViewContentModeScaleToFill];
     [self                           setUserInteractionEnabled: YES];
-    
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -99,7 +102,6 @@
     [self                           addGestureRecognizer: tap];
     SAFE_ARC_RELEASE( tap );
     SAFE_ARC_ASSIGN_POINTER_NIL( tap );
-
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -152,10 +154,13 @@
 @synthesize relationView            = _relationView;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark overwrite implementation of UIView
+//  ------------------------------------------------------------------------------------------------
 - ( instancetype ) initWithFrame:(CGRect)frame
 {
     return [[[self class] alloc] initWithFrame: frame image: nil highlightedImage: nil];
 }
+
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
