@@ -81,7 +81,11 @@
     //  for UIView.
     [self                           setNavigationBarHeight: 36.0f];
     [self                           setBannerHeight: 48.0f];
-    [self                           setTabMenuHeight: 72.0f];
+    [self                           setTabMenuHeight: 50.0f];
+    
+    [self                           setTabMenuItemSize: CGSizeMake( 48.0f, 48.0f )];
+    [self                           setTabMenuItemSizeInset: CGSizeMake( 3.0f, 3.0f )];
+     
     
 }
 
@@ -112,6 +116,9 @@
 @synthesize navigationBarHeight     = _navigationBarHeight;
 @synthesize bannerHeight            = _bannerHeight;
 @synthesize tabMenuHeight           = _tabMenuHeight;
+
+@synthesize tabMenuItemSize         = _tabMenuItemSize;
+@synthesize tabMenuItemSizeInset    = _tabMenuItemSizeInset;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

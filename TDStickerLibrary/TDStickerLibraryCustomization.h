@@ -34,6 +34,9 @@
 @property( nonatomic, assign ) CGFloat                      bannerHeight;           //  when value is eaual 0, skip create banner view.
 @property( nonatomic, assign ) CGFloat                      tabMenuHeight;
 
+@property( nonatomic, assign ) CGSize                       tabMenuItemSize;
+@property( nonatomic, assign ) CGSize                       tabMenuItemSizeInset;
+
 //  ------------------------------------------------------------------------------------------------
 
 

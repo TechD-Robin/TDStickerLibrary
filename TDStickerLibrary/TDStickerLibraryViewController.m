@@ -82,9 +82,10 @@
 - ( BOOL ) _CreateNavigationBar;
 - ( BOOL ) _CreateBannerView;
 - ( BOOL ) _CreateTabMenu;
-- ( BOOL ) _CreateTabMenuItems;
+- ( BOOL ) _CreateTabMenuItemsWithRelations;
 
-- ( BOOL ) _CreateTabMenuItem:(NSArray *)imagesName index:(NSInteger)index;
+- ( id ) _CreateTabPage:(NSInteger)index;;
+- ( id ) _CreateTabMenuItem:(NSArray *)imagesName index:(NSInteger)index;
 
 
 @end
@@ -260,7 +261,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _CreateTabMenuItems
+- ( BOOL ) _CreateTabMenuItemsWithRelations
 {
     if ( ( nil == tabConfigure ) || ( [tabConfigure infoDataCount] == 0 ) )
     {
@@ -270,10 +271,14 @@
     NSDictionary                  * infoData;
     NSArray                       * imagesName;
     NSData                        * imageData;
+    TDBaseTabMenuItem             * baseItem;
+    UIView                        * relationView;
     
     infoData                        = nil;
     imagesName                      = nil;
     imageData                       = nil;
+    baseItem                        = nil;
+    relationView                    = nil;
     for ( int i = 0; i < [tabConfigure infoDataCount]; ++i )
     {
         infoData                    = [tabConfigure infoDataAtIndex: i];
@@ -282,41 +287,85 @@
             continue;
         }
         
-        //  for test on here.
+        //  create page view.
+        relationView                = [self _CreateTabPage: i];
+        if ( nil == relationView )
+        {
+            continue;
+        }
+        
+        
+        //  create tab menu item.
         imagesName                  = [infoData objectForKey: @"Image"];
         if ( nil == imagesName )
         {
             continue;
         }
         
-        [self                       _CreateTabMenuItem: imagesName index: i];
-                
+        baseItem                    = [self _CreateTabMenuItem: imagesName index: i];
+        if ( nil == baseItem )
+        {
+            continue;
+        }
         
-        
+        [baseItem                   setRelationView: relationView];
     }
     
     return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _CreateTabMenuItem:(NSArray *)imagesName index:(NSInteger)index
+- ( id ) _CreateTabPage:(NSInteger)index
+{
+    CGFloat                         screenWidth;
+    CGFloat                         subviewTop;
+    CGFloat                         viewHeight;
+    
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    subviewTop                      = [self _GetNextCreateSubviewTopPosition];
+    viewHeight                      = ( [[UIScreen mainScreen] bounds].size.height - subviewTop );
+    
+
+    UIView                        * view;
+    CGRect                          viewRect;
+    
+    viewRect                        = CGRectMake( 0.0f, subviewTop, screenWidth, viewHeight );
+    view                            = [[UIView alloc] initWithFrame: viewRect];
+    if ( nil == view )
+    {
+        return nil;
+    }
+    
+    [view                           setHidden: YES];
+    [[self                          view] addSubview: view];
+    
+    
+    
+    //  just to make out for test.
+    switch ( index )
+    {
+        case 0: [view setBackgroundColor: [UIColor redColor]];      break;
+        case 1: [view setBackgroundColor: [UIColor greenColor]];    break;
+        case 2: [view setBackgroundColor: [UIColor blueColor]];     break;
+        default:                                                    break;
+    }
+
+    return view;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( id ) _CreateTabMenuItem:(NSArray *)imagesName index:(NSInteger)index
 {
     if ( ( nil == imagesName ) || ( [imagesName count] == 0 ) )
     {
-        return NO;
+        return nil;
     }
     
-    CGRect                          itemRect;
     NSData                        * imageData;
     NSData                        * imageHighLightData;
-    UIImage                       * image;
-    UIImage                       * imageHighLight;
     
-    image                           = nil;
-    imageHighLight                  = nil;
     imageData                       = nil;
     imageHighLightData              = nil;
-    itemRect                        = CGRectZero;
     switch ( [imagesName count] )
     {
         case 2: imageHighLightData  = [tabConfigure imageDataForKey: imagesName[1]];    //  don't break on here, must set imagedata.
@@ -324,19 +373,31 @@
         default:                                                                        break;
     }
     
+    CGRect                          itemRect;
+    CGSize                          itemSize;
+    CGSize                          itemSizeInset;
+    UIImage                       * image;
+    UIImage                       * imageHighLight;
     TDBaseTabMenuItem             * baseItem;
     
     image                           = [UIImage imageWithData: imageData];
     imageHighLight                  = [UIImage imageWithData: imageHighLightData];
-    itemRect                        = CGRectMake( ( 4 + (index * 48 ) ), 4, 42, 42 );
+    
+    itemSize                        = [customizationParam tabMenuItemSize];
+    itemSizeInset                   = [customizationParam tabMenuItemSizeInset];
+    itemRect                        = CGRectMake( (index * itemSize.width ), 0.0f, itemSize.width, itemSize.height );
+    itemRect                        = CGRectInset( itemRect, itemSizeInset.width , itemSizeInset.height );
     baseItem                        = [TDBaseTabMenuItem tabMenuItemWithFrame: itemRect image: image highlightedImage: imageHighLight];
     if ( nil == baseItem )
     {
-        return NO;
+        return nil;
+    }
+    if ( nil != tabMenu )
+    {
+        [tabMenu                    addSubview: baseItem];
     }
     
-    [tabMenu                        addSubview: baseItem];
-    return YES;
+    return baseItem;
 }
 
 
@@ -417,7 +478,7 @@
     }
     
     [self                           _CreateTabMenu];
-    [self                           _CreateTabMenuItems];
+    [self                           _CreateTabMenuItemsWithRelations];
     
     [[self view] setBackgroundColor: [UIColor darkGrayColor]];
     NSLog( @"%s",  [NSStringFromCGRect( [[self view] bounds] ) UTF8String] );
