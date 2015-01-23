@@ -105,12 +105,33 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _TapAction:(id)sender
 {
-    [self                           setHighlighted: ![self isHighlighted]];
+    [self                           setHighlighted: YES];
+    if ( [self relationView] != nil )
+    {
+        [[self                      relationView] setHidden: NO];
+    }
+    
+    for ( TDBaseTabMenuItem * subview in [[self superview] subviews] )
+    {
+        if ( ( nil == subview ) || ( [subview isKindOfClass: [self class]] == NO ) || ( subview == self ) )
+        {
+            continue;
+        }
+        
+        if ( [subview isHighlighted] == NO )
+        {
+            continue;
+        }
+        
+        [subview                    setHighlighted: NO];
+        if ( [subview relationView] != nil )
+        {
+            [[subview               relationView] setHidden: YES];
+        }
+    }
 }
 
 //  ------------------------------------------------------------------------------------------------
-
-
 
 @end
 
@@ -126,21 +147,15 @@
 #pragma mark implementation for public method
 @implementation TDBaseTabMenuItem
 
-//  --------------------------------
+//  ------------------------------------------------------------------------------------------------
+#pragma mark synthesize variable.
+@synthesize relationView            = _relationView;
+
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) initWithFrame:(CGRect)frame
 {
     return [[[self class] alloc] initWithFrame: frame image: nil highlightedImage: nil];
 }
-
-//  ------------------------------------------------------------------------------------------------
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect {
- // Drawing code
- }
- */
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
