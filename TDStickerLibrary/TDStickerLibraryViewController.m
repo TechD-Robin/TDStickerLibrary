@@ -296,7 +296,7 @@
         
         
         //  create tab menu item.
-        imagesName                  = [infoData objectForKey: @"Image"];
+        imagesName                  = [infoData objectForKey: @"Images"];
         if ( nil == imagesName )
         {
             continue;

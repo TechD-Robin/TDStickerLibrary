@@ -415,7 +415,7 @@
     
     NSString                      * key;
     
-    key                             = [NSString stringWithFormat: @"%s/%s@2x.png", [prefixDirectory UTF8String], [aKey UTF8String]];
+    key                             = [NSString stringWithFormat: @"%s/%s", [prefixDirectory UTF8String], [aKey UTF8String]];
     return [unzipDataContainer objectForKey: key];
 }
 
