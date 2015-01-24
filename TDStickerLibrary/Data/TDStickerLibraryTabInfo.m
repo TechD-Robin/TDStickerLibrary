@@ -372,6 +372,54 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) isInfoDataEnabledAtIndex:(NSInteger)index
+{
+    if ( 0 > index )
+    {
+        return NO;
+    }
+    
+    NSDictionary                  * infoData;
+    NSString                      * enabled;
+    
+    infoData                        = [configureData objectAtIndex: index];
+    if ( nil == infoData )
+    {
+        return NO;
+    }
+    
+    enabled                         = [infoData objectForKey: @"Enabled"];
+    if ( nil == enabled )
+    {
+        return NO;
+    }
+    
+    if ( [enabled integerValue] == 0 )
+    {
+        return NO;
+    }
+    return YES;     //  value is not equal 0, always Yes.
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSArray * ) imagesNameAtIndex:(NSInteger)index
+{
+    if ( 0 > index )
+    {
+        return nil;
+    }
+    
+    NSDictionary                  * infoData;
+    
+    infoData                        = [configureData objectAtIndex: index];
+    if ( nil == infoData )
+    {
+        return nil;
+    }
+    return [infoData objectForKey: @"Images"];
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( NSDictionary * ) infoDataAtIndex:(NSInteger)index
 {
     if ( 0 > index )
