@@ -26,9 +26,14 @@
 - ( NSInteger ) infoDataCount;
 
 //  ------------------------------------------------------------------------------------------------
-- ( NSDictionary * ) infoDataAtIndex:(NSInteger)index;
+- ( BOOL ) isInfoDataEnabledAtIndex:(NSInteger)index;
 
-- ( NSDictionary * ) infoDataForKey:(NSString *)aKey;
+- ( NSArray * ) imagesNameAtIndex:(NSInteger)index;
+
+
+//- ( NSDictionary * ) infoDataAtIndex:(NSInteger)index;
+//
+//- ( NSDictionary * ) infoDataForKey:(NSString *)aKey;
 
 
 - ( NSData * ) imageDataForKey:(NSString *)aKey;

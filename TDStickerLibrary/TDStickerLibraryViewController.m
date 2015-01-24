@@ -268,27 +268,27 @@
         return NO;
     }
     
-    NSDictionary                  * infoData;
+    NSInteger                       index;
     NSArray                       * imagesName;
     NSData                        * imageData;
     TDBaseTabMenuItem             * baseItem;
     UIView                        * relationView;
     
-    infoData                        = nil;
+    index                           = 0;
     imagesName                      = nil;
     imageData                       = nil;
     baseItem                        = nil;
     relationView                    = nil;
     for ( int i = 0; i < [tabConfigure infoDataCount]; ++i )
     {
-        infoData                    = [tabConfigure infoDataAtIndex: i];
-        if ( nil == infoData )
+        //  when disable info.
+        if ( [tabConfigure isInfoDataEnabledAtIndex: i] == NO )
         {
             continue;
         }
         
         //  create page view.
-        relationView                = [self _CreateTabPage: i];
+        relationView                = [self _CreateTabPage: index];
         if ( nil == relationView )
         {
             continue;
@@ -296,18 +296,19 @@
         
         
         //  create tab menu item.
-        imagesName                  = [infoData objectForKey: @"Images"];
+        imagesName                  = [tabConfigure imagesNameAtIndex: index];
         if ( nil == imagesName )
         {
             continue;
         }
         
-        baseItem                    = [self _CreateTabMenuItem: imagesName index: i];
+        baseItem                    = [self _CreateTabMenuItem: imagesName index: index];
         if ( nil == baseItem )
         {
             continue;
         }
         
+        index++;
         [baseItem                   setRelationView: relationView];
     }
     
