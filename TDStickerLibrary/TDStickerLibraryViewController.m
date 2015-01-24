@@ -174,7 +174,7 @@
     {
         return NO;
     }
-    [navigationBar                  setBackgroundColor: [UIColor blueColor]];   // some effect at navigation bar. (錯覺嗎?, 本來應該要沒效果的)
+    [navigationBar                  setBackgroundColor: [customizationParam navigationBGC]];   // some effect at navigation bar. (錯覺嗎?, 本來應該要沒效果的)
     [[self                          view] addSubview: navigationBar];
     
     UIBarButtonItem               * backItem;
@@ -225,7 +225,7 @@
         return NO;
     }
     
-    [bannerView                     setBackgroundColor: [UIColor grayColor]];
+    [bannerView                     setBackgroundColor: [customizationParam bannerBGC]];
     [[self                          view] addSubview: bannerView];
     NSLog( @" sub view top %f", subviewTop );
     
@@ -252,7 +252,7 @@
         return NO;
     }
     
-    [tabMenu                        setBackgroundColor: [UIColor blackColor]];
+    [tabMenu                        setBackgroundColor: [customizationParam tabMenuBGC]];
     [[self                          view] addSubview: tabMenu];
     
     //  width stretchy when device Orientation is changed.

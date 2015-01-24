@@ -9,11 +9,11 @@
 //  ------------------------------------------------------------------------------------------------
 
 #import <Foundation/Foundation.h>
-#import  <CoreGraphics/CoreGraphics.h>
+#import <CoreGraphics/CoreGraphics.h>
+#import <UIKit/UIKit.h>
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -36,6 +36,11 @@
 
 @property( nonatomic, assign ) CGSize                       tabMenuItemSize;
 @property( nonatomic, assign ) CGSize                       tabMenuItemSizeInset;
+
+//  for UIBackgroundColor
+@property( nonatomic, assign ) UIColor                    * navigationBGC;          // some effect at navigation bar. (錯覺嗎?, 本來應該要沒效果的)
+@property( nonatomic, assign ) UIColor                    * bannerBGC;
+@property( nonatomic, assign ) UIColor                    * tabMenuBGC;
 
 //  ------------------------------------------------------------------------------------------------
 
