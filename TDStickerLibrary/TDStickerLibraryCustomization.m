@@ -85,7 +85,12 @@
     
     [self                           setTabMenuItemSize: CGSizeMake( 48.0f, 48.0f )];
     [self                           setTabMenuItemSizeInset: CGSizeMake( 3.0f, 3.0f )];
-     
+
+    //  for UIBackgroundColor
+    [self                           setNavigationBGC: [UIColor purpleColor]];
+    [self                           setBannerBGC: [UIColor grayColor]];
+    [self                           setTabMenuBGC: [UIColor colorWithRed: 0.5f green: ( 200 / 255.0f ) blue: ( 200 / 255.0f ) alpha: 1.0f ]];
+    
     
 }
 
@@ -119,6 +124,11 @@
 
 @synthesize tabMenuItemSize         = _tabMenuItemSize;
 @synthesize tabMenuItemSizeInset    = _tabMenuItemSizeInset;
+
+//  for UIBackgroundColor
+@synthesize navigationBGC           = _navigationBGC;
+@synthesize bannerBGC               = _bannerBGC;
+@synthesize tabMenuBGC              = _tabMenuBGC;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
