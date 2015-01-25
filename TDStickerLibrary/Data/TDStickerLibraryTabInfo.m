@@ -11,6 +11,7 @@
 #endif  //  End of __ARCMacros_H__.
 
 #import "ZipArchive.h"
+#import "TDUtilities.h"
 #import "TDStickerLibraryTabInfo.h"
 
 //  ------------------------------------------------------------------------------------------------
@@ -66,7 +67,8 @@
  */
 - ( void ) _InitAttributes;
 
-- ( BOOL ) _UnZipConfigureFile:(NSString *)filename;
+- ( BOOL ) _UnzipProcedure:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString*)prefix with:(NSString *)password;
+- ( BOOL ) _UnZipConfigureFile:(NSString *)filename with:(NSString *)password;
 - ( BOOL ) _GetConfigureJsonData:(NSString *)filename;
 - ( BOOL ) _ParseJsonStruct:(NSMutableDictionary *)json;
 
@@ -101,16 +103,57 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _UnZipConfigureFile:(NSString *)filename
+- ( BOOL ) _UnzipProcedure:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString*)prefix with:(NSString *)password
+{
+    if ( nil == filename )
+    {
+        NSLog( @"filename is nil(%s).", __FUNCTION__ );
+        return NO;
+    }
+    
+    prefixDirectory                 = prefix;
+    if ( nil == prefixDirectory )
+    {
+        prefixDirectory             = @"";
+    }
+    
+    NSString                      * filePath;
+    
+    filePath                        = TDGetPathForDirectories( directory, filename, @"zip", subpath );
+    if ( [[NSFileManager defaultManager] fileExistsAtPath: filePath] == NO )
+    {
+        NSLog( @"file %s no exist.", [filePath UTF8String] );
+        return NO;
+    }
+    
+    if ( [self _UnZipConfigureFile: filePath with: password] == NO )
+    {
+        NSLog( @"unzip configure file has warning." );
+        return NO;
+    }
+    
+    if ( [self _GetConfigureJsonData: filename] == NO )
+    {
+        NSLog( @"get configure data has warning. ");
+        return NO;
+    }
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _UnZipConfigureFile:(NSString *)filename with:(NSString *)password
 {
     if ( nil == filename )
     {
         return NO;
     }
     
+    BOOL                            result;
     ZipArchive                    * zip;
     NSDictionary                  * zipFiles;
     
+    result                          = NO;
     zipFiles                        = nil;
     zip                             = [[ZipArchive alloc] init];
     if ( nil == zip )
@@ -125,7 +168,16 @@
     //     NSLog( @"[%d%%] %d/%ld  %s", percentage, filesProcessed, numFiles, [filename UTF8String] );
     // }];
     
-    if ( [zip UnzipOpenFile: filename ] == NO )
+    if ( nil == password )
+    {
+        result                      = [zip UnzipOpenFile: filename];
+    }
+    else
+    {
+        result                      = [zip UnzipOpenFile: filename Password: password];
+    }
+    
+    if ( result == NO )
     {
         NSLog( @"cannot open zip file %s.", __FUNCTION__ );
         [zip                        UnzipCloseFile];
@@ -237,13 +289,48 @@
     {
         //configureData                   = [[NSMutableDictionary alloc] initWithDictionary: tabData copyItems: YES];
         configureData               = [[NSMutableArray alloc] initWithArray: (NSArray *)tabData];
+        return YES;
     }
-    else
+    
+    
+    NSMutableArray                * removeObject;
+    
+    //  compare object when new data's key is equal older.
+    removeObject                     = [[NSMutableArray alloc] initWithCapacity: [configureData count]];
+    for ( int i = 0; i < [configureData count]; ++i )
     {
-        //[configureData                  addEntriesFromDictionary: tabData];
-        [configureData              addObjectsFromArray: (NSArray *)tabData];
+        for ( NSDictionary * infoData in tabData )
+        {
+            if ( nil == infoData )
+            {
+                continue;
+            }
+        
+            //  compare.
+            if ( [[[configureData objectAtIndex:i] objectForKey: @"Name"] isEqualToString: [infoData objectForKey: @"Name"]] == NO )
+            {
+                continue;
+            }
+            [removeObject           addObject: [configureData objectAtIndex:i]];
+        }
     }
-
+    
+    //  remove from contaner on here.
+    for ( int i = 0; i < [removeObject count]; ++i )
+    {
+        [configureData              removeObject: [removeObject objectAtIndex: i]];
+    }
+    
+    //  finish, insert into container.
+    //[configureData                  addEntriesFromDictionary: tabData];
+    [configureData                  addObjectsFromArray: (NSArray *)tabData];
+    
+    
+    
+    
+    SAFE_ARC_RELEASE( removeIndex );
+    SAFE_ARC_ASSIGN_POINTER_NIL( removeIndex );
+    
     return YES;
 }
 
@@ -278,7 +365,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) init
 {
-    return [self initWithZipFile: nil inZippedPath: nil inDirectory: nil];
+    return [self initWithZipFile: nil forDirectories: TDTemporaryDirectory inDirectory: nil inZippedPath: nil with: nil];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -310,7 +397,7 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method create the object.
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithZipFile:(NSString *)filename inZippedPath:(NSString*)prefix inDirectory:(NSString *)subpath
+- ( instancetype ) initWithZipFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString*)prefix with:(NSString *)password
 {
     self                            = [super init];
     if ( nil == self )
@@ -319,45 +406,65 @@
     }
     
     [self                           _InitAttributes];
-    if ( nil == filename )
+    if ( [self _UnzipProcedure: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password] == NO )
     {
-        NSLog( @"filename is nil(%s).", __FUNCTION__ );
-        return self;
+        SAFE_ARC_RELEASE( self );
+        SAFE_ARC_ASSIGN_POINTER_NIL( self );
+        return nil;
     }
     
-    prefixDirectory                 = prefix;
-    if ( nil == prefixDirectory )
-    {
-        prefixDirectory             = @"";
-    }
     
-    NSString                      * filePath;
-    
-    filePath                        = [[NSBundle mainBundle] pathForResource: filename ofType: @"zip" inDirectory: subpath];
-    if ( [[NSFileManager defaultManager] fileExistsAtPath: filePath] == NO )
-    {
-        NSLog( @"file %s no exist.", [filePath UTF8String] );
-        return self;
-    }
-    
-    if ( [self _UnZipConfigureFile: filePath] == NO )
-    {
-        return self;
-    }
-    
-    if ( [self _GetConfigureJsonData: filename] == NO )
-    {
-        return self;
-    }
+//    if ( nil == filename )
+//    {
+//        NSLog( @"filename is nil(%s).", __FUNCTION__ );
+//        return self;
+//    }
+//    
+//    prefixDirectory                 = prefix;
+//    if ( nil == prefixDirectory )
+//    {
+//        prefixDirectory             = @"";
+//    }
+//    
+//    NSString                      * filePath;
+//    
+//    filePath                        = TDGetPathForDirectories( directory, filename, @"zip", subpath );
+//    if ( [[NSFileManager defaultManager] fileExistsAtPath: filePath] == NO )
+//    {
+//        NSLog( @"file %s no exist.", [filePath UTF8String] );
+//        return self;
+//    }
+//    
+//    if ( [self _UnZipConfigureFile: filePath with: password] == NO )
+//    {
+//        return self;
+//    }
+//    
+//    if ( [self _GetConfigureJsonData: filename] == NO )
+//    {
+//        return self;
+//    }
     
     return self;
 }
 
+//  ------------------------------------------------------------------------------------------------
++ ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix
+{
+    return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: nil];
+}
 
 //  ------------------------------------------------------------------------------------------------
-+ ( instancetype ) loadDataFromZip:(NSString *)filename inZippedPath:(NSString*)prefix inDirectory:(NSString *)subpath
++ ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix with:(NSString *)password
 {
-    return [[[self class] alloc] initWithZipFile: filename inZippedPath: prefix inDirectory: subpath];
+    return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password];
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) updateDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix with:(NSString *)password
+{
+    return [self _UnzipProcedure: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -460,11 +567,7 @@
     {
         return nil;
     }
-    
-    NSString                      * key;
-    
-    key                             = [NSString stringWithFormat: @"%s/%s", [prefixDirectory UTF8String], [aKey UTF8String]];
-    return [unzipDataContainer objectForKey: key];
+    return [unzipDataContainer objectForKey: aKey];
 }
 
 //  ------------------------------------------------------------------------------------------------
