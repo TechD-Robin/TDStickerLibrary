@@ -144,8 +144,7 @@
     NSString                      * link;
     
 
-//    link                            = @"https://www.dropbox.com/s/p04fqtkggiwpq16/barcode%20cat_240x240_readline.png?dl=1";
-    link                            = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXRXVPZnFqYWxIMk0&export=download";
+    link                            = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download";
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];

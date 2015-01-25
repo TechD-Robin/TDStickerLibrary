@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A5689BB1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */; };
+		2A77AF0C1A7411A100BCC63F /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A77AF0B1A7411A100BCC63F /* TDUtilities.m */; };
 		2AADF4E21A695B9D0026EF9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E11A695B9D0026EF9D /* main.m */; };
 		2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E41A695B9D0026EF9D /* AppDelegate.m */; };
 		2AADF4E81A695B9D0026EF9D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E71A695B9D0026EF9D /* ViewController.m */; };
@@ -62,6 +63,8 @@
 /* Begin PBXFileReference section */
 		2A5689B91A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+TechD.h"; sourceTree = "<group>"; };
 		2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+TechD.m"; sourceTree = "<group>"; };
+		2A77AF0A1A7411A100BCC63F /* TDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUtilities.h; path = ../../Libraries/TDFoundation/TDFoundation/TDUtilities.h; sourceTree = "<group>"; };
+		2A77AF0B1A7411A100BCC63F /* TDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUtilities.m; path = ../../Libraries/TDFoundation/TDFoundation/TDUtilities.m; sourceTree = "<group>"; };
 		2AADF4DC1A695B9D0026EF9D /* DemoStickerLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoStickerLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADF4E01A695B9D0026EF9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2AADF4E11A695B9D0026EF9D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -162,6 +165,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A77AF081A7410DC00BCC63F /* TDFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				2A77AF091A74113500BCC63F /* TDFoundation */,
+			);
+			name = TDFoundation;
+			sourceTree = "<group>";
+		};
+		2A77AF091A74113500BCC63F /* TDFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				2A77AF0A1A7411A100BCC63F /* TDUtilities.h */,
+				2A77AF0B1A7411A100BCC63F /* TDUtilities.m */,
+			);
+			name = TDFoundation;
+			sourceTree = "<group>";
+		};
 		2AADF4D31A695B9D0026EF9D = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +244,7 @@
 		2AADF5101A6971D10026EF9D /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2A77AF081A7410DC00BCC63F /* TDFoundation */,
 				2AADF5111A6971F50026EF9D /* UIKit+TechD */,
 				2ABD8E331A714D9500626356 /* TDBaseObjects */,
 				2AADF5171A6972280026EF9D /* TDStickerLibrary */,
@@ -535,6 +556,7 @@
 				2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */,
 				2AB706931A700EB0006C6845 /* TDStickerLibraryTabInfo.m in Sources */,
 				2AB706801A6FE2FB006C6845 /* unzip.c in Sources */,
+				2A77AF0C1A7411A100BCC63F /* TDUtilities.m in Sources */,
 				2AB7066C1A6FE2FB006C6845 /* AFHTTPSessionManager.m in Sources */,
 				2AADF4E21A695B9D0026EF9D /* main.m in Sources */,
 				2AB7067C1A6FE2FB006C6845 /* UIWebView+AFNetworking.m in Sources */,
