@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A5D03A21A750C05002B4A5D /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5D03A11A750C05002B4A5D /* TDUtilities.m */; };
 		2AADF4BD1A69599E0026EF9D /* TDStickerLibrary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */; };
 		2AADF4BF1A69599E0026EF9D /* TDStickerLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */; };
 		2AADF4C51A69599E0026EF9D /* libTDStickerLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */; };
@@ -67,6 +68,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2A5D03A01A750C05002B4A5D /* TDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUtilities.h; path = Libraries/TDFoundation/TDFoundation/TDUtilities.h; sourceTree = "<group>"; };
+		2A5D03A11A750C05002B4A5D /* TDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUtilities.m; path = Libraries/TDFoundation/TDFoundation/TDUtilities.m; sourceTree = "<group>"; };
 		2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTDStickerLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDStickerLibrary.h; sourceTree = "<group>"; };
 		2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrary.m; sourceTree = "<group>"; };
@@ -159,6 +162,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A5D039E1A750BF4002B4A5D /* TDFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				2A5D039F1A750BF6002B4A5D /* TDFoundation */,
+			);
+			name = TDFoundation;
+			sourceTree = "<group>";
+		};
+		2A5D039F1A750BF6002B4A5D /* TDFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				2A5D03A01A750C05002B4A5D /* TDUtilities.h */,
+				2A5D03A11A750C05002B4A5D /* TDUtilities.m */,
+			);
+			name = TDFoundation;
+			sourceTree = "<group>";
+		};
 		2AADF4B01A69599E0026EF9D = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +232,7 @@
 		2AADF5051A695E600026EF9D /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2A5D039E1A750BF4002B4A5D /* TDFoundation */,
 				2AADF5091A695E980026EF9D /* UIKit+TechD */,
 				2ABD8E341A714DAF00626356 /* TDBaseObjects */,
 				2AB706191A6FDFE4006C6845 /* ZipArchive */,
@@ -447,6 +468,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A5D03A21A750C05002B4A5D /* TDUtilities.m in Sources */,
 				2AB706891A6FE42F006C6845 /* TDStickerLibraryTabInfo.m in Sources */,
 				2AB7068F1A700918006C6845 /* TDStickerLibraryCustomization.m in Sources */,
 				2AB7062B1A6FDFE4006C6845 /* unzip.c in Sources */,
