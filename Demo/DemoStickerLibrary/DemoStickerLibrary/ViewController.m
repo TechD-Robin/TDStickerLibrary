@@ -144,6 +144,7 @@
     NSString                      * link;
     
 
+    //  在 8.1 simulator 的環境下, 目前這邊的指令 不會覆蓋掉本來目錄底下已經有的檔案, 所以之後記得 這樣的問題應該要自己判斷並修正.
     link                            = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download";
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
