@@ -13,17 +13,6 @@
 @end
 
 
-//TDLibraryDirectory              = NSLibraryDirectory,
-//TDDocumentDirectory             = NSDocumentDirectory,
-//TDCachesDirectory               = NSCachesDirectory,
-//
-//TDHomeDirectory                 = 201,
-//TDTemporaryDirectory            = 202,
-//
-//TDResourcesDirectory            = 301,
-
-//  --------------------------------
-
 //  ------------------------------------------------------------------------------------------------
 NSString * TDGetPathForDirectories( TDGetPathDirectory directory, NSString * name, NSString * typeExt, NSString * inDirectorySubpath )
 {
