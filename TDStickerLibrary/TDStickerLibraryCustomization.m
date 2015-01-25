@@ -77,6 +77,8 @@
     [self                           setConfigureResource: @"Configure"];
     [self                           setInZippedPrefixPath: @"StickerLibraryTabDefault"];
     [self                           setTabConfigureFilename: @"StickerLibraryTabDefault"];
+    [self                           setInZippedUpdatePrefixPath: @"StickerLibraryTabUpdate"];
+    [self                           setTabConfigureUpdateFilename: @"StickerLibraryTabUpdate"];
     
     //  for UIView.
     [self                           setNavigationBarHeight: 36.0f];
@@ -113,9 +115,12 @@
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark synthesize variable.
-@synthesize configureResource       = _configureResource;
-@synthesize inZippedPrefixPath      = _inZippedPrefixPath;
-@synthesize tabConfigureFilename    = _tabConfigureFilename;
+@synthesize configureResource           = _configureResource;
+@synthesize inZippedPrefixPath          = _inZippedPrefixPath;
+@synthesize tabConfigureFilename        = _tabConfigureFilename;
+@synthesize inZippedUpdatePrefixPath    = _inZippedUpdatePrefixPath;
+@synthesize tabConfigureUpdateFilename  = _tabConfigureUpdateFilename;
+
 
 //  for UIView.
 @synthesize navigationBarHeight     = _navigationBarHeight;

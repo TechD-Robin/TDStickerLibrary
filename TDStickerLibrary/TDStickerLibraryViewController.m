@@ -121,16 +121,14 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _LoadSystemConfigure
 {
-    tabConfigure                    = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam tabConfigureFilename] inZippedPath: [customizationParam tabConfigureFilename] inDirectory: [customizationParam configureResource]];
+    tabConfigure                    = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam tabConfigureFilename] forDirectories: TDResourcesDirectory inDirectory: [customizationParam configureResource] inZippedPath: [customizationParam inZippedPrefixPath]];
     if ( nil == tabConfigure )
     {
         return;
     }
     
-    
-    
-    
-    
+    [tabConfigure                   updateDataFromZip: [customizationParam tabConfigureUpdateFilename] forDirectories: TDDocumentDirectory inDirectory: @"" inZippedPath: [customizationParam inZippedUpdatePrefixPath] with: @"StickerLibrary"];
+        
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -296,7 +294,7 @@
         
         
         //  create tab menu item.
-        imagesName                  = [tabConfigure imagesNameAtIndex: index];
+        imagesName                  = [tabConfigure imagesNameAtIndex: i];
         if ( nil == imagesName )
         {
             continue;
@@ -348,6 +346,9 @@
         case 0: [view setBackgroundColor: [UIColor redColor]];      break;
         case 1: [view setBackgroundColor: [UIColor greenColor]];    break;
         case 2: [view setBackgroundColor: [UIColor blueColor]];     break;
+        case 3: [view setBackgroundColor: [UIColor purpleColor]];   break;
+        case 4: [view setBackgroundColor: [UIColor yellowColor]];   break;
+        case 5: [view setBackgroundColor: [UIColor orangeColor]];   break;
         default:                                                    break;
     }
 
@@ -369,6 +370,7 @@
     imageHighLightData              = nil;
     switch ( [imagesName count] )
     {
+        case 3:                                                                         //  do nothing.
         case 2: imageHighLightData  = [tabConfigure imageDataForKey: imagesName[1]];    //  don't break on here, must set imagedata.
         case 1: imageData           = [tabConfigure imageDataForKey: imagesName[0]];    break;
         default:                                                                        break;

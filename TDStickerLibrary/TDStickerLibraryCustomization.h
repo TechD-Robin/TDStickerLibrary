@@ -26,6 +26,8 @@
 
 @property( nonatomic, assign ) NSString                   * inZippedPrefixPath;
 @property( nonatomic, assign ) NSString                   * tabConfigureFilename;
+@property( nonatomic, assign ) NSString                   * inZippedUpdatePrefixPath;
+@property( nonatomic, assign ) NSString                   * tabConfigureUpdateFilename;
 
 
 
