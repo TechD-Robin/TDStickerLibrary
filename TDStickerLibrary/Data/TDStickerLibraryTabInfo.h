@@ -8,6 +8,7 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
+#import "TDUtilities.h"
 #import <Foundation/Foundation.h>
 
 //  ------------------------------------------------------------------------------------------------
@@ -20,12 +21,17 @@
 
 
 //  ------------------------------------------------------------------------------------------------
-+ ( instancetype ) loadDataFromZip:(NSString *)filename inZippedPath:(NSString*)prefix inDirectory:(NSString *)subpath;
++ ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix;
+
++ ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix with:(NSString *)password;
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) updateDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix with:(NSString *)password;
+
 
 //  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) infoDataCount;
 
-//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) isInfoDataEnabledAtIndex:(NSInteger)index;
 
 - ( NSArray * ) imagesNameAtIndex:(NSInteger)index;
