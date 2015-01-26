@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2A5689BB1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */; };
 		2A77AF0C1A7411A100BCC63F /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A77AF0B1A7411A100BCC63F /* TDUtilities.m */; };
+		2A95593A1A76A967008EDB91 /* UIStickerLibraryTabPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9559391A76A967008EDB91 /* UIStickerLibraryTabPageLayout.m */; };
 		2AADF4E21A695B9D0026EF9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E11A695B9D0026EF9D /* main.m */; };
 		2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E41A695B9D0026EF9D /* AppDelegate.m */; };
 		2AADF4E81A695B9D0026EF9D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E71A695B9D0026EF9D /* ViewController.m */; };
@@ -65,6 +66,8 @@
 		2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+TechD.m"; sourceTree = "<group>"; };
 		2A77AF0A1A7411A100BCC63F /* TDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUtilities.h; path = ../../Libraries/TDFoundation/TDFoundation/TDUtilities.h; sourceTree = "<group>"; };
 		2A77AF0B1A7411A100BCC63F /* TDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUtilities.m; path = ../../Libraries/TDFoundation/TDFoundation/TDUtilities.m; sourceTree = "<group>"; };
+		2A9559381A76A967008EDB91 /* UIStickerLibraryTabPageLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIStickerLibraryTabPageLayout.h; sourceTree = "<group>"; };
+		2A9559391A76A967008EDB91 /* UIStickerLibraryTabPageLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIStickerLibraryTabPageLayout.m; sourceTree = "<group>"; };
 		2AADF4DC1A695B9D0026EF9D /* DemoStickerLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoStickerLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADF4E01A695B9D0026EF9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2AADF4E11A695B9D0026EF9D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -294,6 +297,8 @@
 				2AB706951A700EE3006C6845 /* TDStickerLibraryCustomization.m */,
 				2AADF51B1A6972810026EF9D /* TDStickerLibraryViewController.h */,
 				2AADF51C1A6972810026EF9D /* TDStickerLibraryViewController.m */,
+				2A9559381A76A967008EDB91 /* UIStickerLibraryTabPageLayout.h */,
+				2A9559391A76A967008EDB91 /* UIStickerLibraryTabPageLayout.m */,
 			);
 			name = TDStickerLibrary;
 			path = ../../TDStickerLibrary;
@@ -527,6 +532,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A95593A1A76A967008EDB91 /* UIStickerLibraryTabPageLayout.m in Sources */,
 				2AB7066F1A6FE2FB006C6845 /* AFURLConnectionOperation.m in Sources */,
 				2AADF51D1A6972810026EF9D /* TDStickerLibrary.m in Sources */,
 				2AB7067F1A6FE2FB006C6845 /* mztools.c in Sources */,
