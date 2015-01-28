@@ -53,6 +53,15 @@
 
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  when user define new UIColor without default, must call the new UIColor by class method or singleton class method ( static method );
+ *  otherwise project will crash when call by instance method.
+ */
+//  ------------------------------------------------------------------------------------------------
++ ( UIColor * ) _TabMenuColor;
+
+//  ------------------------------------------------------------------------------------------------
+
 
 @end
 
@@ -91,9 +100,15 @@
     //  for UIBackgroundColor
     [self                           setNavigationBGC: [UIColor purpleColor]];
     [self                           setBannerBGC: [UIColor grayColor]];
-    [self                           setTabMenuBGC: [UIColor colorWithRed: 0.5f green: ( 200 / 255.0f ) blue: ( 200 / 255.0f ) alpha: 1.0f ]];
+    [self                           setTabMenuBGC: [[self class] _TabMenuColor]];
     
     
+}
+
+//  ------------------------------------------------------------------------------------------------
++ ( UIColor * ) _TabMenuColor
+{
+    return [UIColor colorWithRed: 0.5f green: ( 200 / 255.0f ) blue: ( 200 / 255.0f ) alpha: 1.0f ];
 }
 
 
