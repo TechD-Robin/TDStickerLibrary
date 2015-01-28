@@ -12,6 +12,7 @@
 
 #import "ZipArchive.h"
 #import "TDUtilities.h"
+#import "UIKit+TechD.h"
 #import "TDStickerLibraryTabInfo.h"
 
 //  ------------------------------------------------------------------------------------------------
@@ -67,6 +68,11 @@
  */
 - ( void ) _InitAttributes;
 
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) _GetImageDataKeyForScreenScale:(NSString *)aKey;
+
+//  ------------------------------------------------------------------------------------------------
+
 - ( BOOL ) _UnzipProcedure:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString*)prefix with:(NSString *)password;
 - ( BOOL ) _UnZipConfigureFile:(NSString *)filename with:(NSString *)password;
 - ( BOOL ) _GetConfigureJsonData:(NSString *)filename;
@@ -100,6 +106,34 @@
     unzipDataContainer              = nil;
     
     configureData                   = nil;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) _GetImageDataKeyForScreenScale:(NSString *)aKey
+{
+    if ( nil == aKey )
+    {
+        return nil;
+    }
+    
+    // split & check aKey
+    NSString                      * file;
+    NSString                      * extension;
+    
+    file                            = aKey;
+    extension                       = [aKey pathExtension];
+    if ( [[extension lowercaseString] isEqualToString: @"png"] == YES )
+    {
+        return aKey;
+    }
+    if ( ( nil != extension ) && ( [extension length] != 0 ) )
+    {
+        file                            = [aKey substringToIndex: ( [aKey length] - 4 )];
+    }
+
+    file                            = [NSString stringWithFormat: @"%s@%dx", [file UTF8String], (int)[[UIScreen mainScreen] scaleMultiple]];
+    aKey                            = [file stringByAppendingPathExtension: @"png"];
+    return aKey;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -563,6 +597,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( NSData * ) imageDataForKey:(NSString *)aKey
 {
+    aKey                            = [self _GetImageDataKeyForScreenScale: aKey];
     if ( ( nil == aKey ) || ( nil == unzipDataContainer ) )
     {
         return nil;
