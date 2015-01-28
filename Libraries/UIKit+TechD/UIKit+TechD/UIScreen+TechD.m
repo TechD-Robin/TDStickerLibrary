@@ -27,9 +27,17 @@
     return ( ( fabsf( mainBoundsSize.width - applicationFrameSize.width ) + fabsf( mainBoundsSize.height - applicationFrameSize.height ) ) );
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( CGFloat ) scaleMultiple
+{
+    if ( ( [[UIScreen mainScreen] respondsToSelector: @selector( displayLinkWithTarget: selector: )] == NO ) || ( [UIScreen mainScreen].scale == 1.0f ) )
+    {
+        return 1.0f;
+    }
+    return [UIScreen mainScreen].scale;
+}
 
 //  ------------------------------------------------------------------------------------------------
-
 
 @end
 

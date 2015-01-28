@@ -14,15 +14,21 @@
 @interface UIScreen (TechD)
 
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
 /**
  *  @brief easy to get the height of status bar.
  *
- *  @return     height of status bar.
+ *  @return                         height of status bar.
  */
 - ( CGFloat ) getStatusBarHeight;
 
-
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a multiple of scale of device, that is  Canvas Size (pts) to Design Canvas (px).
+ @  get a multiple of scale of device, that is  Canvas Size (pts) to Design Canvas (px).
+ *
+ *  @return                         multiple of scale.
+ */
+- ( CGFloat ) scaleMultiple;
 //  ------------------------------------------------------------------------------------------------
 
 
