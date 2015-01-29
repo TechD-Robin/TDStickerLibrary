@@ -49,6 +49,7 @@
 		2AB706961A700EE3006C6845 /* TDStickerLibraryCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706951A700EE3006C6845 /* TDStickerLibraryCustomization.m */; };
 		2ABD8E321A7142BC00626356 /* Configure in Resources */ = {isa = PBXBuildFile; fileRef = 2ABD8E311A7142BC00626356 /* Configure */; };
 		2ABD8E3D1A714F5100626356 /* TDBaseTabMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABD8E3C1A714F5100626356 /* TDBaseTabMenuItem.m */; };
+		2AF2FE911A7AB1F100793CD2 /* TDTexturePakcerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2FE901A7AB1F100793CD2 /* TDTexturePakcerXMLReader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,9 @@
 		2ABD8E311A7142BC00626356 /* Configure */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Configure; path = Resources/Configure; sourceTree = "<group>"; };
 		2ABD8E3B1A714F5100626356 /* TDBaseTabMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBaseTabMenuItem.h; path = ../../Libraries/TDBaseObjects/TDBaseObjects/TDBaseTabMenuItem.h; sourceTree = "<group>"; };
 		2ABD8E3C1A714F5100626356 /* TDBaseTabMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBaseTabMenuItem.m; path = ../../Libraries/TDBaseObjects/TDBaseObjects/TDBaseTabMenuItem.m; sourceTree = "<group>"; };
+		2AF2FE8E1A7AB1CC00793CD2 /* TDFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFoundation.h; path = ../../Libraries/TDFoundation/TDFoundation/TDFoundation.h; sourceTree = "<group>"; };
+		2AF2FE8F1A7AB1F100793CD2 /* TDTexturePakcerXMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTexturePakcerXMLReader.h; path = ../../Libraries/TDFoundation/TDFoundation/TDTexturePakcerXMLReader.h; sourceTree = "<group>"; };
+		2AF2FE901A7AB1F100793CD2 /* TDTexturePakcerXMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTexturePakcerXMLReader.m; path = ../../Libraries/TDFoundation/TDFoundation/TDTexturePakcerXMLReader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,8 +183,11 @@
 		2A77AF091A74113500BCC63F /* TDFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				2AF2FE8E1A7AB1CC00793CD2 /* TDFoundation.h */,
 				2A77AF0A1A7411A100BCC63F /* TDUtilities.h */,
 				2A77AF0B1A7411A100BCC63F /* TDUtilities.m */,
+				2AF2FE8F1A7AB1F100793CD2 /* TDTexturePakcerXMLReader.h */,
+				2AF2FE901A7AB1F100793CD2 /* TDTexturePakcerXMLReader.m */,
 			);
 			name = TDFoundation;
 			sourceTree = "<group>";
@@ -560,6 +567,7 @@
 				2AADF4E81A695B9D0026EF9D /* ViewController.m in Sources */,
 				2AB706741A6FE2FB006C6845 /* README.md in Sources */,
 				2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */,
+				2AF2FE911A7AB1F100793CD2 /* TDTexturePakcerXMLReader.m in Sources */,
 				2AB706931A700EB0006C6845 /* TDStickerLibraryTabInfo.m in Sources */,
 				2AB706801A6FE2FB006C6845 /* unzip.c in Sources */,
 				2A77AF0C1A7411A100BCC63F /* TDUtilities.m in Sources */,
