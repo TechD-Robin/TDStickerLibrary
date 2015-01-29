@@ -11,7 +11,6 @@
 #endif  //  End of __ARCMacros_H__.
 
 #import "ZipArchive.h"
-#import "TDUtilities.h"
 #import "UIKit+TechD.h"
 #import "TDStickerLibraryTabInfo.h"
 
