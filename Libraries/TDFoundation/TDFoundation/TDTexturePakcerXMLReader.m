@@ -479,21 +479,30 @@
     }
     
     NSInteger                       count;
+    NSArray                       * allKeys;
     
     count                           = 0;
-    for ( NSString * aKey in [framesContanier  allKeys] )
+    allKeys                         = nil;
+    allKeys                         = [framesContanier  allKeys];
+    if ( ( nil == allKeys ) || ( [allKeys count] == 0 ) )
     {
-        if ( nil == aKey )
-        {
-            ++count;
-            continue;
-        }
-        if ( count == index )
-        {
-            return aKey;
-        }
+        return nil;
     }
-    return nil;
+    return [allKeys objectAtIndex: index];
+//    
+//    for ( NSString * aKey in [framesContanier  allKeys] )
+//    {
+//        if ( nil == aKey )
+//        {
+//            ++count;
+//            continue;
+//        }
+//        if ( count == index )
+//        {
+//            return aKey;
+//        }
+//    }
+//    return nil;
 }
 
 //  ------------------------------------------------------------------------------------------------
