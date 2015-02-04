@@ -172,8 +172,6 @@
         NSLog( @"customization parameter cannot nil." );
         return nil;
     }
-    customizationParam              = customization;
-    
     
     TDStickerLibraryTabPageLayout * layout;
     
@@ -183,9 +181,9 @@
         NSLog( @"create table layout fail." );
         return nil;
     }
-    [layout                         setItemSize: [customizationParam tableCommonItemSize]];
-    [layout                         setSectionInset: [customizationParam tableCommonSectionInset]];
-    [layout                         setHeaderReferenceSize: [customizationParam tableCommonHeaderReferenceSize]];
+    [layout                         setItemSize: [customization tableCommonItemSize]];
+    [layout                         setSectionInset: [customization tableCommonSectionInset]];
+    [layout                         setHeaderReferenceSize: [customization tableCommonHeaderReferenceSize]];
     
     self                            = [super initWithFrame: frame collectionViewLayout: layout];
     if ( nil == self )
@@ -195,6 +193,7 @@
     [self                           _InitAttributes];
     [self                           _RegisterClasses];
     
+    customizationParam              = customization;
     return self;
 }
 
