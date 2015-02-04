@@ -39,6 +39,11 @@
 @property( nonatomic, assign ) CGSize                       tabMenuItemSize;
 @property( nonatomic, assign ) CGSize                       tabMenuItemSizeInset;
 
+//  for UICollectionView.
+@property( nonatomic, assign ) CGSize                       tableCommonItemSize;
+@property( nonatomic, assign ) UIEdgeInsets                 tableCommonSectionInset;
+@property( nonatomic, assign ) CGSize                       tableCommonHeaderReferenceSize;
+
 //  for UIBackgroundColor
 @property( nonatomic, assign ) UIColor                    * navigationBGC;          // some effect at navigation bar. (錯覺嗎?, 本來應該要沒效果的)
 @property( nonatomic, assign ) UIColor                    * bannerBGC;
