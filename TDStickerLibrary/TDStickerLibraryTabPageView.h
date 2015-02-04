@@ -13,7 +13,7 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-@interface TDStickerLibraryTabPageView : UICollectionView
+@interface TDStickerLibraryTabPageView : UICollectionView <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
@@ -24,8 +24,6 @@
 #pragma mark declare for create the object.
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) tabPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization;
-
-+ ( instancetype ) tabPageWithCustomization:(TDStickerLibraryCustomization *)customization;
 
 
 //  ------------------------------------------------------------------------------------------------

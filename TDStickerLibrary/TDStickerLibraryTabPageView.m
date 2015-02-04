@@ -15,7 +15,10 @@
 
 #import "TDStickerLibraryTabPageView.h"
 #import "TDStickerLibraryTabPageLayout.h"
+#import "TDStickerLibrarySectionHeader.h"
+#import "TDStickerLibrarySectionPreviewCell.h"
 
+#import "TDStickerLibraryTabPageInfo.h"
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -36,6 +39,8 @@
     
     TDStickerLibraryCustomization * customizationParam;
     
+    
+    TDStickerLibraryTabPageInfo   * pageConfigure;
     
 }
 //  ------------------------------------------------------------------------------------------------
@@ -62,6 +67,7 @@
  *  initial the attributes of class.
  */
 - ( void ) _InitAttributes;
+- ( void ) _RegisterClasses;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -85,8 +91,23 @@
 - ( void ) _InitAttributes
 {
     customizationParam              = nil;
+    
+    pageConfigure                   = nil;
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _RegisterClasses
+{
+    [self                           registerClass: [UICollectionViewCell class]
+                       forCellWithReuseIdentifier: NSStringFromClass( [UICollectionViewCell class] )];
+    
+    [self                           registerClass: [TDStickerLibrarySectionPreviewCell class]
+                       forCellWithReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionPreviewCell class] )];
+    
+    [self                           registerClass: [TDStickerLibrarySectionHeader class]
+                       forSupplementaryViewOfKind: UICollectionElementKindSectionHeader
+                              withReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionHeader class] )];
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -116,6 +137,17 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
+    if ( nil != customizationParam )
+    {
+        //  release by creator.
+        SAFE_ARC_ASSIGN_POINTER_NIL( customizationParam );
+    }
+    
+    if ( nil != pageConfigure )
+    {
+        SAFE_ARC_RELEASE( pageConfigure );
+        SAFE_ARC_ASSIGN_POINTER_NIL( pageConfigure );
+    }
     SAFE_ARC_SUPER_DEALLOC();
 }
 
@@ -140,6 +172,8 @@
         NSLog( @"customization parameter cannot nil." );
         return nil;
     }
+    customizationParam              = customization;
+    
     
     TDStickerLibraryTabPageLayout * layout;
     
@@ -149,6 +183,9 @@
         NSLog( @"create table layout fail." );
         return nil;
     }
+    [layout                         setItemSize: [customizationParam tableCommonItemSize]];
+    [layout                         setSectionInset: [customizationParam tableCommonSectionInset]];
+    [layout                         setHeaderReferenceSize: [customizationParam tableCommonHeaderReferenceSize]];
     
     self                            = [super initWithFrame: frame collectionViewLayout: layout];
     if ( nil == self )
@@ -156,6 +193,7 @@
         return nil;
     }
     [self                           _InitAttributes];
+    [self                           _RegisterClasses];
     
     return self;
 }
@@ -167,12 +205,100 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark protocol required for UICollectionViewDataSource.
+//  ------------------------------------------------------------------------------------------------
+- ( NSInteger ) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 0;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UICollectionViewCell * ) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell          * cell;
+    
+    cell                            = [collectionView dequeueReusableCellWithReuseIdentifier: NSStringFromClass( [UICollectionViewCell class] ) forIndexPath: indexPath];
+    
+    return cell;
+}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark protocol optional for UICollectionViewDataSource.
+//  ------------------------------------------------------------------------------------------------
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 0;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    if ( [kind isEqualToString: UICollectionElementKindSectionHeader] == NO )
+    {
+        return nil;
+    }
+    
+    TDStickerLibrarySectionHeader * header;
+    
+    header                          = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
+                                                                         withReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionHeader class] ) forIndexPath: indexPath];
+    if ( nil == header )
+    {
+        return nil;
+    }
+    
+    
+    return header;
+}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark protocol optional for UICollectionViewDelegateFlowLayout.
+//  ------------------------------------------------------------------------------------------------
+- ( CGSize ) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [customizationParam tableCommonItemSize];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIEdgeInsets ) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return [customizationParam tableCommonSectionInset];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( CGSize ) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+{
+    return [customizationParam tableCommonHeaderReferenceSize];
+}
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 @end
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
