@@ -15,6 +15,11 @@
 #import "TDStickerLibraryTabInfo.h"
 
 //  ------------------------------------------------------------------------------------------------
+static  NSString  * const kTDTabInfoKeyRoot                         = @"Tab";
+static  NSString  * const kTDTabInfoKeyName                         = @"Name";
+static  NSString  * const kTDTabInfoKeyImages                       = @"Images";
+static  NSString  * const kTDTabInfoKeyConfigure                    = @"Configure";
+static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink";
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -312,7 +317,7 @@
     
     NSDictionary                  * tabData;
     
-    tabData                         = [json objectForKey: @"Tab"];
+    tabData                         = [json objectForKey: kTDTabInfoKeyRoot];
     if ( nil == tabData )
     {
         return NO;
@@ -340,7 +345,7 @@
             }
         
             //  compare.
-            if ( [[[configureData objectAtIndex:i] objectForKey: @"Name"] isEqualToString: [infoData objectForKey: @"Name"]] == NO )
+            if ( [[[configureData objectAtIndex:i] objectForKey: kTDTabInfoKeyName] isEqualToString: [infoData objectForKey: kTDTabInfoKeyName]] == NO )
             {
                 continue;
             }
@@ -556,7 +561,7 @@
     {
         return nil;
     }
-    return [infoData objectForKey: @"Images"];
+    return [infoData objectForKey: kTDTabInfoKeyImages];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -585,7 +590,7 @@
             continue;
         }
         
-        if ( [[info objectForKey: @"Name"] isEqualToString: aKey] == YES )
+        if ( [[info objectForKey: kTDTabInfoKeyName] isEqualToString: aKey] == YES )
         {
             return info;
         }
