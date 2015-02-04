@@ -17,6 +17,7 @@
 //  ------------------------------------------------------------------------------------------------
 static  NSString  * const kTDTabInfoKeyRoot                         = @"Tab";
 static  NSString  * const kTDTabInfoKeyName                         = @"Name";
+static  NSString  * const kTDTabInfoKeyEnabled                      = @"Enabled";
 static  NSString  * const kTDTabInfoKeyImages                       = @"Images";
 static  NSString  * const kTDTabInfoKeyConfigure                    = @"Configure";
 static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink";
@@ -83,7 +84,9 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 - ( BOOL ) _ParseJsonStruct:(NSMutableDictionary *)json;
 
 //  ------------------------------------------------------------------------------------------------
+- ( NSDictionary * ) _GetInfoDataAtIndex:(NSInteger)index;
 
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
@@ -374,6 +377,17 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+- ( NSDictionary * ) _GetInfoDataAtIndex:(NSInteger)index;
+{
+    if ( ( 0 > index ) || ( nil == configureData ) || ( [configureData count] == 0 ) )
+    {
+        return nil;
+    }
+    return [configureData objectAtIndex: index];
+}
+
+//  ------------------------------------------------------------------------------------------------
+
 
 
 @end
@@ -519,21 +533,16 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) isInfoDataEnabledAtIndex:(NSInteger)index
 {
-    if ( 0 > index )
-    {
-        return NO;
-    }
-    
     NSDictionary                  * infoData;
     NSString                      * enabled;
     
-    infoData                        = [configureData objectAtIndex: index];
+    infoData                        = [self _GetInfoDataAtIndex: index];
     if ( nil == infoData )
     {
         return NO;
     }
     
-    enabled                         = [infoData objectForKey: @"Enabled"];
+    enabled                         = [infoData objectForKey: kTDTabInfoKeyEnabled];
     if ( nil == enabled )
     {
         return NO;
@@ -549,14 +558,9 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 - ( NSArray * ) imagesNameAtIndex:(NSInteger)index
 {
-    if ( 0 > index )
-    {
-        return nil;
-    }
-    
     NSDictionary                  * infoData;
     
-    infoData                        = [configureData objectAtIndex: index];
+    infoData                        = [self _GetInfoDataAtIndex: index];
     if ( nil == infoData )
     {
         return nil;
@@ -608,6 +612,49 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
     }
     return [unzipDataContainer objectForKey: aKey];
 }
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) configureNameAtIndex:(NSInteger)index
+{
+    NSDictionary                  * infoData;
+    NSString                      * configure;
+    
+    configure                       = nil;
+    infoData                        = [self _GetInfoDataAtIndex: index];
+    if ( nil == infoData )
+    {
+        return nil;
+    }
+    
+    configure                       = [infoData objectForKey: kTDTabInfoKeyConfigure];
+    if ( ( nil == configure ) || ( [configure length] == 0 ) )
+    {
+        return nil;
+    }
+    return configure;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) dataLinkAtIndex:(NSInteger)index
+{
+    NSDictionary                  * infoData;
+    NSString                      * dataLink;
+    
+    dataLink                        = nil;
+    infoData                        = [self _GetInfoDataAtIndex: index];
+    if ( nil == infoData )
+    {
+        return nil;
+    }
+    
+    dataLink                        = [infoData objectForKey: kTDTabInfoKeyDataLink];
+    if ( ( nil == dataLink ) || ( [dataLink length] == 0 ) )
+    {
+        return nil;
+    }
+    return dataLink;
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 
