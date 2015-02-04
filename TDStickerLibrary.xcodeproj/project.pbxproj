@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A4743681A8219EC0057586A /* TDStickerLibraryUnzip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743671A8219EC0057586A /* TDStickerLibraryUnzip.m */; };
 		2A5D039D1A750A8E002B4A5D /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5D039C1A750A8E002B4A5D /* TDUtilities.m */; };
 		2A9559371A76A75A008EDB91 /* UIStickerLibraryTabPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9559361A76A75A008EDB91 /* UIStickerLibraryTabPageLayout.m */; };
 		2AADF4BD1A69599E0026EF9D /* TDStickerLibrary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */; };
@@ -70,6 +71,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2A4743661A8219EC0057586A /* TDStickerLibraryUnzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUnzip.h; sourceTree = "<group>"; };
+		2A4743671A8219EC0057586A /* TDStickerLibraryUnzip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUnzip.m; sourceTree = "<group>"; };
 		2A5689BC1A6E73B90087CCA4 /* NSLayoutConstraint+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+TechD.h"; sourceTree = "<group>"; };
 		2A5689BD1A6E73B90087CCA4 /* NSLayoutConstraint+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+TechD.m"; sourceTree = "<group>"; };
 		2A5D039B1A750A8E002B4A5D /* TDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUtilities.h; path = Libraries/TDFoundation/TDFoundation/TDUtilities.h; sourceTree = "<group>"; };
@@ -372,6 +375,8 @@
 		2AB706861A6FE42F006C6845 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2A4743661A8219EC0057586A /* TDStickerLibraryUnzip.h */,
+				2A4743671A8219EC0057586A /* TDStickerLibraryUnzip.m */,
 				2AB706871A6FE42F006C6845 /* TDStickerLibraryTabInfo.h */,
 				2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */,
 			);
@@ -492,6 +497,7 @@
 				2AB7062E1A6FDFE4006C6845 /* ZipArchive.m in Sources */,
 				2AADF5081A695E7B0026EF9D /* TDStickerLibraryViewController.m in Sources */,
 				2AB706291A6FDFE4006C6845 /* ioapi.c in Sources */,
+				2A4743681A8219EC0057586A /* TDStickerLibraryUnzip.m in Sources */,
 				2AB7062C1A6FDFE4006C6845 /* zip.c in Sources */,
 				2A9559371A76A75A008EDB91 /* UIStickerLibraryTabPageLayout.m in Sources */,
 				2AADF4BF1A69599E0026EF9D /* TDStickerLibrary.m in Sources */,
