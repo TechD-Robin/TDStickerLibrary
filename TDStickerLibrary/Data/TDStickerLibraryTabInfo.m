@@ -40,12 +40,7 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 #pragma mark declare property ()
 @interface TDStickerLibraryTabInfo()
 {
-    NSString                      * prefixDirectory;
-    
-    NSMutableDictionary           * unzipDataContainer;
-    
-    //NSMutableDictionary           * configureData;      //  json struct.
-    NSMutableArray                * configureData;      //  json struct.
+
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -76,15 +71,6 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 - ( NSString * ) _GetImageDataKeyForScreenScale:(NSString *)aKey;
 
-//  ------------------------------------------------------------------------------------------------
-
-- ( BOOL ) _UnzipProcedure:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString*)prefix with:(NSString *)password;
-- ( BOOL ) _UnZipConfigureFile:(NSString *)filename with:(NSString *)password;
-- ( BOOL ) _GetConfigureJsonData:(NSString *)filename;
-- ( BOOL ) _ParseJsonStruct:(NSMutableDictionary *)json;
-
-//  ------------------------------------------------------------------------------------------------
-- ( NSDictionary * ) _GetInfoDataAtIndex:(NSInteger)index;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -108,11 +94,7 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  --------------------------------
 - ( void ) _InitAttributes
 {
-    prefixDirectory                 = nil;
-    
-    unzipDataContainer              = nil;
-    
-    configureData                   = nil;
+
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -144,250 +126,6 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _UnzipProcedure:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString*)prefix with:(NSString *)password
-{
-    if ( nil == filename )
-    {
-        NSLog( @"filename is nil(%s).", __FUNCTION__ );
-        return NO;
-    }
-    
-    prefixDirectory                 = prefix;
-    if ( nil == prefixDirectory )
-    {
-        prefixDirectory             = @"";
-    }
-    
-    NSString                      * filePath;
-    
-    filePath                        = TDGetPathForDirectories( directory, filename, @"zip", subpath );
-    if ( [[NSFileManager defaultManager] fileExistsAtPath: filePath] == NO )
-    {
-        NSLog( @"file %s no exist.", [filePath UTF8String] );
-        return NO;
-    }
-    
-    if ( [self _UnZipConfigureFile: filePath with: password] == NO )
-    {
-        NSLog( @"unzip configure file has warning." );
-        return NO;
-    }
-    
-    if ( [self _GetConfigureJsonData: filename] == NO )
-    {
-        NSLog( @"get configure data has warning. ");
-        return NO;
-    }
-    
-    return YES;
-}
-
-//  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _UnZipConfigureFile:(NSString *)filename with:(NSString *)password
-{
-    if ( nil == filename )
-    {
-        return NO;
-    }
-    
-    BOOL                            result;
-    ZipArchive                    * zip;
-    NSDictionary                  * zipFiles;
-    
-    result                          = NO;
-    zipFiles                        = nil;
-    zip                             = [[ZipArchive alloc] init];
-    if ( nil == zip )
-    {
-        NSLog( @"cannot create zip archive object!" );
-        return NO;
-    }
-    
-    ////  set process call back.
-    //[zip                            setProgressBlock: ^(int percentage, int filesProcessed, unsigned long numFiles, NSString * filename )
-    // {
-    //     NSLog( @"[%d%%] %d/%ld  %s", percentage, filesProcessed, numFiles, [filename UTF8String] );
-    // }];
-    
-    if ( nil == password )
-    {
-        result                      = [zip UnzipOpenFile: filename];
-    }
-    else
-    {
-        result                      = [zip UnzipOpenFile: filename Password: password];
-    }
-    
-    if ( result == NO )
-    {
-        NSLog( @"cannot open zip file %s.", __FUNCTION__ );
-        [zip                        UnzipCloseFile];
-        return NO;
-    }
-    zipFiles                        = [zip UnzipFileToMemory];
-    if ( nil == zipFiles )
-    {
-        NSLog( @"cannot unzip file to memory");
-        [zip                        UnzipCloseFile];
-        return NO;
-    }
-    
-    if ( nil == unzipDataContainer )
-    {
-        unzipDataContainer              = [[NSMutableDictionary alloc] initWithDictionary: zipFiles copyItems: YES];
-    }
-    else
-    {
-        [unzipDataContainer             addEntriesFromDictionary: zipFiles];
-    }
-    
-    //.NSLog( @"unzip file in memory : %@", zipFiles );
-    [zip                            UnzipCloseFile];
-    
-    SAFE_ARC_RELEASE( zipFiles );
-    SAFE_ARC_ASSIGN_POINTER_NIL( zipFiles );
-    
-    SAFE_ARC_RELEASE( zip );
-    SAFE_ARC_ASSIGN_POINTER_NIL( zip );
-    return YES;
-}
-
-//  ------------------------------------------------------------------------------------------------
-//  --------------------------------
-- ( BOOL ) _GetConfigureJsonData:(NSString *)filename
-{
-    if ( nil == filename )
-    {
-        return NO;
-    }
-    
-    NSString                      * key;
-    NSDictionary                  * json;
-    NSError                       * jsonParsingError;
-    NSData                        * configure;
-    
-    json                            = nil;
-    jsonParsingError                = nil;
-    key                             = [NSString stringWithFormat: @"%s/%s.json", [prefixDirectory UTF8String], [filename UTF8String]];
-    configure                       = [unzipDataContainer objectForKey: key];
-    if ( nil == configure )
-    {
-        NSLog( @"cannot get the configure from container." );
-        return NO;
-    }
-    
-    json                            = [NSJSONSerialization JSONObjectWithData: configure options:NSJSONReadingMutableContainers error: &jsonParsingError];
-    if ( nil == json )
-    {
-        if ( nil != jsonParsingError )
-        {
-            NSLog( @"%@", jsonParsingError );
-        }
-        return NO;
-    }
-    
-    if ( [self _ParseJsonStruct: (NSMutableDictionary *)json] == NO )
-    {
-        NSLog( @"parse json warning." );
-        return NO;
-    }
-    
-    //if ( nil == configureData )
-    //{
-    //    configureData                   = [[NSMutableDictionary alloc] initWithDictionary: json copyItems: YES];
-    //}
-    //else
-    //{
-    //    [configureData                  addEntriesFromDictionary: json];
-    //}
-    
-    //  after get the configure, remove the data from container. (for release memory.)
-    [unzipDataContainer             removeObjectForKey: key];
-    
-    SAFE_ARC_RELEASE( json );
-    SAFE_ARC_ASSIGN_POINTER_NIL( json );
-    
-    return YES;
-}
-
-//  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _ParseJsonStruct:(NSMutableDictionary *)json
-{
-    if ( nil == json )
-    {
-        return NO;
-    }
-    
-    NSDictionary                  * tabData;
-    
-    tabData                         = [json objectForKey: kTDTabInfoKeyRoot];
-    if ( nil == tabData )
-    {
-        return NO;
-    }
-    
-    if ( nil == configureData )
-    {
-        //configureData                   = [[NSMutableDictionary alloc] initWithDictionary: tabData copyItems: YES];
-        configureData               = [[NSMutableArray alloc] initWithArray: (NSArray *)tabData];
-        return YES;
-    }
-    
-    
-    NSMutableArray                * removeObject;
-    
-    //  compare object when new data's key is equal older.
-    removeObject                     = [[NSMutableArray alloc] initWithCapacity: [configureData count]];
-    for ( int i = 0; i < [configureData count]; ++i )
-    {
-        for ( NSDictionary * infoData in tabData )
-        {
-            if ( nil == infoData )
-            {
-                continue;
-            }
-        
-            //  compare.
-            if ( [[[configureData objectAtIndex:i] objectForKey: kTDTabInfoKeyName] isEqualToString: [infoData objectForKey: kTDTabInfoKeyName]] == NO )
-            {
-                continue;
-            }
-            [removeObject           addObject: [configureData objectAtIndex:i]];
-        }
-    }
-    
-    //  remove from contaner on here.
-    for ( int i = 0; i < [removeObject count]; ++i )
-    {
-        [configureData              removeObject: [removeObject objectAtIndex: i]];
-    }
-    
-    //  finish, insert into container.
-    //[configureData                  addEntriesFromDictionary: tabData];
-    [configureData                  addObjectsFromArray: (NSArray *)tabData];
-    
-    
-    
-    
-    SAFE_ARC_RELEASE( removeIndex );
-    SAFE_ARC_ASSIGN_POINTER_NIL( removeIndex );
-    
-    return YES;
-}
-
-//  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-- ( NSDictionary * ) _GetInfoDataAtIndex:(NSInteger)index;
-{
-    if ( ( 0 > index ) || ( nil == configureData ) || ( [configureData count] == 0 ) )
-    {
-        return nil;
-    }
-    return [configureData objectAtIndex: index];
-}
-
-//  ------------------------------------------------------------------------------------------------
-
 
 
 @end
@@ -423,25 +161,6 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
-    if ( nil == prefixDirectory )
-    {
-        SAFE_ARC_ASSIGN_POINTER_NIL( prefixDirectory );
-    }
-    
-    if ( nil != unzipDataContainer )
-    {
-        [unzipDataContainer         removeAllObjects];
-        SAFE_ARC_RELEASE( unzipDataContainer );
-        SAFE_ARC_ASSIGN_POINTER_NIL( unzipDataContainer );
-    }
-    
-    if ( nil != configureData )
-    {
-        [configureData              removeAllObjects];
-        SAFE_ARC_RELEASE( configureData );
-        SAFE_ARC_ASSIGN_POINTER_NIL( configureData );
-    }
-    
     SAFE_ARC_SUPER_DEALLOC();
 }
 
@@ -451,53 +170,7 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) initWithZipFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString*)prefix with:(NSString *)password
 {
-    self                            = [super init];
-    if ( nil == self )
-    {
-        return nil;
-    }
-    
-    [self                           _InitAttributes];
-    if ( [self _UnzipProcedure: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password] == NO )
-    {
-        SAFE_ARC_RELEASE( self );
-        SAFE_ARC_ASSIGN_POINTER_NIL( self );
-        return nil;
-    }
-    
-    
-//    if ( nil == filename )
-//    {
-//        NSLog( @"filename is nil(%s).", __FUNCTION__ );
-//        return self;
-//    }
-//    
-//    prefixDirectory                 = prefix;
-//    if ( nil == prefixDirectory )
-//    {
-//        prefixDirectory             = @"";
-//    }
-//    
-//    NSString                      * filePath;
-//    
-//    filePath                        = TDGetPathForDirectories( directory, filename, @"zip", subpath );
-//    if ( [[NSFileManager defaultManager] fileExistsAtPath: filePath] == NO )
-//    {
-//        NSLog( @"file %s no exist.", [filePath UTF8String] );
-//        return self;
-//    }
-//    
-//    if ( [self _UnZipConfigureFile: filePath with: password] == NO )
-//    {
-//        return self;
-//    }
-//    
-//    if ( [self _GetConfigureJsonData: filename] == NO )
-//    {
-//        return self;
-//    }
-    
-    return self;
+    return [super initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: kTDTabInfoKeyRoot];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -516,27 +189,17 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) updateDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix with:(NSString *)password
 {
-    return [self _UnzipProcedure: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password];
+    return [self updateDataFromZip: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: kTDTabInfoKeyRoot  with: kTDTabInfoKeyName];
 }
 
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-- ( NSInteger ) infoDataCount
-{
-    if ( nil == configureData )
-    {
-        return 0;
-    }
-    return [configureData count];
-}
-
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) isInfoDataEnabledAtIndex:(NSInteger)index
 {
     NSDictionary                  * infoData;
     NSString                      * enabled;
     
-    infoData                        = [self _GetInfoDataAtIndex: index];
+    infoData                        = [self infoDataAtIndex: index];
     if ( nil == infoData )
     {
         return NO;
@@ -560,7 +223,7 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 {
     NSDictionary                  * infoData;
     
-    infoData                        = [self _GetInfoDataAtIndex: index];
+    infoData                        = [self infoDataAtIndex: index];
     if ( nil == infoData )
     {
         return nil;
@@ -569,48 +232,10 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( NSDictionary * ) infoDataAtIndex:(NSInteger)index
-{
-    if ( 0 > index )
-    {
-        return nil;
-    }
-    [[configureData objectAtIndex: index] objectForKey: nil];
-    return [configureData objectAtIndex: index];
-}
-
-//  ------------------------------------------------------------------------------------------------
-- ( NSDictionary * ) infoDataForKey:(NSString *)aKey
-{
-    if ( nil == aKey )
-    {
-        return nil;
-    }
-    
-    for ( NSDictionary * info in configureData )
-    {
-        if ( nil == info )
-        {
-            continue;
-        }
-        
-        if ( [[info objectForKey: kTDTabInfoKeyName] isEqualToString: aKey] == YES )
-        {
-            return info;
-        }
-    }
-    return nil;
-}
-
-//  ------------------------------------------------------------------------------------------------
 - ( NSData * ) imageDataForKey:(NSString *)aKey
 {
     aKey                            = [self _GetImageDataKeyForScreenScale: aKey];
-    if ( ( nil == aKey ) || ( nil == unzipDataContainer ) )
-    {
-        return nil;
-    }
-    return [unzipDataContainer objectForKey: aKey];
+    return [self unzipDataForKey: aKey];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -620,7 +245,7 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
     NSString                      * configure;
     
     configure                       = nil;
-    infoData                        = [self _GetInfoDataAtIndex: index];
+    infoData                        = [self infoDataAtIndex: index];
     if ( nil == infoData )
     {
         return nil;
@@ -641,7 +266,7 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
     NSString                      * dataLink;
     
     dataLink                        = nil;
-    infoData                        = [self _GetInfoDataAtIndex: index];
+    infoData                        = [self infoDataAtIndex: index];
     if ( nil == infoData )
     {
         return nil;

@@ -11,9 +11,11 @@
 #import <Foundation/Foundation.h>
 #import "TDFoundation.h"
 
+#import "TDStickerLibraryUnzip.h"
+
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-@interface TDStickerLibraryTabInfo : NSObject
+@interface TDStickerLibraryTabInfo : TDStickerLibraryUnzip
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
@@ -28,19 +30,10 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) updateDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix with:(NSString *)password;
 
-
 //  ------------------------------------------------------------------------------------------------
-- ( NSInteger ) infoDataCount;
-
 - ( BOOL ) isInfoDataEnabledAtIndex:(NSInteger)index;
 
 - ( NSArray * ) imagesNameAtIndex:(NSInteger)index;
-
-
-//- ( NSDictionary * ) infoDataAtIndex:(NSInteger)index;
-//
-//- ( NSDictionary * ) infoDataForKey:(NSString *)aKey;
-
 
 - ( NSData * ) imageDataForKey:(NSString *)aKey;
 
