@@ -10,6 +10,9 @@
 		2A47436B1A8220250057586A /* TDStickerLibraryUnzip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A47436A1A8220250057586A /* TDStickerLibraryUnzip.m */; };
 		2A4743711A82689B0057586A /* TDStickerLibraryTabPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743701A82689B0057586A /* TDStickerLibraryTabPageInfo.m */; };
 		2A4743741A826CFC0057586A /* TDStickerLibraryTabPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743731A826CFC0057586A /* TDStickerLibraryTabPageLayout.m */; };
+		2A4743831A827D160057586A /* TDStickerLibrarySectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743821A827D160057586A /* TDStickerLibrarySectionHeader.m */; };
+		2A4743861A827D260057586A /* TDStickerLibrarySectionPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743851A827D260057586A /* TDStickerLibrarySectionPreviewCell.m */; };
+		2A4743891A827D350057586A /* TDStickerLibraryTabPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743881A827D350057586A /* TDStickerLibraryTabPageView.m */; };
 		2A5689BB1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */; };
 		2A77AF0C1A7411A100BCC63F /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A77AF0B1A7411A100BCC63F /* TDUtilities.m */; };
 		2AADF4E21A695B9D0026EF9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E11A695B9D0026EF9D /* main.m */; };
@@ -71,6 +74,12 @@
 		2A4743701A82689B0057586A /* TDStickerLibraryTabPageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryTabPageInfo.m; sourceTree = "<group>"; };
 		2A4743721A826CFC0057586A /* TDStickerLibraryTabPageLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryTabPageLayout.h; sourceTree = "<group>"; };
 		2A4743731A826CFC0057586A /* TDStickerLibraryTabPageLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryTabPageLayout.m; sourceTree = "<group>"; };
+		2A4743811A827D160057586A /* TDStickerLibrarySectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibrarySectionHeader.h; sourceTree = "<group>"; };
+		2A4743821A827D160057586A /* TDStickerLibrarySectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrarySectionHeader.m; sourceTree = "<group>"; };
+		2A4743841A827D260057586A /* TDStickerLibrarySectionPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibrarySectionPreviewCell.h; sourceTree = "<group>"; };
+		2A4743851A827D260057586A /* TDStickerLibrarySectionPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrarySectionPreviewCell.m; sourceTree = "<group>"; };
+		2A4743871A827D350057586A /* TDStickerLibraryTabPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryTabPageView.h; sourceTree = "<group>"; };
+		2A4743881A827D350057586A /* TDStickerLibraryTabPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryTabPageView.m; sourceTree = "<group>"; };
 		2A5689B91A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+TechD.h"; sourceTree = "<group>"; };
 		2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+TechD.m"; sourceTree = "<group>"; };
 		2A77AF0A1A7411A100BCC63F /* TDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUtilities.h; path = ../../Libraries/TDFoundation/TDFoundation/TDUtilities.h; sourceTree = "<group>"; };
@@ -312,6 +321,12 @@
 				2AADF51C1A6972810026EF9D /* TDStickerLibraryViewController.m */,
 				2A4743721A826CFC0057586A /* TDStickerLibraryTabPageLayout.h */,
 				2A4743731A826CFC0057586A /* TDStickerLibraryTabPageLayout.m */,
+				2A4743811A827D160057586A /* TDStickerLibrarySectionHeader.h */,
+				2A4743821A827D160057586A /* TDStickerLibrarySectionHeader.m */,
+				2A4743841A827D260057586A /* TDStickerLibrarySectionPreviewCell.h */,
+				2A4743851A827D260057586A /* TDStickerLibrarySectionPreviewCell.m */,
+				2A4743871A827D350057586A /* TDStickerLibraryTabPageView.h */,
+				2A4743881A827D350057586A /* TDStickerLibraryTabPageView.m */,
 			);
 			name = TDStickerLibrary;
 			path = ../../TDStickerLibrary;
@@ -562,11 +577,14 @@
 				2AB706771A6FE2FB006C6845 /* UIAlertView+AFNetworking.m in Sources */,
 				2ABD8E3D1A714F5100626356 /* TDBaseTabMenuItem.m in Sources */,
 				2A4743711A82689B0057586A /* TDStickerLibraryTabPageInfo.m in Sources */,
+				2A4743891A827D350057586A /* TDStickerLibraryTabPageView.m in Sources */,
 				2AB706711A6FE2FB006C6845 /* AFURLResponseSerialization.m in Sources */,
 				2AB706811A6FE2FB006C6845 /* zip.c in Sources */,
 				2AB706831A6FE2FB006C6845 /* ZipArchive.m in Sources */,
+				2A4743861A827D260057586A /* TDStickerLibrarySectionPreviewCell.m in Sources */,
 				2AADF51E1A6972810026EF9D /* TDStickerLibraryViewController.m in Sources */,
 				2AB706821A6FE2FB006C6845 /* README.md in Sources */,
+				2A4743831A827D160057586A /* TDStickerLibrarySectionHeader.m in Sources */,
 				2AB706701A6FE2FB006C6845 /* AFURLRequestSerialization.m in Sources */,
 				2AB706791A6FE2FB006C6845 /* UIImageView+AFNetworking.m in Sources */,
 				2AB7066E1A6FE2FB006C6845 /* AFSecurityPolicy.m in Sources */,
