@@ -96,6 +96,11 @@
     
     [self                           setTabMenuItemSize: CGSizeMake( 48.0f, 48.0f )];
     [self                           setTabMenuItemSizeInset: CGSizeMake( 3.0f, 3.0f )];
+    
+    //  for UICollectionView.
+    [self                           setTableCommonItemSize: CGSizeMake( 64.0f, 64.0f )];
+    [self                           setTableCommonSectionInset: UIEdgeInsetsMake( 12.0f, 12.0f, 12.0f, 12.0f )];
+    [self                           setTableCommonHeaderReferenceSize: CGSizeMake( 0.0f, 36.0f )];
 
     //  for UIBackgroundColor
     [self                           setNavigationBGC: [UIColor purpleColor]];
@@ -144,6 +149,13 @@
 
 @synthesize tabMenuItemSize         = _tabMenuItemSize;
 @synthesize tabMenuItemSizeInset    = _tabMenuItemSizeInset;
+
+
+//  for UICollectionView.
+@synthesize tableCommonItemSize             = _tableCommonItemSize;
+@synthesize tableCommonSectionInset         = _tableCommonSectionInset;
+@synthesize tableCommonHeaderReferenceSize  = _tableCommonHeaderReferenceSize;
+
 
 //  for UIBackgroundColor
 @synthesize navigationBGC           = _navigationBGC;
