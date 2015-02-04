@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A47436B1A8220250057586A /* TDStickerLibraryUnzip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A47436A1A8220250057586A /* TDStickerLibraryUnzip.m */; };
+		2A4743711A82689B0057586A /* TDStickerLibraryTabPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743701A82689B0057586A /* TDStickerLibraryTabPageInfo.m */; };
 		2A5689BB1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */; };
 		2A77AF0C1A7411A100BCC63F /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A77AF0B1A7411A100BCC63F /* TDUtilities.m */; };
 		2A95593A1A76A967008EDB91 /* UIStickerLibraryTabPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9559391A76A967008EDB91 /* UIStickerLibraryTabPageLayout.m */; };
@@ -66,6 +67,8 @@
 /* Begin PBXFileReference section */
 		2A4743691A8220250057586A /* TDStickerLibraryUnzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUnzip.h; sourceTree = "<group>"; };
 		2A47436A1A8220250057586A /* TDStickerLibraryUnzip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUnzip.m; sourceTree = "<group>"; };
+		2A47436F1A82689B0057586A /* TDStickerLibraryTabPageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryTabPageInfo.h; sourceTree = "<group>"; };
+		2A4743701A82689B0057586A /* TDStickerLibraryTabPageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryTabPageInfo.m; sourceTree = "<group>"; };
 		2A5689B91A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+TechD.h"; sourceTree = "<group>"; };
 		2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+TechD.m"; sourceTree = "<group>"; };
 		2A77AF0A1A7411A100BCC63F /* TDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUtilities.h; path = ../../Libraries/TDFoundation/TDFoundation/TDUtilities.h; sourceTree = "<group>"; };
@@ -414,6 +417,8 @@
 				2A47436A1A8220250057586A /* TDStickerLibraryUnzip.m */,
 				2AB706911A700EB0006C6845 /* TDStickerLibraryTabInfo.h */,
 				2AB706921A700EB0006C6845 /* TDStickerLibraryTabInfo.m */,
+				2A47436F1A82689B0057586A /* TDStickerLibraryTabPageInfo.h */,
+				2A4743701A82689B0057586A /* TDStickerLibraryTabPageInfo.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -557,6 +562,7 @@
 				2A5689BB1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m in Sources */,
 				2AB706771A6FE2FB006C6845 /* UIAlertView+AFNetworking.m in Sources */,
 				2ABD8E3D1A714F5100626356 /* TDBaseTabMenuItem.m in Sources */,
+				2A4743711A82689B0057586A /* TDStickerLibraryTabPageInfo.m in Sources */,
 				2AB706711A6FE2FB006C6845 /* AFURLResponseSerialization.m in Sources */,
 				2AB706811A6FE2FB006C6845 /* zip.c in Sources */,
 				2AB706831A6FE2FB006C6845 /* ZipArchive.m in Sources */,
