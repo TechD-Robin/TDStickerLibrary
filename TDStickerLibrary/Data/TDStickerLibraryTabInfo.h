@@ -39,6 +39,8 @@
 
 - ( NSData * ) imageDataForKey:(NSString *)aKey;
 
+- ( NSString * ) configureKeyAtIndex:(NSInteger)index;      //  name.
+
 - ( NSString * ) configureNameAtIndex:(NSInteger)index;
 
 - ( NSString * ) dataLinkAtIndex:(NSInteger)index;
