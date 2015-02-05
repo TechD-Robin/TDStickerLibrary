@@ -19,6 +19,7 @@
 #import "TDStickerLibrarySectionPreviewCell.h"
 
 #import "TDStickerLibraryTabPageInfo.h"
+#import "TDStickerLibrarySectionStates.h"
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -41,6 +42,7 @@
     
     
     TDStickerLibraryTabPageInfo   * pageConfigure;
+    TDStickerLibrarySectionStates * sectionStates;
     
 }
 //  ------------------------------------------------------------------------------------------------
@@ -72,6 +74,11 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _LoadSystemConfigure:(NSString *)configure forKey:(NSString *)aKey;
 
+- ( void ) _InitSectionStates;
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImageView * ) _CreateCommonSticker:(NSIndexPath *)indexPath;
+
 //  ------------------------------------------------------------------------------------------------
 
 @end
@@ -96,6 +103,7 @@
     customizationParam              = nil;
     
     pageConfigure                   = nil;
+    sectionStates                   = nil;
     
     
     [self                           setDataSource: self];
@@ -127,8 +135,89 @@
     }
     
     
+    [self                           _InitSectionStates];
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _InitSectionStates
+{
+    if ( ( nil == pageConfigure ) || ( [pageConfigure infoDataCount] == 0 ) )
+    {
+        return;
+    }
+    
+    sectionStates                   = [TDStickerLibrarySectionStates sectionStates];
+    if ( nil == sectionStates )
+    {
+        return;
+    }
+    
+    NSString                      * ID;
+    NSInteger                       imageCount;
+    
+    ID                              = nil;
+    imageCount                      = 0;
+    for ( int i = 0; i < [pageConfigure infoDataCount]; ++i )
+    {
+        ID                          = [pageConfigure dataIDAtIndex: i];
+        if ( nil != ID )
+        {
+            [sectionStates          insertStateDataForKey: ID];
+        }
+        
+        imageCount                  = [pageConfigure countOfImageDataAtIndex: i];
+        [sectionStates              updateImagesCount: imageCount];
+        
+        
+        
+    }
+    
+    
+    
+    
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( UIImageView * ) _CreateCommonSticker:(NSIndexPath *)indexPath
+{
+    
+    NSString                      * imageName;
+    NSData                        * imageData;
+    UIImage                       * stickerImage;
+    UIImageView                   * stickerView;
+    
+    stickerImage                    = nil;
+    stickerView                     = nil;
+    imageName                       = [pageConfigure imageNameAtIndex: indexPath.section inArray: indexPath.row];
+    if ( nil == imageName )
+    {
+        return nil;
+    }
+    
+    imageData                       = [pageConfigure imageDataForKey: imageName];
+    if ( nil == imageName )
+    {
+        return nil;
+    }
+    
+    stickerImage                    = [UIImage imageWithData: imageData];
+    if ( nil == stickerImage )
+    {
+        return nil;
+    }
+    
+    stickerView                     = [[UIImageView alloc] initWithImage: stickerImage];
+    if ( nil == stickerView )
+    {
+        SAFE_ARC_RELEASE( image );
+        return nil;
+    }
+    
+    SAFE_ARC_RELEASE( image );
+    SAFE_ARC_ASSIGN_POINTER_NIL( image );
+    return stickerView;
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -237,16 +326,32 @@
 //  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 0;
+    if ( nil == sectionStates )
+    {
+        return 0;
+    }
+    return [sectionStates numberOfImagesInSection: section];
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( UICollectionViewCell * ) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell          * cell;
+    UIImageView                   * stickerView;
     
+    stickerView                     = nil;
     cell                            = [collectionView dequeueReusableCellWithReuseIdentifier: NSStringFromClass( [UICollectionViewCell class] ) forIndexPath: indexPath];
     
+    
+
+    
+    stickerView                     = [self _CreateCommonSticker: indexPath];
+    if ( nil == stickerView )
+    {
+        return cell;
+    }
+    
+    [cell                           setBackgroundView: stickerView];
     return cell;
 }
 
@@ -255,7 +360,11 @@
 //  ------------------------------------------------------------------------------------------------
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 0;
+    if ( nil == sectionStates )
+    {
+        return 0;
+    }
+    return [sectionStates numberOfSections];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -300,7 +409,18 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark protocol optional for UICollectionViewDelegate.
 //  ------------------------------------------------------------------------------------------------
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog( @"( %d, %d )", indexPath.section, indexPath.row );
+    
+//    NSLog( @"%@", [NSLocale availableLocaleIdentifiers]);
+    
+}
+
+//  ------------------------------------------------------------------------------------------------
+
 
 @end
 
