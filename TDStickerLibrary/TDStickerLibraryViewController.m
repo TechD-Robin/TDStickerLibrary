@@ -17,7 +17,7 @@
 #import "TDStickerLibraryViewController.h"
 
 #import "TDBaseTabMenuItem.h"
-
+#import "TDStickerLibraryTabPageView.h"
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -83,6 +83,8 @@
 - ( BOOL ) _CreateBannerView;
 - ( BOOL ) _CreateTabMenu;
 - ( BOOL ) _CreateTabMenuItemsWithRelations;
+
+- ( BOOL ) _CreateStartTabPage;
 
 - ( id ) _CreateTabPage:(NSInteger)index;;
 - ( id ) _CreateTabMenuItem:(NSArray *)imagesName index:(NSInteger)index;
@@ -270,13 +272,11 @@
     NSArray                       * imagesName;
     NSData                        * imageData;
     TDBaseTabMenuItem             * baseItem;
-    UIView                        * relationView;
     
     index                           = 0;
     imagesName                      = nil;
     imageData                       = nil;
     baseItem                        = nil;
-    relationView                    = nil;
     for ( int i = 0; i < [tabConfigure infoDataCount]; ++i )
     {
         //  when disable info.
@@ -284,14 +284,6 @@
         {
             continue;
         }
-        
-        //  create page view.
-        relationView                = [self _CreateTabPage: index];
-        if ( nil == relationView )
-        {
-            continue;
-        }
-        
         
         //  create tab menu item.
         imagesName                  = [tabConfigure imagesNameAtIndex: i];
@@ -305,11 +297,48 @@
         {
             continue;
         }
+        [baseItem                   setTag: ( i + 1 )];     //  index key.( tag index )
         
         index++;
-        [baseItem                   setRelationView: relationView];
     }
     
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateStartTabPage
+{
+    //  if have save to configure, load it.
+    NSInteger                       loadIndex;
+    
+    loadIndex                       = [tabConfigure indexOfInfoDataEnabledAtOrder: 1];  //  tag index to array index.
+    UIView                        * relationView;
+    
+    relationView                    = [self _CreateTabPage: loadIndex];
+    if ( nil == relationView )
+    {
+        return NO;
+    }
+    
+    if ( ( nil == tabMenu ) || ( [[tabMenu subviews] count] == 0 ) )
+    {
+        return NO;
+    }
+    
+    for ( id idObject in [tabMenu subviews] )
+    {
+        if ( ( nil == idObject ) || ( [idObject isKindOfClass: [TDBaseTabMenuItem class] ] == NO ) )
+        {
+            continue;
+        }
+        
+        if ( ( [idObject tag] - 1 )== loadIndex )
+        {
+            
+            [idObject               setHighlighted: YES];
+            break;
+        }
+    }
     return YES;
 }
 
@@ -327,17 +356,33 @@
 
     UIView                        * view;
     CGRect                          viewRect;
+    NSString                      * configure;
     
+    configure                       = [tabConfigure configureNameAtIndex: index];       //  array index. ( tag index - 1 ).
     viewRect                        = CGRectMake( 0.0f, subviewTop, screenWidth, viewHeight );
-    view                            = [[UIView alloc] initWithFrame: viewRect];
+    view                            = [TDStickerLibraryTabPageView tabPageWithFrame: viewRect customization: customizationParam];
     if ( nil == view )
     {
         return nil;
     }
-    
-    [view                           setHidden: YES];
+    [view                           setHidden: NO];
     [[self                          view] addSubview: view];
     
+    
+    //  link relation tab item.
+    for ( id idObject in [tabMenu subviews] )
+    {
+        if ( ( nil == idObject ) || ( [idObject isKindOfClass: [TDBaseTabMenuItem class] ] == NO ) )
+        {
+            continue;
+        }
+        
+        if ( ( [idObject tag] - 1 ) == index )
+        {
+            [idObject               setRelationView: view];
+            break;
+        }
+    }
     
     
     //  just to make out for test.
@@ -390,7 +435,13 @@
     itemSizeInset                   = [customizationParam tabMenuItemSizeInset];
     itemRect                        = CGRectMake( (index * itemSize.width ), 0.0f, itemSize.width, itemSize.height );
     itemRect                        = CGRectInset( itemRect, itemSizeInset.width , itemSizeInset.height );
-    baseItem                        = [TDBaseTabMenuItem tabMenuItemWithFrame: itemRect image: image highlightedImage: imageHighLight];
+    baseItem                        = [TDBaseTabMenuItem tabMenuItemWithFrame: itemRect image: image highlightedImage: imageHighLight create: ^( NSInteger tag )
+    {
+        //  create relation object for baseItem by tag.
+        [self                       _CreateTabPage: ( tag - 1 )];    //  index key.( tag index )
+    }];
+    
+    
     if ( nil == baseItem )
     {
         return nil;
@@ -482,6 +533,8 @@
     
     [self                           _CreateTabMenu];
     [self                           _CreateTabMenuItemsWithRelations];
+    
+    [self                           _CreateStartTabPage];
     
     [[self view] setBackgroundColor: [UIColor darkGrayColor]];
     NSLog( @"%s",  [NSStringFromCGRect( [[self view] bounds] ) UTF8String] );

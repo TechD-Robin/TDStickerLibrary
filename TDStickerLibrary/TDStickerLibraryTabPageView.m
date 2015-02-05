@@ -93,6 +93,10 @@
     customizationParam              = nil;
     
     pageConfigure                   = nil;
+    
+    
+    [self                           setDataSource: self];
+    [self                           setDelegate: self];
 }
 
 //  ------------------------------------------------------------------------------------------------
