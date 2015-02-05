@@ -70,6 +70,9 @@
 - ( void ) _RegisterClasses;
 
 //  ------------------------------------------------------------------------------------------------
+- ( void ) _LoadSystemConfigure:(NSString *)configure forKey:(NSString *)aKey;
+
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
@@ -112,6 +115,20 @@
                        forSupplementaryViewOfKind: UICollectionElementKindSectionHeader
                               withReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionHeader class] )];
 }
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _LoadSystemConfigure:(NSString *)configure forKey:(NSString *)aKey
+{
+    pageConfigure                   = [TDStickerLibraryTabPageInfo loadDataFromZip: configure forDirectories: TDResourcesDirectory inDirectory: [customizationParam configureResource] inZippedPath: configure configure: aKey];
+    if ( nil == pageConfigure )
+    {
+        return;
+    }
+    
+    
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -170,10 +187,16 @@
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) initWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
+                            data:(NSString *)configure forKey:(NSString *)aKey
 {
     if ( nil == customization )
     {
         NSLog( @"customization parameter cannot nil." );
+        return nil;
+    }
+    if ( ( nil == configure ) || ( nil == aKey ) )
+    {
+        NSLog( @"data parameter cannot nil." );
         return nil;
     }
     
@@ -196,15 +219,17 @@
     }
     [self                           _InitAttributes];
     [self                           _RegisterClasses];
-    
     customizationParam              = customization;
+    
+    [self                           _LoadSystemConfigure: configure forKey: aKey];
     return self;
 }
 
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) tabPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
+                               data:(NSString *)configure forKey:(NSString *)aKey
 {
-    return [[[self class] alloc] initWithFrame: frame customization: customization];
+    return [[[self class] alloc] initWithFrame: frame customization: customization data: configure forKey: aKey];
 }
 
 //  ------------------------------------------------------------------------------------------------
