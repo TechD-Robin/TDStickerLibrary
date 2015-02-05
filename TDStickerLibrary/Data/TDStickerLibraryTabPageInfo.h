@@ -36,6 +36,17 @@
                    configure:(NSString *)rootKey;
 
 //  ------------------------------------------------------------------------------------------------
+- ( NSString * ) dataIDAtIndex:(NSInteger)index;
+
+- ( NSString * ) dataTitleAtIndex:(NSInteger)index;
+
+- ( NSInteger ) countOfImageDataAtIndex:(NSInteger)index;
+
+- ( NSString * ) imageNameAtIndex:(NSInteger)index inArray:(NSInteger)inArrayIndex;
+
+- ( NSData * ) imageDataForKey:(NSString *)aKey;
+
+//  ------------------------------------------------------------------------------------------------
 
 
 @end
