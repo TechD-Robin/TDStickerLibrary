@@ -49,6 +49,7 @@
 		2AB7068F1A700918006C6845 /* TDStickerLibraryCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7068E1A700918006C6845 /* TDStickerLibraryCustomization.m */; };
 		2ABD8E371A714E9300626356 /* TDBaseTabMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABD8E361A714E9300626356 /* TDBaseTabMenuItem.m */; };
 		2AF2FE8C1A7A7E9400793CD2 /* TDTexturePakcerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2FE8B1A7A7E9400793CD2 /* TDTexturePakcerXMLReader.m */; };
+		2AFDFAD71A838B8D00A82E55 /* TDStickerLibrarySectionStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AFDFAD61A838B8D00A82E55 /* TDStickerLibrarySectionStates.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +165,8 @@
 		2AF2FE8A1A7A7E9400793CD2 /* TDTexturePakcerXMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTexturePakcerXMLReader.h; path = Libraries/TDFoundation/TDFoundation/TDTexturePakcerXMLReader.h; sourceTree = "<group>"; };
 		2AF2FE8B1A7A7E9400793CD2 /* TDTexturePakcerXMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTexturePakcerXMLReader.m; path = Libraries/TDFoundation/TDFoundation/TDTexturePakcerXMLReader.m; sourceTree = "<group>"; };
 		2AF2FE8D1A7A9E9200793CD2 /* TDFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDFoundation.h; path = Libraries/TDFoundation/TDFoundation/TDFoundation.h; sourceTree = "<group>"; };
+		2AFDFAD51A838B8D00A82E55 /* TDStickerLibrarySectionStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibrarySectionStates.h; sourceTree = "<group>"; };
+		2AFDFAD61A838B8D00A82E55 /* TDStickerLibrarySectionStates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrarySectionStates.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,6 +402,8 @@
 				2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */,
 				2A47436C1A823CE30057586A /* TDStickerLibraryTabPageInfo.h */,
 				2A47436D1A823CE30057586A /* TDStickerLibraryTabPageInfo.m */,
+				2AFDFAD51A838B8D00A82E55 /* TDStickerLibrarySectionStates.h */,
+				2AFDFAD61A838B8D00A82E55 /* TDStickerLibrarySectionStates.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -522,6 +527,7 @@
 				2A47437D1A82710C0057586A /* TDStickerLibrarySectionPreviewCell.m in Sources */,
 				2AB7062C1A6FDFE4006C6845 /* zip.c in Sources */,
 				2A47436E1A823CE30057586A /* TDStickerLibraryTabPageInfo.m in Sources */,
+				2AFDFAD71A838B8D00A82E55 /* TDStickerLibrarySectionStates.m in Sources */,
 				2A4743801A8272050057586A /* TDStickerLibraryTabPageView.m in Sources */,
 				2A47437A1A8270140057586A /* TDStickerLibrarySectionHeader.m in Sources */,
 				2AADF4BF1A69599E0026EF9D /* TDStickerLibrary.m in Sources */,
