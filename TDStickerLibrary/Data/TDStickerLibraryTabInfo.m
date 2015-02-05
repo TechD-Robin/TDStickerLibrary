@@ -260,6 +260,27 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( NSString * ) configureKeyAtIndex:(NSInteger)index
+{
+    NSDictionary                  * infoData;
+    NSString                      * name;
+    
+    name                            = nil;
+    infoData                        = [self infoDataAtIndex: index];
+    if ( nil == infoData )
+    {
+        return nil;
+    }
+    
+    name                            = [infoData objectForKey: kTDTabInfoKeyName];
+    if ( ( nil == name ) || ( [name length] == 0 ) )
+    {
+        return nil;
+    }
+    return name;
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( NSString * ) configureNameAtIndex:(NSInteger)index
 {
     NSDictionary                  * infoData;
