@@ -55,6 +55,7 @@
 		2ABD8E321A7142BC00626356 /* Configure in Resources */ = {isa = PBXBuildFile; fileRef = 2ABD8E311A7142BC00626356 /* Configure */; };
 		2ABD8E3D1A714F5100626356 /* TDBaseTabMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABD8E3C1A714F5100626356 /* TDBaseTabMenuItem.m */; };
 		2AF2FE911A7AB1F100793CD2 /* TDTexturePakcerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2FE901A7AB1F100793CD2 /* TDTexturePakcerXMLReader.m */; };
+		2AFDFADA1A83A95F00A82E55 /* TDStickerLibrarySectionStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AFDFAD91A83A95F00A82E55 /* TDStickerLibrarySectionStates.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +167,8 @@
 		2AF2FE8E1A7AB1CC00793CD2 /* TDFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFoundation.h; path = ../../Libraries/TDFoundation/TDFoundation/TDFoundation.h; sourceTree = "<group>"; };
 		2AF2FE8F1A7AB1F100793CD2 /* TDTexturePakcerXMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTexturePakcerXMLReader.h; path = ../../Libraries/TDFoundation/TDFoundation/TDTexturePakcerXMLReader.h; sourceTree = "<group>"; };
 		2AF2FE901A7AB1F100793CD2 /* TDTexturePakcerXMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTexturePakcerXMLReader.m; path = ../../Libraries/TDFoundation/TDFoundation/TDTexturePakcerXMLReader.m; sourceTree = "<group>"; };
+		2AFDFAD81A83A95F00A82E55 /* TDStickerLibrarySectionStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibrarySectionStates.h; sourceTree = "<group>"; };
+		2AFDFAD91A83A95F00A82E55 /* TDStickerLibrarySectionStates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrarySectionStates.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,6 +437,8 @@
 				2AB706921A700EB0006C6845 /* TDStickerLibraryTabInfo.m */,
 				2A47436F1A82689B0057586A /* TDStickerLibraryTabPageInfo.h */,
 				2A4743701A82689B0057586A /* TDStickerLibraryTabPageInfo.m */,
+				2AFDFAD81A83A95F00A82E55 /* TDStickerLibrarySectionStates.h */,
+				2AFDFAD91A83A95F00A82E55 /* TDStickerLibrarySectionStates.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -596,6 +601,7 @@
 				2AB706721A6FE2FB006C6845 /* AFURLSessionManager.m in Sources */,
 				2AADF4E81A695B9D0026EF9D /* ViewController.m in Sources */,
 				2AB706741A6FE2FB006C6845 /* README.md in Sources */,
+				2AFDFADA1A83A95F00A82E55 /* TDStickerLibrarySectionStates.m in Sources */,
 				2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */,
 				2AF2FE911A7AB1F100793CD2 /* TDTexturePakcerXMLReader.m in Sources */,
 				2AB706931A700EB0006C6845 /* TDStickerLibraryTabInfo.m in Sources */,
