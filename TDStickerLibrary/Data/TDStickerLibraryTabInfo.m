@@ -219,6 +219,27 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( NSInteger ) indexOfInfoDataEnabledAtOrder:(NSInteger)order
+{
+    NSInteger                       count;
+    
+    count                           = 0;
+    for ( int i = 0; i < [self infoDataCount]; ++i )
+    {
+        if ( [self isInfoDataEnabledAtIndex: i] == NO )
+        {
+            continue;
+        }
+        count++;
+        if ( count == order )
+        {
+            return i;
+        }
+    }
+    return 0;
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( NSArray * ) imagesNameAtIndex:(NSInteger)index
 {
     NSDictionary                  * infoData;
