@@ -34,6 +34,8 @@
 {
     NSMutableArray                * sectionStates;
     
+    NSMutableDictionary           * currentState;
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -62,6 +64,8 @@
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
+- ( NSDictionary * ) _GetStateInfoAtIndex:(NSInteger)index;
+
 //  ------------------------------------------------------------------------------------------------
 
 @end
@@ -80,15 +84,25 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
 - ( void ) _InitAttributes
 {
     sectionStates                   = nil;
+    
+    currentState                    = nil;
     
     sectionStates                   = [NSMutableArray new];
 }
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( NSDictionary * ) _GetStateInfoAtIndex:(NSInteger)index
+{
+    if ( ( nil == sectionStates ) || ( [sectionStates count] == 0 ) )
+    {
+        return nil;
+    }
+    return [sectionStates objectAtIndex: index];
+}
 //  ------------------------------------------------------------------------------------------------
 
 
@@ -128,6 +142,12 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
+    if ( nil != sectionStates )
+    {
+        SAFE_ARC_RELEASE( sectionStates );
+        SAFE_ARC_ASSIGN_POINTER_NIL( sectionStates );
+    }
+    
     SAFE_ARC_SUPER_DEALLOC();
 }
 
@@ -136,10 +156,71 @@
 #pragma mark method create the object.
 //  ------------------------------------------------------------------------------------------------
 
+//  ------------------------------------------------------------------------------------------------
++ ( instancetype ) sectionStates
+{
+    return [[[self class] alloc] init];
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+//  --------------------------------
+- ( BOOL ) insertStateDataForKey:(NSString *)aKey
+{
+    if ( nil == aKey )
+    {
+        return NO;
+    }
+    
+    currentState                    = nil;
+    currentState                    = [NSMutableDictionary new];
+    if ( nil == currentState )
+    {
+        return NO;
+    }
+    
+    [currentState                   setValue: aKey forKey: @"ID"];
+    
 
+    [sectionStates                  addObject: currentState];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) updateImagesCount:(NSInteger)count
+{
+    if ( nil == currentState )
+    {
+        return NO;
+    }
+    [currentState                   setValue: [NSNumber numberWithInteger: count] forKey: @"ImagesCount"];
+    [currentState                   setValue: [NSNumber numberWithInteger: count] forKey: @"ShowImagesCount"];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( NSInteger ) numberOfSections
+{
+    if ( nil == sectionStates )
+    {
+        return 0;
+    }
+    return [sectionStates count];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSInteger ) numberOfImagesInSection:(NSInteger)section
+{
+    NSDictionary                  * stateInfo;
+    
+    stateInfo                       = [self _GetStateInfoAtIndex: section];
+    if ( nil == stateInfo )
+    {
+        return 0;
+    }
+    return [[stateInfo objectForKey: @"ShowImagesCount"] integerValue];
+}
 
 //  ------------------------------------------------------------------------------------------------
 
