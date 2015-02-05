@@ -29,6 +29,12 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare property ()
 @interface TDBaseTabMenuItem()
+{
+    /**
+     *  assign the block method pointer when relation view need to be created.
+     */
+    CreateRelationBlock             createRelationBlock;
+}
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -86,6 +92,8 @@
     [self                           setBackgroundColor: [UIColor clearColor]];
     [self                           setContentMode: UIViewContentModeScaleToFill];
     [self                           setUserInteractionEnabled: YES];
+    
+    createRelationBlock             = nil;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -111,6 +119,13 @@
     if ( [self relationView] != nil )
     {
         [[self                      relationView] setHidden: NO];
+    }
+    else
+    {
+        if ( nil != createRelationBlock )
+        {
+            createRelationBlock( [self tag] );
+        }
     }
     
     for ( TDBaseTabMenuItem * subview in [[self superview] subviews] )
@@ -158,7 +173,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) initWithFrame:(CGRect)frame
 {
-    return [[[self class] alloc] initWithFrame: frame image: nil highlightedImage: nil];
+    return [[[self class] alloc] initWithFrame: frame image: nil highlightedImage: nil create: nil];
 }
 
 
@@ -166,6 +181,7 @@
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) initWithFrame:(CGRect)frame image:(UIImage *)image highlightedImage:(UIImage *)highlightedImage
+                          create:(CreateRelationBlock)relation
 {
     self                            = [super initWithFrame: frame];
     if ( nil == self )
@@ -177,19 +193,40 @@
     [self                           _InitGestureRecognizer];
     [self                           setImage: image];
     [self                           setHighlightedImage: highlightedImage];
+    if ( nil != relation )
+    {
+        createRelationBlock         = relation;
+    }
+    
     return self;
 }
 
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) tabMenuItemWithFrame:(CGRect)frame image:(UIImage *)image
 {
-    return [[self alloc] initWithFrame: frame image: image highlightedImage: nil];
+//    return [[self alloc] initWithFrame: frame image: image highlightedImage: nil];
+    return [[[self class] alloc] initWithFrame: frame image: image highlightedImage: nil create: nil];
 }
 
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) tabMenuItemWithFrame:(CGRect)frame image:(UIImage *)image highlightedImage:(UIImage *)highlightedImage
 {
-    return [[self alloc] initWithFrame: frame image: image highlightedImage: highlightedImage];
+//    return [[self alloc] initWithFrame: frame image: image highlightedImage: highlightedImage];
+    return [[[self class] alloc] initWithFrame: frame image: image highlightedImage: highlightedImage create: nil];
+}
+
+//  ------------------------------------------------------------------------------------------------
++ ( instancetype ) tabMenuItemWithFrame:(CGRect)frame image:(UIImage *)image
+                                 create:(CreateRelationBlock)relation
+{
+    return [[[self class] alloc] initWithFrame: frame image: image highlightedImage: nil create: relation];
+}
+
+//  ------------------------------------------------------------------------------------------------
++ ( instancetype ) tabMenuItemWithFrame:(CGRect)frame image:(UIImage *)image highlightedImage:(UIImage *)highlightedImage
+                                 create:(CreateRelationBlock)relation
+{
+    return [[[self class] alloc] initWithFrame: frame image: image highlightedImage: highlightedImage create: relation];
 }
 
 //  ------------------------------------------------------------------------------------------------

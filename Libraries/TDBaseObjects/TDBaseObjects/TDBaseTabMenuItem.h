@@ -12,6 +12,16 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief define type of block method pointer for relation object need to be created.
+ *
+ *  @param tag                      index key for the object and relation object.
+ *
+ *  @return void                    nothing.
+ */
+typedef   void(^CreateRelationBlock)(NSInteger tag);
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -58,6 +68,34 @@
 
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a base Tab Menu Item  Object with frame & a image, and a block method.
+ *  create a base Tab Menu Item  Object with frame & a image, and a block method.
+ *
+ *  @param frame                    item's frame.
+ *  @param image                    a image attach to the item object for show.
+ *  @param relation                 a block method(callback) for relation object need to be created.
+ *
+ *  @return object|nil              the base Tab Menu Item Object or nil.
+ */
+
++ ( instancetype ) tabMenuItemWithFrame:(CGRect)frame image:(UIImage *)image
+                                 create:(CreateRelationBlock)relation;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @create a base Tab Menu Item  Object with frame & a image, high lighted image and a block method.
+ *  create a base Tab Menu Item  Object with frame & a image, high lighted image and a block method.
+ *
+ *  @param frame                    item's frame.
+ *  @param image                    a image attach to the item object for show.
+ *  @param highlightedImage         a image attach to the item object for object set to high lighted.
+ *  @param relation                 a block method(callback) for relation object need to be created.
+ *
+ *  @return object|nil              the base Tab Menu Item Object or nil.
+ */
++ ( instancetype ) tabMenuItemWithFrame:(CGRect)frame image:(UIImage *)image highlightedImage:(UIImage *)highlightedImage
+                                 create:(CreateRelationBlock)relation;
 
 
 @end
