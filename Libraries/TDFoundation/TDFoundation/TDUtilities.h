@@ -44,4 +44,25 @@ NSString * TDGetPathForDirectories( TDGetPathDirectory directory, NSString * nam
 //  ------------------------------------------------------------------------------------------------
 
 
+NSString * TDGetImageNameForScreenScale( NSString * imageName, NSInteger scaleScreen );
+
+
+//  ------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

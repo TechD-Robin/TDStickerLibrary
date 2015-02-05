@@ -69,10 +69,6 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
-- ( NSString * ) _GetImageDataKeyForScreenScale:(NSString *)aKey;
-
-
-//  ------------------------------------------------------------------------------------------------
 
 @end
 
@@ -95,34 +91,6 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 - ( void ) _InitAttributes
 {
 
-}
-
-//  ------------------------------------------------------------------------------------------------
-- ( NSString * ) _GetImageDataKeyForScreenScale:(NSString *)aKey
-{
-    if ( nil == aKey )
-    {
-        return nil;
-    }
-    
-    // split & check aKey
-    NSString                      * file;
-    NSString                      * extension;
-    
-    file                            = aKey;
-    extension                       = [aKey pathExtension];
-    if ( [[extension lowercaseString] isEqualToString: @"png"] == YES )
-    {
-        return aKey;
-    }
-    if ( ( nil != extension ) && ( [extension length] != 0 ) )
-    {
-        file                            = [aKey substringToIndex: ( [aKey length] - 4 )];
-    }
-
-    file                            = [NSString stringWithFormat: @"%s@%dx", [file UTF8String], (int)[[UIScreen mainScreen] scaleMultiple]];
-    aKey                            = [file stringByAppendingPathExtension: @"png"];
-    return aKey;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -255,7 +223,7 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 - ( NSData * ) imageDataForKey:(NSString *)aKey
 {
-    aKey                            = [self _GetImageDataKeyForScreenScale: aKey];
+    aKey                            = TDGetImageNameForScreenScale( aKey, [[UIScreen mainScreen] scaleMultiple] );
     return [self unzipDataForKey: aKey];
 }
 

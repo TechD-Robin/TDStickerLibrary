@@ -80,7 +80,32 @@ NSString * TDGetPathForDirectories( TDGetPathDirectory directory, NSString * nam
 
 
 //  ------------------------------------------------------------------------------------------------
-
+NSString * TDGetImageNameForScreenScale( NSString * imageName, NSInteger scaleScreen )
+{
+    if ( nil == imageName )
+    {
+        return nil;
+    }
+    
+    // split & check aKey
+    NSString                      * file;
+    NSString                      * extension;
+    
+    file                            = imageName;
+    extension                       = [imageName pathExtension];
+    if ( [[extension lowercaseString] isEqualToString: @"png"] == YES )
+    {
+        return imageName;
+    }
+    if ( ( nil != extension ) && ( [extension length] != 0 ) )
+    {
+        file                            = [imageName substringToIndex: ( [imageName length] - 4 )];
+    }
+    
+    file                            = [NSString stringWithFormat: @"%s@%dx", [file UTF8String], scaleScreen];
+    imageName                       = [file stringByAppendingPathExtension: @"png"];
+    return imageName;
+}
 
 
 //  ------------------------------------------------------------------------------------------------
