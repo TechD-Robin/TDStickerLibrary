@@ -33,6 +33,8 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) isInfoDataEnabledAtIndex:(NSInteger)index;
 
+- ( NSInteger ) indexOfInfoDataEnabledAtOrder:(NSInteger)order;
+
 - ( NSArray * ) imagesNameAtIndex:(NSInteger)index;
 
 - ( NSData * ) imageDataForKey:(NSString *)aKey;
