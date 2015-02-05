@@ -23,7 +23,8 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create the object.
 //  ------------------------------------------------------------------------------------------------
-+ ( instancetype ) tabPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization;
++ ( instancetype ) tabPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
+                               data:(NSString *)configure forKey:(NSString *)aKey;
 
 
 //  ------------------------------------------------------------------------------------------------

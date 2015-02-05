@@ -357,16 +357,25 @@
     UIView                        * view;
     CGRect                          viewRect;
     NSString                      * configure;
+    NSString                      * configureKey;
     
     configure                       = [tabConfigure configureNameAtIndex: index];       //  array index. ( tag index - 1 ).
+    configureKey                    = [tabConfigure configureKeyAtIndex: index];        //  array index. ( tag index - 1 ).
+    if ( ( nil == configure ) || ( nil == configureKey ) )
+    {
+        return nil;
+    }
+    
     viewRect                        = CGRectMake( 0.0f, subviewTop, screenWidth, viewHeight );
-    view                            = [TDStickerLibraryTabPageView tabPageWithFrame: viewRect customization: customizationParam];
+    view                            = [TDStickerLibraryTabPageView tabPageWithFrame: viewRect customization: customizationParam data: configure forKey: configureKey];
     if ( nil == view )
     {
         return nil;
     }
     [view                           setHidden: NO];
     [[self                          view] addSubview: view];
+    
+    NSLog( @"%@", configure );
     
     
     //  link relation tab item.
