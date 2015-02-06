@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A1134FA1A84C6D0004BBFDC /* TDGeometricFigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1134F51A84C6D0004BBFDC /* TDGeometricFigure.m */; };
+		2A1134FB1A84C6D0004BBFDC /* TDMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1134F71A84C6D0004BBFDC /* TDMath.m */; };
+		2A1134FC1A84C6D0004BBFDC /* TDTrigonometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1134F91A84C6D0004BBFDC /* TDTrigonometry.m */; };
 		2A47436B1A8220250057586A /* TDStickerLibraryUnzip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A47436A1A8220250057586A /* TDStickerLibraryUnzip.m */; };
 		2A4743711A82689B0057586A /* TDStickerLibraryTabPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743701A82689B0057586A /* TDStickerLibraryTabPageInfo.m */; };
 		2A4743741A826CFC0057586A /* TDStickerLibraryTabPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743731A826CFC0057586A /* TDStickerLibraryTabPageLayout.m */; };
@@ -69,6 +72,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A1134F41A84C6D0004BBFDC /* TDGeometricFigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDGeometricFigure.h; sourceTree = "<group>"; };
+		2A1134F51A84C6D0004BBFDC /* TDGeometricFigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDGeometricFigure.m; sourceTree = "<group>"; };
+		2A1134F61A84C6D0004BBFDC /* TDMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDMath.h; sourceTree = "<group>"; };
+		2A1134F71A84C6D0004BBFDC /* TDMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDMath.m; sourceTree = "<group>"; };
+		2A1134F81A84C6D0004BBFDC /* TDTrigonometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTrigonometry.h; sourceTree = "<group>"; };
+		2A1134F91A84C6D0004BBFDC /* TDTrigonometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTrigonometry.m; sourceTree = "<group>"; };
 		2A4743691A8220250057586A /* TDStickerLibraryUnzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUnzip.h; sourceTree = "<group>"; };
 		2A47436A1A8220250057586A /* TDStickerLibraryUnzip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUnzip.m; sourceTree = "<group>"; };
 		2A47436F1A82689B0057586A /* TDStickerLibraryTabPageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryTabPageInfo.h; sourceTree = "<group>"; };
@@ -190,6 +199,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A1134F31A84C6D0004BBFDC /* TDMath */ = {
+			isa = PBXGroup;
+			children = (
+				2A1134F61A84C6D0004BBFDC /* TDMath.h */,
+				2A1134F71A84C6D0004BBFDC /* TDMath.m */,
+				2A1134F41A84C6D0004BBFDC /* TDGeometricFigure.h */,
+				2A1134F51A84C6D0004BBFDC /* TDGeometricFigure.m */,
+				2A1134F81A84C6D0004BBFDC /* TDTrigonometry.h */,
+				2A1134F91A84C6D0004BBFDC /* TDTrigonometry.m */,
+			);
+			name = TDMath;
+			path = ../../Libraries/TDMath;
+			sourceTree = "<group>";
+		};
 		2A77AF081A7410DC00BCC63F /* TDFoundation */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +295,7 @@
 		2AADF5101A6971D10026EF9D /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2A1134F31A84C6D0004BBFDC /* TDMath */,
 				2A77AF081A7410DC00BCC63F /* TDFoundation */,
 				2AADF5111A6971F50026EF9D /* UIKit+TechD */,
 				2ABD8E331A714D9500626356 /* TDBaseObjects */,
@@ -583,6 +607,8 @@
 				2ABD8E3D1A714F5100626356 /* TDBaseTabMenuItem.m in Sources */,
 				2A4743711A82689B0057586A /* TDStickerLibraryTabPageInfo.m in Sources */,
 				2A4743891A827D350057586A /* TDStickerLibraryTabPageView.m in Sources */,
+				2A1134FC1A84C6D0004BBFDC /* TDTrigonometry.m in Sources */,
+				2A1134FB1A84C6D0004BBFDC /* TDMath.m in Sources */,
 				2AB706711A6FE2FB006C6845 /* AFURLResponseSerialization.m in Sources */,
 				2AB706811A6FE2FB006C6845 /* zip.c in Sources */,
 				2AB706831A6FE2FB006C6845 /* ZipArchive.m in Sources */,
@@ -596,6 +622,7 @@
 				2A4743741A826CFC0057586A /* TDStickerLibraryTabPageLayout.m in Sources */,
 				2AB706761A6FE2FB006C6845 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2AB7067E1A6FE2FB006C6845 /* ioapi.c in Sources */,
+				2A1134FA1A84C6D0004BBFDC /* TDGeometricFigure.m in Sources */,
 				2AB706751A6FE2FB006C6845 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				2AB7066A1A6FE2FB006C6845 /* AFHTTPRequestOperation.m in Sources */,
 				2AB706721A6FE2FB006C6845 /* AFURLSessionManager.m in Sources */,
