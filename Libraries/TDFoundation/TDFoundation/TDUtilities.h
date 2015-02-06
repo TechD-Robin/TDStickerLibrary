@@ -42,8 +42,15 @@ typedef NS_ENUM( NSUInteger, TDGetPathDirectory ){
 NSString * TDGetPathForDirectories( TDGetPathDirectory directory, NSString * name, NSString * typeExt, NSString * inDirectorySubpath );
 
 //  ------------------------------------------------------------------------------------------------
-
-
+/**
+ *  @brief get the image name with scale when the name without ext port.
+ *  get the image name with scale when the name without ext port. ( like 'name' to 'name@2x.png', 'name@3x.png' ).
+ *
+ *  @param imageName                file name of image. (png)
+ *  @param scaleScreen              scale of Canvas Size (pts) to Design Canvas (px).
+ *
+ *  @return image name|nil          the name with scale|nil
+ */
 NSString * TDGetImageNameForScreenScale( NSString * imageName, NSInteger scaleScreen );
 
 
