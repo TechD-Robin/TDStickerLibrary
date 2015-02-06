@@ -12,6 +12,7 @@
     #define _UIKIT_TECHD_
 
     #import "UIScreen+TechD.h"
+    #import "UIImageView+TechD.h"
 
     #import "NSLayoutConstraint+TechD.h"
 #endif  //  End of _UIKIT_TECHD_.
