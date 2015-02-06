@@ -937,6 +937,10 @@ static  NSString * const kTDLayoutAttributesKeyFooter       = @"FooterLayout";
 #if defined(_debug_system_code_)
     return;
 #endif
+    if ( [self idDelegate] == nil )
+    {
+        NSLog( @"!!!!Warning!!!! maybe lose to assign delegate of the class: %s ", [NSStringFromClass( [self class] ) UTF8String] );
+    }
 
     if ( nil == layoutAttributesContainer )
     {
