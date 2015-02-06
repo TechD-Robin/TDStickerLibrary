@@ -13,6 +13,8 @@
     #import "ARCMacros.h"
 #endif  //  End of __ARCMacros_H__.
 
+#import "UIKit+TechD.h"
+
 #import "TDStickerLibraryTabPageView.h"
 #import "TDStickerLibraryTabPageLayout.h"
 #import "TDStickerLibrarySectionHeader.h"
@@ -207,7 +209,8 @@
         return nil;
     }
     
-    stickerView                     = [[UIImageView alloc] initWithImage: stickerImage];
+    //stickerView                     = [[UIImageView alloc] initWithImage: stickerImage];
+    stickerView                     = [UIImageView proportionalImageView: stickerImage reference: [customizationParam tableCommonItemSize] originWith: [customizationParam tableCommonItemSize]];
     if ( nil == stickerView )
     {
         SAFE_ARC_RELEASE( image );
@@ -297,6 +300,8 @@
         NSLog( @"create table layout fail." );
         return nil;
     }
+    [layout                         setIdDelegate: self];
+    [layout                         setScrollDirection: UICollectionViewScrollDirectionVertical];
     [layout                         setItemSize: [customization tableCommonItemSize]];
     [layout                         setSectionInset: [customization tableCommonSectionInset]];
     [layout                         setHeaderReferenceSize: [customization tableCommonHeaderReferenceSize]];
@@ -405,7 +410,11 @@
 //  ------------------------------------------------------------------------------------------------
 - ( CGSize ) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    return [customizationParam tableCommonHeaderReferenceSize];
+    if ( [(UICollectionViewFlowLayout *)collectionViewLayout scrollDirection] == UICollectionViewScrollDirectionHorizontal )
+    {
+        return CGSizeMake( [customizationParam tableCommonHeaderReferenceSize].height, [collectionView frame].size.height );
+    }
+    return CGSizeMake( [collectionView frame].size.width, [customizationParam tableCommonHeaderReferenceSize].height );
 }
 
 //  ------------------------------------------------------------------------------------------------
