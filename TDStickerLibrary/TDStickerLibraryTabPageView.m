@@ -79,6 +79,27 @@
 - ( void ) _InitSectionStates;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for create object.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create layout of the collection view with customization.
+ *  create layout of the collection view with customization.
+ *
+ *  @param customization            customization object for the Sticker Library.
+ *
+ *  @return layout|nil              the layout object or nil.
+ */
++ ( UICollectionViewLayout * ) _CreateLayout:(TDStickerLibraryCustomization *)customization;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create sticker view(a cell view) of the collection view with index path.
+ *  create sticker view(a cell view) of the collection view with index path.
+ *
+ *  @param indexPath                indexPath object of table(collectionView).
+ *
+ *  @return sticker|nil             the sticker object or nil.
+ */
 - ( UIImageView * ) _CreateCommonSticker:(NSIndexPath *)indexPath;
 
 //  ------------------------------------------------------------------------------------------------
@@ -180,6 +201,28 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for create object.
+//  ------------------------------------------------------------------------------------------------
++ ( UICollectionViewLayout * ) _CreateLayout:(TDStickerLibraryCustomization *)customization
+{
+    TDStickerLibraryTabPageLayout * layout;
+    
+    layout                          = [TDStickerLibraryTabPageLayout new];
+    if ( nil == layout )
+    {
+        return nil;
+    }
+    
+    [layout                         setScrollDirection: UICollectionViewScrollDirectionVertical];
+    //[layout                         setScrollDirection: UICollectionViewScrollDirectionHorizontal];
+    
+    [layout                         setItemSize: [customization tableCommonItemSize]];
+    [layout                         setSectionInset: [customization tableCommonSectionInset]];
+    [layout                         setHeaderReferenceSize: [customization tableCommonHeaderReferenceSize]];
+    
+    return layout;
+}
+
 //  ------------------------------------------------------------------------------------------------
 - ( UIImageView * ) _CreateCommonSticker:(NSIndexPath *)indexPath
 {
@@ -294,17 +337,13 @@
     
     TDStickerLibraryTabPageLayout * layout;
     
-    layout                          = [TDStickerLibraryTabPageLayout new];
+    layout                          = (TDStickerLibraryTabPageLayout *)[[self class] _CreateLayout: customization];
     if ( nil == layout )
     {
         NSLog( @"create table layout fail." );
         return nil;
     }
     [layout                         setIdDelegate: self];
-    [layout                         setScrollDirection: UICollectionViewScrollDirectionVertical];
-    [layout                         setItemSize: [customization tableCommonItemSize]];
-    [layout                         setSectionInset: [customization tableCommonSectionInset]];
-    [layout                         setHeaderReferenceSize: [customization tableCommonHeaderReferenceSize]];
     
     self                            = [super initWithFrame: frame collectionViewLayout: layout];
     if ( nil == self )
