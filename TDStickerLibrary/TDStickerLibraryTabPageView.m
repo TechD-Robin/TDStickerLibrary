@@ -91,10 +91,23 @@
  */
 + ( UICollectionViewLayout * ) _CreateLayout:(TDStickerLibraryCustomization *)customization;
 
+
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief create sticker view(a cell view) of the collection view with index path.
- *  create sticker view(a cell view) of the collection view with index path.
+ *  @brief create header view of the collection view at index path.
+ *  create header view of the collection view at index path.
+ *
+ *  @param collectionView           the collection view object( header's super view )
+ *  @param indexPath                indexPath object of table(collectionView).
+ *
+ *  @return header|nil              the header object or nil.
+ */
+- (UICollectionReusableView *) _CreateSectionHeader:(UICollectionView *)collectionView atIndexPath:(NSIndexPath *)indexPath;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create sticker view(a cell view) of the collection view at index path.
+ *  create sticker view(a cell view) of the collection view at index path.
  *
  *  @param indexPath                indexPath object of table(collectionView).
  *
@@ -222,6 +235,36 @@
     
     return layout;
 }
+
+//  ------------------------------------------------------------------------------------------------
+- (UICollectionReusableView *) _CreateSectionHeader:(UICollectionView *)collectionView atIndexPath:(NSIndexPath *)indexPath
+{
+    if ( ( nil == collectionView ) || ( nil == indexPath ) )
+    {
+        return nil;
+    }
+    
+    NSString                      * title;
+    TDStickerLibrarySectionHeader * header;
+    
+    title                           = nil;
+    header                          = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
+                                                                         withReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionHeader class] ) forIndexPath: indexPath];
+    if ( nil == header )
+    {
+        return nil;
+    }
+    
+    title                           = [pageConfigure dataTitleAtIndex: indexPath.section];
+    if ( nil != title )
+    {
+        [header                     setSectionTitle: title];
+    }
+    
+    
+    return header;
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 - ( UIImageView * ) _CreateCommonSticker:(NSIndexPath *)indexPath
@@ -421,8 +464,7 @@
     
     TDStickerLibrarySectionHeader * header;
     
-    header                          = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
-                                                                         withReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionHeader class] ) forIndexPath: indexPath];
+    header                          = (TDStickerLibrarySectionHeader *)[self _CreateSectionHeader: collectionView atIndexPath: indexPath];
     if ( nil == header )
     {
         return nil;
