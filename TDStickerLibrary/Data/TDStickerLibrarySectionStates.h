@@ -25,12 +25,16 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) insertStateDataForKey:(NSString *)aKey;
 
-- ( BOOL ) updateImagesCount:(NSInteger)count;
+- ( BOOL ) updateImagesCountOfStateData:(NSInteger)count;
 
 //  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) numberOfSections;
 
 - ( NSInteger ) numberOfImagesInSection:(NSInteger)section;
+
+- ( BOOL ) updateNumberOfImages:(NSInteger)count inSection:(NSInteger)section;
+
+- ( NSInteger ) numberOfTotalImagesInSection:(NSInteger)section;
 
 //  ------------------------------------------------------------------------------------------------
 
