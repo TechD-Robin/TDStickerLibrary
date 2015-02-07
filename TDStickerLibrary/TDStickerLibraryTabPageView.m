@@ -117,6 +117,18 @@
 - ( UIImageView * ) _CreateCommonSticker:(NSIndexPath *)indexPath;
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief calculate preview mode image size of proportional for section at index.
+ *  calculate preview mode image size of proportional for section at index.
+ *
+ *  @param section                  section index.
+ *
+ *  @return size|ZeroSize           the result size or ZeroSize.
+ */
+- ( CGSize ) _calculatePreviewImageProportionalSizeForSectionAtIndex:(NSInteger)section;
+
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
@@ -192,10 +204,12 @@
     NSString                      * ID;
     NSInteger                       imageCount;
     NSInteger                       sectionMode;
+    CGSize                          previewSize;
     
     ID                              = nil;
     imageCount                      = 0;
     sectionMode                     = 0;
+    previewSize                     = CGSizeZero;
     for ( int i = 0; i < [pageConfigure infoDataCount]; ++i )
     {
         ID                          = [pageConfigure dataIDAtIndex: i];
@@ -214,6 +228,9 @@
         {
             continue;
         }
+        
+        previewSize                 = [self _calculatePreviewImageProportionalSizeForSectionAtIndex: i];
+        [sectionStates              updatePreviewImageSizeOfStateData: previewSize];
         
         
     }
@@ -314,6 +331,48 @@
     SAFE_ARC_ASSIGN_POINTER_NIL( image );
     return stickerView;
 }
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( CGSize ) _calculatePreviewImageProportionalSizeForSectionAtIndex:(NSInteger)section
+{
+    if ( ( nil == pageConfigure ) || ( nil == customizationParam ) )
+    {
+        return CGSizeZero;
+    }
+    
+    CGFloat                         ratio;
+    CGSize                          newSize;
+    NSData                        * imageData;
+    UIImage                       * previewImage;
+    UIEdgeInsets                    sectionInset;
+    
+    ratio                           = 1.0f;
+    previewImage                    = nil;
+    newSize                         = CGSizeZero;
+    imageData                       = [pageConfigure imageDataAtIndex: section inArray: 0];
+    sectionInset                    = [customizationParam tableCommonSectionInset];
+    if ( nil == imageData )
+    {
+        return CGSizeZero;
+    }
+    
+    previewImage                    = [UIImage imageWithData: imageData];
+    if ( nil == previewImage )
+    {
+        return CGSizeZero;
+    }
+
+    newSize                         = [self bounds].size;
+    newSize.width                   -= ( sectionInset.left + sectionInset.right );
+    ratio                           = ( [previewImage size].width / newSize.width );
+    newSize.height                  = ( [previewImage size].height / ratio );
+    
+    SAFE_ARC_RELEASE( previewImage );
+    SAFE_ARC_ASSIGN_POINTER_NIL( previewImage );
+    return newSize;
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -486,7 +545,16 @@
 //  ------------------------------------------------------------------------------------------------
 - ( CGSize ) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [customizationParam tableCommonItemSize];
+    if ( ( nil == customizationParam ) || ( nil == pageConfigure ) || ( nil == sectionStates ) )
+    {
+        return CGSizeZero;
+    }
+    
+    if ( [pageConfigure modeDataAtIndex: indexPath.section] == 0 )
+    {
+        return [customizationParam tableCommonItemSize];
+    }
+    return [sectionStates sizeOfPreviewImageInSection: indexPath.section];
 }
 
 //  ------------------------------------------------------------------------------------------------

@@ -9,6 +9,7 @@
 //  ------------------------------------------------------------------------------------------------
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -27,6 +28,9 @@
 
 - ( BOOL ) updateImagesCountOfStateData:(NSInteger)count;
 
+- ( BOOL ) updatePreviewImageSizeOfStateData:(CGSize)size;
+
+
 //  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) numberOfSections;
 
@@ -36,6 +40,7 @@
 
 - ( NSInteger ) numberOfTotalImagesInSection:(NSInteger)section;
 
+- (CGSize) sizeOfPreviewImageInSection:(NSInteger)section;
 //  ------------------------------------------------------------------------------------------------
 
 
