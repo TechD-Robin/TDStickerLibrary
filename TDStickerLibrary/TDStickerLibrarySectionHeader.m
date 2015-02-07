@@ -8,6 +8,9 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
+#ifndef __ARCMacros_H__
+    #import "ARCMacros.h"
+#endif  //  End of __ARCMacros_H__.
 
 #import "TDStickerLibrarySectionHeader.h"
 
@@ -56,6 +59,34 @@
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for create object.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create tap gesture recognizer and assign the action method for owner object.
+ *
+ *  @param ownerObject              owner object.
+ *  @param action                   a selector method of action.
+ *
+ *  @return YES|NO                  method success or failure
+ */
+- ( BOOL ) _CreateTapGestureRecognizer:(id)ownerObject action:(SEL)action;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create tap gesture recognizer.
+ *  create tap gesture recognizer for self (header object).
+ *
+ *  @return YES|NO                  method success or failure
+ */
+- ( BOOL ) _CreateTapAction;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a title lable.
+ *  create a title lable for header.
+ *
+ *  @return YES|NO                  method success or failure
+ */
 - ( BOOL ) _CreateTitle;
 
 //  ------------------------------------------------------------------------------------------------
@@ -82,12 +113,16 @@
     titleLabel                      = nil;
     
     
+    [self                           setSectionIndex: 0];
+    [self                           setSectionTitle: nil];
+    
     
     [self                           setBackgroundColor: [UIColor grayColor]];
 }
 
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for create object.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateTitle
 {
@@ -106,11 +141,67 @@
     [titleLabel                     setTextAlignment: NSTextAlignmentCenter];
     [self                           addSubview: titleLabel];
     
-    
     return YES;
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateTapGestureRecognizer:(id)ownerObject action:(SEL)action
+{
+    if ( nil == ownerObject )
+    {
+        return NO;
+    }
+    
+    UITapGestureRecognizer        * tap;
+    
+    tap                             = [[UITapGestureRecognizer alloc] initWithTarget: self action: action];
+    if ( nil == tap )
+    {
+        return NO;
+    }
+    
+    [ownerObject                    addGestureRecognizer: tap];
+    SAFE_ARC_RELEASE( tap );
+    SAFE_ARC_ASSIGN_POINTER_NIL( tap );
+    return YES;
+}
 
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateTapAction
+{
+    return [self _CreateTapGestureRecognizer: self action: @selector( _TapAction: )];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _TapAction:(UITapGestureRecognizer *) sender
+{
+    if ( ( [self superview] == nil ) || ( [[self superview] isKindOfClass: [UICollectionView class]] == NO ) )
+    {
+        return;
+    }
+    
+    if ( sender.state != UIGestureRecognizerStateEnded )
+    {
+        return;
+    }
+    
+    if ( [self idDelegate] == nil )
+    {
+        NSLog( @"!!!!Warning!!!! maybe lose to assign delegate of the class: %s ", [NSStringFromClass( [self class] ) UTF8String] );
+        NSParameterAssert( [self idDelegate] );
+    }
+    
+    if ( [[self idDelegate] respondsToSelector: @selector( collectionView: didSelectHeaderInSection: )] == NO )
+    {
+        return;
+    }
+    
+    [[self                          idDelegate] collectionView: (UICollectionView *)[self superview] didSelectHeaderInSection: [self sectionIndex]];
+    
+    
+    
+    
+}
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
@@ -131,6 +222,7 @@
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark synthesize variable.
+@synthesize sectionIndex            = _sectionIndex;
 @synthesize sectionTitle            = _sectionTitle;
 
 //  ------------------------------------------------------------------------------------------------
@@ -148,6 +240,8 @@
     [self                           _InitAttributes];
     
     [self                           _CreateTitle];
+    
+    [self                           _CreateTapAction];
     return self;
 }
 
@@ -161,14 +255,26 @@
     }
     
     [self                           _InitAttributes];
+    
+    [self                           _CreateTitle];
+    
+    [self                           _CreateTapAction];
     return self;
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
+    if ( nil != titleLabel )
+    {
+        SAFE_ARC_RELEASE( titleLabel );
+        SAFE_ARC_ASSIGN_POINTER_NIL( titleLabel );
+    }
+    
+    
 }
 
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 - ( void ) setSectionTitle:(NSString *)sectionTitle
 {
@@ -177,6 +283,11 @@
         sectionTitle                = @"";
     }
     _sectionTitle                   = sectionTitle;
+
+    if ( nil == titleLabel )
+    {
+        return;
+    }
     [titleLabel                     setText: [self sectionTitle]];
 }
 

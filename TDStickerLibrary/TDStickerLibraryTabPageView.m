@@ -38,6 +38,7 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare property ()
 @interface TDStickerLibraryTabPageView ()
+<TDSectionHeaderDelegate>
 {
     
     TDStickerLibraryCustomization * customizationParam;
@@ -202,7 +203,7 @@
         }
         
         imageCount                  = [pageConfigure countOfImageDataAtIndex: i];
-        [sectionStates              updateImagesCount: imageCount];
+        [sectionStates              updateImagesCountOfStateData: imageCount];
         
         
         
@@ -256,12 +257,14 @@
     }
     
     title                           = [pageConfigure dataTitleAtIndex: indexPath.section];
-    if ( nil != title )
+    if ( nil == title )
     {
-        [header                     setSectionTitle: title];
+        return header;
     }
     
-    
+    [header                         setIdDelegate: self];
+    [header                         setSectionIndex: indexPath.section];
+    [header                         setSectionTitle: title];
     return header;
 }
 
@@ -509,6 +512,52 @@
     
 }
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark protocol required for TDSectionHeaderDelegate.
+//  ------------------------------------------------------------------------------------------------
+- ( void ) collectionView:(UICollectionView *)collectionView didSelectHeaderInSection:(NSInteger)section
+{
+    if  ( ( nil == sectionStates ) || ( [sectionStates numberOfSections] < section ) || ( nil == collectionView ) || ( [collectionView collectionViewLayout] == nil ) )
+    {
+        return;
+    }
+    
+    NSInteger                       rowCapacity;
+    NSInteger                       imageNowCount;
+    NSInteger                       imageTotal;
+    TDStickerLibraryTabPageLayout * layout;
+    
+    
+    layout                          = (TDStickerLibraryTabPageLayout *)[collectionView collectionViewLayout];
+    rowCapacity                     = [layout calculateFirstRowCapacityForSectionAtIndex: section];
+    imageTotal                      = [sectionStates numberOfTotalImagesInSection: section];
+    imageNowCount                   = [sectionStates numberOfImagesInSection: section];
+    //  when image count less then row's capacity, skip change.
+    if ( imageNowCount < rowCapacity )
+    {
+        return;
+    }
+    
+    //  section content to max.
+    if ( imageNowCount < imageTotal )
+    {
+        [sectionStates              updateNumberOfImages: imageTotal inSection: section];
+    }
+    else
+    {
+        [sectionStates              updateNumberOfImages: rowCapacity inSection: section];
+    }
+    
+    //  section content to mini.
+    
+    [layout                         needUpdateLayoutAttributes: YES];
+    [self                           reloadData];
+    
+    
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 
