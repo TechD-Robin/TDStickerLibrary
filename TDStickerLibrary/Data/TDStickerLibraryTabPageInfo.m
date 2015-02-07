@@ -297,6 +297,19 @@ static  NSString  * const kTDPageInfoKeyMode                        = @"Mode";
     return [self unzipDataForKey: aKey];
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( NSData * ) imageDataAtIndex:(NSInteger)index inArray:(NSInteger)inArrayIndex
+{
+    NSString                      * imageName;
+
+    imageName                       = [self imageNameAtIndex: index inArray: inArrayIndex];
+    if ( nil == imageName )
+    {
+        return nil;
+    }
+    return [self imageDataForKey: imageName];
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 
