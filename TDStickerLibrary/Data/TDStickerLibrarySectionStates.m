@@ -20,7 +20,7 @@
 static  NSString  * const kTDSectionStateKeyID                      = @"ID";
 static  NSString  * const kTDSectionStateKeyTotalImagesCount        = @"TotalImagesCount";
 static  NSString  * const kTDSectionStateKeyShowImagesCount         = @"ShowImagesCount";
-
+static  NSString  * const kTDSectionStateKeyPreviewImageSize        = @"PreviewImageSize";
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -203,6 +203,18 @@ static  NSString  * const kTDSectionStateKeyShowImagesCount         = @"ShowImag
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) updatePreviewImageSizeOfStateData:(CGSize)size
+{
+    if ( nil == currentState )
+    {
+        return NO;
+    }
+    [currentState                   setValue: [NSValue valueWithCGSize: size] forKey: kTDSectionStateKeyPreviewImageSize];
+    return YES;
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) numberOfSections
 {
@@ -255,6 +267,19 @@ static  NSString  * const kTDSectionStateKeyShowImagesCount         = @"ShowImag
         return 0;
     }
     return [[stateInfo objectForKey: kTDSectionStateKeyTotalImagesCount] integerValue];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- (CGSize) sizeOfPreviewImageInSection:(NSInteger)section
+{
+    NSDictionary                  * stateInfo;
+    
+    stateInfo                       = [self _GetStateInfoAtIndex: section];
+    if ( nil == stateInfo )
+    {
+        return CGSizeZero;
+    }
+    return [[stateInfo objectForKey: kTDSectionStateKeyPreviewImageSize] CGSizeValue];
 }
 
 //  ------------------------------------------------------------------------------------------------
