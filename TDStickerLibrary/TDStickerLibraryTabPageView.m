@@ -284,21 +284,14 @@
 - ( UIImageView * ) _CreateCommonSticker:(NSIndexPath *)indexPath
 {
     
-    NSString                      * imageName;
     NSData                        * imageData;
     UIImage                       * stickerImage;
     UIImageView                   * stickerView;
     
     stickerImage                    = nil;
     stickerView                     = nil;
-    imageName                       = [pageConfigure imageNameAtIndex: indexPath.section inArray: indexPath.row];
-    if ( nil == imageName )
-    {
-        return nil;
-    }
-    
-    imageData                       = [pageConfigure imageDataForKey: imageName];
-    if ( nil == imageName )
+    imageData                       = [pageConfigure imageDataAtIndex: indexPath.section inArray: indexPath.row];
+    if ( nil == imageData )
     {
         return nil;
     }
