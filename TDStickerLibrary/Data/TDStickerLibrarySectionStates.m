@@ -17,6 +17,10 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+static  NSString  * const kTDSectionStateKeyID                      = @"ID";
+static  NSString  * const kTDSectionStateKeyTotalImagesCount        = @"TotalImagesCount";
+static  NSString  * const kTDSectionStateKeyShowImagesCount         = @"ShowImagesCount";
+
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -179,7 +183,7 @@
         return NO;
     }
     
-    [currentState                   setValue: aKey forKey: @"ID"];
+    [currentState                   setValue: aKey forKey: kTDSectionStateKeyID];
     
 
     [sectionStates                  addObject: currentState];
@@ -187,14 +191,14 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) updateImagesCount:(NSInteger)count
+- ( BOOL ) updateImagesCountOfStateData:(NSInteger)count
 {
     if ( nil == currentState )
     {
         return NO;
     }
-    [currentState                   setValue: [NSNumber numberWithInteger: count] forKey: @"ImagesCount"];
-    [currentState                   setValue: [NSNumber numberWithInteger: count] forKey: @"ShowImagesCount"];
+    [currentState                   setValue: [NSNumber numberWithInteger: count] forKey: kTDSectionStateKeyTotalImagesCount];
+    [currentState                   setValue: [NSNumber numberWithInteger: count] forKey: kTDSectionStateKeyShowImagesCount];
     return YES;
 }
 
@@ -219,7 +223,38 @@
     {
         return 0;
     }
-    return [[stateInfo objectForKey: @"ShowImagesCount"] integerValue];
+    return [[stateInfo objectForKey: kTDSectionStateKeyShowImagesCount] integerValue];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) updateNumberOfImages:(NSInteger)count inSection:(NSInteger)section
+{
+    NSMutableDictionary           * stateInfo;
+    
+    stateInfo                       = (NSMutableDictionary *)[self _GetStateInfoAtIndex: section];
+    if ( nil == stateInfo )
+    {
+        return NO;
+    }
+    
+    //  system cover old data at the same key.
+    //[stateInfo                      removeObjectForKey: kTDSectionStateKeyShowImagesCount];
+    [stateInfo                      setValue: [NSNumber numberWithInteger: count] forKey: kTDSectionStateKeyShowImagesCount];
+    return YES;
+}
+
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSInteger ) numberOfTotalImagesInSection:(NSInteger)section
+{
+    NSDictionary                  * stateInfo;
+    
+    stateInfo                       = [self _GetStateInfoAtIndex: section];
+    if ( nil == stateInfo )
+    {
+        return 0;
+    }
+    return [[stateInfo objectForKey: kTDSectionStateKeyTotalImagesCount] integerValue];
 }
 
 //  ------------------------------------------------------------------------------------------------
