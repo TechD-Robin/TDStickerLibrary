@@ -44,8 +44,9 @@
 
 - ( NSString * ) imageNameAtIndex:(NSInteger)index inArray:(NSInteger)inArrayIndex;
 
-- ( NSData * ) imageDataForKey:(NSString *)aKey;
+- ( NSInteger ) modeDataAtIndex:(NSInteger)index;
 
+- ( NSData * ) imageDataForKey:(NSString *)aKey;
 //  ------------------------------------------------------------------------------------------------
 
 
