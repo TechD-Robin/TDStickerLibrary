@@ -101,6 +101,8 @@
     [self                           setTableCommonItemSize: CGSizeMake( 64.0f, 64.0f )];
     [self                           setTableCommonSectionInset: UIEdgeInsetsMake( 12.0f, 12.0f, 12.0f, 12.0f )];
     [self                           setTableCommonHeaderReferenceSize: CGSizeMake( 0.0f, 36.0f )];
+    [self                           setTableMinimumInteritemSpacing: 10.0f];
+    [self                           setTableMinimumLineSpacing: 10.0f];
 
     //  for UIBackgroundColor
     [self                           setNavigationBGC: [UIColor purpleColor]];
@@ -155,6 +157,8 @@
 @synthesize tableCommonItemSize             = _tableCommonItemSize;
 @synthesize tableCommonSectionInset         = _tableCommonSectionInset;
 @synthesize tableCommonHeaderReferenceSize  = _tableCommonHeaderReferenceSize;
+@synthesize tableMinimumInteritemSpacing    = _tableMinimumInteritemSpacing;
+@synthesize tableMinimumLineSpacing         = _tableMinimumLineSpacing;
 
 
 //  for UIBackgroundColor

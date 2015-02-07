@@ -43,6 +43,8 @@
 @property( nonatomic, assign ) CGSize                       tableCommonItemSize;
 @property( nonatomic, assign ) UIEdgeInsets                 tableCommonSectionInset;
 @property( nonatomic, assign ) CGSize                       tableCommonHeaderReferenceSize;
+@property( nonatomic, assign ) CGFloat                      tableMinimumInteritemSpacing;
+@property( nonatomic, assign ) CGFloat                      tableMinimumLineSpacing;
 
 //  for UIBackgroundColor
 @property( nonatomic, assign ) UIColor                    * navigationBGC;          // some effect at navigation bar. (錯覺嗎?, 本來應該要沒效果的)

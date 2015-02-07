@@ -233,6 +233,8 @@
     [layout                         setItemSize: [customization tableCommonItemSize]];
     [layout                         setSectionInset: [customization tableCommonSectionInset]];
     [layout                         setHeaderReferenceSize: [customization tableCommonHeaderReferenceSize]];
+    [layout                         setMinimumInteritemSpacing: [customization tableMinimumInteritemSpacing]];
+    [layout                         setMinimumLineSpacing: [customization tableMinimumLineSpacing]];
     
     return layout;
 }
