@@ -191,9 +191,11 @@
     
     NSString                      * ID;
     NSInteger                       imageCount;
+    NSInteger                       sectionMode;
     
     ID                              = nil;
     imageCount                      = 0;
+    sectionMode                     = 0;
     for ( int i = 0; i < [pageConfigure infoDataCount]; ++i )
     {
         ID                          = [pageConfigure dataIDAtIndex: i];
@@ -205,6 +207,13 @@
         imageCount                  = [pageConfigure countOfImageDataAtIndex: i];
         [sectionStates              updateImagesCountOfStateData: imageCount];
         
+        
+        //  when mode not equal normal.
+        sectionMode                 = [pageConfigure modeDataAtIndex: i];
+        if ( 0 == sectionMode )
+        {
+            continue;
+        }
         
         
     }

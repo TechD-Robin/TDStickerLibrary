@@ -22,6 +22,7 @@ static  NSString  * const kTDPageInfoKeyID                          = @"ID";
 static  NSString  * const kTDPageInfoKeyTitle                       = @"Title";
 static  NSString  * const kTDPageInfoKeySubDir                      = @"SubDirectory";
 static  NSString  * const kTDPageInfoKeyImages                      = @"Images";
+static  NSString  * const kTDPageInfoKeyMode                        = @"Mode";
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -71,6 +72,8 @@ static  NSString  * const kTDPageInfoKeyImages                      = @"Images";
 //  ------------------------------------------------------------------------------------------------
 - ( NSString * ) _GetStringDataAtIndex:(NSInteger)index forKey:(NSString *)aKey;
 
+- ( NSInteger ) _GetIntegerDataAtIndex:(NSInteger)index forKey:(NSString *)aKey;
+
 //  ------------------------------------------------------------------------------------------------
 
 @end
@@ -119,6 +122,18 @@ static  NSString  * const kTDPageInfoKeyImages                      = @"Images";
     
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( NSInteger ) _GetIntegerDataAtIndex:(NSInteger)index forKey:(NSString *)aKey
+{
+    NSString                      * string;
+    
+    string                          = [self _GetStringDataAtIndex: index forKey: aKey];
+    if ( nil == string )
+    {
+        return 0;
+    }
+    return [string integerValue];
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -263,6 +278,12 @@ static  NSString  * const kTDPageInfoKeyImages                      = @"Images";
     
     imageName                       = [subDir stringByAppendingPathComponent: imageName];
     return imageName;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSInteger ) modeDataAtIndex:(NSInteger)index
+{
+    return [self _GetIntegerDataAtIndex: index forKey: kTDPageInfoKeyMode];
 }
 
 //  ------------------------------------------------------------------------------------------------
