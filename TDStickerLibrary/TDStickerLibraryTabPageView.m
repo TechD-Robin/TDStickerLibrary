@@ -538,17 +538,18 @@
         return;
     }
     
-    //  section content to max.
     if ( imageNowCount < imageTotal )
     {
+        //  section content to max.
         [sectionStates              updateNumberOfImages: imageTotal inSection: section];
     }
     else
     {
+        //  section content to mini.
         [sectionStates              updateNumberOfImages: rowCapacity inSection: section];
     }
     
-    //  section content to mini.
+    
     
     [layout                         needUpdateLayoutAttributes: YES];
     [self                           reloadData];
