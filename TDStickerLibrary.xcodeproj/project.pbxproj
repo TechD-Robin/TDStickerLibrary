@@ -11,6 +11,7 @@
 		2A1134F11A84C610004BBFDC /* TDMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1134ED1A84C610004BBFDC /* TDMath.m */; };
 		2A1134F21A84C610004BBFDC /* TDTrigonometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1134EF1A84C610004BBFDC /* TDTrigonometry.m */; };
 		2A1135021A84DDC8004BBFDC /* UIImageView+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1135011A84DDC8004BBFDC /* UIImageView+TechD.m */; };
+		2A2C39C41A8774F9009504AB /* UIImage+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C39C31A8774F9009504AB /* UIImage+TechD.m */; };
 		2A4743681A8219EC0057586A /* TDStickerLibraryUnzip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743671A8219EC0057586A /* TDStickerLibraryUnzip.m */; };
 		2A47436E1A823CE30057586A /* TDStickerLibraryTabPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A47436D1A823CE30057586A /* TDStickerLibraryTabPageInfo.m */; };
 		2A4743771A826D5E0057586A /* TDStickerLibraryTabPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743761A826D5E0057586A /* TDStickerLibraryTabPageLayout.m */; };
@@ -88,6 +89,8 @@
 		2A1134EF1A84C610004BBFDC /* TDTrigonometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTrigonometry.m; sourceTree = "<group>"; };
 		2A1135001A84DDC8004BBFDC /* UIImageView+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+TechD.h"; sourceTree = "<group>"; };
 		2A1135011A84DDC8004BBFDC /* UIImageView+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+TechD.m"; sourceTree = "<group>"; };
+		2A2C39C21A8774F9009504AB /* UIImage+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TechD.h"; sourceTree = "<group>"; };
+		2A2C39C31A8774F9009504AB /* UIImage+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TechD.m"; sourceTree = "<group>"; };
 		2A4743661A8219EC0057586A /* TDStickerLibraryUnzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUnzip.h; sourceTree = "<group>"; };
 		2A4743671A8219EC0057586A /* TDStickerLibraryUnzip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUnzip.m; sourceTree = "<group>"; };
 		2A47436C1A823CE30057586A /* TDStickerLibraryTabPageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryTabPageInfo.h; sourceTree = "<group>"; };
@@ -321,6 +324,8 @@
 				2AADF50B1A695E980026EF9D /* UIKit+TechD.h */,
 				2AADF50C1A695E980026EF9D /* UIScreen+TechD.h */,
 				2AADF50D1A695E980026EF9D /* UIScreen+TechD.m */,
+				2A2C39C21A8774F9009504AB /* UIImage+TechD.h */,
+				2A2C39C31A8774F9009504AB /* UIImage+TechD.m */,
 				2A1135001A84DDC8004BBFDC /* UIImageView+TechD.h */,
 				2A1135011A84DDC8004BBFDC /* UIImageView+TechD.m */,
 				2A5689BC1A6E73B90087CCA4 /* NSLayoutConstraint+TechD.h */,
@@ -555,6 +560,7 @@
 				2AB706291A6FDFE4006C6845 /* ioapi.c in Sources */,
 				2A4743681A8219EC0057586A /* TDStickerLibraryUnzip.m in Sources */,
 				2A47437D1A82710C0057586A /* TDStickerLibrarySectionPreviewCell.m in Sources */,
+				2A2C39C41A8774F9009504AB /* UIImage+TechD.m in Sources */,
 				2AB7062C1A6FDFE4006C6845 /* zip.c in Sources */,
 				2A47436E1A823CE30057586A /* TDStickerLibraryTabPageInfo.m in Sources */,
 				2AFDFAD71A838B8D00A82E55 /* TDStickerLibrarySectionStates.m in Sources */,
