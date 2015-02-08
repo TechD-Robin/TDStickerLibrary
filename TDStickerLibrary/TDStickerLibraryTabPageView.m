@@ -107,8 +107,8 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief create sticker view(a cell view) of the collection view at index path.
- *  create sticker view(a cell view) of the collection view at index path.
+ *  @brief create sticker view(a background view of cell) of the collection view at index path.
+ *  create sticker view(a background view of cell) of the collection view at index path.
  *
  *  @param indexPath                indexPath object of table(collectionView).
  *
@@ -117,6 +117,19 @@
 - ( UIImageView * ) _CreateCommonSticker:(NSIndexPath *)indexPath;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a preview's sticker view(a background view of cell) of the collection view at index path.
+ *  create a preview's sticker view(a background view of cell) of the collection view at index path.
+ *
+ *  @param indexPath                indexPath object of table(collectionView).
+ *
+ *  @return sticker|nil             the sticker object or nil.
+ */
+- ( UIImageView * ) _CreatePreviewSticker:(NSIndexPath *)indexPath;
+
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for calculate.
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief calculate preview mode image size of proportional for section at index.
@@ -129,6 +142,44 @@
 - ( CGSize ) _calculatePreviewImageProportionalSizeForSectionAtIndex:(NSInteger)section;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief calculate preview mode image size of minimum for section at index.
+ *  calculate preview mode image size of minimum for section at index.
+ *
+ *  @param section                  section index.
+ *
+ *  @return size|ZeroSize           the result size or ZeroSize.
+ */
+- ( CGSize ) _calculatePreviewImageMiniSizeForSectionAtIndex:(NSInteger)section;
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for touch action(GestureRecognizer).
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief tap action for header in section of collection view that the section is preview mode.
+ *  tap action for header in section of collection view that the section is preview mode.
+ *
+ *  @param collectionView           the collection view.
+ *  @param section                  section index.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _CollectionView:(UICollectionView *)collectionView didSelectPreviewModeHeaderInSection:(NSInteger)section;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief tap action for header in section of collection view that the section is normal mode.
+ *  tap action for header in section of collection view that the section is normal mode.
+ *
+ *  @param collectionView           the collection view.
+ *  @param section                  section index.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( void ) _CollectionView:(UICollectionView *)collectionView didSelectNormalModeHeaderInSection:(NSInteger)section;
+
+//  ------------------------------------------------------------------------------------------------
+
 
 @end
 
@@ -205,11 +256,13 @@
     NSInteger                       imageCount;
     NSInteger                       sectionMode;
     CGSize                          previewSize;
+    CGSize                          previewMiniSize;
     
     ID                              = nil;
     imageCount                      = 0;
     sectionMode                     = 0;
     previewSize                     = CGSizeZero;
+    previewMiniSize                 = CGSizeZero;
     for ( int i = 0; i < [pageConfigure infoDataCount]; ++i )
     {
         ID                          = [pageConfigure dataIDAtIndex: i];
@@ -230,13 +283,13 @@
         }
         
         previewSize                 = [self _calculatePreviewImageProportionalSizeForSectionAtIndex: i];
-        [sectionStates              updatePreviewImageSizeOfStateData: previewSize];
+        previewMiniSize             = [self _calculatePreviewImageMiniSizeForSectionAtIndex: i];
+        [sectionStates              updatePreviewImageSizeOfStateData: previewSize with: previewMiniSize];        //  start at mini state.
+        //[sectionStates              updatePreviewImageSizeOfStateData: previewSize with: previewSize];          //  start at normal state.
+        [sectionStates              updateMiniStateOfStateData: YES];
         
         
     }
-    
-    
-    
     
 }
 
@@ -333,6 +386,43 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( UIImageView * ) _CreatePreviewSticker:(NSIndexPath *)indexPath
+{
+    NSData                        * imageData;
+    UIImage                       * stickerImage;
+    UIImageView                   * stickerView;
+    CGSize                          previewSize;
+    
+    stickerImage                    = nil;
+    stickerView                     = nil;
+    previewSize                     = [sectionStates normalSizeOfPreviewImageInSection: indexPath.section];
+    imageData                       = [pageConfigure imageDataAtIndex: indexPath.section inArray: indexPath.row];
+    if ( nil == imageData )
+    {
+        return nil;
+    }
+    
+    stickerImage                    = [UIImage imageWithData: imageData];
+    if ( nil == stickerImage )
+    {
+        return nil;
+    }
+    
+    stickerView                     = [[UIImageView alloc] initWithImage: [stickerImage resize: previewSize]];
+    if ( nil == stickerView )
+    {
+        SAFE_ARC_RELEASE( image );
+        return nil;
+    }
+    
+    SAFE_ARC_RELEASE( image );
+    SAFE_ARC_ASSIGN_POINTER_NIL( image );
+    return stickerView;
+}
+
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for calculate.
 //  ------------------------------------------------------------------------------------------------
 - ( CGSize ) _calculatePreviewImageProportionalSizeForSectionAtIndex:(NSInteger)section
 {
@@ -372,6 +462,130 @@
     SAFE_ARC_ASSIGN_POINTER_NIL( previewImage );
     return newSize;
 }
+
+//  ------------------------------------------------------------------------------------------------
+- ( CGSize ) _calculatePreviewImageMiniSizeForSectionAtIndex:(NSInteger)section
+{
+    if ( nil == customizationParam )
+    {
+        return CGSizeZero;
+    }
+    
+    CGFloat                         ratio;
+    CGSize                          newSize;
+    UIEdgeInsets                    sectionInset;
+    
+    ratio                           = 1.0f;
+    newSize                         = CGSizeZero;
+    sectionInset                    = [customizationParam tableCommonSectionInset];
+
+    newSize                         = [self bounds].size;
+    newSize.width                   -= ( sectionInset.left + sectionInset.right );
+    ratio                           = ( [customizationParam tableCommonItemSize].width / newSize.width );
+    
+//.    newSize.height                  = ( [customizationParam tableCommonItemSize].height + sectionInset.top + [customizationParam tableMinimumLineSpacing] );
+    newSize.height                  = ( [customizationParam tableCommonItemSize].height );
+    
+    return newSize;
+}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for touch action(GestureRecognizer).
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CollectionView:(UICollectionView *)collectionView didSelectPreviewModeHeaderInSection:(NSInteger)section
+{
+    if  ( ( nil == sectionStates ) || ( [sectionStates numberOfSections] < section )
+         || ( nil == collectionView ) || ( [collectionView collectionViewLayout] == nil ) )
+    {
+        return NO;
+    }
+    
+    
+    NSIndexPath                           * indexPath;
+    TDStickerLibrarySectionPreviewCell    * cell;
+    TDStickerLibraryTabPageLayout         * layout;
+    
+    indexPath                       = [NSIndexPath indexPathForItem: 0 inSection: section];
+    cell                            = (TDStickerLibrarySectionPreviewCell *)[self cellForItemAtIndexPath: indexPath];
+    layout                          = (TDStickerLibraryTabPageLayout *)[collectionView collectionViewLayout];
+    
+    BOOL                            miniState;
+    CGSize                          miniSize;
+    CGSize                          nowSize;
+    CGSize                          previewSize;
+    
+    miniState                       = NO;
+    miniSize                        = [self _calculatePreviewImageMiniSizeForSectionAtIndex: section];
+    nowSize                         = [sectionStates nowSizeOfPreviewImageInSection: section];
+    previewSize                     = [sectionStates normalSizeOfPreviewImageInSection: section];
+    if ( ( [sectionStates miniState: &miniState inSection: section] == YES ) && ( nil != cell ) )
+    {
+        if ( YES == miniState )
+        {
+            //  section content to max.
+            [sectionStates          updateNowSizeOfPreviewImage: previewSize inSection: section];
+            [cell                   setMiniState: NO];
+            
+            [sectionStates          updateMiniState: NO inSection: section];
+        }
+        else
+        {
+            //  section content to mini.
+            [sectionStates          updateNowSizeOfPreviewImage: miniSize inSection: section];
+            [cell                   setMiniState: YES];
+            
+            [sectionStates          updateMiniState: YES inSection: section];
+        }
+    }
+    
+    [layout                         needUpdateLayoutAttributes: NO];
+    [self                           reloadData];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _CollectionView:(UICollectionView *)collectionView didSelectNormalModeHeaderInSection:(NSInteger)section
+{
+    if  ( ( nil == sectionStates ) || ( [sectionStates numberOfSections] < section )
+         || ( nil == collectionView ) || ( [collectionView collectionViewLayout] == nil ) )
+    {
+        return;
+    }
+    
+    NSInteger                       rowCapacity;
+    NSInteger                       imageNowCount;
+    NSInteger                       imageTotal;
+    TDStickerLibraryTabPageLayout * layout;
+    
+    layout                          = (TDStickerLibraryTabPageLayout *)[collectionView collectionViewLayout];
+    rowCapacity                     = [layout calculateFirstRowCapacityForSectionAtIndex: section];
+    imageTotal                      = [sectionStates numberOfTotalImagesInSection: section];
+    imageNowCount                   = [sectionStates numberOfImagesInSection: section];
+    //  when image count less then row's capacity, skip change.
+    if ( imageNowCount < rowCapacity )
+    {
+        return;
+    }
+    
+    if ( imageNowCount < imageTotal )
+    {
+        //  section content to max.
+        [sectionStates              updateNumberOfImages: imageTotal inSection: section];
+    }
+    else
+    {
+        //  section content to mini.
+        [sectionStates              updateNumberOfImages: rowCapacity inSection: section];
+    }
+    
+    
+    
+    [layout                         needUpdateLayoutAttributes: YES];
+    [self                           reloadData];
+    
+}
+
+//  ------------------------------------------------------------------------------------------------
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -493,12 +707,27 @@
     UIImageView                   * stickerView;
     
     stickerView                     = nil;
-    cell                            = [collectionView dequeueReusableCellWithReuseIdentifier: NSStringFromClass( [UICollectionViewCell class] ) forIndexPath: indexPath];
-    
-    
+    if ( [pageConfigure modeDataAtIndex: indexPath.section] == 0 )
+    {
+        cell                        = [collectionView dequeueReusableCellWithReuseIdentifier: NSStringFromClass( [UICollectionViewCell class] ) forIndexPath: indexPath];
+        stickerView                 = [self _CreateCommonSticker: indexPath];
+    }
+    else
+    {
+        BOOL                        miniState;
+        
+        miniState                   = YES;
+        cell                        = [collectionView dequeueReusableCellWithReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionPreviewCell class] ) forIndexPath: indexPath];
+        if ( ( [sectionStates miniState: &miniState inSection: indexPath.section] == YES ) && ( nil != cell ) )
+        {
+            //  init the cell's state.
+            [(TDStickerLibrarySectionPreviewCell *)cell setMiniState: miniState];
+        }
+        
+        stickerView                 = [self _CreatePreviewSticker: indexPath];
+    }
 
     
-    stickerView                     = [self _CreateCommonSticker: indexPath];
     if ( nil == stickerView )
     {
         return cell;
@@ -554,7 +783,7 @@
     {
         return [customizationParam tableCommonItemSize];
     }
-    return [sectionStates sizeOfPreviewImageInSection: indexPath.section];
+    return [sectionStates nowSizeOfPreviewImageInSection: indexPath.section];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -589,44 +818,19 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) collectionView:(UICollectionView *)collectionView didSelectHeaderInSection:(NSInteger)section
 {
-    if  ( ( nil == sectionStates ) || ( [sectionStates numberOfSections] < section ) || ( nil == collectionView ) || ( [collectionView collectionViewLayout] == nil ) )
+    if ( nil == pageConfigure )
     {
         return;
     }
     
-    NSInteger                       rowCapacity;
-    NSInteger                       imageNowCount;
-    NSInteger                       imageTotal;
-    TDStickerLibraryTabPageLayout * layout;
-    
-    
-    layout                          = (TDStickerLibraryTabPageLayout *)[collectionView collectionViewLayout];
-    rowCapacity                     = [layout calculateFirstRowCapacityForSectionAtIndex: section];
-    imageTotal                      = [sectionStates numberOfTotalImagesInSection: section];
-    imageNowCount                   = [sectionStates numberOfImagesInSection: section];
-    //  when image count less then row's capacity, skip change.
-    if ( imageNowCount < rowCapacity )
+    if ( [pageConfigure modeDataAtIndex: section] != 0 )
     {
+        [self _CollectionView: collectionView didSelectPreviewModeHeaderInSection: section];
         return;
     }
     
-    if ( imageNowCount < imageTotal )
-    {
-        //  section content to max.
-        [sectionStates              updateNumberOfImages: imageTotal inSection: section];
-    }
-    else
-    {
-        //  section content to mini.
-        [sectionStates              updateNumberOfImages: rowCapacity inSection: section];
-    }
-    
-    
-    
-    [layout                         needUpdateLayoutAttributes: YES];
-    [self                           reloadData];
-    
-    
+    [self _CollectionView: collectionView didSelectNormalModeHeaderInSection: section];
+    return;
 }
 
 
