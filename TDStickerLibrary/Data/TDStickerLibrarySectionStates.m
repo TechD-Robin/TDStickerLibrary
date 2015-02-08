@@ -18,9 +18,11 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 static  NSString  * const kTDSectionStateKeyID                      = @"ID";
+static  NSString  * const kTDSectionStateKeyMiniState               = @"MiniState";
 static  NSString  * const kTDSectionStateKeyTotalImagesCount        = @"TotalImagesCount";
 static  NSString  * const kTDSectionStateKeyShowImagesCount         = @"ShowImagesCount";
 static  NSString  * const kTDSectionStateKeyPreviewImageSize        = @"PreviewImageSize";
+static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPreviewImagesize";
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -203,16 +205,27 @@ static  NSString  * const kTDSectionStateKeyPreviewImageSize        = @"PreviewI
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) updatePreviewImageSizeOfStateData:(CGSize)size
+- ( BOOL ) updatePreviewImageSizeOfStateData:(CGSize)size with:(CGSize)miniSize
 {
     if ( nil == currentState )
     {
         return NO;
     }
     [currentState                   setValue: [NSValue valueWithCGSize: size] forKey: kTDSectionStateKeyPreviewImageSize];
+    [currentState                   setValue: [NSValue valueWithCGSize: miniSize] forKey: kTDSectionStateKeyNowPreviewImageSize];
     return YES;
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) updateMiniStateOfStateData:(BOOL)miniState
+{
+    if ( nil == currentState )
+    {
+        return NO;
+    }
+    [currentState                   setValue: [NSNumber numberWithBool: miniState] forKey: kTDSectionStateKeyMiniState];
+    return YES;
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -223,6 +236,43 @@ static  NSString  * const kTDSectionStateKeyPreviewImageSize        = @"PreviewI
         return 0;
     }
     return [sectionStates count];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) miniState:(BOOL *)miniState inSection:(NSInteger)section;
+{
+    NSDictionary                  * stateInfo;
+    BOOL                            state;
+    
+    stateInfo                       = [self _GetStateInfoAtIndex: section];
+    if ( nil == stateInfo )
+    {
+        return NO;
+    }
+    
+//    return [[stateInfo objectForKey: kTDSectionStateKeyNowPreviewImageSize] CGSizeValue];
+  
+    state                           = [[stateInfo objectForKey: kTDSectionStateKeyMiniState] boolValue];
+    if ( nil != miniState )
+    {
+        *miniState                  = state;
+    }
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) updateMiniState:(BOOL)miniState inSection:(NSInteger)section
+{
+    NSMutableDictionary           * stateInfo;
+    
+    stateInfo                       = (NSMutableDictionary *)[self _GetStateInfoAtIndex: section];
+    if ( nil == stateInfo )
+    {
+        return NO;
+    }
+    
+    [stateInfo                      setValue: [NSNumber numberWithBool: miniState] forKey: kTDSectionStateKeyMiniState];
+    return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -270,7 +320,7 @@ static  NSString  * const kTDSectionStateKeyPreviewImageSize        = @"PreviewI
 }
 
 //  ------------------------------------------------------------------------------------------------
-- (CGSize) sizeOfPreviewImageInSection:(NSInteger)section
+- (CGSize) normalSizeOfPreviewImageInSection:(NSInteger)section
 {
     NSDictionary                  * stateInfo;
     
@@ -283,7 +333,35 @@ static  NSString  * const kTDSectionStateKeyPreviewImageSize        = @"PreviewI
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) updateNowSizeOfPreviewImage:(CGSize)size inSection:(NSInteger)section;
+{
+    NSMutableDictionary           * stateInfo;
+    
+    stateInfo                       = (NSMutableDictionary *)[self _GetStateInfoAtIndex: section];
+    if ( nil == stateInfo )
+    {
+        return NO;
+    }
+    
+    [stateInfo                      setValue: [NSValue valueWithCGSize: size] forKey: kTDSectionStateKeyNowPreviewImageSize];
+    return YES;
+}
 
+//  ------------------------------------------------------------------------------------------------
+- ( CGSize ) nowSizeOfPreviewImageInSection:(NSInteger)section
+{
+    NSDictionary                  * stateInfo;
+    
+    stateInfo                       = [self _GetStateInfoAtIndex: section];
+    if ( nil == stateInfo )
+    {
+        return CGSizeZero;
+    }
+    return [[stateInfo objectForKey: kTDSectionStateKeyNowPreviewImageSize] CGSizeValue];
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
