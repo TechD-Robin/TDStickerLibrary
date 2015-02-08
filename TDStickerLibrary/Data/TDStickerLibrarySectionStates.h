@@ -28,11 +28,17 @@
 
 - ( BOOL ) updateImagesCountOfStateData:(NSInteger)count;
 
-- ( BOOL ) updatePreviewImageSizeOfStateData:(CGSize)size;
+- ( BOOL ) updatePreviewImageSizeOfStateData:(CGSize)size with:(CGSize)miniSize;
+
+- ( BOOL ) updateMiniStateOfStateData:(BOOL)miniState;
 
 
 //  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) numberOfSections;
+
+- ( BOOL ) miniState:(BOOL *)miniState inSection:(NSInteger)section;
+
+- ( BOOL ) updateMiniState:(BOOL)miniState inSection:(NSInteger)section;
 
 - ( NSInteger ) numberOfImagesInSection:(NSInteger)section;
 
@@ -40,7 +46,11 @@
 
 - ( NSInteger ) numberOfTotalImagesInSection:(NSInteger)section;
 
-- (CGSize) sizeOfPreviewImageInSection:(NSInteger)section;
+- ( CGSize ) normalSizeOfPreviewImageInSection:(NSInteger)section;
+
+- ( BOOL ) updateNowSizeOfPreviewImage:(CGSize)size inSection:(NSInteger)section;
+
+- ( CGSize ) nowSizeOfPreviewImageInSection:(NSInteger)section;
 //  ------------------------------------------------------------------------------------------------
 
 
