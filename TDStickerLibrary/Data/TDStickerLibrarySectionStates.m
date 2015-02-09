@@ -193,14 +193,14 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) updateImagesCountOfStateData:(NSInteger)count
+- ( BOOL ) updateImagesCountOfStateData:(NSInteger)count with:(NSInteger)miniCount
 {
     if ( nil == currentState )
     {
         return NO;
     }
     [currentState                   setValue: [NSNumber numberWithInteger: count] forKey: kTDSectionStateKeyTotalImagesCount];
-    [currentState                   setValue: [NSNumber numberWithInteger: count] forKey: kTDSectionStateKeyShowImagesCount];
+    [currentState                   setValue: [NSNumber numberWithInteger: miniCount] forKey: kTDSectionStateKeyShowImagesCount];
     return YES;
 }
 
