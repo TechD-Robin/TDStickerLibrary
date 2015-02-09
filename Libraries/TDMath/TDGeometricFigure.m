@@ -146,6 +146,21 @@ CGRect calculateProportionalRectWithParentSize( CGFloat ratio, CGSize baseSize, 
 }
 
 //  ------------------------------------------------------------------------------------------------
+CGRect calculateNewRectByScaled( CGRect baseRect, CGFloat scale )
+{
+    if ( ( CGRectEqualToRect( baseRect, CGRectZero ) ) || ( 0.0f == scale ) )
+    {
+        return CGRectZero;
+    }
+    
+    baseRect.origin.x               /= scale;
+    baseRect.origin.y               /= scale;
+    baseRect.size.width             /= scale;
+    baseRect.size.height            /= scale;
+    return baseRect;
+}
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 

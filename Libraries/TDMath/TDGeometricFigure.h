@@ -92,6 +92,7 @@ CGFloat radianBetweenPoints( CGPoint first, CGPoint second );
  */
 CGFloat radianBetweenLines( CGPoint firstStart, CGPoint firstEnd, CGPoint secondStart, CGPoint secondEnd );
 
+
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -131,8 +132,20 @@ CGSize calculateProportionalMaxSizeWithLimit( CGFloat ratio, CGSize baseSize, CG
  */
 CGRect calculateProportionalRectWithParentSize( CGFloat ratio, CGSize baseSize, CGSize parentSize );
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief calculate a new rect by scale.
+ *  calculate a new rect by scale.
+ *
+ *  @param baseRect                 be calculated's rect.
+ *  @param scale                    scale value.
+ *
+ *  @return rect|ZeroRect           the result rect or ZeroRect.
+ */
+CGRect calculateNewRectByScaled( CGRect baseRect, CGFloat scale );
 
 //  ------------------------------------------------------------------------------------------------
+
 
 //  ------------------------------------------------------------------------------------------------
 
