@@ -49,6 +49,9 @@
 - ( NSData * ) imageDataForKey:(NSString *)aKey;
 
 - ( NSData * ) imageDataAtIndex:(NSInteger)index inArray:(NSInteger)inArrayIndex;
+
+- ( NSData * ) configureDataAtIndex:(NSInteger)index;
+
 //  ------------------------------------------------------------------------------------------------
 
 

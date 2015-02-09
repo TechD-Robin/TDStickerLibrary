@@ -19,10 +19,11 @@
 
 //  ------------------------------------------------------------------------------------------------
 static  NSString  * const kTDPageInfoKeyID                          = @"ID";
+static  NSString  * const kTDPageInfoKeyMode                        = @"Mode";
 static  NSString  * const kTDPageInfoKeyTitle                       = @"Title";
 static  NSString  * const kTDPageInfoKeySubDir                      = @"SubDirectory";
 static  NSString  * const kTDPageInfoKeyImages                      = @"Images";
-static  NSString  * const kTDPageInfoKeyMode                        = @"Mode";
+static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configure";
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -227,7 +228,6 @@ static  NSString  * const kTDPageInfoKeyMode                        = @"Mode";
     return [self _GetIntegerDataAtIndex: index forKey: kTDPageInfoKeyMode];
 }
 
-
 //  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) countOfImageDataAtIndex:(NSInteger)index
 {
@@ -309,6 +309,51 @@ static  NSString  * const kTDPageInfoKeyMode                        = @"Mode";
         return nil;
     }
     return [self imageDataForKey: imageName];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) configureNameAtIndex:(NSInteger)index
+{
+    NSDictionary                  * infoData;
+    NSString                      * subDir;
+    NSString                      * configureName;
+    
+    configureName                   = nil;
+    subDir                          = [self _GetStringDataAtIndex: index forKey: kTDPageInfoKeySubDir];
+    infoData                        = [self infoDataAtIndex: index];
+    if ( nil == infoData )
+    {
+        return nil;
+    }
+    
+    configureName                   = [infoData objectForKey: kTDPageInfoKeyConfigure];
+    if ( ( nil == configureName ) || ( [configureName length] == 0 ) )
+    {
+        return nil;
+    }
+    
+    configureName                   = [subDir stringByAppendingPathComponent: configureName];
+    configureName                   = [configureName stringByAppendingPathExtension: @"plist"];
+    return configureName;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSData * ) configureDataForKey:(NSString *)aKey
+{
+    return [self unzipDataForKey: aKey];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSData * ) configureDataAtIndex:(NSInteger)index
+{
+    NSString                      * configureName;
+    
+    configureName                   = [self configureNameAtIndex: index];
+    if ( nil == configureName )
+    {
+        return nil;
+    }
+    return [self configureDataForKey: configureName];
 }
 
 
