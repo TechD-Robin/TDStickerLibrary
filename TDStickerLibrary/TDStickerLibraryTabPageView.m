@@ -802,7 +802,14 @@
     }
 
     
-    //  ...
+    //  assign the frames data for preview image..
+    NSData                    * configureData;
+    
+    configureData               = [pageConfigure configureDataAtIndex: indexPath.section];
+    if ( nil != configureData )
+    {
+        [(TDStickerLibrarySectionPreviewCell *)cell loadFrames: configureData];
+    }
 
     return cell;
 }
