@@ -132,6 +132,17 @@
 #pragma mark declare for calculate.
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief calculate capacity of row
+ *  calculate capacity of row, calculate capacity just with customization's properties.
+ *
+ *  @param section                  section index.
+ *
+ *  @return value| -1               calculated value for capacity or -1.
+ */
+- ( NSInteger ) _CalculatePerRowCapacityWithCustomization;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief calculate preview mode image size of proportional for section at index.
  *  calculate preview mode image size of proportional for section at index.
  *
@@ -139,7 +150,7 @@
  *
  *  @return size|ZeroSize           the result size or ZeroSize.
  */
-- ( CGSize ) _calculatePreviewImageProportionalSizeForSectionAtIndex:(NSInteger)section;
+- ( CGSize ) _CalculatePreviewImageProportionalSizeForSectionAtIndex:(NSInteger)section;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -150,7 +161,7 @@
  *
  *  @return size|ZeroSize           the result size or ZeroSize.
  */
-- ( CGSize ) _calculatePreviewImageMiniSizeForSectionAtIndex:(NSInteger)section;
+- ( CGSize ) _CalculatePreviewImageMiniSizeForSectionAtIndex:(NSInteger)section;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for touch action(GestureRecognizer).
@@ -254,15 +265,20 @@
     
     NSString                      * ID;
     NSInteger                       imageCount;
+    NSInteger                       imageMiniCount;
+    NSInteger                       perRowCapacity;
     NSInteger                       sectionMode;
     CGSize                          previewSize;
     CGSize                          previewMiniSize;
     
     ID                              = nil;
     imageCount                      = 0;
+    imageMiniCount                  = 0;
+    perRowCapacity                  = 0;
     sectionMode                     = 0;
     previewSize                     = CGSizeZero;
     previewMiniSize                 = CGSizeZero;
+    perRowCapacity                  = [self _CalculatePerRowCapacityWithCustomization];
     for ( int i = 0; i < [pageConfigure infoDataCount]; ++i )
     {
         ID                          = [pageConfigure dataIDAtIndex: i];
@@ -272,8 +288,10 @@
         }
         
         imageCount                  = [pageConfigure countOfImageDataAtIndex: i];
-        [sectionStates              updateImagesCountOfStateData: imageCount];
-        
+        imageMiniCount              = ( ( imageCount > perRowCapacity ) ? perRowCapacity : imageCount );
+        [sectionStates              updateImagesCountOfStateData: imageCount with: imageMiniCount];             //  start at mini state.
+        //[sectionStates              updateImagesCountOfStateData: imageCount with: imageCount];                 //  start at normal state.
+        [sectionStates              updateMiniStateOfStateData: YES];
         
         //  when mode not equal normal.
         sectionMode                 = [pageConfigure modeDataAtIndex: i];
@@ -282,9 +300,9 @@
             continue;
         }
         
-        previewSize                 = [self _calculatePreviewImageProportionalSizeForSectionAtIndex: i];
-        previewMiniSize             = [self _calculatePreviewImageMiniSizeForSectionAtIndex: i];
-        [sectionStates              updatePreviewImageSizeOfStateData: previewSize with: previewMiniSize];        //  start at mini state.
+        previewSize                 = [self _CalculatePreviewImageProportionalSizeForSectionAtIndex: i];
+        previewMiniSize             = [self _CalculatePreviewImageMiniSizeForSectionAtIndex: i];
+        [sectionStates              updatePreviewImageSizeOfStateData: previewSize with: previewMiniSize];      //  start at mini state.
         //[sectionStates              updatePreviewImageSizeOfStateData: previewSize with: previewSize];          //  start at normal state.
         [sectionStates              updateMiniStateOfStateData: YES];
         
@@ -424,7 +442,43 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for calculate.
 //  ------------------------------------------------------------------------------------------------
-- ( CGSize ) _calculatePreviewImageProportionalSizeForSectionAtIndex:(NSInteger)section
+- ( NSInteger ) _CalculatePerRowCapacityWithCustomization
+{
+    if ( nil == customizationParam )
+    {
+        return -1;
+    }
+    
+    CGFloat                         baseWidth;
+    NSInteger                       perRowItem;
+    UIEdgeInsets                    sectionInset;
+    CGSize                          itemSize;
+    CGFloat                         minimumInteritemSpacing;
+    
+    perRowItem                      = 0;
+    baseWidth                       = [self bounds].size.width;
+    sectionInset                    = [customizationParam tableCommonSectionInset];
+    itemSize                        = [customizationParam tableCommonItemSize];
+    minimumInteritemSpacing         = [customizationParam tableMinimumInteritemSpacing];
+    
+    //  1st, calculate for without edgeInset.
+    baseWidth                       -= ( sectionInset.left + sectionInset.right );
+    
+    //  2nd, calculate for without first item.
+    baseWidth                       -= itemSize.width;
+    
+    //  3th. use others to calculate for amount.
+    perRowItem                      = ceilf( baseWidth / ( itemSize.width + minimumInteritemSpacing ) );
+    if ( 0 >= perRowItem )
+    {
+        perRowItem                  = 1;
+    }
+    
+    return perRowItem;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( CGSize ) _CalculatePreviewImageProportionalSizeForSectionAtIndex:(NSInteger)section
 {
     if ( ( nil == pageConfigure ) || ( nil == customizationParam ) )
     {
@@ -464,7 +518,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( CGSize ) _calculatePreviewImageMiniSizeForSectionAtIndex:(NSInteger)section
+- ( CGSize ) _CalculatePreviewImageMiniSizeForSectionAtIndex:(NSInteger)section
 {
     if ( nil == customizationParam )
     {
@@ -515,7 +569,7 @@
     CGSize                          previewSize;
     
     miniState                       = NO;
-    miniSize                        = [self _calculatePreviewImageMiniSizeForSectionAtIndex: section];
+    miniSize                        = [self _CalculatePreviewImageMiniSizeForSectionAtIndex: section];
     nowSize                         = [sectionStates nowSizeOfPreviewImageInSection: section];
     previewSize                     = [sectionStates normalSizeOfPreviewImageInSection: section];
     if ( ( [sectionStates miniState: &miniState inSection: section] == YES ) && ( nil != cell ) )
@@ -552,30 +606,39 @@
         return;
     }
     
+    BOOL                            miniState;
     NSInteger                       rowCapacity;
     NSInteger                       imageNowCount;
     NSInteger                       imageTotal;
     TDStickerLibraryTabPageLayout * layout;
     
+    miniState                       = NO;
     layout                          = (TDStickerLibraryTabPageLayout *)[collectionView collectionViewLayout];
     rowCapacity                     = [layout calculateFirstRowCapacityForSectionAtIndex: section];
     imageTotal                      = [sectionStates numberOfTotalImagesInSection: section];
     imageNowCount                   = [sectionStates numberOfImagesInSection: section];
     //  when image count less then row's capacity, skip change.
-    if ( imageNowCount < rowCapacity )
+    if ( imageTotal <= rowCapacity )
+    {
+        return;
+    }
+
+    if ( [sectionStates miniState: &miniState inSection: section] == NO )
     {
         return;
     }
     
-    if ( imageNowCount < imageTotal )
+    if ( YES == miniState )
     {
         //  section content to max.
         [sectionStates              updateNumberOfImages: imageTotal inSection: section];
+        [sectionStates              updateMiniState: NO inSection: section];
     }
     else
     {
         //  section content to mini.
         [sectionStates              updateNumberOfImages: rowCapacity inSection: section];
+        [sectionStates              updateMiniState: YES inSection: section];
     }
     
     
