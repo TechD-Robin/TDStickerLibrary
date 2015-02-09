@@ -26,7 +26,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) insertStateDataForKey:(NSString *)aKey;
 
-- ( BOOL ) updateImagesCountOfStateData:(NSInteger)count;
+- ( BOOL ) updateImagesCountOfStateData:(NSInteger)count with:(NSInteger)miniCount;
 
 - ( BOOL ) updatePreviewImageSizeOfStateData:(CGSize)size with:(CGSize)miniSize;
 
