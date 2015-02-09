@@ -222,6 +222,13 @@ static  NSString  * const kTDPageInfoKeyMode                        = @"Mode";
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( NSInteger ) dataModeAtIndex:(NSInteger)index
+{
+    return [self _GetIntegerDataAtIndex: index forKey: kTDPageInfoKeyMode];
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) countOfImageDataAtIndex:(NSInteger)index
 {
     NSDictionary                  * infoData;
@@ -278,12 +285,6 @@ static  NSString  * const kTDPageInfoKeyMode                        = @"Mode";
     
     imageName                       = [subDir stringByAppendingPathComponent: imageName];
     return imageName;
-}
-
-//  ------------------------------------------------------------------------------------------------
-- ( NSInteger ) modeDataAtIndex:(NSInteger)index
-{
-    return [self _GetIntegerDataAtIndex: index forKey: kTDPageInfoKeyMode];
 }
 
 //  ------------------------------------------------------------------------------------------------

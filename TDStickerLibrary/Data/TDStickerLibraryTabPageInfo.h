@@ -40,11 +40,11 @@
 
 - ( NSString * ) dataTitleAtIndex:(NSInteger)index;
 
+- ( NSInteger ) dataModeAtIndex:(NSInteger)index;
+
 - ( NSInteger ) countOfImageDataAtIndex:(NSInteger)index;
 
 - ( NSString * ) imageNameAtIndex:(NSInteger)index inArray:(NSInteger)inArrayIndex;
-
-- ( NSInteger ) modeDataAtIndex:(NSInteger)index;
 
 - ( NSData * ) imageDataForKey:(NSString *)aKey;
 

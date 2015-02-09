@@ -294,7 +294,7 @@
         [sectionStates              updateMiniStateOfStateData: YES];
         
         //  when mode not equal normal.
-        sectionMode                 = [pageConfigure modeDataAtIndex: i];
+        sectionMode                 = [pageConfigure dataModeAtIndex: i];
         if ( 0 == sectionMode )
         {
             continue;
@@ -770,7 +770,7 @@
     UIImageView                   * stickerView;
     
     stickerView                     = nil;
-    if ( [pageConfigure modeDataAtIndex: indexPath.section] == 0 )
+    if ( [pageConfigure dataModeAtIndex: indexPath.section] == 0 )
     {
         cell                        = [collectionView dequeueReusableCellWithReuseIdentifier: NSStringFromClass( [UICollectionViewCell class] ) forIndexPath: indexPath];
         stickerView                 = [self _CreateCommonSticker: indexPath];
@@ -842,7 +842,7 @@
         return CGSizeZero;
     }
     
-    if ( [pageConfigure modeDataAtIndex: indexPath.section] == 0 )
+    if ( [pageConfigure dataModeAtIndex: indexPath.section] == 0 )
     {
         return [customizationParam tableCommonItemSize];
     }
@@ -886,7 +886,7 @@
         return;
     }
     
-    if ( [pageConfigure modeDataAtIndex: section] != 0 )
+    if ( [pageConfigure dataModeAtIndex: section] != 0 )
     {
         [self _CollectionView: collectionView didSelectPreviewModeHeaderInSection: section];
         return;
