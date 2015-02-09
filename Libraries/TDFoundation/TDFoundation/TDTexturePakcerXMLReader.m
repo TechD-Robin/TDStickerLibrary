@@ -74,8 +74,8 @@
 - ( BOOL ) _GetConfigure:(NSData *)xmlData;
 
 //  ------------------------------------------------------------------------------------------------
-- ( NSString * ) _GetOriginalImageName;
-- ( CGSize ) _GetOriginalImageSize;
+- ( NSString * ) _GetTextureName;
+- ( CGSize ) _GetTextureSize;
 
 //  ------------------------------------------------------------------------------------------------
 + ( CGRect ) _ConvertSpriteInfoToCGRect:(NSDictionary *)spriteInfo;
@@ -246,7 +246,7 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-- ( NSString * ) _GetOriginalImageName
+- ( NSString * ) _GetTextureName
 {
     if ( nil == metaContainer )
     {
@@ -256,7 +256,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( CGSize ) _GetOriginalImageSize
+- ( CGSize ) _GetTextureSize
 {
     if ( nil == metaContainer )
     {
@@ -415,10 +415,14 @@
     NSData                        * xmlData;
     
     xmlData                         = [NSData dataWithData: source];
-    
+    if ( [self _LoadProcedure: xmlData] == NO )
+    {
+        SAFE_ARC_RELEASE( self );
+        SAFE_ARC_ASSIGN_POINTER_NIL( self );
+        return nil;
+    }
     return self;
 }
-
 
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) loadData:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
@@ -433,6 +437,18 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) textureName
+{
+    return [self _GetTextureName];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( CGSize ) textureSize
+{
+    return [self _GetTextureSize];
+}
+
 //  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) spriteDataCount
 {
