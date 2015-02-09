@@ -226,8 +226,8 @@ static  NSString * const kTDLayoutAttributesKeyFooter       = @"FooterLayout";
 #pragma mark declare calculate capacity for a row.
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief calculate capacity of first row for section at index.
- *  calculate capacity of first row for section, calculate capacity with the delegate's method that when the method has been implemented,
+ *  @brief calculate capacity(not empty) of first row for section at index.
+ *  calculate capacity(not empty) of first row for section, calculate capacity with the delegate's method that when the method has been implemented,
  *  otherwise calculate capacity with object's properties.
  *
  *  @param section                  section index.

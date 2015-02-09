@@ -40,7 +40,7 @@
 #pragma mark declare calculate capacity for a row.
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief calculate capacity of first row for section at index.
+ *  @brief calculate capacity(not empty) of first row for section at index.
  *  calculate capacity of first row for section.
  *
  *  @param section                  section index.
