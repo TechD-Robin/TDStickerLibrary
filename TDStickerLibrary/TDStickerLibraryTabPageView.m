@@ -38,7 +38,7 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare property ()
 @interface TDStickerLibraryTabPageView ()
-<TDSectionHeaderDelegate>
+<TDSectionHeaderDelegate, TDSectionPreviewCellDelegate>
 {
     
     TDStickerLibraryCustomization * customizationParam;
@@ -809,6 +809,7 @@
     if ( nil != configureData )
     {
         [(TDStickerLibrarySectionPreviewCell *)cell loadFrames: configureData];
+        [(TDStickerLibrarySectionPreviewCell *)cell setIdDelegate: self];
     }
 
     return cell;
@@ -908,6 +909,22 @@
     
     [self _CollectionView: collectionView didSelectNormalModeHeaderInSection: section];
     return;
+}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark protocol required for TDSectionPreviewCellDelegate.
+//  ------------------------------------------------------------------------------------------------
+- ( void ) collectionView:(UICollectionView *)collectionView didSelectCell:(UICollectionViewCell *)cell preview:(NSString *)imageName
+                  sticker:(NSString *)spriteName original:(CGRect)stickerFrame onScreen:(CGRect)nowFrame
+{
+    NSLog( @"collection %@", collectionView );
+    NSLog( @"cell %@", cell );
+    NSLog( @"preview name %s ", [imageName UTF8String] );
+    NSLog( @"sticker info : %s,  %s, %s", [spriteName UTF8String], [NSStringFromCGRect( stickerFrame ) UTF8String], [NSStringFromCGRect( nowFrame ) UTF8String] );
+
+    
+    
+    
 }
 
 

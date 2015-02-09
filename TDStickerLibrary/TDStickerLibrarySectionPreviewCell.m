@@ -179,20 +179,24 @@
             continue;
         }
         
-        
+
         //  set touch origin(OnScreen).
         stickerNewFrame.origin      = [self convertPoint: stickerNewFrame.origin toView: nil];
         
+        if ( [self idDelegate] == nil )
+        {
+            NSLog( @"!!!!Warning!!!! maybe lose to assign delegate of the class: %s ", [NSStringFromClass( [self class] ) UTF8String] );
+            NSParameterAssert( [self idDelegate] );
+        }
         
-        //  ... delegate.
-        NSLog( @"touch point %s in rect %s", [NSStringFromCGPoint( touchPoint ) UTF8String], [NSStringFromCGRect( stickerFrame ) UTF8String] );
-        NSLog( @"sticker name : %s", [stickerName UTF8String] );
+        if ( [[self idDelegate] respondsToSelector: @selector( collectionView: didSelectCell: preview: sticker: original: onScreen: )] == YES )
+        {
+            [[self                  idDelegate] collectionView: (UICollectionView *)[self superview] didSelectCell: self preview: textureName
+                                                       sticker: stickerName original: stickerFrame onScreen: stickerNewFrame];
+        }
         
         return;
     }
-    
-    
-    
     
     return;
 }
