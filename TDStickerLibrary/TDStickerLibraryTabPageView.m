@@ -774,29 +774,36 @@
     {
         cell                        = [collectionView dequeueReusableCellWithReuseIdentifier: NSStringFromClass( [UICollectionViewCell class] ) forIndexPath: indexPath];
         stickerView                 = [self _CreateCommonSticker: indexPath];
-    }
-    else
-    {
-        BOOL                        miniState;
-        
-        miniState                   = YES;
-        cell                        = [collectionView dequeueReusableCellWithReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionPreviewCell class] ) forIndexPath: indexPath];
-        if ( ( [sectionStates miniState: &miniState inSection: indexPath.section] == YES ) && ( nil != cell ) )
+        if ( nil != stickerView )
         {
-            //  init the cell's state.
-            [(TDStickerLibrarySectionPreviewCell *)cell setMiniState: miniState];
+            [cell                   setBackgroundView: stickerView];
         }
-        
-        stickerView                 = [self _CreatePreviewSticker: indexPath];
+        return cell;
     }
-
     
-    if ( nil == stickerView )
+
+    //  preview mode.
+    BOOL                        miniState;
+    
+    miniState                   = YES;
+    cell                        = [collectionView dequeueReusableCellWithReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionPreviewCell class] ) forIndexPath: indexPath];
+    if ( ( [sectionStates miniState: &miniState inSection: indexPath.section] == NO ) || ( nil == cell ) )
     {
         return cell;
     }
     
-    [cell                           setBackgroundView: stickerView];
+    //  init the cell's state.
+    [(TDStickerLibrarySectionPreviewCell *)cell setMiniState: miniState];
+    
+    stickerView                 = [self _CreatePreviewSticker: indexPath];
+    if ( nil != stickerView )
+    {
+        [cell                   setBackgroundView: stickerView];
+    }
+
+    
+    //  ...
+
     return cell;
 }
 
