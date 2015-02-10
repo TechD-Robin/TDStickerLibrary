@@ -926,9 +926,69 @@
     
     
     
+    
+    
+    //  for use preview name.
+    NSIndexPath                   * indexPath;
+    NSData                        * imageData;
+    UIImage                       * image;
+    UIImage                       * stickerImage;
+    
+    imageData                       = nil;
+    
+    image                           = nil;
+    stickerImage                    = nil;
+    indexPath                       = [collectionView indexPathForCell: cell];
+    if ( nil == indexPath )
+    {
+        return;
+    }
+    
+    imageData                       = [pageConfigure imageDataAtIndex: indexPath.section forKey: imageName];
+    if ( nil == imageName )
+    {
+        return;
+    }
+    
+    image                           = [UIImage imageWithData: imageData];
+    if ( nil == image )
+    {
+        return;
+    }
+    
+    stickerImage                    = [image clipping: stickerFrame];
+    if ( nil == stickerImage )
+    {
+        return;
+    }
+    
+    TDStickerLibraryStickerSoloView   * soloView;
+    
+    soloView                        = [TDStickerLibraryStickerSoloView stickerSoloView: stickerImage original: stickerFrame.size onScreen: nowFrame
+                                                                                  with: [self window] customization: customizationParam];
+    if ( nil == soloView )
+    {
+        return;
+    }
+    
+    __weak id                       blockSuperview;
+    
+    blockSuperview                  = [self superview];
+    [soloView                       showSoloView: ^ ()
+    {
+        [blockSuperview             setUserInteractionEnabled: NO];
+    }
+    completion: ^( BOOL finished )
+    {
+        [blockSuperview             setUserInteractionEnabled: YES];
+    }];
+
+    
+    
+    
 }
 
-
+//  --------------------------------
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
