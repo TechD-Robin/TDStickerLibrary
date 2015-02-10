@@ -21,6 +21,7 @@
 		2A5689BB1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */; };
 		2A77AF0C1A7411A100BCC63F /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A77AF0B1A7411A100BCC63F /* TDUtilities.m */; };
 		2A99ECFB1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A99ECFA1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m */; };
+		2A99ED011A8A7E050059AA41 /* UIGestureRecognizer+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A99ED001A8A7E050059AA41 /* UIGestureRecognizer+TechD.m */; };
 		2AADF4E21A695B9D0026EF9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E11A695B9D0026EF9D /* main.m */; };
 		2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E41A695B9D0026EF9D /* AppDelegate.m */; };
 		2AADF4E81A695B9D0026EF9D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E71A695B9D0026EF9D /* ViewController.m */; };
@@ -103,6 +104,8 @@
 		2A77AF0B1A7411A100BCC63F /* TDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUtilities.m; path = ../../Libraries/TDFoundation/TDFoundation/TDUtilities.m; sourceTree = "<group>"; };
 		2A99ECF91A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryStickerSoloView.h; sourceTree = "<group>"; };
 		2A99ECFA1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryStickerSoloView.m; sourceTree = "<group>"; };
+		2A99ECFF1A8A7E050059AA41 /* UIGestureRecognizer+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+TechD.h"; sourceTree = "<group>"; };
+		2A99ED001A8A7E050059AA41 /* UIGestureRecognizer+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+TechD.m"; sourceTree = "<group>"; };
 		2AADF4DC1A695B9D0026EF9D /* DemoStickerLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoStickerLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADF4E01A695B9D0026EF9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2AADF4E11A695B9D0026EF9D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -334,6 +337,8 @@
 				2A2C39C61A877B02009504AB /* UIImage+TechD.m */,
 				2A1134FD1A84CCA7004BBFDC /* UIImageView+TechD.h */,
 				2A1134FE1A84CCA7004BBFDC /* UIImageView+TechD.m */,
+				2A99ECFF1A8A7E050059AA41 /* UIGestureRecognizer+TechD.h */,
+				2A99ED001A8A7E050059AA41 /* UIGestureRecognizer+TechD.m */,
 				2A5689B91A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.h */,
 				2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */,
 			);
@@ -648,6 +653,7 @@
 				2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */,
 				2AF2FE911A7AB1F100793CD2 /* TDTexturePakcerXMLReader.m in Sources */,
 				2AB706931A700EB0006C6845 /* TDStickerLibraryTabInfo.m in Sources */,
+				2A99ED011A8A7E050059AA41 /* UIGestureRecognizer+TechD.m in Sources */,
 				2AB706801A6FE2FB006C6845 /* unzip.c in Sources */,
 				2A77AF0C1A7411A100BCC63F /* TDUtilities.m in Sources */,
 				2A99ECFB1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */,
