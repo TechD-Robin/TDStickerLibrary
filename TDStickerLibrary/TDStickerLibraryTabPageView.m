@@ -19,6 +19,7 @@
 #import "TDStickerLibraryTabPageLayout.h"
 #import "TDStickerLibrarySectionHeader.h"
 #import "TDStickerLibrarySectionPreviewCell.h"
+#import "TDStickerLibraryStickerSoloView.h"
 
 #import "TDStickerLibraryTabPageInfo.h"
 #import "TDStickerLibrarySectionStates.h"
