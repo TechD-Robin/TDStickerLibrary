@@ -12,6 +12,7 @@
     #import "ARCMacros.h"
 #endif  //  End of __ARCMacros_H__.
 
+#import "UIKit+TechD.h"
 #import "TDStickerLibrarySectionHeader.h"
 
 //  ------------------------------------------------------------------------------------------------
@@ -60,17 +61,6 @@
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create object.
-//  ------------------------------------------------------------------------------------------------
-/**
- *  @brief create tap gesture recognizer and assign the action method for owner object.
- *
- *  @param ownerObject              owner object.
- *  @param action                   a selector method of action.
- *
- *  @return YES|NO                  method success or failure
- */
-- ( BOOL ) _CreateTapGestureRecognizer:(id)ownerObject action:(SEL)action;
-
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief create tap gesture recognizer.
@@ -145,31 +135,9 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _CreateTapGestureRecognizer:(id)ownerObject action:(SEL)action
-{
-    if ( nil == ownerObject )
-    {
-        return NO;
-    }
-    
-    UITapGestureRecognizer        * tap;
-    
-    tap                             = [[UITapGestureRecognizer alloc] initWithTarget: self action: action];
-    if ( nil == tap )
-    {
-        return NO;
-    }
-    
-    [ownerObject                    addGestureRecognizer: tap];
-    SAFE_ARC_RELEASE( tap );
-    SAFE_ARC_ASSIGN_POINTER_NIL( tap );
-    return YES;
-}
-
-//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateTapAction
 {
-    return [self _CreateTapGestureRecognizer: self action: @selector( _TapAction: )];
+    return [UIGestureRecognizer tapGestureRecognizer: self withTarget: self action: @selector( _TapAction: )];
 }
 
 //  ------------------------------------------------------------------------------------------------
