@@ -14,6 +14,7 @@
     #import "UIScreen+TechD.h"
     #import "UIImage+TechD.h"
     #import "UIImageView+TechD.h"
+    #import "UIGestureRecognizer+TechD.h"
 
     #import "NSLayoutConstraint+TechD.h"
 #endif  //  End of _UIKIT_TECHD_.
