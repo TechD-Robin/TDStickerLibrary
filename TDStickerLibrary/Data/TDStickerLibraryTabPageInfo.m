@@ -71,6 +71,8 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
+- ( NSData * ) _GetImageDataForKey:(NSString *)aKey;
+
 - ( NSString * ) _GetStringDataAtIndex:(NSInteger)index forKey:(NSString *)aKey;
 
 - ( NSInteger ) _GetIntegerDataAtIndex:(NSInteger)index forKey:(NSString *)aKey;
@@ -101,6 +103,17 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
 }
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( NSData * ) _GetImageDataForKey:(NSString *)aKey
+{
+    aKey                            = TDGetImageNameForScreenScale( aKey, (NSInteger)[[UIScreen mainScreen] scaleMultiple] );
+    if ( nil == aKey )
+    {
+        return nil;
+    }
+    return [self unzipDataForKey: aKey];
+}
+
 //  ------------------------------------------------------------------------------------------------
 - ( NSString * ) _GetStringDataAtIndex:(NSInteger)index forKey:(NSString *)aKey
 {
@@ -288,14 +301,26 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( NSData * ) imageDataForKey:(NSString *)aKey
+- ( NSData * ) imageDataAtIndex:(NSInteger)index forKey:(NSString *)aKey;
 {
-    aKey                            = TDGetImageNameForScreenScale( aKey, (NSInteger)[[UIScreen mainScreen] scaleMultiple] );
+//    aKey                            = TDGetImageNameForScreenScale( aKey, (NSInteger)[[UIScreen mainScreen] scaleMultiple] );
     if ( nil == aKey )
     {
         return nil;
     }
-    return [self unzipDataForKey: aKey];
+    
+    NSString                      * subDir;
+    NSString                      * imageName;
+    
+    imageName                       = nil;
+    subDir                          = [self _GetStringDataAtIndex: index forKey: kTDPageInfoKeySubDir];
+    if ( ( nil == subDir ) || ( [subDir length] == 0 ) )
+    {
+        return [self _GetImageDataForKey: aKey];
+    }
+    
+    imageName                       = [subDir stringByAppendingPathComponent: aKey];
+    return [self _GetImageDataForKey: imageName];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -308,7 +333,7 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
     {
         return nil;
     }
-    return [self imageDataForKey: imageName];
+    return [self _GetImageDataForKey: imageName];
 }
 
 //  ------------------------------------------------------------------------------------------------
