@@ -46,6 +46,11 @@
 @property( nonatomic, assign ) CGFloat                      tableMinimumInteritemSpacing;
 @property( nonatomic, assign ) CGFloat                      tableMinimumLineSpacing;
 
+//  for StickeSolo View.
+@property( nonatomic, assign ) CGSize                       soloViewInsetSize;
+@property( nonatomic, assign ) CGFloat                      soloViewShowAnimateDuration;
+@property( nonatomic, assign ) CGFloat                      soloViewHideAnimateDuration;
+
 //  for UIBackgroundColor
 @property( nonatomic, assign ) UIColor                    * navigationBGC;          // some effect at navigation bar. (錯覺嗎?, 本來應該要沒效果的)
 @property( nonatomic, assign ) UIColor                    * bannerBGC;

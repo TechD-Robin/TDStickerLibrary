@@ -32,6 +32,8 @@
 #pragma mark declare property ()
 @interface TDStickerLibraryStickerSoloView ()
 {
+    TDStickerLibraryCustomization * customizationParam;
+    
     //  sticker image view.
     CGSize                          stickerOriginalSize;
     CGRect                          stickerOnScreenFrame;
@@ -108,6 +110,8 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _InitAttributes
 {
+    customizationParam              = nil;
+    
     //  sticker image view.
     stickerOriginalSize             = CGSizeZero;
     stickerOnScreenFrame            = CGRectZero;
@@ -135,9 +139,6 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _TapAction:(UITapGestureRecognizer *) sender
 {
-    NSLog( @"tap ..." );
-    
-    
     [self                           _SendTheViewToBack];
 }
 
@@ -181,11 +182,11 @@
     blockSelf                       = self;
     blockSticker                    = stickerImageView;
     [self                           setHidden: NO];
-    [UIView animateWithDuration: 0.25f animations: ^
+    [UIView animateWithDuration: [customizationParam soloViewShowAnimateDuration] animations: ^
     {
         CGRect                      newFrame;
         
-        newFrame                    = CGRectInset( stickerMaxFrame, -12.0f, -12.0f );
+        newFrame                    = CGRectInset( stickerMaxFrame, - ( [customizationParam soloViewInsetSize].width ), - ( [customizationParam soloViewInsetSize].height ) );
         [blockSticker               setFrame: newFrame];
     }
     completion: ^ ( BOOL finished )
@@ -205,7 +206,7 @@
     
     blockSelf                       = self;
     blockSticker                    = stickerImageView;
-    [UIView animateWithDuration: 0.25f animations: ^
+    [UIView animateWithDuration: [customizationParam soloViewHideAnimateDuration] animations: ^
     {
         [blockSticker               setFrame: stickerOnScreenFrame];
     }
@@ -255,13 +256,24 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
+    if ( nil != customizationParam )
+    {
+        //  release by creator.
+        SAFE_ARC_ASSIGN_POINTER_NIL( customizationParam );
+    }
+    
+    if ( nil != stickerImageView )
+    {
+        SAFE_ARC_RELEASE( stickerImageView );
+        SAFE_ARC_ASSIGN_POINTER_NIL( stickerImageView );
+    }
+    
     SAFE_ARC_SUPER_DEALLOC();
 }
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
 - ( instancetype ) initWithStickerSoloView:(UIImage *)stickerImage original:(CGSize)stickerSize onScreen:(CGRect)nowFrame
                                       with:(UIWindow *)window customization:(TDStickerLibraryCustomization *)customization
 {
@@ -276,6 +288,7 @@
     //  sticker image view.
     stickerOriginalSize             = stickerSize;
     stickerOnScreenFrame            = nowFrame;
+    customizationParam              = customization;
     [self                           _CreateStickerImageView: stickerImage];
     
     

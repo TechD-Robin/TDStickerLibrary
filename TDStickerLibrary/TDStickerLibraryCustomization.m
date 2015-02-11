@@ -104,6 +104,11 @@
     [self                           setTableMinimumInteritemSpacing: 10.0f];
     [self                           setTableMinimumLineSpacing: 10.0f];
 
+    //  for StickeSolo View.
+    [self                           setSoloViewInsetSize: CGSizeMake( 6.0f, 6.0f )];
+    [self                           setSoloViewShowAnimateDuration: 0.25f];
+    [self                           setSoloViewHideAnimateDuration: 0.25f];
+    
     //  for UIBackgroundColor
     [self                           setNavigationBGC: [UIColor purpleColor]];
     [self                           setBannerBGC: [UIColor grayColor]];
@@ -160,6 +165,11 @@
 @synthesize tableMinimumInteritemSpacing    = _tableMinimumInteritemSpacing;
 @synthesize tableMinimumLineSpacing         = _tableMinimumLineSpacing;
 
+
+//  for StickeSolo View.
+@synthesize soloViewInsetSize               = _soloViewInsetSize;
+@synthesize soloViewShowAnimateDuration     = _soloViewShowAnimateDuration;
+@synthesize soloViewHideAnimateDuration     = _soloViewHideAnimateDuration;
 
 //  for UIBackgroundColor
 @synthesize navigationBGC           = _navigationBGC;
