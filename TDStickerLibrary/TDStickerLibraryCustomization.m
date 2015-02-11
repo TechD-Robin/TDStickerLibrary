@@ -25,6 +25,14 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare property ()
 @interface TDStickerLibraryCustomization()
+{
+    struct {
+        unsigned int    stickerSoloViewEnabled:1;
+        unsigned int    stickerSoloViewUseBlurLayer:1;
+        
+    } stateFlags;
+    
+}
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -59,6 +67,7 @@
  */
 //  ------------------------------------------------------------------------------------------------
 + ( UIColor * ) _TabMenuColor;
++ ( UIColor * ) _SoloViewBlurLayerColor;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -105,7 +114,14 @@
     [self                           setTableMinimumLineSpacing: 10.0f];
 
     //  for StickeSolo View.
-    [self                           setSoloViewInsetSize: CGSizeMake( 6.0f, 6.0f )];
+    stateFlags.stickerSoloViewEnabled       = YES;
+    stateFlags.stickerSoloViewUseBlurLayer  = YES;
+    
+    [self                           setSoloViewInsetSize: CGSizeMake( -6.0f, -6.0f )];
+    [self                           setSoloViewBlurLayerInsetSize: CGSizeMake( -12.0f, -12.0f )];
+    [self                           setSoloViewBlurLayerInsetSizeOnTop: CGSizeMake( -24.0f, -24.0f )];
+    [self                           setSoloViewBlurLayerAlphaOnTop: 0.9f];
+    [self                           setSoloViewBlurLayerColor: [[self class] _SoloViewBlurLayerColor] ];
     [self                           setSoloViewShowAnimateDuration: 0.25f];
     [self                           setSoloViewHideAnimateDuration: 0.25f];
     
@@ -123,6 +139,11 @@
     return [UIColor colorWithRed: 0.5f green: ( 200 / 255.0f ) blue: ( 200 / 255.0f ) alpha: 1.0f ];
 }
 
+//  ------------------------------------------------------------------------------------------------
++ ( UIColor * ) _SoloViewBlurLayerColor
+{
+    return [[UIColor darkGrayColor] colorWithAlphaComponent: 0.9f];
+}
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -167,7 +188,12 @@
 
 
 //  for StickeSolo View.
+
 @synthesize soloViewInsetSize               = _soloViewInsetSize;
+@synthesize soloViewBlurLayerInsetSize      = _soloViewBlurLayerInsetSize;
+@synthesize soloViewBlurLayerInsetSizeOnTop = _soloViewBlurLayerInsetSizeOnTop;
+@synthesize soloViewBlurLayerAlphaOnTop     = _soloViewBlurLayerAlphaOnTop;
+@synthesize soloViewBlurLayerColor          = _soloViewBlurLayerColor;
 @synthesize soloViewShowAnimateDuration     = _soloViewShowAnimateDuration;
 @synthesize soloViewHideAnimateDuration     = _soloViewHideAnimateDuration;
 
@@ -194,7 +220,32 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) isStickerSoloViewEnabled
+{
+    return stateFlags.stickerSoloViewEnabled;
+}
 
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setStickerSoloViewEnabled:(BOOL)stickerSoloViewEnabled
+{
+    stateFlags.stickerSoloViewEnabled   = stickerSoloViewEnabled;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) isStickerSoloViewUseBlurLayer
+{
+    return  stateFlags.stickerSoloViewUseBlurLayer;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setStickerSoloViewUseBlurLayer:(BOOL)stickerSoloViewUseBlurLayer
+{
+    stateFlags.stickerSoloViewUseBlurLayer  = stickerSoloViewUseBlurLayer;
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 
 @end
 

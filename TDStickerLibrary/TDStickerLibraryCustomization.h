@@ -47,7 +47,15 @@
 @property( nonatomic, assign ) CGFloat                      tableMinimumLineSpacing;
 
 //  for StickeSolo View.
+@property( nonatomic, getter=isStickerSoloViewEnabled )         BOOL        stickerSoloViewEnabled;         //  default is Yes.
+@property( nonatomic, getter=isStickerSoloViewUseBlurLayer )    BOOL        stickerSoloViewUseBlurLayer;    //  default is Yes.
+
 @property( nonatomic, assign ) CGSize                       soloViewInsetSize;
+@property( nonatomic, assign ) CGSize                       soloViewBlurLayerInsetSize;             //  when stickerSoloViewUseBlurLayer = Yes.
+@property( nonatomic, assign ) CGSize                       soloViewBlurLayerInsetSizeOnTop;        //  when stickerSoloViewUseBlurLayer = Yes.
+@property( nonatomic, assign ) CGFloat                      soloViewBlurLayerAlphaOnTop;            //  when stickerSoloViewUseBlurLayer = Yes; value : 0 ~ 1.0 .
+//@property( nonatomic, assign ) UIColor                    * soloViewBlurLayerColor;                 //  when stickerSoloViewUseBlurLayer = Yes.
+@property( nonatomic, copy )   UIColor                    * soloViewBlurLayerColor;                 //  when stickerSoloViewUseBlurLayer = Yes.
 @property( nonatomic, assign ) CGFloat                      soloViewShowAnimateDuration;
 @property( nonatomic, assign ) CGFloat                      soloViewHideAnimateDuration;
 
