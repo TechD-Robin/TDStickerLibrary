@@ -34,7 +34,6 @@
 @interface TDStickerLibrarySectionPreviewCell ()
 {
     TDTexturePakcerXMLReader      * xmlReader;
-    NSData                        * framesData;
     
 }
 
@@ -106,7 +105,6 @@
 - ( void ) _InitAttributes
 {
     xmlReader                       = nil;
-    framesData                      = nil;
     
     
     [self                           setMiniState: YES];
@@ -133,15 +131,6 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _TapAction:(UITapGestureRecognizer *) sender
 {
-    if ( nil == framesData )
-    {
-        return;
-    }
-    
-    if ( nil == xmlReader )
-    {
-        xmlReader                   = [TDTexturePakcerXMLReader loadFromData: framesData];
-    }
     if ( nil == xmlReader )
     {
         return;
@@ -284,11 +273,6 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
-    if ( nil != framesData )
-    {
-        SAFE_ARC_ASSIGN_POINTER_NIL( framesData );
-    }
-    
     if ( nil != xmlReader )
     {
         SAFE_ARC_RELEASE( xmlReader );
@@ -299,10 +283,24 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( NSString * ) description
+{
+    NSString                      * description;
+    NSIndexPath                   * indexPath;
+    
+    description                     = [super description];
+    indexPath                       = [(UICollectionView *)[self superview] indexPathForCell: self];
+    //  if index path = ( 0, 0 ), that the cell has not yet add into the super view(collection view)
+    description                     = [description stringByAppendingFormat: @"; index path = ( %d, %d )", indexPath.section, indexPath.row];
+    description                     = [description stringByAppendingFormat: @"; texture name = (%s);", [[xmlReader textureName] UTF8String] ];
+    return description;
+}
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) loadFrames:(NSData *)confgureData
 {
-    framesData                      = confgureData;
+    xmlReader                       = [TDTexturePakcerXMLReader loadFromData: confgureData];
     
     //  don't load & parse on here, delay to touch action.
     return YES;
