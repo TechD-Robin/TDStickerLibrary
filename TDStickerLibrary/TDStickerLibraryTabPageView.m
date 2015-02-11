@@ -188,10 +188,22 @@
  *
  *  @return YES|NO                  method success or failure.
  */
-- ( void ) _CollectionView:(UICollectionView *)collectionView didSelectNormalModeHeaderInSection:(NSInteger)section;
+- ( BOOL ) _CollectionView:(UICollectionView *)collectionView didSelectNormalModeHeaderInSection:(NSInteger)section;
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief tap action for cell in section of collection view, show the sticker image.
+ *
+ *  @param stickerImage             a sticker image.
+ *  @param stickerSize              the sticker image's original size.
+ *  @param nowFrame                 the sticker's frame on screen.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _ShowStickerSoloView:(UIImage *)stickerImage original:(CGSize)stickerSize onScreen:(CGRect)nowFrame;
 
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
@@ -599,12 +611,12 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) _CollectionView:(UICollectionView *)collectionView didSelectNormalModeHeaderInSection:(NSInteger)section
+- ( BOOL ) _CollectionView:(UICollectionView *)collectionView didSelectNormalModeHeaderInSection:(NSInteger)section
 {
     if  ( ( nil == sectionStates ) || ( [sectionStates numberOfSections] < section )
          || ( nil == collectionView ) || ( [collectionView collectionViewLayout] == nil ) )
     {
-        return;
+        return NO;
     }
     
     BOOL                            miniState;
@@ -621,12 +633,12 @@
     //  when image count less then row's capacity, skip change.
     if ( imageTotal <= rowCapacity )
     {
-        return;
+        return NO;
     }
 
     if ( [sectionStates miniState: &miniState inSection: section] == NO )
     {
-        return;
+        return NO;
     }
     
     if ( YES == miniState )
@@ -646,8 +658,36 @@
     
     [layout                         needUpdateLayoutAttributes: YES];
     [self                           reloadData];
-    
+    return YES;
 }
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _ShowStickerSoloView:(UIImage *)stickerImage original:(CGSize)stickerSize onScreen:(CGRect)nowFrame
+{
+    TDStickerLibraryStickerSoloView   * soloView;
+    
+    soloView                        = [TDStickerLibraryStickerSoloView stickerSoloView: stickerImage original: stickerSize onScreen: nowFrame
+                                                                                  with: [self window] customization: customizationParam];
+    if ( nil == soloView )
+    {
+        return NO;
+    }
+    
+    __weak id                       blockSuperview;
+    
+    blockSuperview                  = [self superview];
+    [soloView                       showSoloView: ^ ()
+    {
+        [blockSuperview             setUserInteractionEnabled: NO];
+    }
+    completion: ^( BOOL finished )
+    {
+        [blockSuperview             setUserInteractionEnabled: YES];
+    }];
+    return YES;
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -886,10 +926,44 @@
 //  ------------------------------------------------------------------------------------------------
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog( @"( %d, %d )", indexPath.section, indexPath.row );
     
-//    NSLog( @"%@", [NSLocale availableLocaleIdentifiers]);
+    //  for normal mode.
+    CGSize                              stickerSize;
+    CGRect                              onScreenFrame;
+    NSData                            * imageData;
+    UIImage                           * stickerImage;
+    UICollectionViewLayoutAttributes  * layoutAttributes;
     
+    stickerSize                     = CGSizeZero;
+    onScreenFrame                   = CGRectZero;
+    stickerImage                    = nil;
+    imageData                       = [pageConfigure imageDataAtIndex: indexPath.section inArray: indexPath.row];
+    layoutAttributes                = [collectionView layoutAttributesForItemAtIndexPath: indexPath];
+    if ( ( nil == imageData ) || ( nil == layoutAttributes ) )
+    {
+        return;
+    }
+    
+    onScreenFrame.size              = [layoutAttributes size];
+    onScreenFrame.origin            = [self convertPoint: [layoutAttributes frame].origin toView: nil];
+    stickerImage                    = [UIImage imageWithData: imageData];
+    if ( nil == stickerImage )
+    {
+        return;
+    }
+    
+    stickerSize                     = [stickerImage size];
+    if ( [stickerImage scale] != 1.0f )
+    {
+        stickerImage                = [stickerImage resize: CGSizeMake( ( stickerSize.width * [stickerImage scale] ), ( stickerSize.height * [stickerImage scale] ) )];
+    }
+    if ( nil == stickerImage )
+    {
+        return;
+    }
+
+    stickerSize                     = [stickerImage size];
+    [self                           _ShowStickerSoloView: stickerImage original: stickerSize onScreen: onScreenFrame];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -962,33 +1036,9 @@
         return;
     }
     
-    TDStickerLibraryStickerSoloView   * soloView;
-    
-    soloView                        = [TDStickerLibraryStickerSoloView stickerSoloView: stickerImage original: stickerFrame.size onScreen: nowFrame
-                                                                                  with: [self window] customization: customizationParam];
-    if ( nil == soloView )
-    {
-        return;
-    }
-    
-    __weak id                       blockSuperview;
-    
-    blockSuperview                  = [self superview];
-    [soloView                       showSoloView: ^ ()
-    {
-        [blockSuperview             setUserInteractionEnabled: NO];
-    }
-    completion: ^( BOOL finished )
-    {
-        [blockSuperview             setUserInteractionEnabled: YES];
-    }];
-
-    
-    
-    
+    [self                           _ShowStickerSoloView: stickerImage original: stickerFrame.size onScreen: nowFrame];
 }
 
-//  --------------------------------
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
