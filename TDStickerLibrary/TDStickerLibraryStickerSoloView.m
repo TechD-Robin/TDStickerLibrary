@@ -38,6 +38,7 @@
     CGSize                          stickerOriginalSize;
     CGRect                          stickerOnScreenFrame;
     UIImageView                   * stickerImageView;
+    UIImageView                   * blurImageView;
     
     
     /**
@@ -85,6 +86,9 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateStickerImageView:(UIImage *)stickerImage;
 
+- ( UIImage * ) _CreateBlurImage;
+
+- ( BOOL ) _CreateBlurImageView;
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _BringTheViewToFront;
 - ( BOOL ) _SendTheViewToBack;
@@ -116,6 +120,7 @@
     stickerOriginalSize             = CGSizeZero;
     stickerOnScreenFrame            = CGRectZero;
     stickerImageView                = nil;
+    blurImageView                   = nil;
     
     finishCallbackBlock             = nil;
     
@@ -162,6 +167,68 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _CreateBlurImage
+{
+    if ( CGRectEqualToRect( stickerOnScreenFrame, CGRectZero ) == true  )
+    {
+        return nil;
+    }
+    
+    CGRect                          mainRect;
+    UIImage                       * image;
+    CGContextRef                    context;
+    
+    image                           = nil;
+    mainRect                        = [[UIScreen mainScreen] bounds];
+    
+    UIGraphicsBeginImageContext( mainRect.size );
+    context                         = UIGraphicsGetCurrentContext();
+    
+    
+    //  # must declare the porperty  change 'assign' to 'copy'; otherwise project will crash when call following code.
+    //  ※ 這個地方很奇怪, 就算用了之前解決 tabMenuBGC 的 static method 方式, 一樣無法解決,
+    //    一定要在 property 的地方, 把 assign 換成 copy 才能完全排除掉可能透過各種方式產生 UIColor 物件, 造成後面這行 CGColor 程式會 crash 調的問題.
+    //CGContextSetFillColorWithColor( context, [[[customizationParam soloViewBlurLayerColor] copy] CGColor] );
+    CGContextSetFillColorWithColor( context, [[customizationParam soloViewBlurLayerColor] CGColor] );
+    CGContextFillRect( context, mainRect );
+    CGContextStrokePath( context );
+    
+    image                           = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return image;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateBlurImageView
+{
+    CGRect                          layerFrame;
+
+    layerFrame                      = CGRectInset( stickerOnScreenFrame, [customizationParam soloViewBlurLayerInsetSize].width, [customizationParam soloViewBlurLayerInsetSize].height );
+
+    UIImage                       * blurImage;
+    
+    blurImage                       = [self _CreateBlurImage];
+    if ( nil == blurImage )
+    {
+        return NO;
+    }
+
+    blurImageView                   = [[UIImageView alloc] initWithImage: blurImage];
+    if ( nil == blurImageView )
+    {
+        return NO;
+    }
+    
+    [blurImageView                  setAlpha: 0.0f];
+    [blurImageView                  setFrame: layerFrame];
+    [self                           addSubview: blurImageView];
+    [self                           sendSubviewToBack: blurImageView];    
+    return YES;
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _BringTheViewToFront
 {
@@ -178,16 +245,31 @@
     //  run animation.
     __weak id                       blockSelf;
     __weak id                       blockSticker;
+    __weak id                       blockBlur;
+    
+    if ( nil != blurImageView )
+    {
+        [blurImageView              setAlpha: 0.0f];
+    }
     
     blockSelf                       = self;
     blockSticker                    = stickerImageView;
+    blockBlur                       = blurImageView;
+
     [self                           setHidden: NO];
     [UIView animateWithDuration: [customizationParam soloViewShowAnimateDuration] animations: ^
     {
         CGRect                      newFrame;
         
-        newFrame                    = CGRectInset( stickerMaxFrame, - ( [customizationParam soloViewInsetSize].width ), - ( [customizationParam soloViewInsetSize].height ) );
+        newFrame                    = CGRectInset( stickerMaxFrame, [customizationParam soloViewInsetSize].width, [customizationParam soloViewInsetSize].height );
         [blockSticker               setFrame: newFrame];
+        
+        if ( nil != blockBlur )
+        {
+            newFrame                = CGRectInset( newFrame, [customizationParam soloViewBlurLayerInsetSizeOnTop].width, [customizationParam soloViewBlurLayerInsetSizeOnTop].height );
+            [blockBlur              setFrame: newFrame];
+            [blockBlur              setAlpha: [customizationParam soloViewBlurLayerAlphaOnTop]];
+        }
     }
     completion: ^ ( BOOL finished )
     {
@@ -203,19 +285,29 @@
 {
     __weak id                       blockSelf;
     __weak id                       blockSticker;
+    __weak id                       blockBlur;
     
     blockSelf                       = self;
     blockSticker                    = stickerImageView;
+    blockBlur                       = blurImageView;
     [UIView animateWithDuration: [customizationParam soloViewHideAnimateDuration] animations: ^
     {
         [blockSticker               setFrame: stickerOnScreenFrame];
+        if ( nil != blockBlur )
+        {
+            [blockBlur              setFrame: stickerOnScreenFrame];
+            [blockBlur              setAlpha: 0.0f];
+        }
     }
     completion: ^ ( BOOL finished )
     {
-        
-        
-        [blockSelf                 setHidden: YES];
-        [blockSelf                 removeFromSuperview];
+        [blockSelf                  setHidden: YES];
+        [blockSelf                  removeFromSuperview];
+        if ( nil != blockBlur )
+        {
+            [blockBlur              setHidden: YES];
+            [blockBlur              removeFromSuperview];
+        }
         
         if ( nil != finishCallbackBlock )
         {
@@ -224,6 +316,11 @@
         
     }];
     
+    SAFE_ARC_RELEASE( stickerImageView );
+    SAFE_ARC_RELEASE( blurImageView );
+    
+    SAFE_ARC_ASSIGN_POINTER_NIL( stickerImageView );
+    SAFE_ARC_ASSIGN_POINTER_NIL( blurImageView );
     return YES;
 }
 
@@ -268,6 +365,12 @@
         SAFE_ARC_ASSIGN_POINTER_NIL( stickerImageView );
     }
     
+    if ( nil != blurImageView )
+    {
+        SAFE_ARC_RELEASE( blurImageView );
+        SAFE_ARC_ASSIGN_POINTER_NIL( blurImageView );
+    }
+    
     SAFE_ARC_SUPER_DEALLOC();
 }
 
@@ -291,6 +394,11 @@
     customizationParam              = customization;
     [self                           _CreateStickerImageView: stickerImage];
     
+    if ( [customizationParam isStickerSoloViewUseBlurLayer] == YES )
+    {
+        [self                       _CreateBlurImageView];
+    }
+    
     
     if ( nil != window )
     {
@@ -312,7 +420,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) showSoloView:(void (^)(void))showView completion:(FinishedCallbackBlock)completion
 {
-    [self                               _BringTheViewToFront];
+    [self                           _BringTheViewToFront];
     
     //  execute showView block pointer.
     if ( nil != showView )
@@ -323,7 +431,7 @@
     //  set callback block pointer.
     if ( nil != completion )
     {
-        finishCallbackBlock             = completion;
+        finishCallbackBlock         = completion;
     }
 }
 

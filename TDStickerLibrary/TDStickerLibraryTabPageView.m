@@ -962,6 +962,11 @@
         return;
     }
 
+    if ( [customizationParam isStickerSoloViewEnabled] == NO )
+    {
+        return;
+    }
+    
     stickerSize                     = [stickerImage size];
     [self                           _ShowStickerSoloView: stickerImage original: stickerSize onScreen: onScreenFrame];
 }
@@ -1035,6 +1040,12 @@
     {
         return;
     }
+    
+    if ( [customizationParam isStickerSoloViewEnabled] == NO )
+    {
+        return;
+    }
+    
     
     [self                           _ShowStickerSoloView: stickerImage original: stickerFrame.size onScreen: nowFrame];
 }
