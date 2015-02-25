@@ -30,9 +30,8 @@ static  NSString * const kTDLayoutAttributesKeyFooter       = @"FooterLayout";
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  declare property for private category()
+#pragma mark declare private category ()
 //  ------------------------------------------------------------------------------------------------
-#pragma mark declare property ()
 @interface TDStickerLibraryTabPageLayout ()
 {
     /**
@@ -63,13 +62,13 @@ static  NSString * const kTDLayoutAttributesKeyFooter       = @"FooterLayout";
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  method declare for Private of category
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark declare for Private
-@interface TDStickerLibraryTabPageLayout(Private)
+#pragma mark declare private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@interface TDStickerLibraryTabPageLayout (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for initial this class.
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief initial the attributes of class.
@@ -260,13 +259,13 @@ static  NSString * const kTDLayoutAttributesKeyFooter       = @"FooterLayout";
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  method implementation for Private of category
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark implementation for Private method
-@implementation TDStickerLibraryTabPageLayout(Private)
+#pragma mark implementation private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@implementation TDStickerLibraryTabPageLayout (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for initial this class.
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _InitAttributes
 {
@@ -881,9 +880,9 @@ static  NSString * const kTDLayoutAttributesKeyFooter       = @"FooterLayout";
     return perRowItem;
 }
 
-//  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
@@ -893,10 +892,9 @@ static  NSString * const kTDLayoutAttributesKeyFooter       = @"FooterLayout";
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  public method implementation.
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark implementation for public method
+#pragma mark implementation for public
+//  ------------------------------------------------------------------------------------------------
 @implementation TDStickerLibraryTabPageLayout
 
 //  ------------------------------------------------------------------------------------------------

@@ -21,11 +21,13 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  declare property for private category()
+#pragma mark declare private category ()
 //  ------------------------------------------------------------------------------------------------
-#pragma mark declare property ()
-@interface TDStickerLibraryCustomization()
+@interface TDStickerLibraryCustomization ()
 {
+    /**
+     *  a state flags for customization.
+     */
     struct {
         unsigned int    stickerSoloViewEnabled:1;
         unsigned int    stickerSoloViewUseBlurLayer:1;
@@ -45,13 +47,13 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  method declare for Private of category
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark declare for Private
-@interface TDStickerLibraryCustomization(Private)
+#pragma mark declare private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@interface TDStickerLibraryCustomization (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for initial this class.
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief initial the attributes of class.
@@ -78,16 +80,15 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
-
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-//  method implementation for Private of category
 //  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark implementation for Private method
-@implementation TDStickerLibraryCustomization(Private)
+#pragma mark implementation private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@implementation TDStickerLibraryCustomization (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for initial this class.
 //  ------------------------------------------------------------------------------------------------
 //  --------------------------------
 - ( void ) _InitAttributes
@@ -113,9 +114,12 @@
     [self                           setTableMinimumInteritemSpacing: 10.0f];
     [self                           setTableMinimumLineSpacing: 10.0f];
 
-    //  for StickeSolo View.
-    stateFlags.stickerSoloViewEnabled       = YES;
-    stateFlags.stickerSoloViewUseBlurLayer  = YES;
+    //  for Sticker Solo View.
+    //stateFlags.stickerSoloViewEnabled       = YES;
+    //stateFlags.stickerSoloViewUseBlurLayer  = YES;
+    [self                           setStickerSoloViewEnabled: YES];
+    [self                           setStickerSoloViewUseBlurLayer: YES];
+    
     
     [self                           setSoloViewInsetSize: CGSizeMake( -6.0f, -6.0f )];
     [self                           setSoloViewBlurLayerInsetSize: CGSizeMake( -12.0f, -12.0f )];
@@ -145,6 +149,8 @@
     return [[UIColor darkGrayColor] colorWithAlphaComponent: 0.9f];
 }
 
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 @end
@@ -155,10 +161,9 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  public method implementation.
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark implementation for public method
+#pragma mark implementation for public
+//  ------------------------------------------------------------------------------------------------
 @implementation TDStickerLibraryCustomization
 
 //  ------------------------------------------------------------------------------------------------
@@ -220,6 +225,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark overwrite properties of the class
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) isStickerSoloViewEnabled
 {
@@ -249,6 +255,8 @@
 
 @end
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 
 
 

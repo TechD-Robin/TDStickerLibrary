@@ -8,6 +8,6 @@
 
 #import "TDStickerLibrary.h"
 
-@implementation TDStickerLibrary
-
-@end
+//@implementation TDStickerLibrary
+//
+//@end

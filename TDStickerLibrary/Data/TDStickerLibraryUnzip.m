@@ -29,16 +29,23 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  declare property for private category()
+#pragma mark declare private category ()
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
-#pragma mark declare property ()
-@interface TDStickerLibraryUnzip()
+@interface TDStickerLibraryUnzip ()
 {
+    /**
+     *  prefix path name in zipped file.
+     */
     NSString                      * prefixDirectory;
     
+    /**
+     *  the container of unzipped data.
+     */
     NSMutableDictionary           * unzipDataContainer;
     
+    /**
+     *  the container of configure data.
+     */
     //NSMutableDictionary           * configureData;      //  json struct.
     NSMutableArray                * configureData;      //  json struct.
 }
@@ -51,16 +58,15 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
-
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-//  method declare for Private of category
 //  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark declare for Private
-@interface TDStickerLibraryUnzip(Private)
+#pragma mark declare private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@interface TDStickerLibraryUnzip (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for initial this class.
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief initial the attributes of class.
@@ -69,16 +75,90 @@
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
-
+#pragma mark declare for unzip file.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief unzip procedure for unzip a zipped file.
+ *  unzip procedure for unzip a zipped file.
+ *
+ *  @param filename                 zipped file name (without Extension part).
+ *  @param directory                enumeration for directory.
+ *  @param subpath                  resource's sub directory name of configure
+ *  @param prefix                   prefix path name in zipped file.
+ *  @param password                 password of zipped file.
+ *  @param rootKey                  key of root of configure file.
+ *  @param updateKey                key for update data.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _UnzipProcedure:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
               inZippedPath:(NSString*)prefix with:(NSString *)password
                  configure:(NSString *)rootKey with:(NSString *)updateKey;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief unzip a zipped file with password.
+ *  unzip a zipped file with password.
+ *
+ *  @param filename                 zipped file name (full path).
+ *  @param password                 password of zipped file.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _UnZipConfigureFile:(NSString *)filename with:(NSString *)password;
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for json data.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a configure json data from unzipped object.
+ *  get a configure json data from unzipped object.
+ *
+ *  @param filename                 configure file name (without Extension part).
+ *  @param rootKey                  key of root of configure file.
+ *  @param updateKey                key for update data.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _GetConfigureJsonData:(NSString *)filename configure:(NSString *)rootKey with:(NSString *)updateKey;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief parse the structure of json data.
+ *  parse the structure of json data, and assign to container of configure data.
+ *
+ *  @param json                     the container of json data.
+ *  @param rootKey                  key of root of configure file.
+ *  @param updateKey                key for update data.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _ParseJsonStruct:(NSMutableDictionary *)json  configure:(NSString *)rootKey with:(NSString *)updateKey;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for get data in Zipped file.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a data in zipped file for key.
+ *  get a data in zipped file for key.
+ *
+ *  @param aKey                     a key of data.
+ *
+ *  @return data|nil                the data for key or nil.
+ */
 - ( NSData * ) _UnzipDataForKey:(NSString *)aKey;
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for get information data.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a information data at index.
+ *  get a information data at index.
+ *
+ *  @param index                    index of information data.
+ *
+ *  @return data|nil                the container of information data.
+ */
 - ( NSDictionary * ) _GetInfoDataAtIndex:(NSInteger)index;
 
 //  ------------------------------------------------------------------------------------------------
@@ -91,15 +171,14 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  method implementation for Private of category
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark implementation for Private method
-@implementation TDStickerLibraryUnzip(Private)
+#pragma mark implementation private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@implementation TDStickerLibraryUnzip (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for initial this class.
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
 - ( void ) _InitAttributes
 {
     prefixDirectory                 = nil;
@@ -109,6 +188,8 @@
     configureData                   = nil;
 }
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for unzip file.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _UnzipProcedure:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
               inZippedPath:(NSString*)prefix with:(NSString *)password
@@ -221,7 +302,8 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
+#pragma mark method for json data.
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _GetConfigureJsonData:(NSString *)filename configure:(NSString *)rootKey with:(NSString *)updateKey
 {
     if ( nil == filename )
@@ -347,6 +429,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get data in Zipped file.
 //  ------------------------------------------------------------------------------------------------
 - ( NSData * ) _UnzipDataForKey:(NSString *)aKey
 {
@@ -358,6 +441,8 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get information data.
+//  ------------------------------------------------------------------------------------------------
 - ( NSDictionary * ) _GetInfoDataAtIndex:(NSInteger)index;
 {
     if ( ( 0 > index ) || ( nil == configureData ) || ( [configureData count] == 0 ) )
@@ -367,21 +452,21 @@
     return [configureData objectAtIndex: index];
 }
 
+
 //  ------------------------------------------------------------------------------------------------
-
-
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
+
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-//  public method implementation.
 //  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark implementation for public method
+#pragma mark implementation for public
+//  ------------------------------------------------------------------------------------------------
 @implementation TDStickerLibraryUnzip
 
 //  ------------------------------------------------------------------------------------------------
@@ -422,8 +507,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-#pragma mark method create the object.
+#pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) initWithZipFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
                       inZippedPath:(NSString*)prefix with:(NSString *)password
@@ -447,6 +531,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for update this object.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) updateDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
                 inZippedPath:(NSString *)prefix with:(NSString *)password
@@ -457,6 +542,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get data in Zipped file.
 //  ------------------------------------------------------------------------------------------------
 - ( NSData * ) unzipDataForKey:(NSString *)aKey
 {
@@ -464,14 +550,11 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get information data.
 //  ------------------------------------------------------------------------------------------------
 - ( NSDictionary * ) infoDataAtIndex:(NSInteger)index
 {
-    if ( ( 0 > index ) || ( nil == configureData ) || ( [configureData count] == 0 ) )
-    {
-        return nil;
-    }
-    return [configureData objectAtIndex: index];
+    return [self _GetInfoDataAtIndex: index];
 }
 
 //  ------------------------------------------------------------------------------------------------
