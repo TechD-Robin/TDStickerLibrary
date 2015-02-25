@@ -32,11 +32,9 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  declare property for private category()
+#pragma mark declare private category ()
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
-#pragma mark declare property ()
-@interface TDStickerLibrarySectionStates()
+@interface TDStickerLibrarySectionStates ()
 {
     NSMutableArray                * sectionStates;
     
@@ -55,13 +53,13 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  method declare for Private of category
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark declare for Private
-@interface TDStickerLibrarySectionStates(Private)
+#pragma mark declare private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@interface TDStickerLibrarySectionStates (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for initial this class.
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief initial the attributes of class.
@@ -82,13 +80,13 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  method implementation for Private of category
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark implementation for Private method
-@implementation TDStickerLibrarySectionStates(Private)
+#pragma mark implementation private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@implementation TDStickerLibrarySectionStates (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for initial this class.
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _InitAttributes
 {
@@ -109,21 +107,22 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
     }
     return [sectionStates objectAtIndex: index];
 }
+
+
 //  ------------------------------------------------------------------------------------------------
-
-
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
+
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-//  public method implementation.
 //  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark implementation for public method
+#pragma mark implementation for public
+//  ------------------------------------------------------------------------------------------------
 @implementation TDStickerLibrarySectionStates
 
 //  ------------------------------------------------------------------------------------------------

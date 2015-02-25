@@ -13,6 +13,9 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  a tab page view(collection view) for sticker library view controller.
+ */
 @interface TDStickerLibraryTabPageView : UICollectionView <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 //  ------------------------------------------------------------------------------------------------
@@ -23,6 +26,17 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create the object.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a Tab Page View.
+ *  create a Tab Page View (collection view).
+ *
+ *  @param frame                    the frame of tab page view.
+ *  @param customization            the customization object for the Sticker Library.
+ *  @param configure                a configure name for collection view.
+ *  @param aKey                     a key for collection view.
+ *
+ *  @return object|nil              the tab page view or nil.
+ */
 + ( instancetype ) tabPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
                                data:(NSString *)configure forKey:(NSString *)aKey;
 

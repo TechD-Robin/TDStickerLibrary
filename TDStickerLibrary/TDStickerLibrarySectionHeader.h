@@ -13,6 +13,8 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare protocol for TDSectionHeaderDelegate.
+//  ------------------------------------------------------------------------------------------------
 @protocol TDSectionHeaderDelegate <NSObject>
 @required
 
@@ -38,7 +40,9 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-
+/**
+ *  a section header of collection view for sticker library view controller.
+ */
 @interface TDStickerLibrarySectionHeader : UICollectionReusableView
 
 //  ------------------------------------------------------------------------------------------------
@@ -46,10 +50,20 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  delegate for TDSectionHeaderDelegate.
+ */
 @property ( nonatomic, SAFE_ARC_PROP_RETAIN ) id<TDSectionHeaderDelegate>   idDelegate;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  section's index.
+ */
 @property( nonatomic, assign ) NSInteger                        sectionIndex;
+
+/**
+ *  section's title.
+ */
 @property( nonatomic, SAFE_ARC_PROP_RETAIN ) NSString         * sectionTitle;
 
 

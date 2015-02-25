@@ -35,17 +35,24 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  declare property for private category()
+#pragma mark declare private category ()
 //  ------------------------------------------------------------------------------------------------
-#pragma mark declare property ()
 @interface TDStickerLibraryTabPageView ()
 <TDSectionHeaderDelegate, TDSectionPreviewCellDelegate>
 {
-    
+    /**
+     *  the pointer for the customization object, reference some properties.
+     */
     TDStickerLibraryCustomization * customizationParam;
     
-    
+    /**
+     *  the pointer for tab page information, i/o the configure from this object.
+     */
     TDStickerLibraryTabPageInfo   * pageConfigure;
+    
+    /**
+     *  the pointer for section states, i/o section states of collection view from this object.
+     */
     TDStickerLibrarySectionStates * sectionStates;
     
 }
@@ -57,27 +64,44 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
-
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-//  method declare for Private of category
 //  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark declare for Private
-@interface TDStickerLibraryTabPageView(Private)
+#pragma mark declare private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@interface TDStickerLibraryTabPageView (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for initial this class.
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief initial the attributes of class.
  *  initial the attributes of class.
  */
 - ( void ) _InitAttributes;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief register sub classes for a collection view.
+ *  register sub classes  for collection view.
+ */
 - ( void ) _RegisterClasses;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief load configure data for a collection view.
+ *  load configure data for a collection view.
+ *
+ *  @param configure                a configure name for collection view.
+ *  @param aKey                     a key for collection view.
+ */
 - ( void ) _LoadSystemConfigure:(NSString *)configure forKey:(NSString *)aKey;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief initial section states of collection view.
+ *  initial section states of collection view.
+ */
 - ( void ) _InitSectionStates;
 
 //  ------------------------------------------------------------------------------------------------
@@ -87,7 +111,7 @@
  *  @brief create layout of the collection view with customization.
  *  create layout of the collection view with customization.
  *
- *  @param customization            customization object for the Sticker Library.
+ *  @param customization            the customization object for the Sticker Library.
  *
  *  @return layout|nil              the layout object or nil.
  */
@@ -214,13 +238,13 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  method implementation for Private of category
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark implementation for Private method
-@implementation TDStickerLibraryTabPageView(Private)
+#pragma mark implementation private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@implementation TDStickerLibraryTabPageView (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for initial this class.
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _InitAttributes
 {
@@ -690,11 +714,7 @@
 
 
 //  ------------------------------------------------------------------------------------------------
-
-
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-
 
 @end
 
@@ -704,11 +724,9 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  public method implementation.
-//  ------------------------------------------------------------------------------------------------
-//  --------------------------------
 #pragma mark -
-#pragma mark implementation for public method
+#pragma mark implementation for public
+//  ------------------------------------------------------------------------------------------------
 @implementation TDStickerLibraryTabPageView
 
 //  ------------------------------------------------------------------------------------------------
@@ -824,10 +842,10 @@
     
 
     //  preview mode.
-    BOOL                        miniState;
+    BOOL                            miniState;
     
-    miniState                   = YES;
-    cell                        = [collectionView dequeueReusableCellWithReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionPreviewCell class] ) forIndexPath: indexPath];
+    miniState                       = YES;
+    cell                            = [collectionView dequeueReusableCellWithReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionPreviewCell class] ) forIndexPath: indexPath];
     if ( ( [sectionStates miniState: &miniState inSection: indexPath.section] == NO ) || ( nil == cell ) )
     {
         return cell;
@@ -836,17 +854,17 @@
     //  init the cell's state.
     [(TDStickerLibrarySectionPreviewCell *)cell setMiniState: miniState];
     
-    stickerView                 = [self _CreatePreviewSticker: indexPath];
+    stickerView                     = [self _CreatePreviewSticker: indexPath];
     if ( nil != stickerView )
     {
-        [cell                   setBackgroundView: stickerView];
+        [cell                       setBackgroundView: stickerView];
     }
 
     
     //  assign the frames data for preview image..
-    NSData                    * configureData;
+    NSData                        * configureData;
     
-    configureData               = [pageConfigure configureDataAtIndex: indexPath.section];
+    configureData                   = [pageConfigure configureDataAtIndex: indexPath.section];
     if ( nil != configureData )
     {
         [(TDStickerLibrarySectionPreviewCell *)cell loadFrames: configureData];

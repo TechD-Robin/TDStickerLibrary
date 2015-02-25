@@ -12,16 +12,10 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare protocol for TDSectionPreviewCellDelegate.
+//  ------------------------------------------------------------------------------------------------
 @protocol TDSectionPreviewCellDelegate <NSObject>
 @required
-
-/**
- *  @brief when header in section of collection view is tap, call the delegate method.
- *  when header in section of collection view is tap, and get a current sprite data, call the delegate method.
- *
- *  @param collectionView           the collection view( header's super view).
- *  @param section                  section index.
- */
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -50,6 +44,9 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  a preview cell of collection view for sticker library view controller.
+ */
 @interface TDStickerLibrarySectionPreviewCell : UICollectionViewCell
 
 //  ------------------------------------------------------------------------------------------------
@@ -57,6 +54,9 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  delegate for TDSectionPreviewCellDelegate.
+ */
 @property ( nonatomic, SAFE_ARC_PROP_RETAIN ) id<TDSectionPreviewCellDelegate>  idDelegate;
 
 //  ------------------------------------------------------------------------------------------------
@@ -66,6 +66,14 @@
 @property( nonatomic, assign ) BOOL                             miniState;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief load the preview cell's image frames from configure data.
+ *  load the preview cell's image frames from configure data.
+ *
+ *  @param confgureData             the preview cell's image frames data.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) loadFrames:(NSData *)confgureData;
 
 //  ------------------------------------------------------------------------------------------------

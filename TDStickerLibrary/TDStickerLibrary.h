@@ -18,7 +18,7 @@
 #endif  //  End of _TDSticker_Library_.
 
 
-@interface TDStickerLibrary : NSObject
-
-@end
+//@interface TDStickerLibrary : NSObject
+//
+//@end
 

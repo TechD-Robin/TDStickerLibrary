@@ -30,21 +30,37 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  declare property for private category()
+#pragma mark declare private category ()
 //  ------------------------------------------------------------------------------------------------
-#pragma mark declare property ()
 @interface TDStickerLibraryViewController ()
 {
-    
+    //  sub view.
+    /**
+     *  a navigation bar object.
+     */
     UINavigationBar               * navigationBar;
-    UIView                        * bannerView;     //  for plugin method used.
     
+    /**
+     *  a banner view; for plugin method used.
+     */
+    UIView                        * bannerView;
+    
+    /**
+     *  a tab menu view.
+     */
     UIScrollView                  * tabMenu;
     
+    
+    //  configure.
+    /**
+     *  a pointer for the customization object, reference some properties.
+     */
     TDStickerLibraryCustomization * customizationParam;
     
+    /**
+     *  the pointer for tab information, i/o the configure from this object.
+     */
     TDStickerLibraryTabInfo       * tabConfigure;
-    
     
 }
 //  ------------------------------------------------------------------------------------------------
@@ -55,16 +71,15 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
-
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-//  method declare for Private of category
 //  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark declare for Private
-@interface TDStickerLibraryViewController(Private)
+#pragma mark declare private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@interface TDStickerLibraryViewController (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for initial this class.
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief initial the attributes of class.
@@ -73,22 +88,94 @@
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  load configure data for the sticker library view controller.
+ */
 - ( void ) _LoadSystemConfigure;
 
 
 //  ------------------------------------------------------------------------------------------------
-- ( CGFloat ) _GetNextCreateSubviewTopPosition;
-
+#pragma mark declare for create object.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a navigation bar into this object.
+ *  create a navigation bar into this object.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _CreateNavigationBar;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a banner into this object.
+ *  create a banner into this object.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _CreateBannerView;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a tab menu into this object.
+ *  create a tab menu into this object.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _CreateTabMenu;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create tab menu's items with relation object into this object.
+ *  create tab menu's items with relation object into this object.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _CreateTabMenuItemsWithRelations;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create first tab page when this object did load.
+ *  create first tab page when this object did load.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _CreateStartTabPage;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a tab page.
+ *  create a tab page.
+ *
+ *  @param index                    index of the configure data.
+ *
+ *  @return object|nil              the tab page view or nil.
+ */
 - ( id ) _CreateTabPage:(NSInteger)index;;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a tab menu item into tab menu object.
+ *  create a tab menu item into tab menu object.
+ *
+ *  @param imagesName               image name's container(normal and highlighted.).
+ *  @param index                    index of the configure data.
+ *
+ *  @return object|nil              the tab menu item or nil.
+ */
 - ( id ) _CreateTabMenuItem:(NSArray *)imagesName index:(NSInteger)index;
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for calculate object's properties.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief calculate subview's top position when create a new subview.
+ *  calculate subview's top position when create a new subview.
+ *
+ *  @return                         subview's top position.
+ */
+- ( CGFloat ) _GetNewSubviewTopPosition;
+
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
@@ -99,13 +186,13 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  method implementation for Private of category
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark implementation for Private method
-@implementation TDStickerLibraryViewController(Private)
+#pragma mark implementation private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@implementation TDStickerLibraryViewController (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for initial this class.
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _InitAttributes
 {
@@ -121,6 +208,7 @@
 
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 - ( void ) _LoadSystemConfigure
 {
     tabConfigure                    = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam tabConfigureFilename] forDirectories: TDResourcesDirectory inDirectory: [customizationParam configureResource] inZippedPath: [customizationParam inZippedPrefixPath]];
@@ -133,31 +221,9 @@
         
 }
 
-//  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-- ( CGFloat ) _GetNextCreateSubviewTopPosition
-{
-    CGFloat                         subviewTop;
-    
-    subviewTop                      = 0.0f;
-    subviewTop                      = [[UIScreen mainScreen] getStatusBarHeight];
-    if ( nil != navigationBar )
-    {
-        subviewTop                  += [navigationBar bounds].size.height;
-    }
-    if ( nil != bannerView )
-    {
-        subviewTop                  += [bannerView bounds].size.height;
-    }
-    if ( nil != tabMenu )
-    {
-        subviewTop                  += [tabMenu bounds].size.height;
-    }
-    
-    
-    return subviewTop;
-}
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for create object.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateNavigationBar
 {
@@ -167,7 +233,7 @@
     CGFloat                         navigationBarHight;
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
-    subviewTop                      = [self _GetNextCreateSubviewTopPosition];
+    subviewTop                      = [self _GetNewSubviewTopPosition];
     navigationBarHight              = [customizationParam navigationBarHeight];
     navigationBar                   = [[UINavigationBar alloc] initWithFrame: CGRectMake( 0, ( subviewTop + 1.0f ), screenWidth, navigationBarHight )];
     if ( nil == navigationBar )
@@ -216,7 +282,7 @@
     CGRect                          bannerRect;
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
-    subviewTop                      = [self _GetNextCreateSubviewTopPosition];
+    subviewTop                      = [self _GetNewSubviewTopPosition];
     bannerHeight                    = [customizationParam bannerHeight];
     bannerRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, bannerHeight );
     bannerView                      = [[UIView alloc] initWithFrame: bannerRect];
@@ -243,7 +309,7 @@
     CGRect                          tabMenuRect;
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
-    subviewTop                      = [self _GetNextCreateSubviewTopPosition];
+    subviewTop                      = [self _GetNewSubviewTopPosition];
     tabMenuHeight                   = [customizationParam tabMenuHeight];
     tabMenuRect                     = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, tabMenuHeight );
     tabMenu                         = [[UIScrollView alloc] initWithFrame: tabMenuRect];
@@ -350,7 +416,7 @@
     CGFloat                         viewHeight;
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
-    subviewTop                      = [self _GetNextCreateSubviewTopPosition];
+    subviewTop                      = [self _GetNewSubviewTopPosition];
     viewHeight                      = ( [[UIScreen mainScreen] bounds].size.height - subviewTop );
     
 
@@ -465,8 +531,33 @@
 
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for calculate object's properties.
 //  ------------------------------------------------------------------------------------------------
+- ( CGFloat ) _GetNewSubviewTopPosition
+{
+    CGFloat                         subviewTop;
+    
+    subviewTop                      = 0.0f;
+    subviewTop                      = [[UIScreen mainScreen] getStatusBarHeight];
+    if ( nil != navigationBar )
+    {
+        subviewTop                  += [navigationBar bounds].size.height;
+    }
+    if ( nil != bannerView )
+    {
+        subviewTop                  += [bannerView bounds].size.height;
+    }
+    if ( nil != tabMenu )
+    {
+        subviewTop                  += [tabMenu bounds].size.height;
+    }
+    
+    return subviewTop;
+}
 
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
@@ -476,10 +567,9 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  public method implementation.
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark implementation for public method
+#pragma mark implementation for public
+//  ------------------------------------------------------------------------------------------------
 @implementation TDStickerLibraryViewController
 
 //  ------------------------------------------------------------------------------------------------
@@ -566,7 +656,6 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
 - ( instancetype ) initWithCustomization:(TDStickerLibraryCustomization *)customization
 {
     self                            = [super init];
@@ -601,8 +690,6 @@
 
 //  ------------------------------------------------------------------------------------------------
 
-
-
 /*
 #pragma mark - Navigation
 
@@ -613,4 +700,14 @@
 }
 */
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+
+
 @end
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+
+
+

@@ -27,17 +27,35 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  declare property for private category()
+#pragma mark declare private category ()
 //  ------------------------------------------------------------------------------------------------
-#pragma mark declare property ()
 @interface TDStickerLibraryStickerSoloView ()
 {
+    /**
+     *  the pointer for the customization object, reference some properties.
+     */
     TDStickerLibraryCustomization * customizationParam;
     
+    
     //  sticker image view.
+    /**
+     *  the sticker original frame.
+     */
     CGSize                          stickerOriginalSize;
+    
+    /**
+     *  the sticker now frame on screen.
+     */
     CGRect                          stickerOnScreenFrame;
+    
+    /**
+     *  the sticker image view, create with sticker image.
+     */
     UIImageView                   * stickerImageView;
+    
+    /**
+     *  a blur image view.
+     */
     UIImageView                   * blurImageView;
     
     
@@ -58,13 +76,13 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  method declare for Private of category
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark declare for Private
-@interface TDStickerLibraryStickerSoloView(Private)
+#pragma mark declare private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@interface TDStickerLibraryStickerSoloView (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for initial this class.
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief initial the attributes of class.
@@ -84,13 +102,53 @@
 - ( BOOL ) _CreateTapAction;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a sticker image view with sticker image.
+ *  create a sticker image view with sticker image.
+ *
+ *  @param stickerImage             the sticker image.
+ *
+ *  @return YES|NO                  method success or failure
+ */
 - ( BOOL ) _CreateStickerImageView:(UIImage *)stickerImage;
 
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a blur image by core graphic method.
+ *  create a blur image by core graphic method.
+ *
+ *  @return object|nil              a blur image object or ni.
+ */
 - ( UIImage * ) _CreateBlurImage;
 
-- ( BOOL ) _CreateBlurImageView;
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a blur image.
+ *  create a blur image.
+ *
+ *  @return YES|NO                  method success or failure
+ */
+- ( BOOL ) _CreateBlurImageView;
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for show or hide the object.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief show the sticker solo view on window.
+ *  show the Sticker solo view on window(device screen).
+ *
+ *  @return YES|NO                  method success or failure
+ */
 - ( BOOL ) _BringTheViewToFront;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief hide the sticker solo view.
+ *  hide the sticker solo view; transation to position on screen for collection view's section.
+ *
+ *  @return YES|NO                  method success or failure
+ */
 - ( BOOL ) _SendTheViewToBack;
 
 //  ------------------------------------------------------------------------------------------------
@@ -104,13 +162,13 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  method implementation for Private of category
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark implementation for Private method
-@implementation TDStickerLibraryStickerSoloView(Private)
+#pragma mark implementation private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@implementation TDStickerLibraryStickerSoloView (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for initial this class.
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _InitAttributes
 {
@@ -229,6 +287,7 @@
 
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for show or hide the object.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _BringTheViewToFront
 {
@@ -336,10 +395,9 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//  public method implementation.
-//  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark implementation for public method
+#pragma mark implementation for public
+//  ------------------------------------------------------------------------------------------------
 @implementation TDStickerLibraryStickerSoloView
 
 //  ------------------------------------------------------------------------------------------------
@@ -417,6 +475,7 @@
 
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for show/hide the object.
 //  ------------------------------------------------------------------------------------------------
 - ( void ) showSoloView:(void (^)(void))showView completion:(FinishedCallbackBlock)completion
 {
