@@ -68,11 +68,21 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for state information.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a state information at index.
+ *  get a state information at index.
+ *
+ *  @param index                    index of state information.
+ *
+ *  @return data|nil                the state data or nil.
+ */
 - ( NSDictionary * ) _GetStateInfoAtIndex:(NSInteger)index;
-
 //  ------------------------------------------------------------------------------------------------
 
 @end
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -98,6 +108,7 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for state information.
 //  ------------------------------------------------------------------------------------------------
 - ( NSDictionary * ) _GetStateInfoAtIndex:(NSInteger)index
 {
@@ -128,7 +139,6 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 //  ------------------------------------------------------------------------------------------------
 #pragma mark synthesize variable.
 
-//  --------------------------------
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 #pragma mark overwrite implementation of NSObject
@@ -158,9 +168,7 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-#pragma mark method create the object.
-//  ------------------------------------------------------------------------------------------------
-
+#pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) sectionStates
 {
@@ -168,8 +176,8 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for i/o a state data.
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
 - ( BOOL ) insertStateDataForKey:(NSString *)aKey
 {
     if ( nil == aKey )
@@ -227,7 +235,6 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 }
 
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) numberOfSections
 {
     if ( nil == sectionStates )
@@ -238,6 +245,9 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for i/o the state data in section.
+//  ------------------------------------------------------------------------------------------------
+//  mini state.
 - ( BOOL ) miniState:(BOOL *)miniState inSection:(NSInteger)section;
 {
     NSDictionary                  * stateInfo;
@@ -249,8 +259,6 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
         return NO;
     }
     
-//    return [[stateInfo objectForKey: kTDSectionStateKeyNowPreviewImageSize] CGSizeValue];
-  
     state                           = [[stateInfo objectForKey: kTDSectionStateKeyMiniState] boolValue];
     if ( nil != miniState )
     {
@@ -275,6 +283,7 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 }
 
 //  ------------------------------------------------------------------------------------------------
+//  image's count.
 - ( NSInteger ) numberOfImagesInSection:(NSInteger)section
 {
     NSDictionary                  * stateInfo;
@@ -304,7 +313,6 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
     return YES;
 }
 
-
 //  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) numberOfTotalImagesInSection:(NSInteger)section
 {
@@ -319,6 +327,7 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 }
 
 //  ------------------------------------------------------------------------------------------------
+//  preview image's size.
 - (CGSize) normalSizeOfPreviewImageInSection:(NSInteger)section
 {
     NSDictionary                  * stateInfo;

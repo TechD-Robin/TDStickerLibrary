@@ -431,12 +431,12 @@
     stickerView                     = [UIImageView proportionalImageView: stickerImage reference: [customizationParam tableCommonItemSize] originWith: [customizationParam tableCommonItemSize]];
     if ( nil == stickerView )
     {
-        SAFE_ARC_RELEASE( image );
+        SAFE_ARC_RELEASE( stickerImage );
         return nil;
     }
     
-    SAFE_ARC_RELEASE( image );
-    SAFE_ARC_ASSIGN_POINTER_NIL( image );
+    SAFE_ARC_RELEASE( stickerImage );
+    SAFE_ARC_ASSIGN_POINTER_NIL( stickerImage );
     return stickerView;
 }
 
@@ -466,12 +466,12 @@
     stickerView                     = [[UIImageView alloc] initWithImage: [stickerImage resize: previewSize]];
     if ( nil == stickerView )
     {
-        SAFE_ARC_RELEASE( image );
+        SAFE_ARC_RELEASE( stickerImage );
         return nil;
     }
     
-    SAFE_ARC_RELEASE( image );
-    SAFE_ARC_ASSIGN_POINTER_NIL( image );
+    SAFE_ARC_RELEASE( stickerImage );
+    SAFE_ARC_ASSIGN_POINTER_NIL( stickerImage );
     return stickerView;
 }
 

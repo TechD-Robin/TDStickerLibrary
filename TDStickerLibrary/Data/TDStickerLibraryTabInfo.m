@@ -130,7 +130,7 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-#pragma mark method create the object.
+#pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) initWithZipFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString*)prefix with:(NSString *)password
 {
@@ -149,14 +149,27 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
     return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password];
 }
 
+
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for update this object.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) updateDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix with:(NSString *)password
 {
     return [self updateDataFromZip: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: kTDTabInfoKeyRoot  with: kTDTabInfoKeyName];
 }
 
+
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get data in Zipped file.
+//  ------------------------------------------------------------------------------------------------
+- ( NSData * ) imageDataForKey:(NSString *)aKey
+{
+    aKey                            = TDGetImageNameForScreenScale( aKey, [[UIScreen mainScreen] scaleMultiple] );
+    return [self unzipDataForKey: aKey];
+}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for get information data.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) isInfoDataEnabledAtIndex:(NSInteger)index
 {
@@ -200,7 +213,7 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
             return i;
         }
     }
-    return 0;
+    return -1;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -214,13 +227,6 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
         return nil;
     }
     return [infoData objectForKey: kTDTabInfoKeyImages];
-}
-
-//  ------------------------------------------------------------------------------------------------
-- ( NSData * ) imageDataForKey:(NSString *)aKey
-{
-    aKey                            = TDGetImageNameForScreenScale( aKey, [[UIScreen mainScreen] scaleMultiple] );
-    return [self unzipDataForKey: aKey];
 }
 
 //  ------------------------------------------------------------------------------------------------

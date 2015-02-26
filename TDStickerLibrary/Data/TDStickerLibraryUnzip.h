@@ -14,7 +14,7 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 /**
- *  a object for unzip a zipped file of Sticker Library Unzip.
+ *  a data object for unzip a zipped file of Sticker Library Unzip.
  *  the zipped file include configure file and other resources, 
  *  and the file can use password or not to zip by ZipCrypto. 
  */
@@ -76,7 +76,7 @@
  *
  *  @param aKey                     a key of data.
  *
- *  @return data|nil                the data for key or nil.
+ *  @return data|nil                the data or nil.
  */
 - ( NSData * ) unzipDataForKey:(NSString *)aKey;
 
@@ -89,7 +89,7 @@
  *
  *  @param index                    index of information data.
  *
- *  @return data|nil                the container of information data.
+ *  @return data|nil                the container of information data or nil.
  */
 - ( NSDictionary * ) infoDataAtIndex:(NSInteger)index;
 
@@ -98,7 +98,7 @@
  *  @biref count of information data.
  *  count of information data.
  *
- *  @return count| 0                the count of information data or nil.
+ *  @return count| 0                the count of information data or 0.
  */
 - ( NSInteger ) infoDataCount;
 

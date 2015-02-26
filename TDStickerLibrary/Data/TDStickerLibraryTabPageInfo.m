@@ -68,10 +68,40 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for get data in Zipped file.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a image data in zipped file for key.
+ *  get a image data in zipped file for key.
+ *
+ *  @param aKey                     a key of data.
+ *
+ *  @return data|nil                the image data for key or nil.
+ */
 - ( NSData * ) _GetImageDataForKey:(NSString *)aKey;
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for get information data.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get data type is string data at information data index and for the data key.
+ *
+ *  @param index                    index of information data.
+ *  @param aKey                     key of the information data container.
+ *
+ *  @return data|nil                the data for key or nil.
+ */
 - ( NSString * ) _GetStringDataAtIndex:(NSInteger)index forKey:(NSString *)aKey;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get data type is integer data at information data index and for the data key.
+ *
+ *  @param index                    index of information data.
+ *  @param aKey                     key of the information data container.
+ *
+ *  @return data| 0                 the data for key or 0.
+ */
 - ( NSInteger ) _GetIntegerDataAtIndex:(NSInteger)index forKey:(NSString *)aKey;
 
 //  ------------------------------------------------------------------------------------------------
@@ -99,6 +129,7 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get data in Zipped file.
 //  ------------------------------------------------------------------------------------------------
 - ( NSData * ) _GetImageDataForKey:(NSString *)aKey
 {
@@ -110,6 +141,8 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
     return [self unzipDataForKey: aKey];
 }
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for get information data.
 //  ------------------------------------------------------------------------------------------------
 - ( NSString * ) _GetStringDataAtIndex:(NSInteger)index forKey:(NSString *)aKey
 {
@@ -184,7 +217,7 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-#pragma mark method create the object.
+#pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) initWithZipFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
                       inZippedPath:(NSString*)prefix with:(NSString *)password
@@ -208,7 +241,9 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
     return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: rootKey];
 }
 
+
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for update this object.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) updateDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
                 inZippedPath:(NSString *)prefix with:(NSString *)password
@@ -217,9 +252,10 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
     return [self updateDataFromZip: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: rootKey with: kTDPageInfoKeyID];
 }
 
+
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get information data.
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
 - ( NSString * ) dataIDAtIndex:(NSInteger)index
 {
     return [self _GetStringDataAtIndex: index forKey: kTDPageInfoKeyID];
@@ -297,6 +333,35 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( NSString * ) configureNameAtIndex:(NSInteger)index
+{
+    NSDictionary                  * infoData;
+    NSString                      * subDir;
+    NSString                      * configureName;
+    
+    configureName                   = nil;
+    subDir                          = [self _GetStringDataAtIndex: index forKey: kTDPageInfoKeySubDir];
+    infoData                        = [self infoDataAtIndex: index];
+    if ( nil == infoData )
+    {
+        return nil;
+    }
+    
+    configureName                   = [infoData objectForKey: kTDPageInfoKeyConfigure];
+    if ( ( nil == configureName ) || ( [configureName length] == 0 ) )
+    {
+        return nil;
+    }
+    
+    configureName                   = [subDir stringByAppendingPathComponent: configureName];
+    configureName                   = [configureName stringByAppendingPathExtension: @"plist"];
+    return configureName;
+}
+
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for get data in Zipped file.
+//  ------------------------------------------------------------------------------------------------
 - ( NSData * ) imageDataAtIndex:(NSInteger)index forKey:(NSString *)aKey;
 {
 //    aKey                            = TDGetImageNameForScreenScale( aKey, (NSInteger)[[UIScreen mainScreen] scaleMultiple] );
@@ -333,32 +398,6 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( NSString * ) configureNameAtIndex:(NSInteger)index
-{
-    NSDictionary                  * infoData;
-    NSString                      * subDir;
-    NSString                      * configureName;
-    
-    configureName                   = nil;
-    subDir                          = [self _GetStringDataAtIndex: index forKey: kTDPageInfoKeySubDir];
-    infoData                        = [self infoDataAtIndex: index];
-    if ( nil == infoData )
-    {
-        return nil;
-    }
-    
-    configureName                   = [infoData objectForKey: kTDPageInfoKeyConfigure];
-    if ( ( nil == configureName ) || ( [configureName length] == 0 ) )
-    {
-        return nil;
-    }
-    
-    configureName                   = [subDir stringByAppendingPathComponent: configureName];
-    configureName                   = [configureName stringByAppendingPathExtension: @"plist"];
-    return configureName;
-}
-
-//  ------------------------------------------------------------------------------------------------
 - ( NSData * ) configureDataForKey:(NSString *)aKey
 {
     return [self unzipDataForKey: aKey];
@@ -376,9 +415,6 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
     }
     return [self configureDataForKey: configureName];
 }
-
-
-//  ------------------------------------------------------------------------------------------------
 
 //  ------------------------------------------------------------------------------------------------
 
