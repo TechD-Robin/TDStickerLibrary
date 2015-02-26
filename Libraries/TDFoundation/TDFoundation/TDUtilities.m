@@ -67,7 +67,8 @@ NSString * TDGetPathForDirectories( TDGetPathDirectory directory, NSString * nam
     
     if ( ( nil != typeExt ) && ( [typeExt isEqualToString: @""] == NO ) )
     {
-        filename                    = [filename stringByAppendingFormat: @".%s", [typeExt UTF8String]];
+        //filename                    = [filename stringByAppendingFormat: @".%s", [typeExt UTF8String]];
+        filename                    = [filename stringByAppendingPathExtension: typeExt];
     }
 
     if ( [[NSFileManager defaultManager] fileExistsAtPath: filename] == NO )

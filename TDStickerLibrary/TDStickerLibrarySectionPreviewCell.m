@@ -15,7 +15,7 @@
 #import "TDMath.h"
 
 #import "TDStickerLibrarySectionPreviewCell.h"
-#import "TDTexturePakcerXMLReader.h"
+#import "TDTexturePackerXMLReader.h"
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@
     /**
      *  the pointer for texture packer XML reader, i/o sprite data from this object.
      */
-    TDTexturePakcerXMLReader      * xmlReader;
+    TDTexturePackerXMLReader      * xmlReader;
     
 }
 
@@ -303,7 +303,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) loadFrames:(NSData *)confgureData
 {
-    xmlReader                       = [TDTexturePakcerXMLReader loadFromData: confgureData];
+    xmlReader                       = [TDTexturePackerXMLReader loadFromData: confgureData];
     
     //  don't load & parse on here, delay to touch action.
     return YES;

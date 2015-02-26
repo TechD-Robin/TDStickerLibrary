@@ -55,7 +55,7 @@
 		2AB706891A6FE42F006C6845 /* TDStickerLibraryTabInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */; };
 		2AB7068F1A700918006C6845 /* TDStickerLibraryCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7068E1A700918006C6845 /* TDStickerLibraryCustomization.m */; };
 		2ABD8E371A714E9300626356 /* TDBaseTabMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABD8E361A714E9300626356 /* TDBaseTabMenuItem.m */; };
-		2AF2FE8C1A7A7E9400793CD2 /* TDTexturePakcerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2FE8B1A7A7E9400793CD2 /* TDTexturePakcerXMLReader.m */; };
+		2AF2FE8C1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2FE8B1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m */; };
 		2AFDFAD71A838B8D00A82E55 /* TDStickerLibrarySectionStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AFDFAD61A838B8D00A82E55 /* TDStickerLibrarySectionStates.m */; };
 /* End PBXBuildFile section */
 
@@ -183,8 +183,8 @@
 		2AB7068E1A700918006C6845 /* TDStickerLibraryCustomization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryCustomization.m; sourceTree = "<group>"; };
 		2ABD8E351A714E9300626356 /* TDBaseTabMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBaseTabMenuItem.h; path = Libraries/TDBaseObjects/TDBaseObjects/TDBaseTabMenuItem.h; sourceTree = "<group>"; };
 		2ABD8E361A714E9300626356 /* TDBaseTabMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBaseTabMenuItem.m; path = Libraries/TDBaseObjects/TDBaseObjects/TDBaseTabMenuItem.m; sourceTree = "<group>"; };
-		2AF2FE8A1A7A7E9400793CD2 /* TDTexturePakcerXMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTexturePakcerXMLReader.h; path = Libraries/TDFoundation/TDFoundation/TDTexturePakcerXMLReader.h; sourceTree = "<group>"; };
-		2AF2FE8B1A7A7E9400793CD2 /* TDTexturePakcerXMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTexturePakcerXMLReader.m; path = Libraries/TDFoundation/TDFoundation/TDTexturePakcerXMLReader.m; sourceTree = "<group>"; };
+		2AF2FE8A1A7A7E9400793CD2 /* TDTexturePackerXMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTexturePackerXMLReader.h; path = Libraries/TDFoundation/TDFoundation/TDTexturePackerXMLReader.h; sourceTree = "<group>"; };
+		2AF2FE8B1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTexturePackerXMLReader.m; path = Libraries/TDFoundation/TDFoundation/TDTexturePackerXMLReader.m; sourceTree = "<group>"; };
 		2AF2FE8D1A7A9E9200793CD2 /* TDFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDFoundation.h; path = Libraries/TDFoundation/TDFoundation/TDFoundation.h; sourceTree = "<group>"; };
 		2AFDFAD51A838B8D00A82E55 /* TDStickerLibrarySectionStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibrarySectionStates.h; sourceTree = "<group>"; };
 		2AFDFAD61A838B8D00A82E55 /* TDStickerLibrarySectionStates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrarySectionStates.m; sourceTree = "<group>"; };
@@ -238,8 +238,8 @@
 				2AF2FE8D1A7A9E9200793CD2 /* TDFoundation.h */,
 				2A5D039B1A750A8E002B4A5D /* TDUtilities.h */,
 				2A5D039C1A750A8E002B4A5D /* TDUtilities.m */,
-				2AF2FE8A1A7A7E9400793CD2 /* TDTexturePakcerXMLReader.h */,
-				2AF2FE8B1A7A7E9400793CD2 /* TDTexturePakcerXMLReader.m */,
+				2AF2FE8A1A7A7E9400793CD2 /* TDTexturePackerXMLReader.h */,
+				2AF2FE8B1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m */,
 			);
 			name = TDFoundation;
 			sourceTree = "<group>";
@@ -563,7 +563,7 @@
 				2AB7068F1A700918006C6845 /* TDStickerLibraryCustomization.m in Sources */,
 				2A1135021A84DDC8004BBFDC /* UIImageView+TechD.m in Sources */,
 				2AB7062B1A6FDFE4006C6845 /* unzip.c in Sources */,
-				2AF2FE8C1A7A7E9400793CD2 /* TDTexturePakcerXMLReader.m in Sources */,
+				2AF2FE8C1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m in Sources */,
 				2A99ECFE1A8A7A080059AA41 /* UIGestureRecognizer+TechD.m in Sources */,
 				2A99ECF81A8A6FB30059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */,
 				2A4743771A826D5E0057586A /* TDStickerLibraryTabPageLayout.m in Sources */,
