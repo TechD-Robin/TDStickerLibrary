@@ -218,6 +218,7 @@
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief tap action for cell in section of collection view, show the sticker image.
+ *  tap action for cell in section of collection view, show the sticker image.
  *
  *  @param stickerImage             a sticker image.
  *  @param stickerSize              the sticker image's original size.
