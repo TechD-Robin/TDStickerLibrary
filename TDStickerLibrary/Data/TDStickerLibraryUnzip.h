@@ -102,9 +102,30 @@
  */
 - ( NSInteger ) infoDataCount;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get data type is string data at information data index and for the data key.
+ *  get data type is string data at information data index and for the data key.
+ *
+ *  @param index                    index of information data.
+ *  @param aKey                     key of the information data container.
+ *
+ *  @return data|nil                the data for key or nil.
+ */
+- ( NSString * ) infoDataAtIndex:(NSInteger)index stringValueForKey:(NSString *)aKey;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get data type is integer data at information data index and for the data key.
+ *
+ *  @param index                    index of information data.
+ *  @param aKey                     key of the information data container.
+ *
+ *  @return data| -1                 the data for key or -1.
+ */
+- ( NSInteger ) infoDataAtIndex:(NSInteger)index integerValueForKey:(NSString *)aKey;
 
+//  ------------------------------------------------------------------------------------------------
 
 @end
 

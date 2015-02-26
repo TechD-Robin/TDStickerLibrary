@@ -568,6 +568,41 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( NSString * ) infoDataAtIndex:(NSInteger)index stringValueForKey:(NSString *)aKey
+{
+    NSDictionary                  * infoData;
+    NSString                      * string;
+    
+    string                          = nil;
+    infoData                        = [self infoDataAtIndex: index];
+    if ( nil == infoData )
+    {
+        return nil;
+    }
+    
+    string                          = [infoData objectForKey: aKey];
+    if ( ( nil == string ) || ( [string length] == 0 ) )
+    {
+        return nil;
+    }
+    return string;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSInteger ) infoDataAtIndex:(NSInteger)index integerValueForKey:(NSString *)aKey
+{
+    NSString                      * string;
+    
+    string                          = [self infoDataAtIndex: index stringValueForKey: aKey];
+    if ( nil == string )
+    {
+        return -1;
+    }
+    return [string integerValue];
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 
 
 @end

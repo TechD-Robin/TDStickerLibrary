@@ -260,7 +260,7 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
     }
     
     state                           = [[stateInfo objectForKey: kTDSectionStateKeyMiniState] boolValue];
-    if ( nil != miniState )
+    if ( NULL != miniState )
     {
         *miniState                  = state;
     }
