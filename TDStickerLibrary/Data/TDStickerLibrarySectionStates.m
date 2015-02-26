@@ -36,8 +36,14 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 //  ------------------------------------------------------------------------------------------------
 @interface TDStickerLibrarySectionStates ()
 {
+    /**
+     *  the container of section's states.
+     */
     NSMutableArray                * sectionStates;
     
+    /**
+     *  the current data of section's state for new a record.
+     */
     NSMutableDictionary           * currentState;
     
 }
