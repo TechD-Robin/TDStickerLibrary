@@ -331,8 +331,8 @@
         [sectionStates              updateMiniStateOfStateData: YES];
         
         //  when mode not equal normal.
-        sectionMode                 = [pageConfigure dataModeAtIndex: i];
-        if ( 0 == sectionMode )
+        sectionMode                 = 0;
+        if ( ( [pageConfigure dataMode: &sectionMode atIndex: i] == NO ) || ( 0 == sectionMode ) )
         {
             continue;
         }
@@ -827,9 +827,17 @@
 {
     UICollectionViewCell          * cell;
     UIImageView                   * stickerView;
+    NSInteger                       sectionMode;
     
     stickerView                     = nil;
-    if ( [pageConfigure dataModeAtIndex: indexPath.section] == 0 )
+    sectionMode                     = 0;
+    if ( [pageConfigure dataMode: &sectionMode atIndex: indexPath.section] == NO )
+    {
+        NSLog( @"cannot get the section mode!" );
+        return nil;
+    }
+    
+    if ( 0 == sectionMode )
     {
         cell                        = [collectionView dequeueReusableCellWithReuseIdentifier: NSStringFromClass( [UICollectionViewCell class] ) forIndexPath: indexPath];
         stickerView                 = [self _CreateCommonSticker: indexPath];
@@ -916,7 +924,10 @@
         return CGSizeZero;
     }
     
-    if ( [pageConfigure dataModeAtIndex: indexPath.section] == 0 )
+    NSInteger                       sectionMode;
+    
+    sectionMode                     = 0;
+    if ( ( [pageConfigure dataMode: &sectionMode atIndex: indexPath.section] == NO ) || ( 0 == sectionMode ) )
     {
         return [customizationParam tableCommonItemSize];
     }
@@ -998,8 +1009,11 @@
     {
         return;
     }
+  
+    NSInteger                       sectionMode;
     
-    if ( [pageConfigure dataModeAtIndex: section] != 0 )
+    sectionMode                     = 0;
+    if ( ( [pageConfigure dataMode: &sectionMode atIndex: section] == YES ) && ( 0 != sectionMode ) )
     {
         [self _CollectionView: collectionView didSelectPreviewModeHeaderInSection: section];
         return;

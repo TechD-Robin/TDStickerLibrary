@@ -80,29 +80,6 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
  */
 - ( NSData * ) _GetImageDataForKey:(NSString *)aKey;
 
-//  ------------------------------------------------------------------------------------------------
-#pragma mark declare for get information data.
-//  ------------------------------------------------------------------------------------------------
-/**
- *  @brief get data type is string data at information data index and for the data key.
- *
- *  @param index                    index of information data.
- *  @param aKey                     key of the information data container.
- *
- *  @return data|nil                the data for key or nil.
- */
-- ( NSString * ) _GetStringDataAtIndex:(NSInteger)index forKey:(NSString *)aKey;
-
-//  ------------------------------------------------------------------------------------------------
-/**
- *  @brief get data type is integer data at information data index and for the data key.
- *
- *  @param index                    index of information data.
- *  @param aKey                     key of the information data container.
- *
- *  @return data| 0                 the data for key or 0.
- */
-- ( NSInteger ) _GetIntegerDataAtIndex:(NSInteger)index forKey:(NSString *)aKey;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -140,44 +117,6 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
     }
     return [self unzipDataForKey: aKey];
 }
-
-//  ------------------------------------------------------------------------------------------------
-#pragma mark method for get information data.
-//  ------------------------------------------------------------------------------------------------
-- ( NSString * ) _GetStringDataAtIndex:(NSInteger)index forKey:(NSString *)aKey
-{
-    NSDictionary                  * infoData;
-    NSString                      * string;
-    
-    string                          = nil;
-    infoData                        = [self infoDataAtIndex: index];
-    if ( nil == infoData )
-    {
-        return nil;
-    }
-    
-    string                          = [infoData objectForKey: aKey];
-    if ( ( nil == string ) || ( [string length] == 0 ) )
-    {
-        return nil;
-    }
-    return string;
-    
-}
-
-//  ------------------------------------------------------------------------------------------------
-- ( NSInteger ) _GetIntegerDataAtIndex:(NSInteger)index forKey:(NSString *)aKey
-{
-    NSString                      * string;
-    
-    string                          = [self _GetStringDataAtIndex: index forKey: aKey];
-    if ( nil == string )
-    {
-        return 0;
-    }
-    return [string integerValue];
-}
-
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -258,19 +197,30 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
 //  ------------------------------------------------------------------------------------------------
 - ( NSString * ) dataIDAtIndex:(NSInteger)index
 {
-    return [self _GetStringDataAtIndex: index forKey: kTDPageInfoKeyID];
+    return [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyID];
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( NSString * ) dataTitleAtIndex:(NSInteger)index
 {
-    return [self _GetStringDataAtIndex: index forKey: kTDPageInfoKeyTitle];
+    return [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyTitle];
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( NSInteger ) dataModeAtIndex:(NSInteger)index
+- ( BOOL ) dataMode:(NSInteger *)dataMode atIndex:(NSInteger)index
 {
-    return [self _GetIntegerDataAtIndex: index forKey: kTDPageInfoKeyMode];
+    NSInteger                       mode;
+    
+    mode                            = [self infoDataAtIndex: index integerValueForKey: kTDPageInfoKeyMode];
+    if ( -1 == mode )
+    {
+        return NO;
+    }
+    if ( NULL != dataMode )
+    {
+        *dataMode                   = mode;
+    }
+    return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -304,7 +254,7 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
     
     images                          = nil;
     imageName                       = nil;
-    subDir                          = [self _GetStringDataAtIndex: index forKey: kTDPageInfoKeySubDir];
+    subDir                          = [self infoDataAtIndex:index stringValueForKey: kTDPageInfoKeySubDir];
     infoData                        = [self infoDataAtIndex: index];
     if ( nil == infoData )
     {
@@ -323,7 +273,7 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
         return nil;
     }
     
-    if ( ( nil == subDir ) || ( [subDir length] == 0 ) )
+    if ( nil == subDir )
     {
         return imageName;
     }
@@ -340,9 +290,9 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
     NSString                      * configureName;
     
     configureName                   = nil;
-    subDir                          = [self _GetStringDataAtIndex: index forKey: kTDPageInfoKeySubDir];
+    subDir                          = [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeySubDir];
     infoData                        = [self infoDataAtIndex: index];
-    if ( nil == infoData )
+    if ( ( nil == subDir ) || ( nil == infoData ) )
     {
         return nil;
     }
@@ -374,8 +324,8 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
     NSString                      * imageName;
     
     imageName                       = nil;
-    subDir                          = [self _GetStringDataAtIndex: index forKey: kTDPageInfoKeySubDir];
-    if ( ( nil == subDir ) || ( [subDir length] == 0 ) )
+    subDir                          = [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeySubDir];
+    if ( nil == subDir )
     {
         return [self _GetImageDataForKey: aKey];
     }

@@ -109,14 +109,14 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief get the mode of the information data at index.
- *  get the mode of the information data at index.
+ *  @brief get the mode of the informatioin data at index.
  *
+ *  @param dataMode                 pointer of the mode to get result.
  *  @param index                    index of information data.
  *
- *  @return mode| 0                 the mode or 0.
+ *  @return YES|NO                  method success or failure.
  */
-- ( NSInteger ) dataModeAtIndex:(NSInteger)index;
+- ( BOOL ) dataMode:(NSInteger *)dataMode atIndex:(NSInteger)index;
 
 //  ------------------------------------------------------------------------------------------------
 /**
