@@ -17,7 +17,7 @@
 
     #import "TDUtilities.h"
 
-    #import "TDTexturePakcerXMLReader.h"
+    #import "TDTexturePackerXMLReader.h"
 #endif  //  End of _TDFoundation_.
 
 //  ------------------------------------------------------------------------------------------------
