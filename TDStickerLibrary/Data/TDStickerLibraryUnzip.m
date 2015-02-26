@@ -422,8 +422,8 @@
     
     
     
-    SAFE_ARC_RELEASE( removeIndex );
-    SAFE_ARC_ASSIGN_POINTER_NIL( removeIndex );
+    SAFE_ARC_RELEASE( removeObject );
+    SAFE_ARC_ASSIGN_POINTER_NIL( removeObject );
     
     return YES;
 }

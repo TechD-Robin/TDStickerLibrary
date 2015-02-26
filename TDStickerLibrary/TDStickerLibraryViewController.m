@@ -376,10 +376,14 @@
 {
     //  if have save to configure, load it.
     NSInteger                       loadIndex;
-    
-    loadIndex                       = [tabConfigure indexOfInfoDataEnabledAtOrder: 1];  //  tag index to array index.
     UIView                        * relationView;
     
+    loadIndex                       = [tabConfigure indexOfInfoDataEnabledAtOrder: 1];  //  tag index to array index.
+    if (  -1 == loadIndex )
+    {
+        return NO;
+    }
+        
     relationView                    = [self _CreateTabPage: loadIndex];
     if ( nil == relationView )
     {
