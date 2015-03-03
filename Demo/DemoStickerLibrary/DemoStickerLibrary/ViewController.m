@@ -9,6 +9,7 @@
 #import "UIKit+TechD.h"
 #import "TDStickerLibrary.h"
 #import "AFNetworking.h"
+#import "UIProgressView+AFNetworking.h"
 
 #import "ViewController.h"
 
@@ -142,11 +143,13 @@
     NSLog( @"download test" );
     
     NSString                      * link;
-    
+    UIProgressView                * progressView;
 
     //  在 8.1 simulator 的環境下, 目前這邊的指令 不會覆蓋掉本來目錄底下已經有的檔案, 所以之後記得 這樣的問題應該要自己判斷並修正.
     link                            = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download";
+    progressView                    = nil;
     
+    progressView                    = [[UIProgressView alloc] initWithProgressViewStyle: UIProgressViewStyleDefault];
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
@@ -160,10 +163,48 @@
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         NSLog(@"!!!!!!!!!!!! File downloaded to: %@", filePath);
     }];
+    
+    if ( nil != progressView )
+    {
+        [[self view] addSubview: progressView];
+        [progressView setProgressWithDownloadProgressOfTask: downloadTask animated: YES];
+        
+    }
     [downloadTask resume];
     
+    [manager setDownloadTaskDidWriteDataBlock:^(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+        NSLog(@"Progress… %lld", totalBytesWritten);
+    }];
+    
+//    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+//    [[AFNetworkReachabilityManager sharedManager]setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status)
+//    {
+//        NSLog( @"state %d", (int)status );
+//        NSLog( @"is reachable %d", [[AFNetworkReachabilityManager sharedManager] isReachable] );
+//    }];
+//    
+//    NSLog( @"is reachable %d", [[AFNetworkReachabilityManager sharedManager] isReachable] );
     
     
+//    AFNetworkReachabilityManager  * manager;
+//    
+//    manager = [AFNetworkReachabilityManager managerForDomain: @"techd.idv.tw"];
+//    if ( nil == manager )
+//    {
+//        return;
+//    }
+//    [manager startMonitoring];
+//
+//    __weak id  blockManager;
+//    
+//    blockManager    = manager;
+//    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status)
+//    {
+//        NSLog( @"state %d", (int)status );
+//        NSLog( @"is reachable %d", [blockManager isReachable] );
+//    }];
+//
+//    NSLog( @"is reachable %d", [manager isReachable] );
 
 }
 
