@@ -36,10 +36,27 @@ typedef NS_ENUM( NSUInteger, TDGetPathDirectory ){
  *  @param name                     the filename want to find.
  *  @param typeExt                  ext port of filename.(sub filename)
  *  @param inDirectorySubpath       sub path in directory.
+ *  @param checkFileExist           use this method to check file exist in directory or not.
  *
  *  @return full path|nil           the file's full path or nil.
  */
-NSString * TDGetPathForDirectories( TDGetPathDirectory directory, NSString * name, NSString * typeExt, NSString * inDirectorySubpath );
+NSString * TDGetPathForDirectories( TDGetPathDirectory directory, NSString * name, NSString * typeExt, NSString * inDirectorySubpath, BOOL checkFileExist );
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the string of file's full path with timestamp and path directory's enumeration.
+ *  get the string of file's full path with timestamp and path directory's enumeration, merge with NSSearchPathForDirectoriesInDomains and NSBundle's pathForResource: ofType: inDirectory: method.
+ *
+ *  @param directory                enumeration of directory.
+ *  @param name                     the filename want to find.
+ *  @param timestamp                a timestamp string.
+ *  @param typeExt                  ext port of filename.(sub filename)
+ *  @param inDirectorySubpath       sub path in directory.
+ *  @param checkFileExist           use this method to check file exist in directory or not.
+ *
+ *  @return full path|nil           the file's full path or nil.
+ */
+NSString * TDGetPathForDirectoriesWithTimestamp( TDGetPathDirectory directory, NSString * name, NSString * timestamp, NSString * typeExt, NSString * inDirectorySubpath, BOOL checkFileExist );
 
 //  ------------------------------------------------------------------------------------------------
 /**

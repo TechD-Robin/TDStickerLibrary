@@ -209,8 +209,9 @@
     
     NSString                      * filePath;
     
-    filePath                        = TDGetPathForDirectories( directory, filename, @"zip", subpath );
-    if ( [[NSFileManager defaultManager] fileExistsAtPath: filePath] == NO )
+    filePath                        = TDGetPathForDirectories( directory, filename, @"zip", subpath, YES );
+//    if ( [[NSFileManager defaultManager] fileExistsAtPath: filePath] == NO )
+    if ( nil == filePath )
     {
         NSLog( @"file %s no exist.", [filePath UTF8String] );
         return NO;
