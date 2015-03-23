@@ -294,7 +294,7 @@
     description                     = [super description];
     indexPath                       = [(UICollectionView *)[self superview] indexPathForCell: self];
     //  if index path = ( 0, 0 ), that the cell has not yet add into the super view(collection view)
-    description                     = [description stringByAppendingFormat: @"; index path = ( %d, %d )", indexPath.section, indexPath.row];
+    description                     = [description stringByAppendingFormat: @"; index path = ( %ld, %ld )", indexPath.section, indexPath.row];
     description                     = [description stringByAppendingFormat: @"; texture name = (%s);", [[xmlReader textureName] UTF8String] ];
     return description;
 }

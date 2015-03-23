@@ -205,7 +205,7 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
     
     NSString                      * filePath;
     
-    filePath                        = TDGetPathForDirectories( directory, filename, @"plist", subpath );
+    filePath                        = TDGetPathForDirectories( directory, filename, @"plist", subpath, YES );
     if ( [[NSFileManager defaultManager] fileExistsAtPath: filePath] == NO )
     {
         NSLog( @"file %s no exist.", [filePath UTF8String] );
@@ -319,13 +319,15 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
     NSPropertyListFormat            format;
     NSString                      * errorString;
     NSDictionary                  * currentXML;
+    NSError                       * error;
     
+    error                           = nil;
     errorString                     = nil;
     currentXML                      = nil;
-    currentXML                      = [NSPropertyListSerialization propertyListFromData: source mutabilityOption: NSPropertyListMutableContainersAndLeaves format: &format errorDescription: &errorString];
-    if ( nil != errorString )
+    currentXML                      = [NSPropertyListSerialization propertyListWithData: source options: NSPropertyListMutableContainersAndLeaves format: &format error: &error];
+    if ( nil != error )
     {
-        NSLog( @"error string : %@", errorString );
+        NSLog( @"error : %@", error );
         return nil;
     }
     return currentXML;
@@ -584,10 +586,8 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
         return nil;
     }
     
-    NSInteger                       count;
     NSArray                       * allKeys;
     
-    count                           = 0;
     allKeys                         = nil;
     allKeys                         = [framesContanier  allKeys];
     if ( ( nil == allKeys ) || ( [allKeys count] == 0 ) )
