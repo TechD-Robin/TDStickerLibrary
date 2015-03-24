@@ -397,7 +397,7 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) checkNetworkReachabilityStatus:(void (^)(BOOL isReachable))reachableBlock;
++ ( BOOL ) checkNetworkReachabilityStatus:(ReachableStatusBlock)reachableBlock;
 {
     if ( nil == reachableBlock )
     {
@@ -439,7 +439,7 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) checkReachabilityStatusForDomain:(NSString *)domain result:(void (^)(BOOL isReachable))reachableBlock;
++ ( BOOL ) checkReachabilityStatusForDomain:(NSString *)domain result:(ReachableStatusBlock)reachableBlock;
 {
     if ( ( nil == domain ) || ( nil == reachableBlock ) )
     {
@@ -484,7 +484,7 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) checkReachabilityStatusForAddress:(NSString *)address with:(NSUInteger)port result:(void (^)(BOOL isReachable))reachableBlock
++ ( BOOL ) checkReachabilityStatusForAddress:(NSString *)address with:(NSUInteger)port result:(ReachableStatusBlock)reachableBlock
 {
     if ( nil == address )
     {

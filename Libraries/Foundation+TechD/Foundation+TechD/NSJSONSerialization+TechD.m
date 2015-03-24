@@ -32,6 +32,17 @@
     error                       = nil;
     outputStream                = nil;
     manager                     = [NSFileManager defaultManager];
+
+    //  pre-create subpath on here, because NSJSONSerialization's writeJSONObject: toStream: ..., save the JSON file without create subpath of the file path.
+    if ( [manager fileExistsAtPath: [filepath stringByDeletingLastPathComponent]] == NO )
+    {
+        error                       = nil;
+        if ( [manager createDirectoryAtPath: [filepath stringByDeletingLastPathComponent] withIntermediateDirectories: YES attributes: nil error: &error] == NO )
+        {
+            NSLog( @"create sub path error : %@", error );
+            return NO;
+        }
+    }
     
     //  first, remove the exist file.
     if ( [manager fileExistsAtPath: filepath] == YES )
