@@ -448,17 +448,17 @@
 		2AA8CEA61AC171DE003901EB /* UIKit+TechD */ = {
 			isa = PBXGroup;
 			children = (
-				2AA8CEA71AC171DE003901EB /* NSLayoutConstraint+TechD.h */,
-				2AA8CEA81AC171DE003901EB /* NSLayoutConstraint+TechD.m */,
-				2AA8CEA91AC171DE003901EB /* UIGestureRecognizer+TechD.h */,
-				2AA8CEAA1AC171DE003901EB /* UIGestureRecognizer+TechD.m */,
+				2AA8CEAF1AC171DE003901EB /* UIKit+TechD.h */,
+				2AA8CEB01AC171DE003901EB /* UIScreen+TechD.h */,
+				2AA8CEB11AC171DE003901EB /* UIScreen+TechD.m */,
 				2AA8CEAB1AC171DE003901EB /* UIImage+TechD.h */,
 				2AA8CEAC1AC171DE003901EB /* UIImage+TechD.m */,
 				2AA8CEAD1AC171DE003901EB /* UIImageView+TechD.h */,
 				2AA8CEAE1AC171DE003901EB /* UIImageView+TechD.m */,
-				2AA8CEAF1AC171DE003901EB /* UIKit+TechD.h */,
-				2AA8CEB01AC171DE003901EB /* UIScreen+TechD.h */,
-				2AA8CEB11AC171DE003901EB /* UIScreen+TechD.m */,
+				2AA8CEA91AC171DE003901EB /* UIGestureRecognizer+TechD.h */,
+				2AA8CEAA1AC171DE003901EB /* UIGestureRecognizer+TechD.m */,
+				2AA8CEA71AC171DE003901EB /* NSLayoutConstraint+TechD.h */,
+				2AA8CEA81AC171DE003901EB /* NSLayoutConstraint+TechD.m */,
 			);
 			path = "UIKit+TechD";
 			sourceTree = "<group>";
