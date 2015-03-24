@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A1134FF1A84CCA7004BBFDC /* UIImageView+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1134FE1A84CCA7004BBFDC /* UIImageView+TechD.m */; };
-		2A2C39C71A877B02009504AB /* UIImage+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C39C61A877B02009504AB /* UIImage+TechD.m */; };
 		2A47436B1A8220250057586A /* TDStickerLibraryUnzip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A47436A1A8220250057586A /* TDStickerLibraryUnzip.m */; };
 		2A4743711A82689B0057586A /* TDStickerLibraryTabPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743701A82689B0057586A /* TDStickerLibraryTabPageInfo.m */; };
 		2A4743741A826CFC0057586A /* TDStickerLibraryTabPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743731A826CFC0057586A /* TDStickerLibraryTabPageLayout.m */; };
@@ -87,15 +85,19 @@
 		2A5208951AC08D9D005FE8A7 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52088D1AC08D9D005FE8A7 /* TDTexturePackerXMLReader.m */; };
 		2A5208961AC08D9D005FE8A7 /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52088F1AC08D9D005FE8A7 /* TDUtilities.m */; };
 		2A5208971AC08D9D005FE8A7 /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52088F1AC08D9D005FE8A7 /* TDUtilities.m */; };
-		2A5689BB1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */; };
 		2A99ECFB1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A99ECFA1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m */; };
-		2A99ED011A8A7E050059AA41 /* UIGestureRecognizer+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A99ED001A8A7E050059AA41 /* UIGestureRecognizer+TechD.m */; };
+		2AA8CECE1AC1730A003901EB /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC01AC1730A003901EB /* LICENSE */; };
+		2AA8CECF1AC1730A003901EB /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC11AC1730A003901EB /* README.md */; };
+		2AA8CED01AC1730A003901EB /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC41AC1730A003901EB /* NSLayoutConstraint+TechD.m */; };
+		2AA8CED11AC1730A003901EB /* UIGestureRecognizer+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC61AC1730A003901EB /* UIGestureRecognizer+TechD.m */; };
+		2AA8CED21AC1730A003901EB /* UIImage+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC81AC1730A003901EB /* UIImage+TechD.m */; };
+		2AA8CED31AC1730A003901EB /* UIImageView+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CECA1AC1730A003901EB /* UIImageView+TechD.m */; };
+		2AA8CED41AC1730A003901EB /* UIScreen+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CECD1AC1730A003901EB /* UIScreen+TechD.m */; };
 		2AADF4E21A695B9D0026EF9D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E11A695B9D0026EF9D /* main.m */; };
 		2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E41A695B9D0026EF9D /* AppDelegate.m */; };
 		2AADF4E81A695B9D0026EF9D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4E71A695B9D0026EF9D /* ViewController.m */; };
 		2AADF4ED1A695B9D0026EF9D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AADF4EC1A695B9D0026EF9D /* Images.xcassets */; };
 		2AADF4FC1A695B9E0026EF9D /* DemoStickerLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4FB1A695B9E0026EF9D /* DemoStickerLibraryTests.m */; };
-		2AADF5161A6971F50026EF9D /* UIScreen+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF5151A6971F50026EF9D /* UIScreen+TechD.m */; };
 		2AADF51D1A6972810026EF9D /* TDStickerLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF51A1A6972810026EF9D /* TDStickerLibrary.m */; };
 		2AADF51E1A6972810026EF9D /* TDStickerLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF51C1A6972810026EF9D /* TDStickerLibraryViewController.m */; };
 		2AB7067D1A6FE2FB006C6845 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2AB7065C1A6FE2FB006C6845 /* LICENSE */; };
@@ -124,10 +126,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2A1134FD1A84CCA7004BBFDC /* UIImageView+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+TechD.h"; sourceTree = "<group>"; };
-		2A1134FE1A84CCA7004BBFDC /* UIImageView+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+TechD.m"; sourceTree = "<group>"; };
-		2A2C39C51A877B02009504AB /* UIImage+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TechD.h"; sourceTree = "<group>"; };
-		2A2C39C61A877B02009504AB /* UIImage+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TechD.m"; sourceTree = "<group>"; };
 		2A4743691A8220250057586A /* TDStickerLibraryUnzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUnzip.h; sourceTree = "<group>"; };
 		2A47436A1A8220250057586A /* TDStickerLibraryUnzip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUnzip.m; sourceTree = "<group>"; };
 		2A47436F1A82689B0057586A /* TDStickerLibraryTabPageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryTabPageInfo.h; sourceTree = "<group>"; };
@@ -208,12 +206,21 @@
 		2A52088D1AC08D9D005FE8A7 /* TDTexturePackerXMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTexturePackerXMLReader.m; sourceTree = "<group>"; };
 		2A52088E1AC08D9D005FE8A7 /* TDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDUtilities.h; sourceTree = "<group>"; };
 		2A52088F1AC08D9D005FE8A7 /* TDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDUtilities.m; sourceTree = "<group>"; };
-		2A5689B91A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+TechD.h"; sourceTree = "<group>"; };
-		2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+TechD.m"; sourceTree = "<group>"; };
 		2A99ECF91A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryStickerSoloView.h; sourceTree = "<group>"; };
 		2A99ECFA1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryStickerSoloView.m; sourceTree = "<group>"; };
-		2A99ECFF1A8A7E050059AA41 /* UIGestureRecognizer+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+TechD.h"; sourceTree = "<group>"; };
-		2A99ED001A8A7E050059AA41 /* UIGestureRecognizer+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+TechD.m"; sourceTree = "<group>"; };
+		2AA8CEC01AC1730A003901EB /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		2AA8CEC11AC1730A003901EB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2AA8CEC31AC1730A003901EB /* NSLayoutConstraint+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+TechD.h"; sourceTree = "<group>"; };
+		2AA8CEC41AC1730A003901EB /* NSLayoutConstraint+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+TechD.m"; sourceTree = "<group>"; };
+		2AA8CEC51AC1730A003901EB /* UIGestureRecognizer+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+TechD.h"; sourceTree = "<group>"; };
+		2AA8CEC61AC1730A003901EB /* UIGestureRecognizer+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+TechD.m"; sourceTree = "<group>"; };
+		2AA8CEC71AC1730A003901EB /* UIImage+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TechD.h"; sourceTree = "<group>"; };
+		2AA8CEC81AC1730A003901EB /* UIImage+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TechD.m"; sourceTree = "<group>"; };
+		2AA8CEC91AC1730A003901EB /* UIImageView+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+TechD.h"; sourceTree = "<group>"; };
+		2AA8CECA1AC1730A003901EB /* UIImageView+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+TechD.m"; sourceTree = "<group>"; };
+		2AA8CECB1AC1730A003901EB /* UIKit+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKit+TechD.h"; sourceTree = "<group>"; };
+		2AA8CECC1AC1730A003901EB /* UIScreen+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+TechD.h"; sourceTree = "<group>"; };
+		2AA8CECD1AC1730A003901EB /* UIScreen+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+TechD.m"; sourceTree = "<group>"; };
 		2AADF4DC1A695B9D0026EF9D /* DemoStickerLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoStickerLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADF4E01A695B9D0026EF9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2AADF4E11A695B9D0026EF9D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -225,9 +232,6 @@
 		2AADF4F51A695B9E0026EF9D /* DemoStickerLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoStickerLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADF4FA1A695B9E0026EF9D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2AADF4FB1A695B9E0026EF9D /* DemoStickerLibraryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoStickerLibraryTests.m; sourceTree = "<group>"; };
-		2AADF5131A6971F50026EF9D /* UIKit+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKit+TechD.h"; sourceTree = "<group>"; };
-		2AADF5141A6971F50026EF9D /* UIScreen+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+TechD.h"; sourceTree = "<group>"; };
-		2AADF5151A6971F50026EF9D /* UIScreen+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+TechD.m"; sourceTree = "<group>"; };
 		2AADF5191A6972810026EF9D /* TDStickerLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibrary.h; sourceTree = "<group>"; };
 		2AADF51A1A6972810026EF9D /* TDStickerLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrary.m; sourceTree = "<group>"; };
 		2AADF51B1A6972810026EF9D /* TDStickerLibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryViewController.h; sourceTree = "<group>"; };
@@ -434,6 +438,35 @@
 			path = TDFoundation;
 			sourceTree = "<group>";
 		};
+		2AA8CEBF1AC1730A003901EB /* UIKit+TechD */ = {
+			isa = PBXGroup;
+			children = (
+				2AA8CEC01AC1730A003901EB /* LICENSE */,
+				2AA8CEC11AC1730A003901EB /* README.md */,
+				2AA8CEC21AC1730A003901EB /* UIKit+TechD */,
+			);
+			name = "UIKit+TechD";
+			path = "../../Libraries/UIKit+TechD";
+			sourceTree = "<group>";
+		};
+		2AA8CEC21AC1730A003901EB /* UIKit+TechD */ = {
+			isa = PBXGroup;
+			children = (
+				2AA8CECB1AC1730A003901EB /* UIKit+TechD.h */,
+				2AA8CECC1AC1730A003901EB /* UIScreen+TechD.h */,
+				2AA8CECD1AC1730A003901EB /* UIScreen+TechD.m */,
+				2AA8CEC71AC1730A003901EB /* UIImage+TechD.h */,
+				2AA8CEC81AC1730A003901EB /* UIImage+TechD.m */,
+				2AA8CEC91AC1730A003901EB /* UIImageView+TechD.h */,
+				2AA8CECA1AC1730A003901EB /* UIImageView+TechD.m */,
+				2AA8CEC51AC1730A003901EB /* UIGestureRecognizer+TechD.h */,
+				2AA8CEC61AC1730A003901EB /* UIGestureRecognizer+TechD.m */,
+				2AA8CEC31AC1730A003901EB /* NSLayoutConstraint+TechD.h */,
+				2AA8CEC41AC1730A003901EB /* NSLayoutConstraint+TechD.m */,
+			);
+			path = "UIKit+TechD";
+			sourceTree = "<group>";
+		};
 		2AADF4D31A695B9D0026EF9D = {
 			isa = PBXGroup;
 			children = (
@@ -497,7 +530,7 @@
 			isa = PBXGroup;
 			children = (
 				2A5208011AC08CE4005FE8A7 /* TDMath */,
-				2AADF5111A6971F50026EF9D /* UIKit+TechD */,
+				2AA8CEBF1AC1730A003901EB /* UIKit+TechD */,
 				2A5208151AC08D09005FE8A7 /* Foundation+TechD */,
 				2A5208861AC08D9D005FE8A7 /* TDFoundation */,
 				2ABD8E331A714D9500626356 /* TDBaseObjects */,
@@ -507,33 +540,6 @@
 				2AADF5171A6972280026EF9D /* TDStickerLibrary */,
 			);
 			name = Libraries;
-			sourceTree = "<group>";
-		};
-		2AADF5111A6971F50026EF9D /* UIKit+TechD */ = {
-			isa = PBXGroup;
-			children = (
-				2AADF5121A6971F50026EF9D /* UIKit+TechD */,
-			);
-			name = "UIKit+TechD";
-			path = "../../Libraries/UIKit+TechD";
-			sourceTree = "<group>";
-		};
-		2AADF5121A6971F50026EF9D /* UIKit+TechD */ = {
-			isa = PBXGroup;
-			children = (
-				2AADF5131A6971F50026EF9D /* UIKit+TechD.h */,
-				2AADF5141A6971F50026EF9D /* UIScreen+TechD.h */,
-				2AADF5151A6971F50026EF9D /* UIScreen+TechD.m */,
-				2A2C39C51A877B02009504AB /* UIImage+TechD.h */,
-				2A2C39C61A877B02009504AB /* UIImage+TechD.m */,
-				2A1134FD1A84CCA7004BBFDC /* UIImageView+TechD.h */,
-				2A1134FE1A84CCA7004BBFDC /* UIImageView+TechD.m */,
-				2A99ECFF1A8A7E050059AA41 /* UIGestureRecognizer+TechD.h */,
-				2A99ED001A8A7E050059AA41 /* UIGestureRecognizer+TechD.m */,
-				2A5689B91A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.h */,
-				2A5689BA1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m */,
-			);
-			path = "UIKit+TechD";
 			sourceTree = "<group>";
 		};
 		2AADF5171A6972280026EF9D /* TDStickerLibrary */ = {
@@ -727,6 +733,7 @@
 				2AADF4ED1A695B9D0026EF9D /* Images.xcassets in Resources */,
 				2A52087E1AC08D3C005FE8A7 /* LICENSE in Resources */,
 				2A52080B1AC08CE4005FE8A7 /* LICENSE in Resources */,
+				2AA8CECE1AC1730A003901EB /* LICENSE in Resources */,
 				2ABD8E321A7142BC00626356 /* Configure in Resources */,
 				2A5208221AC08D09005FE8A7 /* LICENSE in Resources */,
 			);
@@ -752,21 +759,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A52085F1AC08D1F005FE8A7 /* AFURLSessionManager.m in Sources */,
+				2AA8CED21AC1730A003901EB /* UIImage+TechD.m in Sources */,
 				2A52086D1AC08D1F005FE8A7 /* UIImageView+AFNetworking.m in Sources */,
 				2A5208571AC08D1F005FE8A7 /* AFSecurityPolicy.m in Sources */,
 				2AADF51D1A6972810026EF9D /* TDStickerLibrary.m in Sources */,
 				2AB7067F1A6FE2FB006C6845 /* mztools.c in Sources */,
+				2AA8CED41AC1730A003901EB /* UIScreen+TechD.m in Sources */,
 				2A47436B1A8220250057586A /* TDStickerLibraryUnzip.m in Sources */,
-				2AADF5161A6971F50026EF9D /* UIScreen+TechD.m in Sources */,
 				2AB706961A700EE3006C6845 /* TDStickerLibraryCustomization.m in Sources */,
 				2A5208111AC08CE4005FE8A7 /* TDMath.m in Sources */,
 				2A5208631AC08D1F005FE8A7 /* README.md in Sources */,
 				2A5208711AC08D1F005FE8A7 /* UIRefreshControl+AFNetworking.m in Sources */,
 				2A5208241AC08D09005FE8A7 /* README.md in Sources */,
-				2A5689BB1A6E6BB00087CCA4 /* NSLayoutConstraint+TechD.m in Sources */,
 				2A5208841AC08D3C005FE8A7 /* TDNetworkReachabilityManager.m in Sources */,
 				2A52086F1AC08D1F005FE8A7 /* UIProgressView+AFNetworking.m in Sources */,
 				2ABD8E3D1A714F5100626356 /* TDBaseTabMenuItem.m in Sources */,
+				2AA8CED11AC1730A003901EB /* UIGestureRecognizer+TechD.m in Sources */,
 				2A52084F1AC08D1F005FE8A7 /* AFHTTPRequestOperation.m in Sources */,
 				2A4743711A82689B0057586A /* TDStickerLibraryTabPageInfo.m in Sources */,
 				2A4743891A827D350057586A /* TDStickerLibraryTabPageView.m in Sources */,
@@ -774,6 +782,7 @@
 				2AB706811A6FE2FB006C6845 /* zip.c in Sources */,
 				2A5208941AC08D9D005FE8A7 /* TDTexturePackerXMLReader.m in Sources */,
 				2AB706831A6FE2FB006C6845 /* ZipArchive.m in Sources */,
+				2AA8CED31AC1730A003901EB /* UIImageView+TechD.m in Sources */,
 				2A4743861A827D260057586A /* TDStickerLibrarySectionPreviewCell.m in Sources */,
 				2A52080D1AC08CE4005FE8A7 /* README.md in Sources */,
 				2AADF51E1A6972810026EF9D /* TDStickerLibraryViewController.m in Sources */,
@@ -782,9 +791,9 @@
 				2A4743831A827D160057586A /* TDStickerLibrarySectionHeader.m in Sources */,
 				2A5208691AC08D1F005FE8A7 /* UIAlertView+AFNetworking.m in Sources */,
 				2A5208961AC08D9D005FE8A7 /* TDUtilities.m in Sources */,
-				2A1134FF1A84CCA7004BBFDC /* UIImageView+TechD.m in Sources */,
 				2A5208651AC08D1F005FE8A7 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				2A52086B1AC08D1F005FE8A7 /* UIButton+AFNetworking.m in Sources */,
+				2AA8CED01AC1730A003901EB /* NSLayoutConstraint+TechD.m in Sources */,
 				2A4743741A826CFC0057586A /* TDStickerLibraryTabPageLayout.m in Sources */,
 				2A5208551AC08D1F005FE8A7 /* AFNetworkReachabilityManager.m in Sources */,
 				2A52085B1AC08D1F005FE8A7 /* AFURLRequestSerialization.m in Sources */,
@@ -796,19 +805,18 @@
 				2AADF4E81A695B9D0026EF9D /* ViewController.m in Sources */,
 				2A5208731AC08D1F005FE8A7 /* UIWebView+AFNetworking.m in Sources */,
 				2AFDFADA1A83A95F00A82E55 /* TDStickerLibrarySectionStates.m in Sources */,
+				2AA8CECF1AC1730A003901EB /* README.md in Sources */,
 				2A5208591AC08D1F005FE8A7 /* AFURLConnectionOperation.m in Sources */,
 				2A52080F1AC08CE4005FE8A7 /* TDGeometricFigure.m in Sources */,
 				2A5208801AC08D3C005FE8A7 /* README.md in Sources */,
 				2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */,
 				2AB706931A700EB0006C6845 /* TDStickerLibraryTabInfo.m in Sources */,
 				2A5208201AC08D09005FE8A7 /* NSString+TechD.m in Sources */,
-				2A99ED011A8A7E050059AA41 /* UIGestureRecognizer+TechD.m in Sources */,
 				2AB706801A6FE2FB006C6845 /* unzip.c in Sources */,
 				2A99ECFB1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */,
 				2AADF4E21A695B9D0026EF9D /* main.m in Sources */,
 				2A52081E1AC08D09005FE8A7 /* NSJSONSerialization+TechD.m in Sources */,
 				2A5208511AC08D1F005FE8A7 /* AFHTTPRequestOperationManager.m in Sources */,
-				2A2C39C71A877B02009504AB /* UIImage+TechD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
