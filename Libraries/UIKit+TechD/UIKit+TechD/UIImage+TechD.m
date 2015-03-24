@@ -1,6 +1,6 @@
 //
 //  UIImage+TechD.m
-//  TDStickerLibrary
+//  UIKit+TechD
 //
 //  Created by Robin Hsu on 2015/2/8.
 //  Copyright (c) 2015年 TechD. All rights reserved.
