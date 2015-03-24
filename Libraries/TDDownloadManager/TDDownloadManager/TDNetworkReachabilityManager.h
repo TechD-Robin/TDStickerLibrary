@@ -12,6 +12,19 @@
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+#pragma mark type define.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief a block section be executed when check network reachability is completed.
+ *  a block section be executed when check network reachability is completed, the parameter will return reachable status.
+ *
+ *  @param isReachable (YES|NO)     a boolean value, a network is reachable then the value is YES, otherwise it's NO.
+ *
+ *  @return void                    nothing.
+ */
+typedef     void (^ReachableStatusBlock)(BOOL isReachable);
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -21,6 +34,8 @@
  *  It should not be used to prevent a user from initiating a network request, as it's possible that an initial request may be required to establish reachability. ( this line copy from AFNetworkReachabilityManager. ^^" )
  */
 //  ------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark class TDDownloadManager
 @interface TDNetworkReachabilityManager : NSObject
 
 //  ------------------------------------------------------------------------------------------------
@@ -52,7 +67,7 @@
  *
  *  @return YES|NO                  method success or failure.
  */
-+ ( BOOL ) checkNetworkReachabilityStatus:(void (^)(BOOL isReachable))reachableBlock;
++ ( BOOL ) checkNetworkReachabilityStatus:(ReachableStatusBlock)reachableBlock;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -76,7 +91,7 @@
  *
  *  @return YES|NO                  method success or failure.
  */
-+ ( BOOL ) checkReachabilityStatusForDomain:(NSString *)domain result:(void (^)(BOOL isReachable))reachableBlock;
++ ( BOOL ) checkReachabilityStatusForDomain:(NSString *)domain result:(ReachableStatusBlock)reachableBlock;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -102,7 +117,7 @@
  *
  *  @return YES|NO                  method success or failure.
  */
-+ ( BOOL ) checkReachabilityStatusForAddress:(NSString *)address with:(NSUInteger)port result:(void (^)(BOOL isReachable))reachableBlock;
++ ( BOOL ) checkReachabilityStatusForAddress:(NSString *)address with:(NSUInteger)port result:(ReachableStatusBlock)reachableBlock;
 
 
 //  ------------------------------------------------------------------------------------------------
