@@ -52,6 +52,24 @@
  *  @return object|nil              the Sticker Library View Controller or nil.
  */
 + ( instancetype ) stickerLibarayWithCustomization:(TDStickerLibraryCustomization *)customization;
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief pre-update (the Sticker Library View Controller) configure data from internet
+ *  pre-update (the Sticker Library View Controller) configure data from internet, that will check and download configure data latest from internet.
+ *
+ *  @param systemUpdateURL          the URL of configure data at internet.
+ *  @param keylist                  keys of configure data
+ *  @param customization            a customization configure for the Sticker Library View Controller (support this method on here).
+ *  @param completionBlock          a block section be executed when pre-update procedure completed.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
++ ( BOOL ) preUpdateProcedure:(NSString *)systemUpdateURL forSearch:(NSArray *)keylist with:(TDStickerLibraryCustomization *)customization
+                   completion:( void(^)(BOOL finished))completionBlock;
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 
@@ -59,6 +77,7 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+
 
 
 

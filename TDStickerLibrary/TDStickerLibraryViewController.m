@@ -19,6 +19,8 @@
 #import "TDBaseTabMenuItem.h"
 #import "TDStickerLibraryTabPageView.h"
 
+#import "TDPreUpdateProcedure.h"
+
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
@@ -690,6 +692,41 @@
 + ( instancetype ) stickerLibarayWithCustomization:(TDStickerLibraryCustomization *)customization
 {
     return [[[self class] alloc] initWithCustomization: customization];
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
++ ( BOOL ) preUpdateProcedure:(NSString *)systemUpdateURL forSearch:(NSArray *)keylist with:(TDStickerLibraryCustomization *)customization
+                   completion:( void(^)(BOOL finished))completionBlock
+{
+    NSParameterAssert( nil != systemUpdateURL );
+    NSParameterAssert( nil != keylist );
+    NSParameterAssert( nil != customization );
+    
+    TDPreUpdateProcedure          * procedure;
+    
+    procedure                       = [TDPreUpdateProcedure preUpdate: systemUpdateURL
+                                                             withSave: [customization systemUpdateConfigureFilename]
+                                                                 into: [customization systemUpdateConfigureSubpath]
+                                                                   of: [customization systemUpdateConfigureDirectory]];
+
+    NSParameterAssert( nil != procedure );
+    
+    [procedure                      startProcedureWithKeys: keylist];
+    
+    __weak __typeof(procedure)      weakProcedure;
+    weakProcedure                   = procedure;
+    [procedure                      setPreUpdateCompletionBlock: ^(NSDictionary * updateResponses, NSError * error, BOOL finished)
+    {
+        //NSLog( @" %@, %@, %d ", updateResponses, error, finished );
+        if ( nil != completionBlock )
+        {
+            completionBlock( finished );
+        }
+        [weakProcedure              stopProcedure];
+    }];
+    
+    return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------
