@@ -85,6 +85,7 @@
 		2A5208951AC08D9D005FE8A7 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52088D1AC08D9D005FE8A7 /* TDTexturePackerXMLReader.m */; };
 		2A5208961AC08D9D005FE8A7 /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52088F1AC08D9D005FE8A7 /* TDUtilities.m */; };
 		2A5208971AC08D9D005FE8A7 /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52088F1AC08D9D005FE8A7 /* TDUtilities.m */; };
+		2A7BE19A1ACD505E005CA500 /* TDPreUpdateProcedure.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BE1991ACD505E005CA500 /* TDPreUpdateProcedure.m */; };
 		2A99ECFB1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A99ECFA1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m */; };
 		2AA8CECE1AC1730A003901EB /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC01AC1730A003901EB /* LICENSE */; };
 		2AA8CECF1AC1730A003901EB /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC11AC1730A003901EB /* README.md */; };
@@ -206,6 +207,8 @@
 		2A52088D1AC08D9D005FE8A7 /* TDTexturePackerXMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTexturePackerXMLReader.m; sourceTree = "<group>"; };
 		2A52088E1AC08D9D005FE8A7 /* TDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDUtilities.h; sourceTree = "<group>"; };
 		2A52088F1AC08D9D005FE8A7 /* TDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDUtilities.m; sourceTree = "<group>"; };
+		2A7BE1981ACD505E005CA500 /* TDPreUpdateProcedure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDPreUpdateProcedure.h; sourceTree = "<group>"; };
+		2A7BE1991ACD505E005CA500 /* TDPreUpdateProcedure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDPreUpdateProcedure.m; sourceTree = "<group>"; };
 		2A99ECF91A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryStickerSoloView.h; sourceTree = "<group>"; };
 		2A99ECFA1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryStickerSoloView.m; sourceTree = "<group>"; };
 		2AA8CEC01AC1730A003901EB /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -406,10 +409,12 @@
 		2A5208791AC08D3C005FE8A7 /* TDDownloadManager */ = {
 			isa = PBXGroup;
 			children = (
-				2A52087A1AC08D3C005FE8A7 /* TDDownloadManager.h */,
-				2A52087B1AC08D3C005FE8A7 /* TDDownloadManager.m */,
 				2A52087C1AC08D3C005FE8A7 /* TDNetworkReachabilityManager.h */,
 				2A52087D1AC08D3C005FE8A7 /* TDNetworkReachabilityManager.m */,
+				2A52087A1AC08D3C005FE8A7 /* TDDownloadManager.h */,
+				2A52087B1AC08D3C005FE8A7 /* TDDownloadManager.m */,
+				2A7BE1981ACD505E005CA500 /* TDPreUpdateProcedure.h */,
+				2A7BE1991ACD505E005CA500 /* TDPreUpdateProcedure.m */,
 			);
 			path = TDDownloadManager;
 			sourceTree = "<group>";
@@ -814,6 +819,7 @@
 				2A5208201AC08D09005FE8A7 /* NSString+TechD.m in Sources */,
 				2AB706801A6FE2FB006C6845 /* unzip.c in Sources */,
 				2A99ECFB1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */,
+				2A7BE19A1ACD505E005CA500 /* TDPreUpdateProcedure.m in Sources */,
 				2AADF4E21A695B9D0026EF9D /* main.m in Sources */,
 				2A52081E1AC08D09005FE8A7 /* NSJSONSerialization+TechD.m in Sources */,
 				2A5208511AC08D1F005FE8A7 /* AFHTTPRequestOperationManager.m in Sources */,
