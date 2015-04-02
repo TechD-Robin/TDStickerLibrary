@@ -11,6 +11,32 @@
 #import "AFNetworking.h"
 #import "Foundation+TechD.h"
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark define constant string.
+//  ------------------------------------------------------------------------------------------------
+static  NSString  * const TDDownloadManagerErrorDomain              = @"com.techd.manager.download.error";
+//static  NSString  * const TDDownloadManagerUpdateErrorKey           = @"com.techd.manager.download.update.error";
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare enumeration.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  enumeration for download manager's procedure error.
+ */
+typedef NS_ENUM( NSInteger, TDDownloadManagerErrorCode ){
+    /**
+     *  maybe unknow how to define the error.
+     */
+    TDDownloadManagerErrorCodeUndefined                     = -1,
+    /**
+     *  when procedure has error for parameters of file
+     */
+    TDDownloadManagerErrorCodeFilenameParamError            = -2,
+    /**
+     *  when procedure has error path data.
+     */
+    TDDownloadManagerErrorCodePathError,
+};
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -96,7 +122,7 @@ BOOL _SearchUpdateFile( NSString * destinationFile, NSString * path, NSString * 
     manager                         = [NSFileManager defaultManager];
     list                            = [manager contentsOfDirectoryAtPath: path error: &error];
     
-    NSLog( @"list: %@", list  );
+    //NSLog( @"list: %@", list  );
     for ( NSString * file in list )
     {
         if ( nil == file )
@@ -344,29 +370,42 @@ NSURL * _PreSaveProcedure( NSURLResponse * response, NSString * subpath )
  *  @param sourceURL                the file's source's URL.
  *  @param destinationFile          the file's destination filename.
  *  @param coverOldFile             decision to replace older file or not.
+ *  @param error                    a NSError object for return error information to executor.
  *
  *  @return YES|NO                  method success or failure.
  */
-BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFile, BOOL coverOldFile )
+BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFile, BOOL coverOldFile, NSError *__autoreleasing * error )
 {
     //  when destination data warning,  skip move file.
     if ( ( nil == destinationFile ) || ( [destinationFile length] == 0 ) )
     {
+        if ( nil != error )
+        {
+            NSMutableDictionary   * errorInfos;
+            
+            errorInfos              = [@{
+                                         NSLocalizedDescriptionKey: NSLocalizedStringFromTable( @"filename is nil or empty.", @"TDDownloadManager", nil )
+                                         } mutableCopy];
+            *error                  = [NSError errorWithDomain: TDDownloadManagerErrorDomain code: TDDownloadManagerErrorCodeFilenameParamError userInfo: errorInfos];
+        }
         return NO;
     }
     
     NSURL                         * destinationURL;
     NSFileManager                 * manager;
-    NSError                       * error;
+    NSError                       * updateError;
 
-    error                           = nil;
+    updateError                     = nil;
     manager                         = [NSFileManager defaultManager];
     //  create subpath on here, when path not exist.
     if ( [manager fileExistsAtPath: [destinationFile stringByDeletingLastPathComponent]] == NO )
     {
-        if ( [manager createDirectoryAtPath: [destinationFile stringByDeletingLastPathComponent] withIntermediateDirectories: YES attributes: nil error: &error] == NO )
+        if ( [manager createDirectoryAtPath: [destinationFile stringByDeletingLastPathComponent] withIntermediateDirectories: YES attributes: nil error: &updateError] == NO )
         {
-            NSLog( @"create destination path error : %@", error );
+            if ( nil != error )
+            {
+                *error              = updateError;
+            }
             return NO;
         }
     }
@@ -374,27 +413,46 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     //  when must cover older file.
     if ( ( YES == coverOldFile ) && ( [manager fileExistsAtPath: destinationFile] == YES ) )
     {
-        error                       = nil;
-        if ( [manager removeItemAtPath: destinationFile error: &error] == NO )
+        if ( [manager removeItemAtPath: destinationFile error: &updateError] == NO )
         {
-            NSLog( @"delete file error : %@", error );
+            if ( nil != error )
+            {
+                *error              = updateError;
+            }
+            return NO;
         }
     }
     
     //  move file.
-    error                           = nil;
     //  iOS file system's letter is not to differentiate between lowercase and uppercase, so always set to lowercase.
     destinationFile                 = [destinationFile lowercaseString];
     destinationFile                 = [@"file://" stringByAppendingString: destinationFile];
     destinationURL                  = [NSURL URLWithString: destinationFile];
     if ( nil == destinationURL )
     {
+        if ( nil != error )
+        {
+            NSMutableDictionary   * errorInfos;
+        
+            errorInfos              = [@{
+                                            NSLocalizedDescriptionKey: [NSString stringWithFormat: NSLocalizedStringFromTable( @"(%@)file's URL is nil", @"TDDownloadManager", nil ), destinationFile ]
+                                         } mutableCopy];
+            *error                  = [NSError errorWithDomain: TDDownloadManagerErrorDomain code: TDDownloadManagerErrorCodePathError userInfo: errorInfos];
+        }
         return NO;
     }
     
-    if ( [manager moveItemAtURL: sourceURL toURL: destinationURL error: &error] == NO )
+    if ( [manager moveItemAtURL: sourceURL toURL: destinationURL error: &updateError] == NO )
     {
-        NSLog( @"move file error : %@", error );
+        if ( nil != error )
+        {
+            *error                  = updateError;
+        }
+        return NO;
+    }
+    if ( nil != error )
+    {
+        *error                      = NULL;
     }
     return YES;
 }
@@ -430,7 +488,8 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
  *
  *  @return YES|NO                  method success or failure.
  */
-+ ( BOOL ) _DownloadProcedure:(NSString *)destinationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder completed:( void(^)( BOOL finish ) )completed;
++ ( BOOL ) _DownloadProcedure:(NSString *)destinationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder
+                    completed:(DownloadCompletedCallbackBlock)completed;
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -452,35 +511,31 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for download procedure.
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) _DownloadProcedure:(NSString *)destinationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder completed:( void(^)( BOOL finish ) )completed
++ ( BOOL ) _DownloadProcedure:(NSString *)destinationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder
+                    completed:(DownloadCompletedCallbackBlock)completed
 {
-    if ( ( nil == destinationFile ) || ( nil == fileURL ) || ( nil == subpath ) )
-    {
-        return NO;
-    }
-    
-    
+    NSParameterAssert( nil != destinationFile );
+    NSParameterAssert( nil != fileURL );
+
     NSURL                         * url;
     NSURLRequest                  * urlRequest;
     NSURLSessionConfiguration     * configuration;
     NSURLSessionDownloadTask      * downloatTask;
     AFURLSessionManager           * manager;
+    NSError                       * errorDownload;
     
     url                             = [NSURL URLWithString: fileURL];
     configuration                   = [NSURLSessionConfiguration defaultSessionConfiguration];
     downloatTask                    = nil;
     manager                         = nil;
-    if ( ( nil == url ) || ( nil == configuration ) )
-    {
-        return NO;
-    }
+    errorDownload                   = nil;
+    NSParameterAssert( nil != url );
+    NSParameterAssert( nil != configuration );
     
     urlRequest                      = [NSURLRequest requestWithURL: url];
     manager                         = [[AFURLSessionManager alloc] initWithSessionConfiguration: configuration];
-    if ( ( nil == urlRequest ) || ( nil == manager ) )
-    {
-        return NO;
-    }
+    NSParameterAssert( nil != urlRequest );
+    NSParameterAssert( nil != manager );
     
     downloatTask                    = [manager downloadTaskWithRequest: urlRequest progress: nil destination: ^NSURL * ( NSURL * targetPath, NSURLResponse * response )
     {
@@ -491,17 +546,24 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     completionHandler:  ^( NSURLResponse * response, NSURL * filePath, NSError * error )
     {
         //  然後在這個地方, 再把已經存好的檔案, 移動到預定應該擺放的位置或目錄底下; 擺放的同時 一樣進行目錄產生 然後在移動剛剛下載完成的檔案.
-        BOOL                         result;
-       
-        result                       = _UpdateFileToCurrentDirectory( filePath, destinationFile, coverOlder );
+        BOOL                        result;
+        NSError                   * errorUpdate;
+        
+        if ( ( nil != completed ) && ( nil != error ) )
+        {
+            completed( error, NO );
+            return;
+        }
+        
+        errorUpdate                 = nil;
+        result                      = _UpdateFileToCurrentDirectory( filePath, destinationFile, coverOlder, &errorUpdate );
         if ( nil != completed )
         {
-            completed( result );
+            completed( errorUpdate, result );
         }
     }];
     
     [downloatTask                   resume];
-    
     return YES;
 }
 
@@ -525,12 +587,9 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for download file.
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) simpleDownload:(NSString *)downloadURL forDirectory:(NSSearchPathDirectory)directory;
++ ( BOOL ) simpleDownload:(NSString *)downloadURL forDirectory:(NSSearchPathDirectory)directory completed:(DownloadCompletedCallbackBlock)completed
 {
-    if ( nil == downloadURL )
-    {
-        return NO;
-    }
+    NSParameterAssert( nil != downloadURL );
     
     NSURL                         * url;
     NSURLRequest                  * urlRequest;
@@ -542,17 +601,13 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     manager                         = nil;
     url                             = [NSURL URLWithString: downloadURL];
     configuration                   = [NSURLSessionConfiguration defaultSessionConfiguration];
-    if ( ( nil == url ) || ( nil == configuration ) )
-    {
-        return NO;
-    }
+    NSParameterAssert( nil != url );
+    NSParameterAssert( nil != configuration );
     
     urlRequest                      = [NSURLRequest requestWithURL: url];
     manager                         = [[AFURLSessionManager alloc] initWithSessionConfiguration: configuration];
-    if ( ( nil == urlRequest ) || ( nil == manager ) )
-    {
-        return NO;
-    }
+    NSParameterAssert( nil != urlRequest );
+    NSParameterAssert( nil != manager );
     
     downloatTask                    = [manager downloadTaskWithRequest: urlRequest progress: nil destination: ^NSURL * ( NSURL * targetPath, NSURLResponse * response )
     {
@@ -567,7 +622,12 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     }
     completionHandler:  ^( NSURLResponse * response, NSURL * filePath, NSError * error )
     {
-        NSLog( @"filish download : %@", filePath );
+        NSLog( @"finish download : %@", filePath );
+        if ( nil != completed )
+        {
+            completed( error, ( ( nil == error ) ? YES : NO ) );
+        }
+        
     }];
     
     [downloatTask                   resume];
@@ -576,11 +636,10 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) download:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory updateCheckBy:(NSString *)timestamp
+          completed:(DownloadCompletedCallbackBlock)completed
 {
-    if ( ( nil == filename ) || ( nil == fileURL ) || ( nil == subpath ) )
-    {
-        return NO;
-    }
+    NSParameterAssert( nil != filename );
+    NSParameterAssert( nil != fileURL );
     
     BOOL                            result;
     BOOL                            download;
@@ -590,22 +649,27 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     download                        = NO;
     destinationFilename             = nil;
     destinationFilename             = TDGetPathForDirectoriesWithTimestamp( directory, [filename stringByDeletingPathExtension], timestamp, [filename pathExtension], subpath, NO );
-    if ( nil == destinationFilename )
-    {
-        return NO;
-    }
+    NSParameterAssert( nil != destinationFilename );
     
     download                        = _SearchUpdateFile( filename, [destinationFilename stringByDeletingLastPathComponent], timestamp );
     if ( NO == download )
     {
-        NSLog( @"already have a latest file in the directory." );
+        if ( nil != completed )
+        {
+            completed( nil, YES );
+        }
+        NSLog( @"already have a latest file in the directory. %@", filename );
         return YES;
     }
     
     //  when download finish, delete update older files.    //  cover older's value change to set: YES, because maybe find the same filename in destination directory, but it's 'dir'.
-    result                          = [TDDownloadManager _DownloadProcedure: destinationFilename from: fileURL into: subpath coverOlder: YES completed: ^ ( BOOL finish )
+    result                          = [TDDownloadManager _DownloadProcedure: destinationFilename from: fileURL into: subpath coverOlder: YES completed: ^ (NSError * error, BOOL finished)
     {
-        if ( NO == finish )
+        if ( nil != completed )
+        {
+            completed( error, finished );
+        }
+        if ( NO == finished )
         {
             return;
         }
@@ -617,11 +681,10 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) replacementDownload:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory
+                     completed:(DownloadCompletedCallbackBlock)completed
 {
-    if ( ( nil == filename ) || ( nil == fileURL ) || ( nil == subpath ) )
-    {
-        return NO;
-    }
+    NSParameterAssert( nil != filename );
+    NSParameterAssert( nil != fileURL );
     
     NSString                      * destinationFilename;
     
@@ -632,7 +695,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
         return NO;
     }
     
-    return [TDDownloadManager _DownloadProcedure: destinationFilename from: fileURL into: subpath coverOlder: YES completed: nil];
+    return [TDDownloadManager _DownloadProcedure: destinationFilename from: fileURL into: subpath coverOlder: YES completed: completed];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -647,22 +710,13 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     
     contentTypes                    = nil;
     manager                         = [AFHTTPRequestOperationManager manager];
-    if ( nil == manager )
-    {
-        return NO;
-    }
+    NSParameterAssert( nil != manager );
     
     url                             = [NSURL URLWithString: jsonURL];
-    if ( nil == url )
-    {
-        return NO;
-    }
+    NSParameterAssert( nil != url );
     
     urlRequest                      = [NSURLRequest requestWithURL: url];
-    if ( nil == urlRequest )
-    {
-        return NO;
-    }
+    NSParameterAssert( nil != urlRequest );
     
     contentTypes                    = [NSSet setWithObjects: @"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
     [manager                        setResponseSerializer: [AFJSONResponseSerializer serializer]];
@@ -690,6 +744,8 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
                withSave:(NSString *)filename into:(NSString *)subpath of:(TDGetPathDirectory)directory extension:(NSString *)timestamp
              completed:(ReadJSONCompletedCallbackBlock)completed
 {
+    NSParameterAssert( nil != jsonURL );
+    NSParameterAssert( nil != filename );
     
     [TDDownloadManager              readJSONFile: jsonURL completed: ^( NSDictionary * jsonContent, NSError * error, BOOL finished )
     {
@@ -715,14 +771,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
         destinationFilename         = nil;
         result                      = NO;
         destinationFilename         = TDGetPathForDirectoriesWithTimestamp( directory, [filename stringByDeletingPathExtension], timestamp, [filename pathExtension], subpath, NO );
-        if ( nil == destinationFilename )
-        {
-            if ( nil != completed )
-            {
-                completed( jsonContent, nil, NO );
-            }
-            return;
-        }
+        NSParameterAssert( nil != destinationFilename );
         
         result                      = [NSJSONSerialization saveJSONContainer: jsonContent toFileAtPath: destinationFilename];
         if ( nil != completed )
@@ -732,6 +781,36 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
         return;
     }];
     
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
++ ( BOOL ) readJSONFile:(NSString *)jsonURL withSaveInto:(NSString *)fullPath completed:(ReadJSONCompletedCallbackBlock)completed
+{
+    NSParameterAssert( nil != jsonURL );
+    NSParameterAssert( nil != fullPath );
+    
+    [TDDownloadManager              readJSONFile: jsonURL completed: ^( NSDictionary * jsonContent, NSError * error, BOOL finished )
+     {
+         //  when get json from URL have a error.
+         if ( nil != error )
+         {
+             if ( nil != completed )
+             {
+                 completed( nil, error, NO );
+             }
+             return;
+         }
+                  
+         BOOL                       result;
+         
+         result                     = [NSJSONSerialization saveJSONContainer: jsonContent toFileAtPath: fullPath];
+         if ( nil != completed )
+         {
+             completed( jsonContent, nil, result );
+         }
+         return;
+     }];
     
     return YES;
 }
