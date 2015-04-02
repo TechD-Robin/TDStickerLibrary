@@ -303,6 +303,7 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
     blockReachableBlock             = reachableBlock;
     [TDNetworkReachabilityManager   _KeepingManager: afManager];            //  when ARC & nothing to keep the allocated memory, so must keep it.
     [afManager                      startMonitoring];
+    [NSThread                       sleepForTimeInterval: 0.1f];
     [afManager                      setReachabilityStatusChangeBlock: ^(AFNetworkReachabilityStatus status)
      {
          BOOL                       reachable;
