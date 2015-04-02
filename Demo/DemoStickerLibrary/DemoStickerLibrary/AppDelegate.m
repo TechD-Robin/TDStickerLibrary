@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 
 @interface AppDelegate ()
@@ -24,6 +25,7 @@
     [[self                          window] makeKeyAndVisible];
     [[self                          window] setRootViewController: [[ViewController alloc] init]];
     
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled: YES];
     return YES;
 }
 

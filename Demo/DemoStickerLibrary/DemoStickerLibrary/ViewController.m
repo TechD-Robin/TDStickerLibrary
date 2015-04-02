@@ -8,8 +8,7 @@
 
 #import "UIKit+TechD.h"
 #import "TDStickerLibrary.h"
-#import "AFNetworking.h"
-#import "UIProgressView+AFNetworking.h"
+#import "TDPreUpdateProcedure.h"
 
 #import "ViewController.h"
 
@@ -90,10 +89,9 @@
 //    NSLog( @"new get status bar height : %f", [[UIScreen mainScreen] getStatusBarHeight] );
 }
 
-
 //  ------------------------------------------------------------------------------------------------
 //  --------------------------------
-- (void) _CreateDownloadButton
+- ( void ) _CreatePreUpdateButton
 {
     UIButton                      * button;
     CGRect                          mainRect;
@@ -109,12 +107,12 @@
     [button                         setBackgroundColor: [UIColor darkGrayColor]];
     [button                         setFrame: CGRectMake( 0, 0, 240, 36)];
     [button                         setCenter: CGPointMake( ( mainRect.size.width / 2.0f ), ( mainRect.size.height /2.0f ) )];
-    [button                         setTitle: @" Download Test " forState: UIControlStateNormal];
+    [button                         setTitle: @" PreUpload " forState: UIControlStateNormal];
     [[self                          view] addSubview: button];
     
     UITapGestureRecognizer        * tap;
     
-    tap                             = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector( _TapDownloadAction: )];
+    tap                             = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector( _TapPreUpdateAction: )];
     if ( nil == tap )
     {
         return;
@@ -135,80 +133,32 @@
     [[self view] addConstraint: layoutX];
     [[self view] addConstraint: layoutY];
     
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) _TapDownloadAction:(id)sender
+- ( void ) _TapPreUpdateAction:(id)sender
 {
-    NSLog( @"download test" );
+    TDPreUpdateProcedure          * procedure;
+    NSString                      * urlString;
     
-    NSString                      * link;
-    UIProgressView                * progressView;
-
-    //  在 8.1 simulator 的環境下, 目前這邊的指令 不會覆蓋掉本來目錄底下已經有的檔案, 所以之後記得 這樣的問題應該要自己判斷並修正.
-    link                            = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download";
-    progressView                    = nil;
-    
-    progressView                    = [[UIProgressView alloc] initWithProgressViewStyle: UIProgressViewStyleDefault];
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    
-    NSURL *URL = [NSURL URLWithString: link];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    //.NSProgress *progress = nil;
-    
-    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress: nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
-        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
-    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-        NSLog(@"!!!!!!!!!!!! File downloaded to: %@", filePath);
-    }];
-    
-    if ( nil != progressView )
+    urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXMnJWUzhvS3ZuN1k&export=download";
+    procedure                       = [TDPreUpdateProcedure preUpdate: urlString withSave: @"SystemUpdate.json" into: @"Download/Configure" of: TDDocumentDirectory];
+    if ( nil == procedure )
     {
-        [[self view] addSubview: progressView];
-        [progressView setProgressWithDownloadProgressOfTask: downloadTask animated: YES];
-        
+        return;
     }
-    [downloadTask resume];
     
-    [manager setDownloadTaskDidWriteDataBlock:^(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
-        NSLog(@"Progress… %lld", totalBytesWritten);
-    }];
+    [procedure                      startProcedureWithKey: @"UpdateTab"];
     
-//    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-//    [[AFNetworkReachabilityManager sharedManager]setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status)
-//    {
-//        NSLog( @"state %d", (int)status );
-//        NSLog( @"is reachable %d", [[AFNetworkReachabilityManager sharedManager] isReachable] );
-//    }];
-//    
-//    NSLog( @"is reachable %d", [[AFNetworkReachabilityManager sharedManager] isReachable] );
-    
-    
-//    AFNetworkReachabilityManager  * manager;
-//    
-//    manager = [AFNetworkReachabilityManager managerForDomain: @"techd.idv.tw"];
-//    if ( nil == manager )
-//    {
-//        return;
-//    }
-//    [manager startMonitoring];
-//
-//    __weak id  blockManager;
-//    
-//    blockManager    = manager;
-//    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status)
-//    {
-//        NSLog( @"state %d", (int)status );
-//        NSLog( @"is reachable %d", [blockManager isReachable] );
-//    }];
-//
-//    NSLog( @"is reachable %d", [manager isReachable] );
-
+    __weak __typeof(procedure)      weakProcedure;
+    weakProcedure                   = procedure;
+    [procedure                      setPreUpdateCompletionBlock: ^(NSDictionary * updateResponses, NSError * error, BOOL finished)
+     {
+         NSLog( @" %@, %@, %d ", updateResponses, error, finished );
+         [weakProcedure              stopProcedure];
+     } ];
 }
-
-
 
 //  ------------------------------------------------------------------------------------------------
 //  --------------------------------
@@ -220,7 +170,7 @@
 
     
     [self                           _CreateButton];
-    [self                           _CreateDownloadButton];     //  for download update test.
+    [self                           _CreatePreUpdateButton];
     
 //    [[UIApplication sharedApplication] setStatusBarHidden: NO withAnimation:UIStatusBarAnimationFade];
 }
