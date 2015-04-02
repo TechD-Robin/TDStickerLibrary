@@ -12,6 +12,8 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <UIKit/UIKit.h>
 
+#import "TDUtilities.h"
+
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
@@ -26,6 +28,22 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
 //  ------------------------------------------------------------------------------------------------
+
+/**
+ *  filename of system configure update.
+ */
+@property( nonatomic, assign ) NSString                   * systemUpdateConfigureFilename;
+
+/**
+ *  subpath of system configure update.
+ */
+@property( nonatomic, assign ) NSString                   * systemUpdateConfigureSubpath;
+
+/**
+ *  directory of system cnfigure update.
+ */
+@property( nonatomic, assign ) TDGetPathDirectory           systemUpdateConfigureDirectory;
+
 /**
  *  default's directory name for configure resource.
  */

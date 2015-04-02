@@ -93,6 +93,10 @@
 //  --------------------------------
 - ( void ) _InitAttributes
 {
+    [self                           setSystemUpdateConfigureFilename: @"SystemUpdate.json"];
+    [self                           setSystemUpdateConfigureSubpath: @"Download"];
+    [self                           setSystemUpdateConfigureDirectory: TDCachesDirectory];
+    
     [self                           setConfigureResource: @"Configure"];
     [self                           setInZippedPrefixPath: @"StickerLibraryTabDefault"];
     [self                           setTabConfigureFilename: @"StickerLibraryTabDefault"];
@@ -168,6 +172,10 @@
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark synthesize variable.
+@synthesize systemUpdateConfigureFilename   = _systemUpdateConfigureFilename;
+@synthesize systemUpdateConfigureSubpath    = _systemUpdateConfigureSubpath;
+@synthesize systemUpdateConfigureDirectory  = _systemUpdateConfigureDirectory;
+
 @synthesize configureResource           = _configureResource;
 @synthesize inZippedPrefixPath          = _inZippedPrefixPath;
 @synthesize tabConfigureFilename        = _tabConfigureFilename;
