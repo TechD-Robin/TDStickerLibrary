@@ -773,7 +773,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
         destinationFilename         = TDGetPathForDirectoriesWithTimestamp( directory, [filename stringByDeletingPathExtension], timestamp, [filename pathExtension], subpath, NO );
         NSParameterAssert( nil != destinationFilename );
         
-        result                      = [NSJSONSerialization saveJSONContainer: jsonContent toFileAtPath: destinationFilename];
+        result                      = [NSJSONSerialization saveJSONContainer: jsonContent toFileAtPath: destinationFilename error: &outputError];
         if ( nil != completed )
         {
             completed( jsonContent, nil, result );
@@ -803,11 +803,13 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
          }
                   
          BOOL                       result;
+         NSError                  * saveError;
          
-         result                     = [NSJSONSerialization saveJSONContainer: jsonContent toFileAtPath: fullPath];
+         saveError                  = nil;
+         result                     = [NSJSONSerialization saveJSONContainer: jsonContent toFileAtPath: fullPath error: &saveError];
          if ( nil != completed )
          {
-             completed( jsonContent, nil, result );
+             completed( jsonContent, saveError, result );
          }
          return;
      }];
