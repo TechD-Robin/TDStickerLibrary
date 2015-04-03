@@ -13,9 +13,7 @@
 		2A4743831A827D160057586A /* TDStickerLibrarySectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743821A827D160057586A /* TDStickerLibrarySectionHeader.m */; };
 		2A4743861A827D260057586A /* TDStickerLibrarySectionPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743851A827D260057586A /* TDStickerLibrarySectionPreviewCell.m */; };
 		2A4743891A827D350057586A /* TDStickerLibraryTabPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743881A827D350057586A /* TDStickerLibraryTabPageView.m */; };
-		2A52080B1AC08CE4005FE8A7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A5208021AC08CE4005FE8A7 /* LICENSE */; };
 		2A52080C1AC08CE4005FE8A7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A5208021AC08CE4005FE8A7 /* LICENSE */; };
-		2A52080D1AC08CE4005FE8A7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A5208031AC08CE4005FE8A7 /* README.md */; };
 		2A52080E1AC08CE4005FE8A7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A5208031AC08CE4005FE8A7 /* README.md */; };
 		2A52080F1AC08CE4005FE8A7 /* TDGeometricFigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5208061AC08CE4005FE8A7 /* TDGeometricFigure.m */; };
 		2A5208101AC08CE4005FE8A7 /* TDGeometricFigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5208061AC08CE4005FE8A7 /* TDGeometricFigure.m */; };
@@ -27,9 +25,7 @@
 		2A52081F1AC08D09005FE8A7 /* NSJSONSerialization+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5208191AC08D09005FE8A7 /* NSJSONSerialization+TechD.m */; };
 		2A5208201AC08D09005FE8A7 /* NSString+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52081B1AC08D09005FE8A7 /* NSString+TechD.m */; };
 		2A5208211AC08D09005FE8A7 /* NSString+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52081B1AC08D09005FE8A7 /* NSString+TechD.m */; };
-		2A5208221AC08D09005FE8A7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A52081C1AC08D09005FE8A7 /* LICENSE */; };
 		2A5208231AC08D09005FE8A7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A52081C1AC08D09005FE8A7 /* LICENSE */; };
-		2A5208241AC08D09005FE8A7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A52081D1AC08D09005FE8A7 /* README.md */; };
 		2A5208251AC08D09005FE8A7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A52081D1AC08D09005FE8A7 /* README.md */; };
 		2A52084F1AC08D1F005FE8A7 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5208291AC08D1F005FE8A7 /* AFHTTPRequestOperation.m */; };
 		2A5208501AC08D1F005FE8A7 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5208291AC08D1F005FE8A7 /* AFHTTPRequestOperation.m */; };
@@ -49,9 +45,7 @@
 		2A52085E1AC08D1F005FE8A7 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5208381AC08D1F005FE8A7 /* AFURLResponseSerialization.m */; };
 		2A52085F1AC08D1F005FE8A7 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52083A1AC08D1F005FE8A7 /* AFURLSessionManager.m */; };
 		2A5208601AC08D1F005FE8A7 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52083A1AC08D1F005FE8A7 /* AFURLSessionManager.m */; };
-		2A5208611AC08D1F005FE8A7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A52083B1AC08D1F005FE8A7 /* LICENSE */; };
 		2A5208621AC08D1F005FE8A7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A52083B1AC08D1F005FE8A7 /* LICENSE */; };
-		2A5208631AC08D1F005FE8A7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A52083C1AC08D1F005FE8A7 /* README.md */; };
 		2A5208641AC08D1F005FE8A7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A52083C1AC08D1F005FE8A7 /* README.md */; };
 		2A5208651AC08D1F005FE8A7 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52083F1AC08D1F005FE8A7 /* AFNetworkActivityIndicatorManager.m */; };
 		2A5208661AC08D1F005FE8A7 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52083F1AC08D1F005FE8A7 /* AFNetworkActivityIndicatorManager.m */; };
@@ -69,17 +63,13 @@
 		2A5208721AC08D1F005FE8A7 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52084C1AC08D1F005FE8A7 /* UIRefreshControl+AFNetworking.m */; };
 		2A5208731AC08D1F005FE8A7 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52084E1AC08D1F005FE8A7 /* UIWebView+AFNetworking.m */; };
 		2A5208741AC08D1F005FE8A7 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52084E1AC08D1F005FE8A7 /* UIWebView+AFNetworking.m */; };
-		2A52087E1AC08D3C005FE8A7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A5208771AC08D3C005FE8A7 /* LICENSE */; };
 		2A52087F1AC08D3C005FE8A7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A5208771AC08D3C005FE8A7 /* LICENSE */; };
-		2A5208801AC08D3C005FE8A7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A5208781AC08D3C005FE8A7 /* README.md */; };
 		2A5208811AC08D3C005FE8A7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A5208781AC08D3C005FE8A7 /* README.md */; };
 		2A5208821AC08D3C005FE8A7 /* TDDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52087B1AC08D3C005FE8A7 /* TDDownloadManager.m */; };
 		2A5208831AC08D3C005FE8A7 /* TDDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52087B1AC08D3C005FE8A7 /* TDDownloadManager.m */; };
 		2A5208841AC08D3C005FE8A7 /* TDNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52087D1AC08D3C005FE8A7 /* TDNetworkReachabilityManager.m */; };
 		2A5208851AC08D3C005FE8A7 /* TDNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52087D1AC08D3C005FE8A7 /* TDNetworkReachabilityManager.m */; };
-		2A5208901AC08D9D005FE8A7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A5208871AC08D9D005FE8A7 /* LICENSE */; };
 		2A5208911AC08D9D005FE8A7 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A5208871AC08D9D005FE8A7 /* LICENSE */; };
-		2A5208921AC08D9D005FE8A7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A5208881AC08D9D005FE8A7 /* README.md */; };
 		2A5208931AC08D9D005FE8A7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A5208881AC08D9D005FE8A7 /* README.md */; };
 		2A5208941AC08D9D005FE8A7 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52088D1AC08D9D005FE8A7 /* TDTexturePackerXMLReader.m */; };
 		2A5208951AC08D9D005FE8A7 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52088D1AC08D9D005FE8A7 /* TDTexturePackerXMLReader.m */; };
@@ -87,8 +77,6 @@
 		2A5208971AC08D9D005FE8A7 /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52088F1AC08D9D005FE8A7 /* TDUtilities.m */; };
 		2A7BE19A1ACD505E005CA500 /* TDPreUpdateProcedure.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BE1991ACD505E005CA500 /* TDPreUpdateProcedure.m */; };
 		2A99ECFB1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A99ECFA1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m */; };
-		2AA8CECE1AC1730A003901EB /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC01AC1730A003901EB /* LICENSE */; };
-		2AA8CECF1AC1730A003901EB /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC11AC1730A003901EB /* README.md */; };
 		2AA8CED01AC1730A003901EB /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC41AC1730A003901EB /* NSLayoutConstraint+TechD.m */; };
 		2AA8CED11AC1730A003901EB /* UIGestureRecognizer+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC61AC1730A003901EB /* UIGestureRecognizer+TechD.m */; };
 		2AA8CED21AC1730A003901EB /* UIImage+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC81AC1730A003901EB /* UIImage+TechD.m */; };
@@ -101,12 +89,10 @@
 		2AADF4FC1A695B9E0026EF9D /* DemoStickerLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4FB1A695B9E0026EF9D /* DemoStickerLibraryTests.m */; };
 		2AADF51D1A6972810026EF9D /* TDStickerLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF51A1A6972810026EF9D /* TDStickerLibrary.m */; };
 		2AADF51E1A6972810026EF9D /* TDStickerLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF51C1A6972810026EF9D /* TDStickerLibraryViewController.m */; };
-		2AB7067D1A6FE2FB006C6845 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2AB7065C1A6FE2FB006C6845 /* LICENSE */; };
 		2AB7067E1A6FE2FB006C6845 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7065F1A6FE2FB006C6845 /* ioapi.c */; };
 		2AB7067F1A6FE2FB006C6845 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706611A6FE2FB006C6845 /* mztools.c */; };
 		2AB706801A6FE2FB006C6845 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706631A6FE2FB006C6845 /* unzip.c */; };
 		2AB706811A6FE2FB006C6845 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706651A6FE2FB006C6845 /* zip.c */; };
-		2AB706821A6FE2FB006C6845 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706671A6FE2FB006C6845 /* README.md */; };
 		2AB706831A6FE2FB006C6845 /* ZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706691A6FE2FB006C6845 /* ZipArchive.m */; };
 		2AB706851A6FE324006C6845 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB706841A6FE324006C6845 /* libz.dylib */; };
 		2AB706931A700EB0006C6845 /* TDStickerLibraryTabInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706921A700EB0006C6845 /* TDStickerLibraryTabInfo.m */; };
@@ -732,15 +718,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A5208611AC08D1F005FE8A7 /* LICENSE in Resources */,
-				2AB7067D1A6FE2FB006C6845 /* LICENSE in Resources */,
-				2A5208901AC08D9D005FE8A7 /* LICENSE in Resources */,
 				2AADF4ED1A695B9D0026EF9D /* Images.xcassets in Resources */,
-				2A52087E1AC08D3C005FE8A7 /* LICENSE in Resources */,
-				2A52080B1AC08CE4005FE8A7 /* LICENSE in Resources */,
-				2AA8CECE1AC1730A003901EB /* LICENSE in Resources */,
 				2ABD8E321A7142BC00626356 /* Configure in Resources */,
-				2A5208221AC08D09005FE8A7 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -773,9 +752,7 @@
 				2A47436B1A8220250057586A /* TDStickerLibraryUnzip.m in Sources */,
 				2AB706961A700EE3006C6845 /* TDStickerLibraryCustomization.m in Sources */,
 				2A5208111AC08CE4005FE8A7 /* TDMath.m in Sources */,
-				2A5208631AC08D1F005FE8A7 /* README.md in Sources */,
 				2A5208711AC08D1F005FE8A7 /* UIRefreshControl+AFNetworking.m in Sources */,
-				2A5208241AC08D09005FE8A7 /* README.md in Sources */,
 				2A5208841AC08D3C005FE8A7 /* TDNetworkReachabilityManager.m in Sources */,
 				2A52086F1AC08D1F005FE8A7 /* UIProgressView+AFNetworking.m in Sources */,
 				2ABD8E3D1A714F5100626356 /* TDBaseTabMenuItem.m in Sources */,
@@ -789,9 +766,7 @@
 				2AB706831A6FE2FB006C6845 /* ZipArchive.m in Sources */,
 				2AA8CED31AC1730A003901EB /* UIImageView+TechD.m in Sources */,
 				2A4743861A827D260057586A /* TDStickerLibrarySectionPreviewCell.m in Sources */,
-				2A52080D1AC08CE4005FE8A7 /* README.md in Sources */,
 				2AADF51E1A6972810026EF9D /* TDStickerLibraryViewController.m in Sources */,
-				2AB706821A6FE2FB006C6845 /* README.md in Sources */,
 				2A5208821AC08D3C005FE8A7 /* TDDownloadManager.m in Sources */,
 				2A4743831A827D160057586A /* TDStickerLibrarySectionHeader.m in Sources */,
 				2A5208691AC08D1F005FE8A7 /* UIAlertView+AFNetworking.m in Sources */,
@@ -805,15 +780,12 @@
 				2A5208131AC08CE4005FE8A7 /* TDTrigonometry.m in Sources */,
 				2A52085D1AC08D1F005FE8A7 /* AFURLResponseSerialization.m in Sources */,
 				2A5208671AC08D1F005FE8A7 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
-				2A5208921AC08D9D005FE8A7 /* README.md in Sources */,
 				2AB7067E1A6FE2FB006C6845 /* ioapi.c in Sources */,
 				2AADF4E81A695B9D0026EF9D /* ViewController.m in Sources */,
 				2A5208731AC08D1F005FE8A7 /* UIWebView+AFNetworking.m in Sources */,
 				2AFDFADA1A83A95F00A82E55 /* TDStickerLibrarySectionStates.m in Sources */,
-				2AA8CECF1AC1730A003901EB /* README.md in Sources */,
 				2A5208591AC08D1F005FE8A7 /* AFURLConnectionOperation.m in Sources */,
 				2A52080F1AC08CE4005FE8A7 /* TDGeometricFigure.m in Sources */,
-				2A5208801AC08D3C005FE8A7 /* README.md in Sources */,
 				2AADF4E51A695B9D0026EF9D /* AppDelegate.m in Sources */,
 				2AB706931A700EB0006C6845 /* TDStickerLibraryTabInfo.m in Sources */,
 				2A5208201AC08D09005FE8A7 /* NSString+TechD.m in Sources */,
