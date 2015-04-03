@@ -91,7 +91,7 @@ typedef     void (^PreUpdateCompletionBlock)(NSDictionary * updateResponses, NSE
  *  @brief start this pre-update procedure to check and update configure data.
  *  start this pre-update procedure to check and update configure data, this method will check configure data for keys
  *
- *  @param aKey                     keys of data
+ *  @param keyList                  keys of data
  */
 - ( void ) startProcedureWithKeys:(NSArray *)keyList;
 

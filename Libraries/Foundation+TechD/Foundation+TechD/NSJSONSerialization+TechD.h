@@ -21,13 +21,25 @@
  *
  *  @param container                the JSON data container.
  *  @param filepath                 the file path (full path).
+ *  @param error                    assign pointer of a error object when method has error.
  *
  *  @return YES|NO                  method success or failure
  */
-+ ( BOOL ) saveJSONContainer:(NSDictionary *)container toFileAtPath:(NSString *)filepath;
-
++ ( BOOL ) saveJSONContainer:(NSDictionary *)container toFileAtPath:(NSString *)filepath error:(NSError * __autoreleasing *)error;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief load a JSON data from file path.
+ *  load a JSON data from file path, the data container is an NSArray or NSDictionary.
+ *
+ *  @param filepath                 the file path (full path).
+ *  @param encode                   charset encode.
+ *  @param error                    assign pointer of a error object when method has error.
+ *
+ *  @return container|nil           a container object or nil.
+ */
++ ( id ) loadJSON:(NSString *)filepath encoding:(NSStringEncoding)encode error:(NSError * __autoreleasing *)error;
+
 //  ------------------------------------------------------------------------------------------------
 
 
