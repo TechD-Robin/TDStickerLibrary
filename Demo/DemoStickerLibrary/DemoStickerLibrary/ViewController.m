@@ -139,25 +139,27 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _TapPreUpdateAction:(id)sender
 {
-    TDPreUpdateProcedure          * procedure;
+    NSArray                       * searchKeys;
     NSString                      * urlString;
+    TDStickerLibraryCustomization * customization;
     
+    searchKeys                      = [NSArray arrayWithObjects: @"UpdateTab", nil];
     urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXMnJWUzhvS3ZuN1k&export=download";
-    procedure                       = [TDPreUpdateProcedure preUpdate: urlString withSave: @"SystemUpdate.json" into: @"Download/Configure" of: TDDocumentDirectory];
-    if ( nil == procedure )
+    customization                   = [TDStickerLibraryCustomization new];
+    NSParameterAssert( nil != customization );
+    
+    [customization                  setSystemUpdateConfigureFilename: @"SystemConfigureUpdate.json"];
+    [customization                  setSystemUpdateConfigureSubpath: @"Download/Configure"];
+    [customization                  setSystemUpdateConfigureDirectory: TDDocumentDirectory];
+    [TDStickerLibraryViewController  preUpdateProcedure: urlString forSearch: searchKeys with: customization completion: ^(BOOL finished)
     {
-        return;
-    }
+        NSLog( @"pre-update finish state : %d", finished );
+    }];
     
-    [procedure                      startProcedureWithKey: @"UpdateTab"];
     
-    __weak __typeof(procedure)      weakProcedure;
-    weakProcedure                   = procedure;
-    [procedure                      setPreUpdateCompletionBlock: ^(NSDictionary * updateResponses, NSError * error, BOOL finished)
-     {
-         NSLog( @" %@, %@, %d ", updateResponses, error, finished );
-         [weakProcedure              stopProcedure];
-     } ];
+    //  finish.
+    customization                   = nil;
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
