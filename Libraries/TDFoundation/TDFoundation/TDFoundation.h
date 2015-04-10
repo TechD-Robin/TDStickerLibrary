@@ -18,6 +18,7 @@
     #import "TDUtilities.h"
 
     #import "TDTexturePackerXMLReader.h"
+    #import "TDJSONReader.h"
 #endif  //  End of _TDFoundation_.
 
 //  ------------------------------------------------------------------------------------------------
