@@ -14,6 +14,7 @@
 #endif  //  End of __ARCMacros_H__.
 
 #import "ZipArchive.h"
+#import "Foundation+TechD.h"
 
 #import "TDStickerLibraryUnzip.h"
 
@@ -207,10 +208,22 @@
         prefixDirectory             = @"";
     }
     
+    BOOL                            isUpdate;
     NSString                      * filePath;
+    NSString                      * zipFileExtension;
+    NSArray                       * fileSeparated;
     
-    filePath                        = TDGetPathForDirectories( directory, filename, @"zip", subpath, YES );
-//    if ( [[NSFileManager defaultManager] fileExistsAtPath: filePath] == NO )
+    isUpdate                        = NO;
+    zipFileExtension                = @"zip";
+    fileSeparated                   = [filename componentsSeparatedByString: @"."];
+    //  check file name for appended timpstamp.
+    if ( ( [fileSeparated count] >= 2 ) && ( [[filename pathExtension] isNumeric] == YES ) )
+    {
+        isUpdate                    = YES;
+        zipFileExtension            = nil;
+    }
+    
+    filePath                        = TDGetPathForDirectories( directory, filename, zipFileExtension, subpath, YES );
     if ( nil == filePath )
     {
         NSLog( @"file %s no exist.", [filePath UTF8String] );
@@ -221,6 +234,11 @@
     {
         NSLog( @"unzip configure file has warning." );
         return NO;
+    }
+    
+    if ( YES == isUpdate )
+    {
+        filename                    = [filename stringByDeletingPathExtension];
     }
     
     if ( [self _GetConfigureJsonData: filename configure: rootKey with: updateKey] == NO )
