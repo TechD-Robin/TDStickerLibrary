@@ -46,6 +46,23 @@
                          configure:(NSString *)rootKey;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief initial a Sticker Libaray Unzip object.
+ *  initial a Sticker Libaray Unzip object.
+ *
+ *  @param fullPath                 zipped file name (full path).
+ *  @param prefix                   prefix path name in zipped file.
+ *  @param password                 password of zipped file.
+ *  @param rootKey                  key of root of configure file.
+ *
+ *  @return object|nil              the Sticker Library Unzip object or nil.
+ */
+- ( instancetype ) initWithZipFile:(NSString *)fullPath
+                      inZippedPath:(NSString *)prefix with:(NSString *)password
+                         configure:(NSString *)rootKey;
+
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark declare for update this object.
 //  ------------------------------------------------------------------------------------------------
 /**
