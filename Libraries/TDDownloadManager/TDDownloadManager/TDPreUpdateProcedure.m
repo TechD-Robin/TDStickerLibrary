@@ -390,11 +390,11 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
         queue                       = dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0 );
         dispatch_group_async( group, queue, ^()
         {
-            [self                   _UpdateDataWith: infoData completed: ^(NSError * error, BOOL finished)
+            [self                   _UpdateDataWith: infoData completed: ^(NSError * error, NSString * fullPath, BOOL finished)
             {
                 NSDictionary      * response;
                 
-                response            = @{ @"update infos": infoData, @"error": ( ( nil == error ) ? @"" : error ), @"finished" : @(finished) };
+                response            = @{ @"update infos": infoData, @"error": ( ( nil == error ) ? @"" : error ), @"filename" : ( ( nil == fullPath ) ? @"" : fullPath ) , @"finished" : @(finished) };
                 //  forward code is like : setObject: forKey: when type is NSMutableDictionary.
                 [downloadResponse   setObject: response forKey: aKey];
                 

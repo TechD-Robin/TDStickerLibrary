@@ -21,7 +21,8 @@
  *  @brief a block section be executed when pre-update procedure is completed.
  *  a block section be executed when pre-update procedure is completed, these parameters will return completed information to method caller.
  *
- *  @param updateResponses          a container to store download file's information, include result of download.
+ *  @param updateResponses          a container to store download file's information, include result of download;
+ *                                  responses include these keys : 'update infos', 'error', 'filename', 'finished'.
  *  @param error                    a NSError object, if pre-update procedure failure then this object has error information, otherwise it's nil object.
  *  @param finished                 a boolean value, if pre-update procedure success then the value is YES, otherwise it's NO.
  *
