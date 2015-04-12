@@ -14,6 +14,7 @@
 
     #import "TDStickerLibraryCustomization.h"
     #import "TDStickerLibraryViewController.h"
+    #import "TDStickerLibraryUpdate.h"
 
 #endif  //  End of _TDSticker_Library_.
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A29D0111ADAE1460096161D /* TDStickerLibraryUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A29D0101ADAE1460096161D /* TDStickerLibraryUpdate.m */; };
 		2A4743681A8219EC0057586A /* TDStickerLibraryUnzip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743671A8219EC0057586A /* TDStickerLibraryUnzip.m */; };
 		2A47436E1A823CE30057586A /* TDStickerLibraryTabPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A47436D1A823CE30057586A /* TDStickerLibraryTabPageInfo.m */; };
 		2A4743771A826D5E0057586A /* TDStickerLibraryTabPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743761A826D5E0057586A /* TDStickerLibraryTabPageLayout.m */; };
@@ -117,6 +118,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2A29D00F1ADAE1460096161D /* TDStickerLibraryUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUpdate.h; sourceTree = "<group>"; };
+		2A29D0101ADAE1460096161D /* TDStickerLibraryUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUpdate.m; sourceTree = "<group>"; };
 		2A4743661A8219EC0057586A /* TDStickerLibraryUnzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUnzip.h; sourceTree = "<group>"; };
 		2A4743671A8219EC0057586A /* TDStickerLibraryUnzip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUnzip.m; sourceTree = "<group>"; };
 		2A47436C1A823CE30057586A /* TDStickerLibraryTabPageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryTabPageInfo.h; sourceTree = "<group>"; };
@@ -487,6 +490,8 @@
 				2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */,
 				2AB7068D1A700918006C6845 /* TDStickerLibraryCustomization.h */,
 				2AB7068E1A700918006C6845 /* TDStickerLibraryCustomization.m */,
+				2A29D00F1ADAE1460096161D /* TDStickerLibraryUpdate.h */,
+				2A29D0101ADAE1460096161D /* TDStickerLibraryUpdate.m */,
 				2AADF5061A695E7B0026EF9D /* TDStickerLibraryViewController.h */,
 				2AADF5071A695E7B0026EF9D /* TDStickerLibraryViewController.m */,
 				2A4743751A826D5E0057586A /* TDStickerLibraryTabPageLayout.h */,
@@ -699,6 +704,7 @@
 				2AB7062B1A6FDFE4006C6845 /* unzip.c in Sources */,
 				2AF2FE8C1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m in Sources */,
 				2A5207CA1AC08A8C005FE8A7 /* AFURLResponseSerialization.m in Sources */,
+				2A29D0111ADAE1460096161D /* TDStickerLibraryUpdate.m in Sources */,
 				2A99ECF81A8A6FB30059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */,
 				2A5207FA1AC08B15005FE8A7 /* NSJSONSerialization+TechD.m in Sources */,
 				2A4743771A826D5E0057586A /* TDStickerLibraryTabPageLayout.m in Sources */,
