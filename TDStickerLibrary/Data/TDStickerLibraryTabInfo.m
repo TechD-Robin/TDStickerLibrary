@@ -20,6 +20,7 @@ static  NSString  * const kTDTabInfoKeyName                         = @"Name";
 static  NSString  * const kTDTabInfoKeyEnabled                      = @"Enabled";
 static  NSString  * const kTDTabInfoKeyImages                       = @"Images";
 static  NSString  * const kTDTabInfoKeyConfigure                    = @"Configure";
+static  NSString  * const kTDTabInfoKeyTimestamp                    = @"Timestamp";
 static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink";
 
 
@@ -138,6 +139,12 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( instancetype ) initwithZipFile:(NSString *)fullPath inZippedPath:(NSString *)prefix with:(NSString *)password
+{
+    return [super initWithZipFile: fullPath inZippedPath: prefix with: password configure: kTDTabInfoKeyRoot];
+}
+
+//  ------------------------------------------------------------------------------------------------
 + ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix
 {
     return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: nil];
@@ -149,6 +156,17 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
     return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password];
 }
 
+//  ------------------------------------------------------------------------------------------------
++ ( instancetype ) loadDataFromzip:(NSString *)fullPath inZippedPath:(NSString *)prefix
+{
+    return [[[self class] alloc] initwithZipFile: fullPath inZippedPath: prefix with: nil];
+}
+
+//  ------------------------------------------------------------------------------------------------
++ ( instancetype ) loadDataFromzip:(NSString *)fullPath inZippedPath:(NSString *)prefix with:(NSString *)password
+{
+    return [[[self class] alloc] initwithZipFile: fullPath inZippedPath: prefix with: password];
+}
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for update this object.
@@ -270,6 +288,28 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
     }
     return configure;
 }
+
+//  ------------------------------------------------------------------------------------------------
+- (NSString * ) timestampAtIndex:(NSInteger)index
+{
+    NSDictionary                  * infoData;
+    NSString                      * timestamp;
+    
+    timestamp                       = nil;
+    infoData                        = [self infoDataAtIndex: index];
+    if ( nil == infoData )
+    {
+        return nil;
+    }
+    
+    timestamp                       = [infoData objectForKey: kTDTabInfoKeyTimestamp];
+    if ( ( nil == timestamp ) || ( [timestamp length] == 0 ) )
+    {
+        return nil;
+    }
+    return timestamp;
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 - ( NSString * ) dataLinkAtIndex:(NSInteger)index

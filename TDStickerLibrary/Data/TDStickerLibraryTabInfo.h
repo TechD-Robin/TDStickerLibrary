@@ -59,6 +59,31 @@
 + ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix with:(NSString *)password;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief unzip a zipped file that is configure and resources about tab information.
+ *  unzip a zipped file that is configure and resources about tab information.
+ *
+ *  @param fullPath                 zipped file name (full path).
+ *  @param prefix                   prefix path name in zipped file.
+ *
+ *  @return object|nil              the Sticker Libaray Tab Info object or nil.
+ */
++ ( instancetype ) loadDataFromzip:(NSString *)fullPath inZippedPath:(NSString *)prefix;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief unzip a zipped file with password that is configure and resources about tab information.
+ *  unzip a zipped file with password that is configure and resources about tab information.
+ *
+ *  @param fullPath                 zipped file name (full path).
+ *  @param prefix                   prefix path name in zipped file.
+ *  @param password                 password of zipped file.
+ *
+ *  @return object|nil              the Sticker Libaray Tab Info object or nil.
+ */
++ ( instancetype ) loadDataFromzip:(NSString *)fullPath inZippedPath:(NSString *)prefix with:(NSString *)password;
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark declare for update this object.
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -146,7 +171,17 @@
 - ( NSString * ) configureNameAtIndex:(NSInteger)index;
 
 //  ------------------------------------------------------------------------------------------------
-//  *  這個功能還沒完成 ⋯
+/**
+ *  @brief get the timestamp of the information data at index
+ *  get the timestamp of the information data at index; check configure update with this value.
+ *
+ *  @param index                    index of information data.
+ *
+ *  @return timestamp|nil           update's timestamp or nil.
+ */
+- (NSString * ) timestampAtIndex:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
 /**
  *  @brief get the data link of the information data at index.
  *  get the data link of the information data at index; must download data from this URL for tab page.

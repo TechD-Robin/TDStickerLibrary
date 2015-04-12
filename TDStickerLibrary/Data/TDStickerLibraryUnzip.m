@@ -98,6 +98,23 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief unzip procedure for unzip a zipped file.
+ *  unzip procedure for unzip a zipped file.
+ *
+ *  @param fullPath                 zipped file name (full path).
+ *  @param prefix                   prefix path name in zipped file.
+ *  @param password                 password of zipped file.
+ *  @param rootKey                  key of root of configure file.
+ *  @param updateKey                key for update data.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _UnzipProcedure:(NSString *)fullPath
+              inZippedPath:(NSString*)prefix with:(NSString *)password
+                 configure:(NSString *)rootKey with:(NSString *)updateKey;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief unzip a zipped file with password.
  *  unzip a zipped file with password.
  *
@@ -239,6 +256,44 @@
     if ( YES == isUpdate )
     {
         filename                    = [filename stringByDeletingPathExtension];
+    }
+    
+    if ( [self _GetConfigureJsonData: filename configure: rootKey with: updateKey] == NO )
+    {
+        NSLog( @"get configure data has warning. ");
+        return NO;
+    }
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _UnzipProcedure:(NSString *)fullPath
+              inZippedPath:(NSString*)prefix with:(NSString *)password
+                 configure:(NSString *)rootKey with:(NSString *)updateKey
+{
+    NSParameterAssert( nil != fullPath );
+
+    prefixDirectory                 = prefix;
+    if ( nil == prefixDirectory )
+    {
+        prefixDirectory             = @"";
+    }
+    
+    NSString                      * filename;
+    NSArray                       * fileSeparated;
+    
+    filename                        = [fullPath lastPathComponent];
+    fileSeparated                   = [filename componentsSeparatedByString: @"."];
+    if ( ( [fileSeparated count] >= 2 ) && ( [[filename pathExtension] isNumeric] == YES ) )
+    {
+        filename                    = [filename stringByDeletingPathExtension];
+    }
+    
+    if ( [self _UnZipConfigureFile: fullPath with: password] == NO )
+    {
+        NSLog( @"unzip configure file has warning." );
+        return NO;
     }
     
     if ( [self _GetConfigureJsonData: filename configure: rootKey with: updateKey] == NO )
@@ -540,6 +595,28 @@
     
     [self                           _InitAttributes];
     if ( [self _UnzipProcedure: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: rootKey with: nil] == NO )
+    {
+        SAFE_ARC_RELEASE( self );
+        SAFE_ARC_ASSIGN_POINTER_NIL( self );
+        return nil;
+    }
+    
+    return self;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( instancetype ) initWithZipFile:(NSString *)fullPath
+                      inZippedPath:(NSString *)prefix with:(NSString *)password
+                         configure:(NSString *)rootKey
+{
+    self                            = [super init];
+    if ( nil == self )
+    {
+        return nil;
+    }
+    
+    [self                           _InitAttributes];
+    if ( [self _UnzipProcedure: fullPath inZippedPath: prefix with: password configure: rootKey with: nil] == NO )
     {
         SAFE_ARC_RELEASE( self );
         SAFE_ARC_ASSIGN_POINTER_NIL( self );
