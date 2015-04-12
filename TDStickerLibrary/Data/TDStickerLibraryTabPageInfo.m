@@ -157,13 +157,13 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
-//  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithZipFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
-                      inZippedPath:(NSString*)prefix with:(NSString *)password
-                         configure:(NSString *)rootKey
-{
-    return [super initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: rootKey];
-}
+////  ------------------------------------------------------------------------------------------------
+//- ( instancetype ) initWithZipFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
+//                      inZippedPath:(NSString*)prefix with:(NSString *)password
+//                         configure:(NSString *)rootKey
+//{
+//    return [super initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: rootKey];
+//}
 
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
