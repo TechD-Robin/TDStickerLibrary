@@ -551,7 +551,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
         
         if ( ( nil != completed ) && ( nil != error ) )
         {
-            completed( error, NO );
+            completed( error, destinationFile, NO );
             return;
         }
         
@@ -559,7 +559,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
         result                      = _UpdateFileToCurrentDirectory( filePath, destinationFile, coverOlder, &errorUpdate );
         if ( nil != completed )
         {
-            completed( errorUpdate, result );
+            completed( errorUpdate, destinationFile, result );
         }
     }];
     
@@ -622,10 +622,10 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     }
     completionHandler:  ^( NSURLResponse * response, NSURL * filePath, NSError * error )
     {
-        NSLog( @"finish download : %@", filePath );
+        NSLog( @"finish download : %@", [filePath path] );
         if ( nil != completed )
         {
-            completed( error, ( ( nil == error ) ? YES : NO ) );
+            completed( error, [filePath path], ( ( nil == error ) ? YES : NO ) );
         }
         
     }];
@@ -656,18 +656,18 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     {
         if ( nil != completed )
         {
-            completed( nil, YES );
+            completed( nil, destinationFilename, YES );
         }
         NSLog( @"already have a latest file in the directory. %@", filename );
         return YES;
     }
     
     //  when download finish, delete update older files.    //  cover older's value change to set: YES, because maybe find the same filename in destination directory, but it's 'dir'.
-    result                          = [TDDownloadManager _DownloadProcedure: destinationFilename from: fileURL into: subpath coverOlder: YES completed: ^ (NSError * error, BOOL finished)
+    result                          = [TDDownloadManager _DownloadProcedure: destinationFilename from: fileURL into: subpath coverOlder: YES completed: ^ (NSError * error, NSString * fullPath, BOOL finished)
     {
         if ( nil != completed )
         {
-            completed( error, finished );
+            completed( error, destinationFilename, finished );
         }
         if ( NO == finished )
         {
