@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A29D0141ADAE2E90096161D /* TDStickerLibraryUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A29D0131ADAE2E90096161D /* TDStickerLibraryUpdate.m */; };
 		2A47436B1A8220250057586A /* TDStickerLibraryUnzip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A47436A1A8220250057586A /* TDStickerLibraryUnzip.m */; };
 		2A4743711A82689B0057586A /* TDStickerLibraryTabPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743701A82689B0057586A /* TDStickerLibraryTabPageInfo.m */; };
 		2A4743741A826CFC0057586A /* TDStickerLibraryTabPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743731A826CFC0057586A /* TDStickerLibraryTabPageLayout.m */; };
@@ -105,6 +106,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A29D0121ADAE2E90096161D /* TDStickerLibraryUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUpdate.h; sourceTree = "<group>"; };
+		2A29D0131ADAE2E90096161D /* TDStickerLibraryUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUpdate.m; sourceTree = "<group>"; };
 		2A4743691A8220250057586A /* TDStickerLibraryUnzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUnzip.h; sourceTree = "<group>"; };
 		2A47436A1A8220250057586A /* TDStickerLibraryUnzip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUnzip.m; sourceTree = "<group>"; };
 		2A47436F1A82689B0057586A /* TDStickerLibraryTabPageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryTabPageInfo.h; sourceTree = "<group>"; };
@@ -550,6 +553,8 @@
 				2AADF51A1A6972810026EF9D /* TDStickerLibrary.m */,
 				2AB706941A700EE3006C6845 /* TDStickerLibraryCustomization.h */,
 				2AB706951A700EE3006C6845 /* TDStickerLibraryCustomization.m */,
+				2A29D0121ADAE2E90096161D /* TDStickerLibraryUpdate.h */,
+				2A29D0131ADAE2E90096161D /* TDStickerLibraryUpdate.m */,
 				2AADF51B1A6972810026EF9D /* TDStickerLibraryViewController.h */,
 				2AADF51C1A6972810026EF9D /* TDStickerLibraryViewController.m */,
 				2A4743721A826CFC0057586A /* TDStickerLibraryTabPageLayout.h */,
@@ -753,6 +758,7 @@
 				2A52086F1AC08D1F005FE8A7 /* UIProgressView+AFNetworking.m in Sources */,
 				2ABD8E3D1A714F5100626356 /* TDBaseTabMenuItem.m in Sources */,
 				2AA8CED11AC1730A003901EB /* UIGestureRecognizer+TechD.m in Sources */,
+				2A29D0141ADAE2E90096161D /* TDStickerLibraryUpdate.m in Sources */,
 				2A52084F1AC08D1F005FE8A7 /* AFHTTPRequestOperation.m in Sources */,
 				2A4743711A82689B0057586A /* TDStickerLibraryTabPageInfo.m in Sources */,
 				2A4743891A827D350057586A /* TDStickerLibraryTabPageView.m in Sources */,
