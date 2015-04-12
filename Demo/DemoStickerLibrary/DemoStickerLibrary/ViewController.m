@@ -151,9 +151,27 @@
     [customization                  setSystemUpdateConfigureFilename: @"SystemConfigureUpdate.json"];
     [customization                  setSystemUpdateConfigureSubpath: @"Download/Configure"];
     [customization                  setSystemUpdateConfigureDirectory: TDDocumentDirectory];
-    [TDStickerLibraryViewController  preUpdateProcedure: urlString forSearch: searchKeys with: customization completion: ^(BOOL finished)
+//    [TDStickerLibraryViewController  preUpdateProcedure: urlString forSearch: searchKeys with: customization completion: ^(BOOL finished)
+//    {
+//        NSLog( @"pre-update finish state : %d", finished );
+//    }];
+    TDStickerLibraryUpdate        * updateProcedure;
+    
+    updateProcedure                 = [TDStickerLibraryUpdate stickerLibraryUpdateWithCustomization: customization];
+    NSParameterAssert( nil != updateProcedure );
+    
+    [updateProcedure                startUpdateSystemConfigure: urlString forSearch: searchKeys];
+
+    
+    __weak __typeof(updateProcedure)    weakUpdateProcedure;
+    weakUpdateProcedure                 = updateProcedure;
+    [updateProcedure                    setUpdateCompletionBlock: ^(NSDictionary * updateResponses, NSError * error, BOOL finished)
     {
-        NSLog( @"pre-update finish state : %d", finished );
+        NSLog( @"resopnses : %@", updateResponses );
+        NSLog( @"error : %@", error );
+        NSLog( @"finished : %d", finished );
+        
+        [weakUpdateProcedure            stopProcedure];
     }];
     
     
