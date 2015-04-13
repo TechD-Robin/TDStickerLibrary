@@ -78,6 +78,49 @@
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for get configure data
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get update child's configure information from parent's configure update responses object for keys.
+ *  get update child's configure information from parent's configure update responses object for keys.
+ *  the child's configure is tab information on here.
+ *
+ *  @param preUpdateResponses       responses object of parent's configure update.
+ *  @param updateKey                key of data (parent's configure update's responses).
+ *
+ *  @return object|nil              the Sticker Libaray Tab Info object or nil.
+ */
+- ( TDStickerLibraryTabInfo * ) _GetConfigureInfo:(NSDictionary *)preUpdateResponses forKey:(NSString *)updateKey;
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for update from configure data
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief execute update procedure with responses object.
+ *  execute update procedure with responses object of parent's update when find the data of keys.
+ *
+ *  @param preUpdateResponses       response object of parent's configure update.
+ *  @param keyList                  keys of data (parent's configure update's responses).
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _UpdateConfigure:(NSDictionary *)preUpdateResponses forSearch:(NSArray *)keyList;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check and download data with the configure data.
+ *  check and download data with the configure data.
+ *
+ *  @param name                     save filename of configure data.
+ *  @param dataLink                 the URL of file at internet.
+ *  @param timestamp                the file update condition that was check for integer type.
+ *  @param completed                a block section be executed when download completed.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _UpdateProcedure:(NSString *)name from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp completed:(DownloadCompletedCallbackBlock)completed;
+
+//  ------------------------------------------------------------------------------------------------
 
 
 @end
@@ -112,6 +155,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get configure data
 //  ------------------------------------------------------------------------------------------------
 - ( TDStickerLibraryTabInfo * ) _GetConfigureInfo:(NSDictionary *)preUpdateResponses forKey:(NSString *)updateKey
 {
@@ -152,6 +196,8 @@
     return [TDStickerLibraryTabInfo loadDataFromzip: fullPath inZippedPath: prefix with: @"StickerLibrary"];
 }
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for update from configure data
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _UpdateConfigure:(NSDictionary *)preUpdateResponses forSearch:(NSArray *)keyList
 {
@@ -318,6 +364,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for start procedure
 //  ------------------------------------------------------------------------------------------------
 - ( void ) startUpdateSystemConfigure:(NSString *)updateURL forSearch:(NSArray *)keylist
 {
@@ -361,6 +408,8 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for base methos of procedure
+//  ------------------------------------------------------------------------------------------------
 - ( void ) stopProcedure
 {
     if ( nil != downloadResponse )
@@ -390,6 +439,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for check update file.
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) checkConfigureFileExist:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp
                               with:(TDStickerLibraryCustomization *)customization extensionResult:(BOOL *)isUpdate;
