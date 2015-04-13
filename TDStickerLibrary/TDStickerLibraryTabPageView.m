@@ -291,9 +291,9 @@
     TDGetPathDirectory              directory;
     
     filename                        = ( ( YES == isUpdate ) ? ( [configure stringByAppendingPathExtension: timestamp] ) : configure );
-    subpath                         = ( ( YES == isUpdate ) ? [customizationParam systemUpdateConfigureSubpath] : [customizationParam configureResource] );
+    subpath                         = ( ( YES == isUpdate ) ? [customizationParam systemConfigureUpdateSubpath] : [customizationParam systemConfigureDefaultSubpath] );
     passwd                          = ( ( YES == isUpdate ) ? @"StickerLibrary" : nil );
-    directory                       = ( ( YES == isUpdate ) ? [customizationParam systemUpdateConfigureDirectory] : TDResourcesDirectory );
+    directory                       = ( ( YES == isUpdate ) ? [customizationParam systemConfigureUpdateDirectory] : [customizationParam systemConfigureDefaultDirectory] );
     
     pageConfigure                   = [TDStickerLibraryTabPageInfo loadDataFromZip: filename forDirectories: directory inDirectory: subpath inZippedPath: configure  with: passwd configure: aKey];
     if ( nil == pageConfigure )

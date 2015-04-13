@@ -214,7 +214,10 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _LoadSystemConfigure
 {
-    tabConfigure                    = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam tabConfigureFilename] forDirectories: TDResourcesDirectory inDirectory: [customizationParam configureResource] inZippedPath: [customizationParam inZippedPrefixPath]];
+    tabConfigure                    = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam systemConfigureTabDefaultFilename]
+                                                                forDirectories: [customizationParam systemConfigureDefaultDirectory]
+                                                                   inDirectory: [customizationParam systemConfigureDefaultSubpath]
+                                                                  inZippedPath: [customizationParam systemConfigureTabDefaultInZippedPrefix]];
     if ( nil == tabConfigure )
     {
         return;
@@ -237,10 +240,13 @@
     }
     
     
-    [customizationParam             setTabConfigureUpdateFilename: [jsonInfo updateConfigureFilenameForKey: updateKey]];
+    [customizationParam             setSystemConfigureTabUpdateFilename: [jsonInfo updateConfigureFilenameForKey: updateKey]];
     
     
-    [tabConfigure                   updateDataFromZip: [customizationParam tabConfigureUpdateFilename] forDirectories: TDDocumentDirectory inDirectory: subPath inZippedPath: [customizationParam inZippedUpdatePrefixPath] with: @"StickerLibrary"];
+    [tabConfigure                   updateDataFromZip: [customizationParam systemConfigureTabUpdateFilename]
+                                       forDirectories: TDDocumentDirectory inDirectory: subPath
+                                         inZippedPath: [customizationParam systemConfigureTabUpdateInZippedPrefix]
+                                                 with: @"StickerLibrary"];
     
 }
 
@@ -744,9 +750,9 @@
 //    TDPreUpdateProcedure          * procedure;
 //    
 //    procedure                       = [TDPreUpdateProcedure preUpdate: systemUpdateURL
-//                                                             withSave: [customization systemUpdateConfigureFilename]
-//                                                                 into: [customization systemUpdateConfigureSubpath]
-//                                                                   of: [customization systemUpdateConfigureDirectory]];
+//                                                             withSave: [customization systemConfigureUpdateFilename]
+//                                                                 into: [customization systemConfigureUpdateSubpath]
+//                                                                   of: [customization systemConfigureUpdateDirectory]];
 //
 //    NSParameterAssert( nil != procedure );
 //    
