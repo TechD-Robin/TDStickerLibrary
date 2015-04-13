@@ -78,9 +78,9 @@ typedef     void (^UpdateCompletionBlock)(NSDictionary * updateResponses, NSErro
  *  start this update procedure to check and update configure data, the method will check configure data for keys
  *
  *  @param updateURL                the URL of configure data at internet.
- *  @param keyList                  keys of data
+ *  @param keyList                  keys of configure data
  */
-- ( void ) startUpdateSystemConfigure:(NSString *)updateURL forSearch:(NSArray *)keylist;
+- ( void ) startUpdateSystemConfigure:(NSString *)updateURL forSearch:(NSArray *)keyList;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for base methos of procedure
