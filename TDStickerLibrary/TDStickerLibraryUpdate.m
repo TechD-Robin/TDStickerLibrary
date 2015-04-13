@@ -283,7 +283,7 @@
     NSParameterAssert( nil != dataLink );
     
     [NSThread                       sleepForTimeInterval: 0.1f];
-    [TDDownloadManager              download: name from: dataLink into: [customizationParam systemUpdateConfigureSubpath] of: [customizationParam systemUpdateConfigureDirectory] updateCheckBy: timestamp completed: completed];
+    [TDDownloadManager              download: name from: dataLink into: [customizationParam systemConfigureUpdateSubpath] of: [customizationParam systemConfigureUpdateDirectory] updateCheckBy: timestamp completed: completed];
     
     return YES;
 }
@@ -374,9 +374,9 @@
     TDPreUpdateProcedure          * procedure;
     
     procedure                       = [TDPreUpdateProcedure preUpdate: updateURL
-                                                             withSave: [customizationParam systemUpdateConfigureFilename]
-                                                                 into: [customizationParam systemUpdateConfigureSubpath]
-                                                                   of: [customizationParam systemUpdateConfigureDirectory]];
+                                                             withSave: [customizationParam systemConfigureUpdateFilename]
+                                                                 into: [customizationParam systemConfigureUpdateSubpath]
+                                                                   of: [customizationParam systemConfigureUpdateDirectory]];
     
     NSParameterAssert( nil != procedure );
     
@@ -453,11 +453,10 @@
     //  first, check update file exist or not.
     fullPath                        = nil;
     subpath                         = nil;
-    directory                       = TDResourcesDirectory;
     if ( ( nil != configure ) && ( nil != dataLink ) && ( nil != dataLink ) )
     {
-        subpath                     = [customization systemUpdateConfigureSubpath];
-        directory                   = [customization systemUpdateConfigureDirectory];
+        subpath                     = [customization systemConfigureUpdateSubpath];
+        directory                   = [customization systemConfigureUpdateDirectory];
         fullPath                    = TDGetPathForDirectoriesWithTimestamp( directory, [configure stringByDeletingPathExtension], timestamp, [configure pathExtension], subpath, YES );
         if ( nil != fullPath )
         {
@@ -482,8 +481,8 @@
     }
     
     //  second, check file in default.
-    subpath                         = [customization configureResource];
-    directory                       = TDResourcesDirectory;
+    subpath                         = [customization systemConfigureDefaultSubpath];
+    directory                       = [customization systemConfigureDefaultDirectory];
     fullPath                        = TDGetPathForDirectories( directory, filename, extension, subpath, YES );
     if ( nil == fullPath )
     {

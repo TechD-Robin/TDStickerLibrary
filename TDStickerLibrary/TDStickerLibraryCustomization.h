@@ -28,46 +28,55 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
 //  ------------------------------------------------------------------------------------------------
+//  for system configure default.
+/**
+ *  default's subpath of system configure.
+ */
+@property( nonatomic, assign ) NSString                   * systemConfigureDefaultSubpath;
 
 /**
- *  filename of system configure update.
+ *  default's directory of system configure.
  */
-@property( nonatomic, assign ) NSString                   * systemUpdateConfigureFilename;
-
-/**
- *  subpath of system configure update.
- */
-@property( nonatomic, assign ) NSString                   * systemUpdateConfigureSubpath;
-
-/**
- *  directory of system cnfigure update.
- */
-@property( nonatomic, assign ) TDGetPathDirectory           systemUpdateConfigureDirectory;
-
-/**
- *  default's directory name for configure resource.
- */
-@property( nonatomic, assign ) NSString                   * configureResource;
-
-/**
- *  default's prefix path name in zipped file.
- */
-@property( nonatomic, assign ) NSString                   * inZippedPrefixPath;
+@property( nonatomic, assign ) TDGetPathDirectory           systemConfigureDefaultDirectory;
 
 /**
  *  default's file name of tab's configure.
  */
-@property( nonatomic, assign ) NSString                   * tabConfigureFilename;
+@property( nonatomic, assign ) NSString                   * systemConfigureTabDefaultFilename;
 
 /**
- *  default's prefix path name in zipped file for tab's configure update.
+ *  default's prefix path name in zipped file.
  */
-@property( nonatomic, assign ) NSString                   * inZippedUpdatePrefixPath;
+@property( nonatomic, assign ) NSString                   * systemConfigureTabDefaultInZippedPrefix;
+
+
+//  for system configure update.
+/**
+ *  update's filename of system configure.
+ */
+@property( nonatomic, assign ) NSString                   * systemConfigureUpdateFilename;
 
 /**
- *  default's file name of tab's configure for tab's configure update.
+ *  update's subpath of system configure.
  */
-@property( nonatomic, assign ) NSString                   * tabConfigureUpdateFilename;
+@property( nonatomic, assign ) NSString                   * systemConfigureUpdateSubpath;
+
+/**
+ *  update's directory of system configure.
+ */
+@property( nonatomic, assign ) TDGetPathDirectory           systemConfigureUpdateDirectory;
+
+/**
+ *  update's file name of tab's configure.
+ */
+@property( nonatomic, assign ) NSString                   * systemConfigureTabUpdateFilename;
+
+/**
+ *  update's prefix path name in zipped file.
+ */
+@property( nonatomic, assign ) NSString                   * systemConfigureTabUpdateInZippedPrefix;
+
+
 
 
 //  for UIView(Sticker Libaray View Controller's view).

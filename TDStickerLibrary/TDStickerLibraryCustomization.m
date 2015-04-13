@@ -93,15 +93,22 @@
 //  --------------------------------
 - ( void ) _InitAttributes
 {
-    [self                           setSystemUpdateConfigureFilename: @"SystemUpdate.json"];
-    [self                           setSystemUpdateConfigureSubpath: @"Download"];
-    [self                           setSystemUpdateConfigureDirectory: TDCachesDirectory];
+    //  for system configure default.
+    [self                           setSystemConfigureDefaultSubpath:           @"Configure"];
+    [self                           setSystemConfigureDefaultDirectory:         TDResourcesDirectory];
     
-    [self                           setConfigureResource: @"Configure"];
-    [self                           setInZippedPrefixPath: @"StickerLibraryTabDefault"];
-    [self                           setTabConfigureFilename: @"StickerLibraryTabDefault"];
-    [self                           setInZippedUpdatePrefixPath: @"StickerLibraryTabUpdate"];
-    [self                           setTabConfigureUpdateFilename: @"StickerLibraryTabUpdate"];
+    [self                           setSystemConfigureTabDefaultFilename:       @"StickerLibraryTabDefault" ];
+    [self                           setSystemConfigureTabDefaultInZippedPrefix: @"StickerLibraryTabDefault"];
+    
+
+    //  for system configure update.
+    [self                           setSystemConfigureUpdateFilename:           @"SystemUpdate.json"];
+    [self                           setSystemConfigureUpdateSubpath:            @"Download/Configure"];
+    [self                           setSystemConfigureUpdateDirectory:          TDCachesDirectory];
+    
+    [self                           setSystemConfigureTabUpdateFilename:        @"StickerLibraryTabUpdate"];
+    [self                           setSystemConfigureTabUpdateInZippedPrefix:  @"StickerLibraryTabUpdate"];
+    
     
     //  for UIView.
     [self                           setNavigationBarHeight: 36.0f];
@@ -172,15 +179,21 @@
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark synthesize variable.
-@synthesize systemUpdateConfigureFilename   = _systemUpdateConfigureFilename;
-@synthesize systemUpdateConfigureSubpath    = _systemUpdateConfigureSubpath;
-@synthesize systemUpdateConfigureDirectory  = _systemUpdateConfigureDirectory;
+//  for system configure default.
+@synthesize systemConfigureDefaultSubpath           = _systemConfigureDefaultSubpath;
+@synthesize systemConfigureDefaultDirectory         = _systemConfigureDefaultDirectory;
 
-@synthesize configureResource           = _configureResource;
-@synthesize inZippedPrefixPath          = _inZippedPrefixPath;
-@synthesize tabConfigureFilename        = _tabConfigureFilename;
-@synthesize inZippedUpdatePrefixPath    = _inZippedUpdatePrefixPath;
-@synthesize tabConfigureUpdateFilename  = _tabConfigureUpdateFilename;
+@synthesize systemConfigureTabDefaultFilename       = _systemConfigureTabDefaultFilename;
+@synthesize systemConfigureTabDefaultInZippedPrefix = _systemConfigureTabDefaultInZippedPrefix;
+
+
+//  for system configure update.
+@synthesize systemConfigureUpdateFilename           = _systemConfigureUpdateFilename;
+@synthesize systemConfigureUpdateSubpath            = _systemConfigureUpdateSubpath;
+@synthesize systemConfigureUpdateDirectory          = _systemConfigureUpdateDirectory;
+
+@synthesize systemConfigureTabUpdateFilename        = _systemConfigureTabUpdateFilename;
+@synthesize systemConfigureTabUpdateInZippedPrefix  = _systemConfigureTabUpdateInZippedPrefix;
 
 
 //  for UIView.
