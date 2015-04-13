@@ -366,10 +366,10 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for start procedure
 //  ------------------------------------------------------------------------------------------------
-- ( void ) startUpdateSystemConfigure:(NSString *)updateURL forSearch:(NSArray *)keylist
+- ( void ) startUpdateSystemConfigure:(NSString *)updateURL forSearch:(NSArray *)keyList
 {
     NSParameterAssert( nil != updateURL );
-    NSParameterAssert( nil != keylist );
+    NSParameterAssert( nil != keyList );
     
     TDPreUpdateProcedure          * procedure;
     
@@ -380,7 +380,7 @@
     
     NSParameterAssert( nil != procedure );
     
-    [procedure                      startProcedureWithKeys: keylist];
+    [procedure                      startProcedureWithKeys: keyList];
     
     __weak __typeof(procedure)      weakProcedure;
     weakProcedure                   = procedure;
@@ -398,7 +398,7 @@
         }
         
          //  must process next step to download 'update configure data'.
-        [self                       _UpdateConfigure: updateResponses forSearch: keylist];
+        [self                       _UpdateConfigure: updateResponses forSearch: keyList];
         
         [weakProcedure              stopProcedure];
     }];

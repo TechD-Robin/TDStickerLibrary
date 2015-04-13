@@ -738,53 +738,6 @@
     return [[[self class] alloc] initWithCustomization: customization];
 }
 
-////  ------------------------------------------------------------------------------------------------
-////  ------------------------------------------------------------------------------------------------
-//+ ( BOOL ) preUpdateProcedure:(NSString *)systemUpdateURL forSearch:(NSArray *)keylist with:(TDStickerLibraryCustomization *)customization
-//                   completion:( void(^)(BOOL finished))completionBlock
-//{
-//    NSParameterAssert( nil != systemUpdateURL );
-//    NSParameterAssert( nil != keylist );
-//    NSParameterAssert( nil != customization );
-//    
-//    TDPreUpdateProcedure          * procedure;
-//    
-//    procedure                       = [TDPreUpdateProcedure preUpdate: systemUpdateURL
-//                                                             withSave: [customization systemConfigureUpdateFilename]
-//                                                                 into: [customization systemConfigureUpdateSubpath]
-//                                                                   of: [customization systemConfigureUpdateDirectory]];
-//
-//    NSParameterAssert( nil != procedure );
-//    
-//    [procedure                      startProcedureWithKeys: keylist];
-//    
-//    __weak __typeof(procedure)      weakProcedure;
-//    weakProcedure                   = procedure;
-//    [procedure                      setPreUpdateCompletionBlock: ^(NSDictionary * updateResponses, NSError * error, BOOL finished)
-//    {
-//        //NSLog( @" %@, %@, %d ", updateResponses, error, finished );
-//        if ( nil != completionBlock )
-//        {
-//            completionBlock( finished );
-//        }
-//        [weakProcedure              stopProcedure];
-//    }];
-//    
-//    return YES;
-//}
-
-//  ------------------------------------------------------------------------------------------------
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
