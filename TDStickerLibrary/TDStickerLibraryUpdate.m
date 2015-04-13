@@ -392,7 +392,7 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) checkConfigureFileExist:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp
-                              with:(TDStickerLibraryCustomization *)customization
+                              with:(TDStickerLibraryCustomization *)customization extensionResult:(BOOL *)isUpdate;
 {
     NSParameterAssert( nil != customization );
     
@@ -411,6 +411,10 @@
         fullPath                    = TDGetPathForDirectoriesWithTimestamp( directory, [configure stringByDeletingPathExtension], timestamp, [configure pathExtension], subpath, YES );
         if ( nil != fullPath )
         {
+            if ( NULL != isUpdate )
+            {
+                *isUpdate           = YES;
+            }
             return YES;
         }
     }
@@ -436,6 +440,10 @@
         return NO;
     }
     
+    if ( NULL != isUpdate )
+    {
+        *isUpdate                   = NO;
+    }
     return YES;
 }
 
