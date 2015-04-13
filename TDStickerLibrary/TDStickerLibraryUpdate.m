@@ -390,6 +390,56 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
++ ( BOOL ) checkConfigureFileExist:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp
+                              with:(TDStickerLibraryCustomization *)customization
+{
+    NSParameterAssert( nil != customization );
+    
+    NSString                      * fullPath;
+    NSString                      * subpath;
+    TDGetPathDirectory              directory;
+    
+    //  first, check update file exist or not.
+    fullPath                        = nil;
+    subpath                         = nil;
+    directory                       = TDResourcesDirectory;
+    if ( ( nil != configure ) && ( nil != dataLink ) && ( nil != dataLink ) )
+    {
+        subpath                     = [customization systemUpdateConfigureSubpath];
+        directory                   = [customization systemUpdateConfigureDirectory];
+        fullPath                    = TDGetPathForDirectoriesWithTimestamp( directory, [configure stringByDeletingPathExtension], timestamp, [configure pathExtension], subpath, YES );
+        if ( nil != fullPath )
+        {
+            return YES;
+        }
+    }
+    
+    //  system default data, configure must append zip extension.
+    NSString                      * extension;
+    NSString                      * filename;
+    
+    extension                       = [configure pathExtension];
+    filename                        = [configure stringByDeletingPathExtension];
+    if ( [extension isEqualToString: @"zip"] == NO )
+    {
+        extension                   = @"zip";
+        filename                    = configure;
+    }
+    
+    //  second, check file in default.
+    subpath                         = [customization configureResource];
+    directory                       = TDResourcesDirectory;
+    fullPath                        = TDGetPathForDirectories( directory, filename, extension, subpath, YES );
+    if ( nil == fullPath )
+    {
+        return NO;
+    }
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
 
 
 //  ------------------------------------------------------------------------------------------------
