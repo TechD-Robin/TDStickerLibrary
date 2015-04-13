@@ -93,9 +93,11 @@
  *  load configure data for a collection view.
  *
  *  @param configure                a configure name for collection view.
+ *  @param dataLink                 a data link relation to configure name for update.
+ *  @param timestamp                a timestamp relation to configure name for update.
  *  @param aKey                     a key for collection view.
  */
-- ( void ) _LoadSystemConfigure:(NSString *)configure forKey:(NSString *)aKey;
+- ( void ) _LoadSystemConfigure:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp forKey:(NSString *)aKey;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -274,15 +276,30 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-- ( void ) _LoadSystemConfigure:(NSString *)configure forKey:(NSString *)aKey
+- ( void ) _LoadSystemConfigure:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp forKey:(NSString *)aKey
 {
-    pageConfigure                   = [TDStickerLibraryTabPageInfo loadDataFromZip: configure forDirectories: TDResourcesDirectory inDirectory: [customizationParam configureResource] inZippedPath: configure configure: aKey];
-    if ( nil == pageConfigure )
+    BOOL                            isUpdate;
+    
+    if ( [TDStickerLibraryUpdate checkConfigureFileExist: configure from: dataLink updateCheckBy: timestamp with: customizationParam extensionResult: &isUpdate] == NO )
     {
         return;
     }
     
+    NSString                      * filename;
+    NSString                      * subpath;
+    NSString                      * passwd;
+    TDGetPathDirectory              directory;
+    
+    filename                        = ( ( YES == isUpdate ) ? ( [configure stringByAppendingPathExtension: timestamp] ) : configure );
+    subpath                         = ( ( YES == isUpdate ) ? [customizationParam systemUpdateConfigureSubpath] : [customizationParam configureResource] );
+    passwd                          = ( ( YES == isUpdate ) ? @"StickerLibrary" : nil );
+    directory                       = ( ( YES == isUpdate ) ? [customizationParam systemUpdateConfigureDirectory] : TDResourcesDirectory );
+    
+    pageConfigure                   = [TDStickerLibraryTabPageInfo loadDataFromZip: filename forDirectories: directory inDirectory: subpath inZippedPath: configure  with: passwd configure: aKey];
+    if ( nil == pageConfigure )
+    {
+        return;
+    }
     
     [self                           _InitSectionStates];
 }
@@ -767,19 +784,12 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
-                            data:(NSString *)configure forKey:(NSString *)aKey
+- ( instancetype ) initWithFrame:(CGRect)frame  customization:(TDStickerLibraryCustomization *)customization
+                            data:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp forKey:(NSString *)aKey
 {
-    if ( nil == customization )
-    {
-        NSLog( @"customization parameter cannot nil." );
-        return nil;
-    }
-    if ( ( nil == configure ) || ( nil == aKey ) )
-    {
-        NSLog( @"data parameter cannot nil." );
-        return nil;
-    }
+    NSParameterAssert( nil != customization );
+    NSParameterAssert( nil != configure );
+    NSParameterAssert( nil != aKey );
     
     TDStickerLibraryTabPageLayout * layout;
     
@@ -800,15 +810,15 @@
     [self                           _RegisterClasses];
     customizationParam              = customization;
     
-    [self                           _LoadSystemConfigure: configure forKey: aKey];
+    [self                           _LoadSystemConfigure: configure from: dataLink updateCheckBy: timestamp forKey: aKey];
     return self;
 }
 
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) tabPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
-                               data:(NSString *)configure forKey:(NSString *)aKey
+                               data:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp forKey:(NSString *)aKey
 {
-    return [[[self class] alloc] initWithFrame: frame customization: customization data: configure forKey: aKey];
+    return [[[self class] alloc] initWithFrame: frame customization: customization data: configure from: dataLink updateCheckBy: timestamp forKey: aKey];
 }
 
 //  ------------------------------------------------------------------------------------------------
