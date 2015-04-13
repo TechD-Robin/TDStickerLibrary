@@ -477,7 +477,6 @@
     }
     
     viewRect                        = CGRectMake( 0.0f, subviewTop, screenWidth, viewHeight );
-//    view                            = [TDStickerLibraryTabPageView tabPageWithFrame: viewRect customization: customizationParam data: configure forKey: configureKey];
     view                            = [TDStickerLibraryTabPageView tabPageWithFrame: viewRect customization: customizationParam data: configure from: dataLink updateCheckBy: timestamp forKey: configureKey];
     if ( nil == view )
     {
