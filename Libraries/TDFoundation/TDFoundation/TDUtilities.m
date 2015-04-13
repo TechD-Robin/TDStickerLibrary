@@ -84,18 +84,7 @@ NSString * TDGetPathForDirectoriesWithTimestamp( TDGetPathDirectory directory, N
 {
     NSString                      * filename;
     
-    filename                        = TDGetPathForDirectories( directory, name, typeExt, inDirectorySubpath, checkFileExist );
-    if ( nil == filename )
-    {
-        return nil;
-    }
-    
-    filename                        = [filename stringByDeletingPathExtension];
-    if ( nil == filename )
-    {
-        return nil;
-    }
-    
+    filename                        = name;
     if ( ( nil != typeExt ) && ( [typeExt length] > 0 ) )
     {
         filename                    = [filename stringByAppendingPathExtension: typeExt];
@@ -105,21 +94,14 @@ NSString * TDGetPathForDirectoriesWithTimestamp( TDGetPathDirectory directory, N
         filename                    = [filename stringByAppendingPathExtension: timestamp];
     }
     
-    /*
-    if ( ( nil != timestamp ) && ( [timestamp length] > 0 ) )
+    filename                        = TDGetPathForDirectories( directory, [filename stringByDeletingPathExtension], [filename pathExtension], inDirectorySubpath, checkFileExist );
+    if ( nil == filename )
     {
-        filename                    = [filename stringByAppendingPathExtension: timestamp];
+        return nil;
     }
-    if ( ( nil != typeExt ) && ( [typeExt length] > 0 ) )
-    {
-        filename                    = [filename stringByAppendingPathExtension: typeExt];
-    }
-     */
     
     return filename;
 }
-
-
 
 //  ------------------------------------------------------------------------------------------------
 NSString * TDGetImageNameForScreenScale( NSString * imageName, NSInteger scaleScreen )
