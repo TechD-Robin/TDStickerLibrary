@@ -20,6 +20,7 @@
 #import "TDStickerLibraryTabPageView.h"
 
 #import "TDPreUpdateProcedure.h"
+#import "TDPreUpdateJSONInfo.h"
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -219,8 +220,28 @@
         return;
     }
     
-    [tabConfigure                   updateDataFromZip: [customizationParam tabConfigureUpdateFilename] forDirectories: TDDocumentDirectory inDirectory: @"" inZippedPath: [customizationParam inZippedUpdatePrefixPath] with: @"StickerLibrary"];
-        
+    TDPreUpdateJSONInfo           * jsonInfo;
+    TDGetPathDirectory              configureDirectory;
+    NSString                      * subPath;
+    NSString                      * updateKey;
+    
+    subPath                         = @"Download/Configure";
+    updateKey                       = @"UpdateTab";
+    configureDirectory              = TDDocumentDirectory;
+    
+    
+    jsonInfo                        = [TDPreUpdateJSONInfo loadData: @"SystemConfigureUpdate.json" forDirectories: configureDirectory inDirectory: subPath encoding: NSUTF8StringEncoding];
+    if ( nil == jsonInfo )
+    {
+        return;
+    }
+    
+    
+    [customizationParam             setTabConfigureUpdateFilename: [jsonInfo updateConfigureFilenameForKey: updateKey]];
+    
+    
+    [tabConfigure                   updateDataFromZip: [customizationParam tabConfigureUpdateFilename] forDirectories: TDDocumentDirectory inDirectory: subPath inZippedPath: [customizationParam inZippedUpdatePrefixPath] with: @"StickerLibrary"];
+    
 }
 
 
@@ -341,6 +362,10 @@
     NSData                        * imageData;
     TDBaseTabMenuItem             * baseItem;
     
+    NSString                      * configure;
+    NSString                      * dataLink;
+    NSString                      * timestamp;
+    
     index                           = 0;
     imagesName                      = nil;
     imageData                       = nil;
@@ -349,6 +374,15 @@
     {
         //  when disable info.
         if ( [tabConfigure isInfoDataEnabledAtIndex: i] == NO )
+        {
+            continue;
+        }
+        
+        //  when configure file exist.
+        configure                   = [tabConfigure configureNameAtIndex: i];
+        dataLink                    = [tabConfigure dataLinkAtIndex: i];
+        timestamp                   = [tabConfigure timestampAtIndex: i];
+        if ( [TDStickerLibraryUpdate checkConfigureFileExist: configure from: dataLink updateCheckBy: timestamp with: customizationParam] == NO )
         {
             continue;
         }
@@ -694,40 +728,40 @@
     return [[[self class] alloc] initWithCustomization: customization];
 }
 
-//  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) preUpdateProcedure:(NSString *)systemUpdateURL forSearch:(NSArray *)keylist with:(TDStickerLibraryCustomization *)customization
-                   completion:( void(^)(BOOL finished))completionBlock
-{
-    NSParameterAssert( nil != systemUpdateURL );
-    NSParameterAssert( nil != keylist );
-    NSParameterAssert( nil != customization );
-    
-    TDPreUpdateProcedure          * procedure;
-    
-    procedure                       = [TDPreUpdateProcedure preUpdate: systemUpdateURL
-                                                             withSave: [customization systemUpdateConfigureFilename]
-                                                                 into: [customization systemUpdateConfigureSubpath]
-                                                                   of: [customization systemUpdateConfigureDirectory]];
-
-    NSParameterAssert( nil != procedure );
-    
-    [procedure                      startProcedureWithKeys: keylist];
-    
-    __weak __typeof(procedure)      weakProcedure;
-    weakProcedure                   = procedure;
-    [procedure                      setPreUpdateCompletionBlock: ^(NSDictionary * updateResponses, NSError * error, BOOL finished)
-    {
-        //NSLog( @" %@, %@, %d ", updateResponses, error, finished );
-        if ( nil != completionBlock )
-        {
-            completionBlock( finished );
-        }
-        [weakProcedure              stopProcedure];
-    }];
-    
-    return YES;
-}
+////  ------------------------------------------------------------------------------------------------
+////  ------------------------------------------------------------------------------------------------
+//+ ( BOOL ) preUpdateProcedure:(NSString *)systemUpdateURL forSearch:(NSArray *)keylist with:(TDStickerLibraryCustomization *)customization
+//                   completion:( void(^)(BOOL finished))completionBlock
+//{
+//    NSParameterAssert( nil != systemUpdateURL );
+//    NSParameterAssert( nil != keylist );
+//    NSParameterAssert( nil != customization );
+//    
+//    TDPreUpdateProcedure          * procedure;
+//    
+//    procedure                       = [TDPreUpdateProcedure preUpdate: systemUpdateURL
+//                                                             withSave: [customization systemUpdateConfigureFilename]
+//                                                                 into: [customization systemUpdateConfigureSubpath]
+//                                                                   of: [customization systemUpdateConfigureDirectory]];
+//
+//    NSParameterAssert( nil != procedure );
+//    
+//    [procedure                      startProcedureWithKeys: keylist];
+//    
+//    __weak __typeof(procedure)      weakProcedure;
+//    weakProcedure                   = procedure;
+//    [procedure                      setPreUpdateCompletionBlock: ^(NSDictionary * updateResponses, NSError * error, BOOL finished)
+//    {
+//        //NSLog( @" %@, %@, %d ", updateResponses, error, finished );
+//        if ( nil != completionBlock )
+//        {
+//            completionBlock( finished );
+//        }
+//        [weakProcedure              stopProcedure];
+//    }];
+//    
+//    return YES;
+//}
 
 //  ------------------------------------------------------------------------------------------------
 

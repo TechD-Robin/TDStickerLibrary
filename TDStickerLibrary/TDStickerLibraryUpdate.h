@@ -53,6 +53,12 @@ typedef     void (^UpdateCompletionBlock)(NSDictionary * updateResponses, NSErro
 - ( void ) setUpdateCompletionBlock:(UpdateCompletionBlock)completionBlock;
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
++ ( BOOL ) checkConfigureFileExist:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp
+                              with:(TDStickerLibraryCustomization *)customization;
+
+
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
