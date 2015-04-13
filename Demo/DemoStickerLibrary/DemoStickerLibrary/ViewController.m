@@ -80,8 +80,7 @@
     customization                   = [TDStickerLibraryCustomization new];
     NSParameterAssert( nil != customization );
     
-    [customization                  setSystemUpdateConfigureSubpath: @"Download/Configure"];
-    [customization                  setSystemUpdateConfigureDirectory: TDDocumentDirectory];
+    [customization                  setSystemConfigureUpdateDirectory: TDDocumentDirectory];
     //controller                      = [TDStickerLibraryViewController stickerLibaray];
     controller                      = [TDStickerLibraryViewController stickerLibarayWithCustomization: customization];
     if ( nil == controller )
@@ -154,9 +153,8 @@
     customization                   = [TDStickerLibraryCustomization new];
     NSParameterAssert( nil != customization );
     
-    [customization                  setSystemUpdateConfigureFilename: @"SystemConfigureUpdate.json"];
-    [customization                  setSystemUpdateConfigureSubpath: @"Download/Configure"];
-    [customization                  setSystemUpdateConfigureDirectory: TDDocumentDirectory];
+    [customization                  setSystemConfigureUpdateFilename: @"SystemConfigureUpdate.json"];
+    [customization                  setSystemConfigureUpdateDirectory: TDDocumentDirectory];
     updateProcedure                 = [TDStickerLibraryUpdate stickerLibraryUpdateWithCustomization: customization];
     NSParameterAssert( nil != updateProcedure );
     
