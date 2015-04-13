@@ -382,7 +382,7 @@
         configure                   = [tabConfigure configureNameAtIndex: i];
         dataLink                    = [tabConfigure dataLinkAtIndex: i];
         timestamp                   = [tabConfigure timestampAtIndex: i];
-        if ( [TDStickerLibraryUpdate checkConfigureFileExist: configure from: dataLink updateCheckBy: timestamp with: customizationParam] == NO )
+        if ( [TDStickerLibraryUpdate checkConfigureFileExist: configure from: dataLink updateCheckBy: timestamp with: customizationParam extensionResult: NULL] == NO )
         {
             continue;
         }
@@ -464,16 +464,21 @@
     CGRect                          viewRect;
     NSString                      * configure;
     NSString                      * configureKey;
+    NSString                      * dataLink;
+    NSString                      * timestamp;
     
     configure                       = [tabConfigure configureNameAtIndex: index];       //  array index. ( tag index - 1 ).
-    configureKey                    = [tabConfigure configureKeyAtIndex: index];        //  array index. ( tag index - 1 ).
+    configureKey                    = [tabConfigure configureKeyAtIndex: index];
+    dataLink                        = [tabConfigure dataLinkAtIndex: index];
+    timestamp                       = [tabConfigure timestampAtIndex: index];
     if ( ( nil == configure ) || ( nil == configureKey ) )
     {
         return nil;
     }
     
     viewRect                        = CGRectMake( 0.0f, subviewTop, screenWidth, viewHeight );
-    view                            = [TDStickerLibraryTabPageView tabPageWithFrame: viewRect customization: customizationParam data: configure forKey: configureKey];
+//    view                            = [TDStickerLibraryTabPageView tabPageWithFrame: viewRect customization: customizationParam data: configure forKey: configureKey];
+    view                            = [TDStickerLibraryTabPageView tabPageWithFrame: viewRect customization: customizationParam data: configure from: dataLink updateCheckBy: timestamp forKey: configureKey];
     if ( nil == view )
     {
         return nil;

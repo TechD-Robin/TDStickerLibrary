@@ -33,13 +33,14 @@
  *  @param frame                    the frame of tab page view.
  *  @param customization            the customization object for the Sticker Library.
  *  @param configure                a configure name for collection view.
+ *  @param dataLink                 a data link relation to configure name for update.
+ *  @param timestamp                a timestamp relation to configure name for update.
  *  @param aKey                     a key for collection view.
  *
  *  @return object|nil              the tab page view or nil.
  */
 + ( instancetype ) tabPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
-                               data:(NSString *)configure forKey:(NSString *)aKey;
-
+                               data:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp forKey:(NSString *)aKey;
 
 //  ------------------------------------------------------------------------------------------------
 
