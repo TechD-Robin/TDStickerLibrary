@@ -75,8 +75,15 @@
 - ( void ) _TapButtonAction:(id)sender
 {
     TDStickerLibraryViewController* controller;
+    TDStickerLibraryCustomization * customization;
     
-    controller                      = [TDStickerLibraryViewController stickerLibaray];
+    customization                   = [TDStickerLibraryCustomization new];
+    NSParameterAssert( nil != customization );
+    
+    [customization                  setSystemUpdateConfigureSubpath: @"Download/Configure"];
+    [customization                  setSystemUpdateConfigureDirectory: TDDocumentDirectory];
+    //controller                      = [TDStickerLibraryViewController stickerLibaray];
+    controller                      = [TDStickerLibraryViewController stickerLibarayWithCustomization: customization];
     if ( nil == controller )
     {
         return;
@@ -142,26 +149,20 @@
     NSArray                       * searchKeys;
     NSString                      * urlString;
     TDStickerLibraryCustomization * customization;
+    TDStickerLibraryUpdate        * updateProcedure;
     
-    searchKeys                      = [NSArray arrayWithObjects: @"UpdateTab", nil];
-    urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXMnJWUzhvS3ZuN1k&export=download";
     customization                   = [TDStickerLibraryCustomization new];
     NSParameterAssert( nil != customization );
     
     [customization                  setSystemUpdateConfigureFilename: @"SystemConfigureUpdate.json"];
     [customization                  setSystemUpdateConfigureSubpath: @"Download/Configure"];
     [customization                  setSystemUpdateConfigureDirectory: TDDocumentDirectory];
-//    [TDStickerLibraryViewController  preUpdateProcedure: urlString forSearch: searchKeys with: customization completion: ^(BOOL finished)
-//    {
-//        NSLog( @"pre-update finish state : %d", finished );
-//    }];
-    TDStickerLibraryUpdate        * updateProcedure;
-    
     updateProcedure                 = [TDStickerLibraryUpdate stickerLibraryUpdateWithCustomization: customization];
     NSParameterAssert( nil != updateProcedure );
     
+    searchKeys                      = [NSArray arrayWithObjects: @"UpdateTab", nil];
+    urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXMnJWUzhvS3ZuN1k&export=download";
     [updateProcedure                startUpdateSystemConfigure: urlString forSearch: searchKeys];
-
     
     __weak __typeof(updateProcedure)    weakUpdateProcedure;
     weakUpdateProcedure                 = updateProcedure;
