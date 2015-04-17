@@ -92,6 +92,7 @@
 		2AB706961A700EE3006C6845 /* TDStickerLibraryCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706951A700EE3006C6845 /* TDStickerLibraryCustomization.m */; };
 		2ABD8E321A7142BC00626356 /* Configure in Resources */ = {isa = PBXBuildFile; fileRef = 2ABD8E311A7142BC00626356 /* Configure */; };
 		2ABD8E3D1A714F5100626356 /* TDBaseTabMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABD8E3C1A714F5100626356 /* TDBaseTabMenuItem.m */; };
+		2AC903CF1ADED95100CCDD5F /* NSDate+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC903CE1ADED95100CCDD5F /* NSDate+TechD.m */; };
 		2AFDFADA1A83A95F00A82E55 /* TDStickerLibrarySectionStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AFDFAD91A83A95F00A82E55 /* TDStickerLibrarySectionStates.m */; };
 /* End PBXBuildFile section */
 
@@ -247,6 +248,8 @@
 		2ABD8E311A7142BC00626356 /* Configure */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Configure; path = Resources/Configure; sourceTree = "<group>"; };
 		2ABD8E3B1A714F5100626356 /* TDBaseTabMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBaseTabMenuItem.h; path = ../../Libraries/TDBaseObjects/TDBaseObjects/TDBaseTabMenuItem.h; sourceTree = "<group>"; };
 		2ABD8E3C1A714F5100626356 /* TDBaseTabMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBaseTabMenuItem.m; path = ../../Libraries/TDBaseObjects/TDBaseObjects/TDBaseTabMenuItem.m; sourceTree = "<group>"; };
+		2AC903CD1ADED95100CCDD5F /* NSDate+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TechD.h"; sourceTree = "<group>"; };
+		2AC903CE1ADED95100CCDD5F /* NSDate+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TechD.m"; sourceTree = "<group>"; };
 		2AFDFAD81A83A95F00A82E55 /* TDStickerLibrarySectionStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibrarySectionStates.h; sourceTree = "<group>"; };
 		2AFDFAD91A83A95F00A82E55 /* TDStickerLibrarySectionStates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrarySectionStates.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -311,6 +314,8 @@
 				2A5208171AC08D09005FE8A7 /* Foundation+TechD.h */,
 				2A52081A1AC08D09005FE8A7 /* NSString+TechD.h */,
 				2A52081B1AC08D09005FE8A7 /* NSString+TechD.m */,
+				2AC903CD1ADED95100CCDD5F /* NSDate+TechD.h */,
+				2AC903CE1ADED95100CCDD5F /* NSDate+TechD.m */,
 				2A5208181AC08D09005FE8A7 /* NSJSONSerialization+TechD.h */,
 				2A5208191AC08D09005FE8A7 /* NSJSONSerialization+TechD.m */,
 			);
@@ -765,6 +770,7 @@
 				2A5208531AC08D1F005FE8A7 /* AFHTTPSessionManager.m in Sources */,
 				2AB706811A6FE2FB006C6845 /* zip.c in Sources */,
 				2A5208941AC08D9D005FE8A7 /* TDTexturePackerXMLReader.m in Sources */,
+				2AC903CF1ADED95100CCDD5F /* NSDate+TechD.m in Sources */,
 				2AB706831A6FE2FB006C6845 /* ZipArchive.m in Sources */,
 				2AA8CED31AC1730A003901EB /* UIImageView+TechD.m in Sources */,
 				2A4743861A827D260057586A /* TDStickerLibrarySectionPreviewCell.m in Sources */,
