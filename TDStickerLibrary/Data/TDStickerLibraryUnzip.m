@@ -180,6 +180,15 @@
 - ( NSDictionary * ) _GetInfoDataAtIndex:(NSInteger)index;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief remove a informatioin data at index.
+ *  remove a informatioin data at index.
+ *
+ *  @param index                    index of information data.
+ */
+- ( void ) _RemoveInfoDataAtIndex:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
@@ -526,6 +535,16 @@
     return [configureData objectAtIndex: index];
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _RemoveInfoDataAtIndex:(NSInteger)index
+{
+    if ( ( 0 > index ) || ( nil == configureData ) || ( [configureData count] == 0 ) )
+    {
+        return;
+    }
+    [configureData                  removeObjectAtIndex: index];
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -651,6 +670,12 @@
 - ( NSDictionary * ) infoDataAtIndex:(NSInteger)index
 {
     return [self _GetInfoDataAtIndex: index];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) removeInfoDataAtIndex:(NSInteger)index
+{
+    [self                           _RemoveInfoDataAtIndex: index];
 }
 
 //  ------------------------------------------------------------------------------------------------

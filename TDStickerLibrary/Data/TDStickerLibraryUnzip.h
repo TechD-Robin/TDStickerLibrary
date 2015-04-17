@@ -112,6 +112,15 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief remove a informatioin data at index.
+ *  remove a informatioin data at index.
+ *
+ *  @param index                    index of information data.
+ */
+- ( void ) removeInfoDataAtIndex:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @biref count of information data.
  *  count of information data.
  *
