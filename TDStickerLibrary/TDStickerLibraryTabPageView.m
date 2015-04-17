@@ -325,6 +325,8 @@
     NSInteger                       sectionMode;
     CGSize                          previewSize;
     CGSize                          previewMiniSize;
+    BOOL                            activeData;
+    NSMutableArray                * expireData;
     
     ID                              = nil;
     imageCount                      = 0;
@@ -333,9 +335,26 @@
     sectionMode                     = 0;
     previewSize                     = CGSizeZero;
     previewMiniSize                 = CGSizeZero;
+    activeData                      = NO;
+    expireData                      = nil;
     perRowCapacity                  = [self _CalculatePerRowCapacityWithCustomization];
     for ( int i = 0; i < [pageConfigure infoDataCount]; ++i )
     {
+        //  check data's effective period.
+        activeData                  = NO;
+        [pageConfigure              isActive: &activeData atIndex: i];
+        if ( NO == activeData )
+        {
+            if ( nil == expireData )
+            {
+                expireData          = [NSMutableArray new];
+            }
+            [expireData             addObject: [NSNumber numberWithInteger:i]];
+            continue;
+        };
+        
+        
+        //  assign data into state container.
         ID                          = [pageConfigure dataIDAtIndex: i];
         if ( nil != ID )
         {
@@ -362,6 +381,20 @@
         [sectionStates              updateMiniStateOfStateData: YES];
         
         
+    }
+    
+    //  remove expire information from container.
+    if ( ( nil == expireData ) || ( [expireData count] == 0 ) )
+    {
+        return;
+    }
+    for ( NSNumber * index in expireData )
+    {
+        if ( nil == index )
+        {
+            continue;
+        }
+        [pageConfigure              removeInfoDataAtIndex: [index integerValue]];
     }
     
 }
