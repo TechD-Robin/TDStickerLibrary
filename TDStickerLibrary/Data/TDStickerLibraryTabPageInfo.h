@@ -132,6 +132,7 @@
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief get the image name at information data index and at image name's container index.
+ *  get the image name at information data index and at image name's container index.
  *
  *  @param index                    index of information data.
  *  @param inArrayIndex             index of image name's container.
@@ -139,6 +140,19 @@
  *  @return name|nil                the image name or nil.
  */
 - ( NSString * ) imageNameAtIndex:(NSInteger)index inArray:(NSInteger)inArrayIndex;
+
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check the date at informatioin data index, that is effective period or not.
+ *  check the date at informatioin data index, that is effective period or not.
+ *
+ *  @param data                     pointer of the result of method, to express the date is effective period or not.
+ *  @param index                    index of information data.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) isActive:(BOOL *)data atIndex:(NSInteger)index;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for get data in Zipped file.

@@ -14,6 +14,7 @@
 
 #import "ZipArchive.h"
 #import "UIKit+TechD.h"
+#import "Foundation+TechD.h"
 #import "TDStickerLibraryTabPageInfo.h"
 
 
@@ -24,6 +25,9 @@ static  NSString  * const kTDPageInfoKeyTitle                       = @"Title";
 static  NSString  * const kTDPageInfoKeySubDir                      = @"SubDirectory";
 static  NSString  * const kTDPageInfoKeyImages                      = @"Images";
 static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configure";
+
+static  NSString  * const kTDPageInfoKeyValidDate                   = @"ValidDate";
+static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDate";
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -280,6 +284,53 @@ static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configur
     
     imageName                       = [subDir stringByAppendingPathComponent: imageName];
     return imageName;
+}
+
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) isActive:(BOOL *)data atIndex:(NSInteger)index
+{
+    if ( NULL == data )
+    {
+        return NO;
+    }
+    
+    NSString                      * dateValid;
+    NSString                      * dateExpire;
+    
+    dateValid                       = [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyValidDate];
+    dateExpire                      = [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyExpireDate];
+    
+    //  both is nil; is true.
+    if ( ( nil == dateValid ) && ( nil == dateExpire ) )
+    {
+        *data                       = YES;
+        return YES;
+    }
+    
+    NSDate                        * now;
+    NSDate                        * valid;
+    NSDate                        * expire;
+    NSTimeInterval                  intervalExpireInDay;
+
+    valid                           = nil;
+    expire                          = nil;
+    intervalExpireInDay             = ( ( 24 * 60 * 60 ) - 1 );
+    valid                           = [NSDate GMTDateWithTimeString: dateValid locale: nil format: @"yyyy-MM-dd"];
+    
+    //expire                          = [NSDate GMTDateWithTimeString: dateExpire locale: nil format: @"yyyy-MM-dd"];
+    //expire                          = [NSDate dateWithTimeInterval: intervalExpireInDay sinceDate: expire];
+    //  ※ 因為本來使用的手段會因為, 本身 create instance 時, 並不會複製額外產生的旗標資訊, 所以只能調整建立順序.
+    //  because original's code (apple api) will not assign(or copy) new properties when create new date instance,
+    //  that's must to change code order & method.
+    expire                          = [NSDate dateWithTimeString: dateValid locale: nil format: @"yyyy-MM-dd"];
+    expire                          = [NSDate dateWithTimeInterval: intervalExpireInDay sinceDate: expire];
+    expire                          = [expire GMTDate];
+    now                             = [NSDate GMT];
+    NSParameterAssert( nil != now );
+
+    *data                           = [now isEffectivePeriod: valid and: expire];
+    return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------
