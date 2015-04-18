@@ -24,6 +24,8 @@ static  NSString  * const kTDSectionStateKeyShowImagesCount         = @"ShowImag
 static  NSString  * const kTDSectionStateKeyPreviewImageSize        = @"PreviewImageSize";
 static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPreviewImagesize";
 
+static  NSString  * const kTDSectionStateKeyMustDownload            = @"MustDownload";
+static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownloaded";
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -241,6 +243,19 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) updateStickerDownloadState:(BOOL)mustDownload with:(BOOL)isDownloaded
+{
+    if ( nil == currentState )
+    {
+        return NO;
+    }
+    
+    [currentState                   setValue: [NSNumber numberWithBool: mustDownload] forKey: kTDSectionStateKeyMustDownload];
+    [currentState                   setValue: [NSNumber numberWithBool: isDownloaded] forKey: kTDSectionStateKeyIsDownloaded];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) numberOfSections
 {
     if ( nil == sectionStates )
@@ -373,6 +388,51 @@ static  NSString  * const kTDSectionStateKeyNowPreviewImageSize     = @"NowPrevi
     }
     return [[stateInfo objectForKey: kTDSectionStateKeyNowPreviewImageSize] CGSizeValue];
 }
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) downloadState:(BOOL *)downloadState inSection:(NSInteger)section
+{
+    NSMutableDictionary           * stateInfo;
+    BOOL                            mustDownload;
+    BOOL                            isDownloaded;
+    
+    mustDownload                    = NO;
+    isDownloaded                    = NO;
+    stateInfo                       = (NSMutableDictionary *)[self _GetStateInfoAtIndex: section];
+    if ( nil == stateInfo )
+    {
+        *downloadState              = NO;
+        return NO;
+    }
+    
+    mustDownload                    = [[stateInfo objectForKey: kTDSectionStateKeyMustDownload] boolValue];
+    isDownloaded                    = [[stateInfo objectForKey: kTDSectionStateKeyIsDownloaded] boolValue];
+    //  when need not to download, that's mean isDownloaded's flag always is true.
+    if ( NO == mustDownload )
+    {
+        *downloadState              = YES;
+        return YES;
+    }
+    
+    *downloadState                  = isDownloaded;
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) updateDownloadState:(BOOL)downloadState  inSection:(NSInteger)section
+{
+    NSMutableDictionary           * stateInfo;
+    
+    stateInfo                       = (NSMutableDictionary *)[self _GetStateInfoAtIndex: section];
+    if ( nil == stateInfo )
+    {
+        return NO;
+    }
+    
+    [stateInfo                      setValue: [NSNumber numberWithBool: downloadState] forKey: kTDSectionStateKeyIsDownloaded];
+    return YES;
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

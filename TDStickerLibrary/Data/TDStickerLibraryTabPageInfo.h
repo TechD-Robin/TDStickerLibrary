@@ -154,6 +154,40 @@
  */
 - ( BOOL ) isActive:(BOOL *)data atIndex:(NSInteger)index;
 
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the configure name of the information data at index.
+ *  get the configure name of the information data at index.
+ *
+ *  @param index                    index of information data.
+ *
+ *  @return name|nil                the configure name or nil.
+ */
+- ( NSString * ) configureNameAtIndex:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the timestamp of the information data at index
+ *  get the timestamp of the information data at index.
+ *
+ *  @param index                    index of information data.
+ *
+ *  @return timestamp|nil           update's timestamp or nil.
+ */
+- (NSString * ) timestampAtIndex:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the data link of the information data at index.
+ *  get the data link of the information data at index; the download data from this URL of sticker.
+ *
+ *  @param index                    index of information data.
+ *
+ *  @return data|nil                the data link or nil.
+ */
+- ( NSString * ) dataLinkAtIndex:(NSInteger)index;
+
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for get data in Zipped file.
 //  ------------------------------------------------------------------------------------------------

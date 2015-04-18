@@ -112,12 +112,12 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief remove a informatioin data at index.
- *  remove a informatioin data at index.
+ *  @brief remove informatioin data from other information data list.
+ *  remove informatioin data from other information data list.
  *
- *  @param index                    index of information data.
+ *  @param infoDataList             a information data list.
  */
-- ( void ) removeInfoDataAtIndex:(NSInteger)index;
+- ( void ) removeInfoData:(NSArray *)infoDataList;
 
 //  ------------------------------------------------------------------------------------------------
 /**

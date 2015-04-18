@@ -250,17 +250,9 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 - ( NSString * ) configureKeyAtIndex:(NSInteger)index
 {
-    NSDictionary                  * infoData;
     NSString                      * name;
     
-    name                            = nil;
-    infoData                        = [self infoDataAtIndex: index];
-    if ( nil == infoData )
-    {
-        return nil;
-    }
-    
-    name                            = [infoData objectForKey: kTDTabInfoKeyName];
+    name                            = [self infoDataAtIndex: index stringValueForKey: kTDTabInfoKeyName];
     if ( ( nil == name ) || ( [name length] == 0 ) )
     {
         return nil;
@@ -271,17 +263,9 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 - ( NSString * ) configureNameAtIndex:(NSInteger)index
 {
-    NSDictionary                  * infoData;
     NSString                      * configure;
     
-    configure                       = nil;
-    infoData                        = [self infoDataAtIndex: index];
-    if ( nil == infoData )
-    {
-        return nil;
-    }
-    
-    configure                       = [infoData objectForKey: kTDTabInfoKeyConfigure];
+    configure                       = [self infoDataAtIndex: index stringValueForKey: kTDTabInfoKeyConfigure];
     if ( ( nil == configure ) || ( [configure length] == 0 ) )
     {
         return nil;
@@ -292,17 +276,9 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 - (NSString * ) timestampAtIndex:(NSInteger)index
 {
-    NSDictionary                  * infoData;
     NSString                      * timestamp;
     
-    timestamp                       = nil;
-    infoData                        = [self infoDataAtIndex: index];
-    if ( nil == infoData )
-    {
-        return nil;
-    }
-    
-    timestamp                       = [infoData objectForKey: kTDTabInfoKeyTimestamp];
+    timestamp                       = [self infoDataAtIndex: index stringValueForKey: kTDTabInfoKeyTimestamp];
     if ( ( nil == timestamp ) || ( [timestamp length] == 0 ) )
     {
         return nil;
@@ -310,28 +286,18 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
     return timestamp;
 }
 
-
 //  ------------------------------------------------------------------------------------------------
 - ( NSString * ) dataLinkAtIndex:(NSInteger)index
 {
-    NSDictionary                  * infoData;
     NSString                      * dataLink;
     
-    dataLink                        = nil;
-    infoData                        = [self infoDataAtIndex: index];
-    if ( nil == infoData )
-    {
-        return nil;
-    }
-    
-    dataLink                        = [infoData objectForKey: kTDTabInfoKeyDataLink];
+    dataLink                        = [self infoDataAtIndex: index stringValueForKey: kTDTabInfoKeyDataLink];
     if ( ( nil == dataLink ) || ( [dataLink length] == 0 ) )
     {
         return nil;
     }
     return dataLink;
 }
-
 
 //  ------------------------------------------------------------------------------------------------
 
