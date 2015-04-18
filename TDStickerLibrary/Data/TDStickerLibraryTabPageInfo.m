@@ -25,7 +25,8 @@ static  NSString  * const kTDPageInfoKeyTitle                       = @"Title";
 static  NSString  * const kTDPageInfoKeySubDir                      = @"SubDirectory";
 static  NSString  * const kTDPageInfoKeyImages                      = @"Images";
 static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configure";
-
+static  NSString  * const kTDPageInfoKeyTimestamp                   = @"Timestamp";
+static  NSString  * const kTDPageInfoKeyDataLink                    = @"DataLink";
 static  NSString  * const kTDPageInfoKeyValidDate                   = @"ValidDate";
 static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDate";
 
@@ -334,21 +335,14 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( NSString * ) configureNameAtIndex:(NSInteger)index
+- ( NSString * ) configureNameWithSubDirAtIndex:(NSInteger)index
 {
-    NSDictionary                  * infoData;
     NSString                      * subDir;
     NSString                      * configureName;
     
-    configureName                   = nil;
     subDir                          = [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeySubDir];
-    infoData                        = [self infoDataAtIndex: index];
-    if ( ( nil == subDir ) || ( nil == infoData ) )
-    {
-        return nil;
-    }
+    configureName                   = [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyConfigure];
     
-    configureName                   = [infoData objectForKey: kTDPageInfoKeyConfigure];
     if ( ( nil == configureName ) || ( [configureName length] == 0 ) )
     {
         return nil;
@@ -359,6 +353,44 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
     return configureName;
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) configureNameAtIndex:(NSInteger)index
+{
+    NSString                      * configure;
+
+    configure                       = [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyConfigure];
+    if ( ( nil == configure ) || ( [configure length] == 0 ) )
+    {
+        return nil;
+    }
+    return configure;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- (NSString * ) timestampAtIndex:(NSInteger)index
+{
+    NSString                      * timestamp;
+    
+    timestamp                       = [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyTimestamp];
+    if ( ( nil == timestamp ) || ( [timestamp length] == 0 ) )
+    {
+        return nil;
+    }
+    return timestamp;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) dataLinkAtIndex:(NSInteger)index
+{
+    NSString                      * dataLink;
+    
+    dataLink                        = [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyDataLink];
+    if ( ( nil == dataLink ) || ( [dataLink length] == 0 ) )
+    {
+        return nil;
+    }
+    return dataLink;
+}
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for get data in Zipped file.
@@ -409,7 +441,7 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 {
     NSString                      * configureName;
     
-    configureName                   = [self configureNameAtIndex: index];
+    configureName                   = [self configureNameWithSubDirAtIndex: index];
     if ( nil == configureName )
     {
         return nil;
