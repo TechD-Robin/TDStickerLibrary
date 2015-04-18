@@ -77,8 +77,16 @@
  */
 - ( BOOL ) updateMiniStateOfStateData:(BOOL)miniState;
 
-
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief update download state  of the state data.
+ *  update download state  of the state data.
+ *
+ *  @param mustDownload             download's flag (need or need not).
+ *  @param isDownloaded             download's flag (is downloaded or not).
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) updateStickerDownloadState:(BOOL)mustDownload with:(BOOL)isDownloaded;
 
 
@@ -189,10 +197,29 @@
 - ( CGSize ) nowSizeOfPreviewImageInSection:(NSInteger)section;
 
 //  ------------------------------------------------------------------------------------------------
+// download state
+/**
+ *  @brief get the download state in section.
+ *  get the download state in section.
+ *
+ *  @param downloadState            pointer of the download state to get result.
+ *  @param section                  index of section.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) downloadState:(BOOL *)downloadState inSection:(NSInteger)section;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief update the download state in section
+ *  update the download state in section
+ *
+ *  @param downloadState            download state (is downloaded or not).
+ *  @param section                  index of section.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) updateDownloadState:(BOOL)downloadState  inSection:(NSInteger)section;
-
 
 //  ------------------------------------------------------------------------------------------------
 
