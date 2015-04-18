@@ -323,7 +323,7 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
     //  ※ 因為本來使用的手段會因為, 本身 create instance 時, 並不會複製額外產生的旗標資訊, 所以只能調整建立順序.
     //  because original's code (apple api) will not assign(or copy) new properties when create new date instance,
     //  that's must to change code order & method.
-    expire                          = [NSDate dateWithTimeString: dateValid locale: nil format: @"yyyy-MM-dd"];
+    expire                          = [NSDate dateWithTimeString: dateExpire locale: nil format: @"yyyy-MM-dd"];
     expire                          = [NSDate dateWithTimeInterval: intervalExpireInDay sinceDate: expire];
     expire                          = [expire GMTDate];
     now                             = [NSDate GMT];
