@@ -77,6 +77,16 @@
 @property( nonatomic, assign ) NSString                   * systemConfigureTabUpdateInZippedPrefix;
 
 
+//  for sticker download.
+/**
+ *  subpath of sticker's download.
+ */
+@property( nonatomic, assign ) NSString                   * stickerDownloadSubpath;
+
+/**
+ *  directory of sticker's download.
+ */
+@property( nonatomic, assign ) TDGetPathDirectory           stickerDownloadDirectory;
 
 
 //  for UIView(Sticker Libaray View Controller's view).

@@ -106,6 +106,32 @@
  */
 - ( void ) _InitSectionStates;
 
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for check configure.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check the configure of sticker data is must download to get or not.
+ *  check the configure of sticker data is must download to get or not.
+ *  * this method always below check effective period.
+ *
+ *  @param index                    index of the configure.
+ *
+ *  @return YES|NO                  must download or need not.
+ */
+- ( BOOL ) _IsMustDownloadStickerAtIndex:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check the sticker data is downloaded to device or not.
+ *  check the sticker data is downloaded to device or not.
+ *
+ *  @param index                    index of the configure.
+ *
+ *  @return YES|NO                  is downloaded or not.
+ */
+- ( BOOL ) _IsDownloadedStickerAtIndex:(NSInteger)index;
+
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create object.
 //  ------------------------------------------------------------------------------------------------
@@ -327,6 +353,8 @@
     CGSize                          previewMiniSize;
     BOOL                            activeData;
     NSMutableArray                * expireData;
+    BOOL                            mustDownload;
+    BOOL                            isDownloaded;
     
     ID                              = nil;
     imageCount                      = 0;
@@ -349,7 +377,6 @@
             {
                 expireData          = [NSMutableArray new];
             }
-//            [expireData             addObject: [NSNumber numberWithInteger:i]];
             [expireData             addObject: [pageConfigure infoDataAtIndex: i]];
             continue;
         };
@@ -361,6 +388,11 @@
         {
             [sectionStates          insertStateDataForKey: ID];
         }
+        
+        //  check for download state.
+        mustDownload                = [self _IsMustDownloadStickerAtIndex: i];
+        isDownloaded                = [self _IsDownloadedStickerAtIndex: i];
+        [sectionStates              updateStickerDownloadState: mustDownload with: isDownloaded];
         
         imageCount                  = [pageConfigure countOfImageDataAtIndex: i];
         imageMiniCount              = ( ( imageCount > perRowCapacity ) ? perRowCapacity : imageCount );
@@ -389,7 +421,58 @@
     {
         return;
     }
-    [pageConfigure                  removeInfoData: expireData];    
+    [pageConfigure                  removeInfoData: expireData];
+}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for check configure.
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _IsMustDownloadStickerAtIndex:(NSInteger)index
+{
+    NSParameterAssert( [pageConfigure infoDataCount] > index );
+    
+    NSString                      * configure;
+    NSString                      * dataLink;
+    NSString                      * timestamp;
+    
+    configure                       = [pageConfigure configureNameAtIndex: index];
+    dataLink                        = [pageConfigure dataLinkAtIndex: index];
+    timestamp                       = [pageConfigure timestampAtIndex: index];
+    
+    //  need not to download
+    if ( ( nil == configure ) || ( nil == dataLink ) || ( nil == timestamp ) )
+    {
+        return NO;
+    }
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _IsDownloadedStickerAtIndex:(NSInteger)index
+{
+    NSParameterAssert( [pageConfigure infoDataCount] > index );
+
+    NSString                      * configure;
+    NSString                      * timestamp;
+    NSString                      * filePath;
+    
+    configure                       = [pageConfigure configureNameAtIndex: index];
+    timestamp                       = [pageConfigure timestampAtIndex: index];
+    if ( ( nil == configure ) || ( nil == timestamp ) )
+    {
+        return NO;
+    }
+    
+    filePath                        = TDGetPathForDirectoriesWithTimestamp( [customizationParam stickerDownloadDirectory],
+                                                                            configure,
+                                                                            timestamp,
+                                                                            nil,
+                                                                            [customizationParam stickerDownloadSubpath], YES );
+    if ( nil == filePath )
+    {
+        return NO;
+    }
+    return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -992,6 +1075,20 @@
 //  ------------------------------------------------------------------------------------------------
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    //  precheck for download state.
+    BOOL                            isDownloaded;
+    
+    isDownloaded                    = NO;
+    if ( [sectionStates downloadState: &isDownloaded inSection: indexPath.section] == NO )
+    {
+        NSLog( @"cannot get the section download state!");
+        return;
+    }
+    if ( NO == isDownloaded )
+    {
+        NSLog( @" ... do other action on here ... " );
+        return;
+    }
     
     //  for normal mode.
     CGSize                              stickerSize;
@@ -1071,13 +1168,33 @@
     NSLog( @"preview name %s ", [imageName UTF8String] );
     NSLog( @"sticker info : %s,  %s, %s", [spriteName UTF8String], [NSStringFromCGRect( stickerFrame ) UTF8String], [NSStringFromCGRect( nowFrame ) UTF8String] );
 
+    //  precheck for download state.
+    NSIndexPath                   * indexPath;
+    BOOL                            isDownloaded;
+    
+    indexPath                       = [collectionView indexPathForCell: cell];
+    if ( nil == indexPath )
+    {
+        return;
+    }
+    
+    isDownloaded                    = NO;
+    if ( [sectionStates downloadState: &isDownloaded inSection: indexPath.section] == NO )
+    {
+        NSLog( @"cannot get the section download state!");
+        return;
+    }
+    if ( NO == isDownloaded )
+    {
+        NSLog( @" ... do other action on here ... " );
+        return;
+    }
     
     
     
     
     
     //  for use preview name.
-    NSIndexPath                   * indexPath;
     NSData                        * imageData;
     UIImage                       * image;
     UIImage                       * stickerImage;
@@ -1086,12 +1203,6 @@
     
     image                           = nil;
     stickerImage                    = nil;
-    indexPath                       = [collectionView indexPathForCell: cell];
-    if ( nil == indexPath )
-    {
-        return;
-    }
-    
     imageData                       = [pageConfigure imageDataAtIndex: indexPath.section forKey: imageName];
     if ( nil == imageName )
     {

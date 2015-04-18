@@ -110,6 +110,10 @@
     [self                           setSystemConfigureTabUpdateInZippedPrefix:  @"StickerLibraryTabUpdate"];
     
     
+    //  for sticker download.
+    [self                           setStickerDownloadSubpath:                  @"Sticker"];
+    [self                           setStickerDownloadDirectory:                TDCachesDirectory];
+    
     //  for UIView.
     [self                           setNavigationBarHeight: 36.0f];
     [self                           setBannerHeight: 48.0f];
@@ -195,6 +199,10 @@
 @synthesize systemConfigureTabUpdateFilename        = _systemConfigureTabUpdateFilename;
 @synthesize systemConfigureTabUpdateInZippedPrefix  = _systemConfigureTabUpdateInZippedPrefix;
 
+
+//  for sticker download.
+@synthesize stickerDownloadSubpath                  = _stickerDownloadSubpath;
+@synthesize stickerDownloadDirectory                = _stickerDownloadDirectory;
 
 //  for UIView.
 @synthesize navigationBarHeight     = _navigationBarHeight;

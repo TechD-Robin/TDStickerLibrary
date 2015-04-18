@@ -77,6 +77,11 @@
  */
 - ( BOOL ) updateMiniStateOfStateData:(BOOL)miniState;
 
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) updateStickerDownloadState:(BOOL)mustDownload with:(BOOL)isDownloaded;
+
+
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief count of section.
@@ -184,7 +189,12 @@
 - ( CGSize ) nowSizeOfPreviewImageInSection:(NSInteger)section;
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) downloadState:(BOOL *)downloadState inSection:(NSInteger)section;
 
+- ( BOOL ) updateDownloadState:(BOOL)downloadState  inSection:(NSInteger)section;
+
+
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
