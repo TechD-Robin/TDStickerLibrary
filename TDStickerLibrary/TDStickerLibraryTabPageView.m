@@ -349,7 +349,8 @@
             {
                 expireData          = [NSMutableArray new];
             }
-            [expireData             addObject: [NSNumber numberWithInteger:i]];
+//            [expireData             addObject: [NSNumber numberWithInteger:i]];
+            [expireData             addObject: [pageConfigure infoDataAtIndex: i]];
             continue;
         };
         
@@ -388,15 +389,7 @@
     {
         return;
     }
-    for ( NSNumber * index in expireData )
-    {
-        if ( nil == index )
-        {
-            continue;
-        }
-        [pageConfigure              removeInfoDataAtIndex: [index integerValue]];
-    }
-    
+    [pageConfigure                  removeInfoData: expireData];    
 }
 
 //  ------------------------------------------------------------------------------------------------

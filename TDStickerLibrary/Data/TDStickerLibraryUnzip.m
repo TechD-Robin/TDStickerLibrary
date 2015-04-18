@@ -181,12 +181,12 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief remove a informatioin data at index.
- *  remove a informatioin data at index.
+ *  @brief remove informatioin data from other information data list.
+ *  remove informatioin data from other information data list.
  *
- *  @param index                    index of information data.
+ *  @param infoDataList             a information data list.
  */
-- ( void ) _RemoveInfoDataAtIndex:(NSInteger)index;
+- ( void ) _RemoveInfoData:(NSArray *)infoDataList;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -536,13 +536,13 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) _RemoveInfoDataAtIndex:(NSInteger)index
+- ( void ) _RemoveInfoData:(NSArray *)infoDataList
 {
-    if ( ( 0 > index ) || ( nil == configureData ) || ( [configureData count] == 0 ) )
+    if ( ( nil == infoDataList ) || ( [infoDataList count] == 0 ) )
     {
         return;
     }
-    [configureData                  removeObjectAtIndex: index];
+    [configureData                  removeObjectsInArray: infoDataList];
 }
 
 
@@ -673,9 +673,9 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) removeInfoDataAtIndex:(NSInteger)index
+- ( void ) removeInfoData:(NSArray *)infoDataList
 {
-    [self                           _RemoveInfoDataAtIndex: index];
+    return [self _RemoveInfoData: infoDataList];
 }
 
 //  ------------------------------------------------------------------------------------------------
