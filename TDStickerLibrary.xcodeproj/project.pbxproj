@@ -92,6 +92,7 @@
 		2AB706891A6FE42F006C6845 /* TDStickerLibraryTabInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */; };
 		2AB7068F1A700918006C6845 /* TDStickerLibraryCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7068E1A700918006C6845 /* TDStickerLibraryCustomization.m */; };
 		2ABD8E371A714E9300626356 /* TDBaseTabMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABD8E361A714E9300626356 /* TDBaseTabMenuItem.m */; };
+		2AD9D5591AE4374700B2634F /* UIView+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD9D5581AE4374700B2634F /* UIView+TechD.m */; };
 		2AF2FE8C1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2FE8B1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m */; };
 		2AFDFAD71A838B8D00A82E55 /* TDStickerLibrarySectionStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AFDFAD61A838B8D00A82E55 /* TDStickerLibrarySectionStates.m */; };
 /* End PBXBuildFile section */
@@ -252,6 +253,8 @@
 		2AB7068E1A700918006C6845 /* TDStickerLibraryCustomization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryCustomization.m; sourceTree = "<group>"; };
 		2ABD8E351A714E9300626356 /* TDBaseTabMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBaseTabMenuItem.h; path = Libraries/TDBaseObjects/TDBaseObjects/TDBaseTabMenuItem.h; sourceTree = "<group>"; };
 		2ABD8E361A714E9300626356 /* TDBaseTabMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBaseTabMenuItem.m; path = Libraries/TDBaseObjects/TDBaseObjects/TDBaseTabMenuItem.m; sourceTree = "<group>"; };
+		2AD9D5571AE4374700B2634F /* UIView+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TechD.h"; sourceTree = "<group>"; };
+		2AD9D5581AE4374700B2634F /* UIView+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TechD.m"; sourceTree = "<group>"; };
 		2AF2FE8A1A7A7E9400793CD2 /* TDTexturePackerXMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTexturePackerXMLReader.h; path = Libraries/TDFoundation/TDFoundation/TDTexturePackerXMLReader.h; sourceTree = "<group>"; };
 		2AF2FE8B1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTexturePackerXMLReader.m; path = Libraries/TDFoundation/TDFoundation/TDTexturePackerXMLReader.m; sourceTree = "<group>"; };
 		2AF2FE8D1A7A9E9200793CD2 /* TDFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDFoundation.h; path = Libraries/TDFoundation/TDFoundation/TDFoundation.h; sourceTree = "<group>"; };
@@ -460,6 +463,8 @@
 				2AA8CEB11AC171DE003901EB /* UIScreen+TechD.m */,
 				2AA8CEAB1AC171DE003901EB /* UIImage+TechD.h */,
 				2AA8CEAC1AC171DE003901EB /* UIImage+TechD.m */,
+				2AD9D5571AE4374700B2634F /* UIView+TechD.h */,
+				2AD9D5581AE4374700B2634F /* UIView+TechD.m */,
 				2AA8CEAD1AC171DE003901EB /* UIImageView+TechD.h */,
 				2AA8CEAE1AC171DE003901EB /* UIImageView+TechD.m */,
 				2AA8CEA91AC171DE003901EB /* UIGestureRecognizer+TechD.h */,
@@ -705,6 +710,7 @@
 				2A5207881AC08A1E005FE8A7 /* TDGeometricFigure.m in Sources */,
 				2AB706891A6FE42F006C6845 /* TDStickerLibraryTabInfo.m in Sources */,
 				2AA8CEBB1AC171DE003901EB /* UIImageView+TechD.m in Sources */,
+				2AD9D5591AE4374700B2634F /* UIView+TechD.m in Sources */,
 				2A7BE1971ACD4EC3005CA500 /* TDPreUpdateProcedure.m in Sources */,
 				2AA8CEB91AC171DE003901EB /* UIImage+TechD.m in Sources */,
 				2A5207DF1AC08A8C005FE8A7 /* UIWebView+AFNetworking.m in Sources */,
