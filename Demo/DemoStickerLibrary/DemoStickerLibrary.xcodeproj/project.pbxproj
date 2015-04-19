@@ -70,6 +70,7 @@
 		2A8A59FC1AD845FF000CEA93 /* TDPreUpdateJSONInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59FB1AD845FF000CEA93 /* TDPreUpdateJSONInfo.m */; };
 		2A8A59FF1AD84621000CEA93 /* TDJSONReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59FE1AD84621000CEA93 /* TDJSONReader.m */; };
 		2A99ECFB1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A99ECFA1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m */; };
+		2AA733D91AE3A4060050B7FC /* TDStickerLibraryStickerIntroDLVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA733D81AE3A4060050B7FC /* TDStickerLibraryStickerIntroDLVC.m */; };
 		2AA8CED01AC1730A003901EB /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC41AC1730A003901EB /* NSLayoutConstraint+TechD.m */; };
 		2AA8CED11AC1730A003901EB /* UIGestureRecognizer+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC61AC1730A003901EB /* UIGestureRecognizer+TechD.m */; };
 		2AA8CED21AC1730A003901EB /* UIImage+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEC81AC1730A003901EB /* UIImage+TechD.m */; };
@@ -197,6 +198,8 @@
 		2A8A59FE1AD84621000CEA93 /* TDJSONReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDJSONReader.m; sourceTree = "<group>"; };
 		2A99ECF91A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryStickerSoloView.h; sourceTree = "<group>"; };
 		2A99ECFA1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryStickerSoloView.m; sourceTree = "<group>"; };
+		2AA733D71AE3A4060050B7FC /* TDStickerLibraryStickerIntroDLVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryStickerIntroDLVC.h; sourceTree = "<group>"; };
+		2AA733D81AE3A4060050B7FC /* TDStickerLibraryStickerIntroDLVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryStickerIntroDLVC.m; sourceTree = "<group>"; };
 		2AA8CEC01AC1730A003901EB /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		2AA8CEC11AC1730A003901EB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2AA8CEC31AC1730A003901EB /* NSLayoutConstraint+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+TechD.h"; sourceTree = "<group>"; };
@@ -572,6 +575,8 @@
 				2A99ECFA1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m */,
 				2A4743871A827D350057586A /* TDStickerLibraryTabPageView.h */,
 				2A4743881A827D350057586A /* TDStickerLibraryTabPageView.m */,
+				2AA733D71AE3A4060050B7FC /* TDStickerLibraryStickerIntroDLVC.h */,
+				2AA733D81AE3A4060050B7FC /* TDStickerLibraryStickerIntroDLVC.m */,
 			);
 			name = TDStickerLibrary;
 			path = ../../TDStickerLibrary;
@@ -802,6 +807,7 @@
 				2A99ECFB1A8A78D70059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */,
 				2A7BE19A1ACD505E005CA500 /* TDPreUpdateProcedure.m in Sources */,
 				2AADF4E21A695B9D0026EF9D /* main.m in Sources */,
+				2AA733D91AE3A4060050B7FC /* TDStickerLibraryStickerIntroDLVC.m in Sources */,
 				2A52081E1AC08D09005FE8A7 /* NSJSONSerialization+TechD.m in Sources */,
 				2A5208511AC08D1F005FE8A7 /* AFHTTPRequestOperationManager.m in Sources */,
 			);
