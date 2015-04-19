@@ -94,6 +94,7 @@
 		2ABD8E321A7142BC00626356 /* Configure in Resources */ = {isa = PBXBuildFile; fileRef = 2ABD8E311A7142BC00626356 /* Configure */; };
 		2ABD8E3D1A714F5100626356 /* TDBaseTabMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABD8E3C1A714F5100626356 /* TDBaseTabMenuItem.m */; };
 		2AC903CF1ADED95100CCDD5F /* NSDate+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC903CE1ADED95100CCDD5F /* NSDate+TechD.m */; };
+		2AD9D55C1AE437D600B2634F /* UIView+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD9D55B1AE437D600B2634F /* UIView+TechD.m */; };
 		2AFDFADA1A83A95F00A82E55 /* TDStickerLibrarySectionStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AFDFAD91A83A95F00A82E55 /* TDStickerLibrarySectionStates.m */; };
 /* End PBXBuildFile section */
 
@@ -253,6 +254,8 @@
 		2ABD8E3C1A714F5100626356 /* TDBaseTabMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBaseTabMenuItem.m; path = ../../Libraries/TDBaseObjects/TDBaseObjects/TDBaseTabMenuItem.m; sourceTree = "<group>"; };
 		2AC903CD1ADED95100CCDD5F /* NSDate+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TechD.h"; sourceTree = "<group>"; };
 		2AC903CE1ADED95100CCDD5F /* NSDate+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TechD.m"; sourceTree = "<group>"; };
+		2AD9D55A1AE437D600B2634F /* UIView+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TechD.h"; sourceTree = "<group>"; };
+		2AD9D55B1AE437D600B2634F /* UIView+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TechD.m"; sourceTree = "<group>"; };
 		2AFDFAD81A83A95F00A82E55 /* TDStickerLibrarySectionStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibrarySectionStates.h; sourceTree = "<group>"; };
 		2AFDFAD91A83A95F00A82E55 /* TDStickerLibrarySectionStates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrarySectionStates.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -459,6 +462,8 @@
 				2AA8CECD1AC1730A003901EB /* UIScreen+TechD.m */,
 				2AA8CEC71AC1730A003901EB /* UIImage+TechD.h */,
 				2AA8CEC81AC1730A003901EB /* UIImage+TechD.m */,
+				2AD9D55A1AE437D600B2634F /* UIView+TechD.h */,
+				2AD9D55B1AE437D600B2634F /* UIView+TechD.m */,
 				2AA8CEC91AC1730A003901EB /* UIImageView+TechD.h */,
 				2AA8CECA1AC1730A003901EB /* UIImageView+TechD.m */,
 				2AA8CEC51AC1730A003901EB /* UIGestureRecognizer+TechD.h */,
@@ -777,6 +782,7 @@
 				2A5208941AC08D9D005FE8A7 /* TDTexturePackerXMLReader.m in Sources */,
 				2AC903CF1ADED95100CCDD5F /* NSDate+TechD.m in Sources */,
 				2AB706831A6FE2FB006C6845 /* ZipArchive.m in Sources */,
+				2AD9D55C1AE437D600B2634F /* UIView+TechD.m in Sources */,
 				2AA8CED31AC1730A003901EB /* UIImageView+TechD.m in Sources */,
 				2A4743861A827D260057586A /* TDStickerLibrarySectionPreviewCell.m in Sources */,
 				2AADF51E1A6972810026EF9D /* TDStickerLibraryViewController.m in Sources */,
