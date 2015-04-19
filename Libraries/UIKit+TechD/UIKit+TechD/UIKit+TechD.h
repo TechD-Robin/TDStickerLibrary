@@ -13,6 +13,7 @@
 
     #import "UIScreen+TechD.h"
     #import "UIImage+TechD.h"
+    #import "UIView+TechD.h"
     #import "UIImageView+TechD.h"
     #import "UIGestureRecognizer+TechD.h"
 

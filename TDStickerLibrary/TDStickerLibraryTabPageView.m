@@ -20,6 +20,7 @@
 #import "TDStickerLibrarySectionHeader.h"
 #import "TDStickerLibrarySectionPreviewCell.h"
 #import "TDStickerLibraryStickerSoloView.h"
+#import "TDStickerLibraryStickerIntroDLVC.h"
 
 #import "TDStickerLibraryTabPageInfo.h"
 #import "TDStickerLibrarySectionStates.h"
@@ -55,6 +56,15 @@
      */
     TDStickerLibrarySectionStates * sectionStates;
     
+    /**
+     *  flags of mode.
+     */
+    struct {
+        unsigned int                a:1;                    //  after set to preview or edit mode.
+        unsigned int                isIntroduction:1;       //  introduction or tab page.
+        
+    } modeFlags;
+    
 }
 //  ------------------------------------------------------------------------------------------------
 
@@ -86,6 +96,16 @@
  *  register sub classes  for collection view.
  */
 - ( void ) _RegisterClasses;
+
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief load configure data with page's information for a collection view.
+ *  load configure data with page's information for a collection view, use for introduction mode.
+ *
+ *  @param pageInfo                 the page's information object. (this object isn't it's creator.)
+ */
+- ( void ) _LoadSwapedSystemConfigure:(TDStickerLibraryTabPageInfo *)pageInfo;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -180,6 +200,17 @@
  */
 - ( UIImageView * ) _CreatePreviewSticker:(NSIndexPath *)indexPath;
 
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a introducton view controller.
+ *  create a introducton view controller, that will show sticker's introductioin.
+ *
+ *  @param section                  section index.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _CreateIntroductionForSection:(NSInteger)section;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for calculate.
@@ -282,6 +313,9 @@
     pageConfigure                   = nil;
     sectionStates                   = nil;
     
+    //  mode
+    modeFlags.isIntroduction        = NO;
+
     
     [self                           setDataSource: self];
     [self                           setDelegate: self];
@@ -299,6 +333,18 @@
     [self                           registerClass: [TDStickerLibrarySectionHeader class]
                        forSupplementaryViewOfKind: UICollectionElementKindSectionHeader
                               withReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionHeader class] )];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _LoadSwapedSystemConfigure:(TDStickerLibraryTabPageInfo *)pageInfo
+{
+    if ( nil == pageInfo )
+    {
+        return;
+    }
+    
+    pageConfigure                   = pageInfo;
+    [self                           _InitSectionStates];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -396,9 +442,18 @@
         
         imageCount                  = [pageConfigure countOfImageDataAtIndex: i];
         imageMiniCount              = ( ( imageCount > perRowCapacity ) ? perRowCapacity : imageCount );
-        [sectionStates              updateImagesCountOfStateData: imageCount with: imageMiniCount];             //  start at mini state.
-        //[sectionStates              updateImagesCountOfStateData: imageCount with: imageCount];                 //  start at normal state.
-        [sectionStates              updateMiniStateOfStateData: YES];
+        
+        if ( NO == modeFlags.isIntroduction )
+        {
+            [sectionStates              updateImagesCountOfStateData: imageCount with: imageMiniCount];             //  start at mini state.
+            //[sectionStates              updateImagesCountOfStateData: imageCount with: imageCount];                 //  start at normal state.
+            [sectionStates              updateMiniStateOfStateData: YES];
+        }
+        else
+        {
+            [sectionStates              updateImagesCountOfStateData: imageCount with: imageCount];                 //  start at normal state.
+            [sectionStates              updateMiniStateOfStateData: NO];
+        }
         
         //  when mode not equal normal.
         sectionMode                 = 0;
@@ -409,10 +464,17 @@
         
         previewSize                 = [self _CalculatePreviewImageProportionalSizeForSectionAtIndex: i];
         previewMiniSize             = [self _CalculatePreviewImageMiniSizeForSectionAtIndex: i];
-        [sectionStates              updatePreviewImageSizeOfStateData: previewSize with: previewMiniSize];      //  start at mini state.
-        //[sectionStates              updatePreviewImageSizeOfStateData: previewSize with: previewSize];          //  start at normal state.
-        [sectionStates              updateMiniStateOfStateData: YES];
-        
+        if ( NO == modeFlags.isIntroduction )
+        {
+            [sectionStates              updatePreviewImageSizeOfStateData: previewSize with: previewMiniSize];      //  start at mini state.
+            //[sectionStates              updatePreviewImageSizeOfStateData: previewSize with: previewSize];          //  start at normal state.
+            [sectionStates              updateMiniStateOfStateData: YES];
+        }
+        else
+        {
+            [sectionStates              updatePreviewImageSizeOfStateData: previewSize with: previewSize];          //  start at normal state.
+            [sectionStates              updateMiniStateOfStateData: NO];
+        }
         
     }
     
@@ -602,6 +664,31 @@
     return stickerView;
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateIntroductionForSection:(NSInteger)section
+{
+    
+    NSString                          * ID;
+    TDStickerLibraryStickerIntroDLVC  * introVC;
+    id                                  viewController;
+    
+    ID                              = [pageConfigure dataIDAtIndex: section];
+    introVC                         = [TDStickerLibraryStickerIntroDLVC introductionDL: customizationParam
+                                                                             configure: pageConfigure forSection: section identifier: ID];
+    if ( nil == introVC )
+    {
+        return NO;
+    }
+    
+    viewController                  = [self viewController];
+    if ( nil == viewController )
+    {
+        return NO;
+    }
+    
+    [viewController                 presentViewController: introVC animated: YES completion: nil];
+    return YES;
+}
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for calculate.
@@ -868,13 +955,17 @@
     if ( nil != customizationParam )
     {
         //  release by creator.
-        SAFE_ARC_ASSIGN_POINTER_NIL( customizationParam );
+        customizationParam          = nil;
     }
     
     if ( nil != pageConfigure )
     {
-        SAFE_ARC_RELEASE( pageConfigure );
-        SAFE_ARC_ASSIGN_POINTER_NIL( pageConfigure );
+        //  when this object is create at introduction mode, it's not creator.
+        if ( NO == modeFlags.isIntroduction )
+        {
+            SAFE_ARC_RELEASE( pageConfigure );
+        }
+        pageConfigure               = nil;
     }
     SAFE_ARC_SUPER_DEALLOC();
 }
@@ -893,13 +984,8 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithFrame:(CGRect)frame  customization:(TDStickerLibraryCustomization *)customization
-                            data:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp forKey:(NSString *)aKey
+- ( instancetype ) initWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
 {
-    NSParameterAssert( nil != customization );
-    NSParameterAssert( nil != configure );
-    NSParameterAssert( nil != aKey );
-    
     TDStickerLibraryTabPageLayout * layout;
     
     layout                          = (TDStickerLibraryTabPageLayout *)[[self class] _CreateLayout: customization];
@@ -915,19 +1001,62 @@
     {
         return nil;
     }
+    
     [self                           _InitAttributes];
     [self                           _RegisterClasses];
     customizationParam              = customization;
+    return self;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( instancetype ) initWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
+                            data:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp forKey:(NSString *)aKey
+{
+    NSParameterAssert( nil != customization );
+    NSParameterAssert( nil != configure );
+    NSParameterAssert( nil != aKey );
+    
+    self                            = [self initWithFrame: frame customization: customization];
+    if ( nil == self )
+    {
+        return nil;
+    }
     
     [self                           _LoadSystemConfigure: configure from: dataLink updateCheckBy: timestamp forKey: aKey];
     return self;
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( instancetype ) initWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
+                       configure:(TDStickerLibraryTabPageInfo *)pageInfo forSection:(NSInteger)index
+{
+    NSParameterAssert( nil != customization );
+    NSParameterAssert( nil != pageInfo );
+    
+    self                            = [self initWithFrame: frame customization: customization];
+    if ( nil == self )
+    {
+        return nil;
+    }
+    
+    modeFlags.isIntroduction        = YES;
+    [self                           _LoadSwapedSystemConfigure: pageInfo];
+    return self;
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 + ( instancetype ) tabPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
                                data:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp forKey:(NSString *)aKey
 {
     return [[[self class] alloc] initWithFrame: frame customization: customization data: configure from: dataLink updateCheckBy: timestamp forKey: aKey];
+}
+
+//  ------------------------------------------------------------------------------------------------
++ ( instancetype ) introductionPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
+                                   configure:(TDStickerLibraryTabPageInfo *)pageInfo forSection:(NSInteger)index
+{
+    return [[[self class] alloc] initWithFrame: frame customization: customization configure: pageInfo forSection: index];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -1063,6 +1192,15 @@
 //  ------------------------------------------------------------------------------------------------
 - ( CGSize ) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
+    //  when introduction mode, don't show header.
+    if ( YES == modeFlags.isIntroduction )
+    {
+        CGFloat                     screenWidth;
+        screenWidth                 = [[UIScreen mainScreen] bounds].size.width;
+        
+        return CGSizeMake( screenWidth, 0 );
+    }
+    
     if ( [(UICollectionViewFlowLayout *)collectionViewLayout scrollDirection] == UICollectionViewScrollDirectionHorizontal )
     {
         return CGSizeMake( [customizationParam tableCommonHeaderReferenceSize].height, [collectionView frame].size.height );
@@ -1086,9 +1224,14 @@
     }
     if ( NO == isDownloaded )
     {
-        NSLog( @" ... do other action on here ... " );
-        return;
+        //  when introduction mode, don't create introduction again..
+        if ( NO == modeFlags.isIntroduction )
+        {
+            [self                   _CreateIntroductionForSection: indexPath.section];
+            return;
+        }
     }
+    
     
     //  for normal mode.
     CGSize                              stickerSize;
@@ -1139,11 +1282,23 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) collectionView:(UICollectionView *)collectionView didSelectHeaderInSection:(NSInteger)section
 {
-    if ( nil == pageConfigure )
+    NSParameterAssert( nil != pageConfigure );
+    
+    //  precheck for download state.
+    BOOL                            isDownloaded;
+    isDownloaded                    = NO;
+    if ( [sectionStates downloadState: &isDownloaded inSection: section] == NO )
     {
         return;
     }
-  
+    
+    if ( NO == isDownloaded )
+    {
+        [self                       _CreateIntroductionForSection: section];
+        return;
+    }
+    
+    
     NSInteger                       sectionMode;
     
     sectionMode                     = 0;
@@ -1186,12 +1341,13 @@
     }
     if ( NO == isDownloaded )
     {
-        NSLog( @" ... do other action on here ... " );
-        return;
+        //  when introduction mode, don't create introduction again..
+        if ( NO == modeFlags.isIntroduction )
+        {
+            [self                   _CreateIntroductionForSection: indexPath.section];
+            return;
+        }
     }
-    
-    
-    
     
     
     //  for use preview name.

@@ -49,6 +49,9 @@
      */
     //NSMutableDictionary           * configureData;      //  json struct.
     NSMutableArray                * configureData;      //  json struct.
+    
+    
+    id                              swapSource;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -213,6 +216,8 @@
     unzipDataContainer              = nil;
     
     configureData                   = nil;
+    
+    swapSource                      = nil;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -596,6 +601,12 @@
         SAFE_ARC_ASSIGN_POINTER_NIL( configureData );
     }
     
+    if ( nil != swapSource )
+    {
+        SAFE_ARC_RELEASE( swapSource );
+        SAFE_ARC_ASSIGN_POINTER_NIL( swapSource );
+    }
+    
     SAFE_ARC_SUPER_DEALLOC();
 }
 
@@ -662,6 +673,42 @@
 - ( NSData * ) unzipDataForKey:(NSString *)aKey
 {
     return [self _UnzipDataForKey: aKey];
+}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for special i/o information data.
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) swapInfoDataWithIndex:(NSInteger)index
+{
+    if ( ( 0 > index ) || ( nil == configureData ) || ( [configureData count] == 0 ) )
+    {
+        return NO;
+    }
+    
+    id                              infoData;
+    
+    infoData                        = [configureData objectAtIndex: index];
+    if ( nil == infoData )
+    {
+        return NO;
+    }
+    
+    swapSource                      = configureData;
+    configureData                   = [NSMutableArray arrayWithObjects: infoData, nil] ;
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) reverseInfoData
+{
+    if ( nil == swapSource )
+    {
+        return NO;
+    }
+    
+    configureData                   = swapSource;
+    swapSource                      = nil;
+    return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------

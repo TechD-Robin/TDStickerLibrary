@@ -12,6 +12,11 @@
 #import "TDStickerLibrary.h"
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark forward declarations
+//  ------------------------------------------------------------------------------------------------
+@class TDStickerLibraryTabPageInfo;
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 /**
  *  a tab page view(collection view) for sticker library view controller.
@@ -43,6 +48,23 @@
                                data:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp forKey:(NSString *)aKey;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a Page View for introduction mode.
+ *  create a Page View for introduction mode; this view is like a detail view.
+ *
+ *  @param frame                    the frame of sticker page view.
+ *  @param customization            the customization object for the Sticker Library.
+ *  @param pageInfo                 the page information object.
+ *  @param index                    section index of the sticker tab page view.
+ *
+ *  @return object|nil              the page view or nil.
+ */
++ ( instancetype ) introductionPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
+                                   configure:(TDStickerLibraryTabPageInfo *)pageInfo forSection:(NSInteger)index;
+
+
+//  ------------------------------------------------------------------------------------------------
+
 
 @end
 
