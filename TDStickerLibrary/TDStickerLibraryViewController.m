@@ -19,7 +19,6 @@
 #import "TDBaseTabMenuItem.h"
 #import "TDStickerLibraryTabPageView.h"
 
-#import "TDPreUpdateProcedure.h"
 #import "TDPreUpdateJSONInfo.h"
 
 //  ------------------------------------------------------------------------------------------------
@@ -92,6 +91,7 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief load configure data for the sticker library view controller.
  *  load configure data for the sticker library view controller.
  */
 - ( void ) _LoadSystemConfigure;
@@ -199,11 +199,13 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _InitAttributes
 {
+    //  sub view.
     navigationBar                   = nil;
     bannerView                      = nil;
     
     tabMenu                         = nil;
     
+    //  configure.
     customizationParam              = nil;
     
     tabConfigure                    = nil;
