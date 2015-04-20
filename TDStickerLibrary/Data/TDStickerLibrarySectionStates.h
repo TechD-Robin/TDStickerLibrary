@@ -102,6 +102,17 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for i/o the state data in section.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the ID in section.
+ *  get the ID in section.
+ *
+ *  @param section                  index of section.
+ *
+ *  @return ID|nil                  the ID or nil.
+ */
+- ( NSString * ) idInSection:(NSInteger)section;
+
+//  ------------------------------------------------------------------------------------------------
 //  mini state.
 /**
  *  @brief get the mini state in section.
