@@ -39,6 +39,8 @@
      */
     UINavigationBar               * navigationBar;
     
+    UIButton                      * downloadButton;
+    
     // ...
     
     /**
@@ -127,6 +129,8 @@
  */
 - ( BOOL ) _CreateNavigationBar;
 
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateDownloadButton;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -172,6 +176,8 @@
 {
     //  sub view.
     navigationBar                   = nil;
+    downloadButton                  = nil;
+    
     
     stickerPageView                 = nil;
     
@@ -264,6 +270,65 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateDownloadButton
+{
+    CGFloat                         screenWidth;
+    CGFloat                         subviewTop;
+    CGFloat                         buttonHeight;
+    CGRect                          buttonRect;
+    UITapGestureRecognizer        * tap;
+    
+    tap                             = nil;
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    subviewTop                      = [self _GetNewSubviewTopPosition];
+    
+    subviewTop                      += 40.0f;
+    buttonHeight                    = 36.0f;
+    
+    buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );
+//.    downloadButton                  = [[UIButton alloc] initWithFrame: buttonRect];
+    downloadButton                  = [UIButton buttonWithType: UIButtonTypeInfoDark];
+    if ( nil == downloadButton )
+    {
+        return NO;
+    }
+    
+    [downloadButton                 setFrame: buttonRect];
+    [downloadButton                 setBackgroundColor: [UIColor darkGrayColor]];
+    [downloadButton                 setTitle: @" Download " forState: UIControlStateNormal];
+    [[self                          view] addSubview: downloadButton];
+    
+    //  width stretchy when device Orientation is changed.
+    [NSLayoutConstraint             constraintForWidthStretchy: downloadButton top: ( subviewTop + 1.0f ) height: buttonHeight in: [self view]];
+    
+    
+    tap                             = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector( _TapDownloadButtonAction: )];
+    if ( nil == tap )
+    {
+        return YES;
+    }
+    [downloadButton                 addGestureRecognizer: tap];
+    
+    SAFE_ARC_RELEASE( tap );
+    tap                             = nil;
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _TapDownloadButtonAction:(id)sender
+{
+    //  call download method.
+    
+    
+    
+    
+    //  finish ... then ...
+    
+    [downloadButton                 setEnabled: NO];
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreatePageView
 {
     CGFloat                         screenWidth;
@@ -313,6 +378,11 @@
     {
         subviewTop                  += [navigationBar bounds].size.height;
     }
+    if ( nil != downloadButton )
+    {
+        subviewTop                  += [downloadButton bounds].size.height;
+    }
+    
 //    if ( nil != bannerView )
 //    {
 //        subviewTop                  += [bannerView bounds].size.height;
@@ -392,6 +462,8 @@
     // Do any additional setup after loading the view.
 
     [self                           _CreateNavigationBar];
+    
+    [self                           _CreateDownloadButton];
     
     
     
