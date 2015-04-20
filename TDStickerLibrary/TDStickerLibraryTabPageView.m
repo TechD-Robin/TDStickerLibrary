@@ -667,18 +667,31 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateIntroductionForSection:(NSInteger)section
 {
-    
     NSString                          * ID;
     TDStickerLibraryStickerIntroDLVC  * introVC;
     id                                  viewController;
     
-    ID                              = [pageConfigure dataIDAtIndex: section];
+    ID                              = [sectionStates idInSection: section];
     introVC                         = [TDStickerLibraryStickerIntroDLVC introductionDL: customizationParam
                                                                              configure: pageConfigure forSection: section identifier: ID];
     if ( nil == introVC )
     {
         return NO;
     }
+    
+    //  set callbackup.
+    [introVC                        setFinishedIntroDLVCCallbackBlock: ^(NSString * stickerID, NSInteger sectionIndex,BOOL isDownloaded, BOOL actionFinished)
+    {
+        NSLog( @"finished :%d  sticker ID :%@  index : %d  isDownload : %d", actionFinished, stickerID, sectionIndex, isDownloaded );
+        if ( ( NO == actionFinished ) || ( -1 == sectionIndex ) || ( [stickerID isEqualToString: ID] == NO ) )
+        {
+            return;
+        }
+        
+        //  when action is finish.
+        [sectionStates              updateDownloadState: isDownloaded inSection: sectionIndex];
+    }];
+    
     
     viewController                  = [self viewController];
     if ( nil == viewController )

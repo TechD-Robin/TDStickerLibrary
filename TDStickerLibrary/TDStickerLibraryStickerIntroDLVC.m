@@ -68,6 +68,21 @@
      *  identifier of sticker's data.
      */
     NSString                      * stickerIdentifier;
+
+    /**
+     *  set the flag when data is downloaded or data is delete.
+     */
+    BOOL                            dataIsDownloaded;
+
+    /**
+     *  set the flag when action is success or failure
+     */
+    BOOL                            actionFinished;
+    
+    /**
+     *  assign a block's pointer for be executed when closed this view controller.
+     */
+    FinishedIntroDLVCCallbackBlock  finishedCallbackBlock;
     
 }
 //  ------------------------------------------------------------------------------------------------
@@ -167,6 +182,10 @@
     //  sticker's page.
     sectionIndex                    = -1;
     stickerIdentifier               = nil;
+    
+    dataIsDownloaded                = NO;
+    actionFinished                  = NO;
+    finishedCallbackBlock           = nil;
 }
 
 //  --------------------------------
@@ -235,6 +254,11 @@
         if ( [pageConfigure reverseInfoData] == NO )
         {
             return;
+        }
+        
+        if ( nil != finishedCallbackBlock )
+        {
+            finishedCallbackBlock( stickerIdentifier, sectionIndex, dataIsDownloaded, actionFinished );
         }
     }];
 }
@@ -418,6 +442,17 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for base methos of procedure
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setFinishedIntroDLVCCallbackBlock:(FinishedIntroDLVCCallbackBlock)callbackBlock
+{
+    if ( nil == callbackBlock )
+    {
+        return;
+    }
+    finishedCallbackBlock           = callbackBlock;
+}
+
 //  ------------------------------------------------------------------------------------------------
 
 
