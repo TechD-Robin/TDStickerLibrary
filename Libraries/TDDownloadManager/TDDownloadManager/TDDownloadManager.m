@@ -357,6 +357,7 @@ NSURL * _PreSaveProcedure( NSURLResponse * response, NSString * subpath )
 
     //  set to NSURL.
     downloadFile                    = [@"file://" stringByAppendingString: downloadFile];
+    downloadFile                    =  [downloadFile stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
     downloadURL                     = [NSURL URLWithString: downloadFile];
     return downloadURL;
 }
@@ -427,6 +428,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     //  iOS file system's letter is not to differentiate between lowercase and uppercase, so always set to lowercase.
     destinationFile                 = [destinationFile lowercaseString];
     destinationFile                 = [@"file://" stringByAppendingString: destinationFile];
+    destinationFile                 =  [destinationFile stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
     destinationURL                  = [NSURL URLWithString: destinationFile];
     if ( nil == destinationURL )
     {
