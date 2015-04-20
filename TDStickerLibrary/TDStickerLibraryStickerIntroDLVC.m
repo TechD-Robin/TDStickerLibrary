@@ -16,6 +16,7 @@
 
 #import "TDStickerLibraryStickerIntroDLVC.h"
 #import "TDStickerLibraryTabPageView.h"
+#import "TDDownloadManager.h"
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -40,6 +41,7 @@
     UINavigationBar               * navigationBar;
     
     UIButton                      * downloadButton;
+    UIButton                      * deleteButton;
     
     // ...
     
@@ -133,6 +135,9 @@
 - ( BOOL ) _CreateDownloadButton;
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateDeleteButton;
+
+//  ------------------------------------------------------------------------------------------------
 /**
  *  @briefcreate a page for sticker into this object.
  *  create a page for sticker into this object.
@@ -151,6 +156,14 @@
  *  @return                         subview's top position.
  */
 - ( CGFloat ) _GetNewSubviewTopPosition;
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _IsDownloaded:(BOOL *)isDownloaded;
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _SetDataDownloadState:(BOOL)checkFileExist;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -177,6 +190,7 @@
     //  sub view.
     navigationBar                   = nil;
     downloadButton                  = nil;
+    deleteButton                    = nil;
     
     
     stickerPageView                 = nil;
@@ -272,6 +286,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateDownloadButton
 {
+    BOOL                            isDownloaded;
     CGFloat                         screenWidth;
     CGFloat                         subviewTop;
     CGFloat                         buttonHeight;
@@ -279,6 +294,7 @@
     UITapGestureRecognizer        * tap;
     
     tap                             = nil;
+    isDownloaded                    = NO;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetNewSubviewTopPosition];
     
@@ -295,12 +311,17 @@
     
     [downloadButton                 setFrame: buttonRect];
     [downloadButton                 setBackgroundColor: [UIColor darkGrayColor]];
-    [downloadButton                 setTitle: @" Download " forState: UIControlStateNormal];
+    [downloadButton                 setTitle: @" Download "      forState: UIControlStateNormal];
+    [downloadButton                 setTitle: @" Is Downloaded " forState: UIControlStateDisabled];
     [[self                          view] addSubview: downloadButton];
     
     //  width stretchy when device Orientation is changed.
     [NSLayoutConstraint             constraintForWidthStretchy: downloadButton top: ( subviewTop + 1.0f ) height: buttonHeight in: [self view]];
-    
+
+    if ( [self _IsDownloaded: &isDownloaded] == YES )
+    {
+        [downloadButton             setEnabled: !isDownloaded];
+    }
     
     tap                             = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector( _TapDownloadButtonAction: )];
     if ( nil == tap )
@@ -318,14 +339,168 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _TapDownloadButtonAction:(id)sender
 {
+    NSParameterAssert( [pageConfigure infoDataCount] == 1 );
+    
+    NSInteger                       index;
+    NSString                      * ID;
+    NSString                      * configure;
+    NSString                      * dataLink;
+    NSString                      * timestamp;
+    
+    index                           = 0;
+    ID                              = [pageConfigure dataIDAtIndex: index];
+    configure                       = [pageConfigure configureNameAtIndex: index];
+    dataLink                        = [pageConfigure dataLinkAtIndex: index];
+    timestamp                       = [pageConfigure timestampAtIndex: index];
+    
+    //  need not to download
+    if ( ( nil == configure ) || ( nil == dataLink ) || ( nil == timestamp ) )
+    {
+        return;
+    }
+    
+    //  check ID equal.
+    if ( [stickerIdentifier isEqualToString: ID] == NO )
+    {
+        return;
+    }
+    
     //  call download method.
+    [TDDownloadManager              download: configure from: dataLink
+                                        into: [customization stickerDownloadSubpath] of: [customization stickerDownloadDirectory]
+                               updateCheckBy: timestamp completed: ^(NSError * error, NSString * fullPath, BOOL finished)
+    {
+         NSLog( @"result %d, %@", finished, error );
+         NSLog( @"file full path : %@", fullPath );
+        if ( NO == finished )
+        {
+            return;
+        }
+        [self                       _SetDataDownloadState: YES];
+    }];
+    
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateDeleteButton
+{
+    
+    BOOL                            isDownloaded;
+    CGFloat                         screenWidth;
+    CGFloat                         subviewTop;
+    CGFloat                         buttonHeight;
+    CGRect                          buttonRect;
+    UITapGestureRecognizer        * tap;
+    
+    tap                             = nil;
+    isDownloaded                    = NO;
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    subviewTop                      = [self _GetNewSubviewTopPosition];
+    
+    subviewTop                      += 40.0f;
+    buttonHeight                    = 36.0f;
+    
+    buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );
+    
+    deleteButton                    = [UIButton buttonWithType: UIButtonTypeInfoDark];
+    if ( nil == deleteButton )
+    {
+        return NO;
+    }
+    
+    [deleteButton                   setFrame: buttonRect];
+    [deleteButton                   setBackgroundColor: [UIColor darkGrayColor]];
+    [deleteButton                   setTitle: @" Delete "      forState: UIControlStateNormal];
+//    [deleteButton                   setTitle: @" Is Downloaded " forState: UIControlStateDisabled];
+    [[self                          view] addSubview: deleteButton];
+    
+    //  width stretchy when device Orientation is changed.
+    [NSLayoutConstraint             constraintForWidthStretchy: deleteButton top: ( subviewTop + 1.0f ) height: buttonHeight in: [self view]];
     
     
+    if ( [self _IsDownloaded: &isDownloaded] == YES )
+    {
+        [deleteButton               setHidden: !isDownloaded];
+    }
+    
+    tap                             = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector( _TapDeleteButtonAction: )];
+    if ( nil == tap )
+    {
+        return YES;
+    }
+    [deleteButton                   addGestureRecognizer: tap];
+    
+    SAFE_ARC_RELEASE( tap );
+    tap                             = nil;
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _TapDeleteButtonAction:(id)sender
+{
+    NSParameterAssert( [pageConfigure infoDataCount] == 1 );
+    
+    NSInteger                       index;
+    NSString                      * ID;
+    NSString                      * configure;
+    NSString                      * timestamp;
+    NSString                      * filePath;
+    
+    index                           = 0;
+    ID                              = [pageConfigure dataIDAtIndex: index];
+    configure                       = [pageConfigure configureNameAtIndex: index];
+    timestamp                       = [pageConfigure timestampAtIndex: index];
+    
+    //  need not to download
+    if ( ( nil == configure ) || ( nil == timestamp ) )
+    {
+        return;
+    }
+    
+    //  check ID equal.
+    if ( [stickerIdentifier isEqualToString: ID] == NO )
+    {
+        return;
+    }
+    
+    filePath                        = TDGetPathForDirectoriesWithTimestamp( [customization stickerDownloadDirectory],
+                                                                           configure, timestamp, nil,
+                                                                           [customization stickerDownloadSubpath], YES );
+    if ( nil == filePath )
+    {
+        return;
+    }
     
     
-    //  finish ... then ...
+    //  remove file.
+    NSFileManager                 * manager;
+    NSError                       * error;
+    BOOL                            isDir;
     
-    [downloadButton                 setEnabled: NO];
+    error                           = nil;
+    isDir                           = NO;
+    
+    //  when file exist, delete it.
+    manager                         = [NSFileManager defaultManager];
+    if ( [manager fileExistsAtPath: filePath isDirectory: &isDir] == NO )
+    {
+        return;
+    }
+    if ( YES == isDir )
+    {
+        return;
+    }
+    
+    if ( [manager removeItemAtPath: filePath error: &error] == NO )
+    {
+        NSLog( @"remove file error : %@ ", error );
+        return;
+    }
+    
+    //  delete file finish.
+    [self                       _SetDataDownloadState: NO];
+    return;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -399,6 +574,80 @@
     return subviewTop;
 }
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _IsDownloaded:(BOOL *)isDownloaded
+{
+    NSParameterAssert( [pageConfigure infoDataCount] == 1 );
+
+    NSInteger                       index;
+    NSString                      * configure;
+    NSString                      * timestamp;
+    NSString                      * filePath;
+    
+    index                           = 0;
+    configure                       = [pageConfigure configureNameAtIndex: index];
+    timestamp                       = [pageConfigure timestampAtIndex: index];
+    
+    //  need not to download
+    if ( ( nil == configure ) || ( nil == timestamp ) )
+    {
+        return NO;
+    }
+    
+    filePath                        = TDGetPathForDirectoriesWithTimestamp( [customization stickerDownloadDirectory],
+                                                                           configure,
+                                                                           timestamp,
+                                                                           nil,
+                                                                           [customization stickerDownloadSubpath], YES );
+    if ( NULL != isDownloaded )
+    {
+        *isDownloaded               = ( ( nil == filePath ) ? NO : YES );
+    }
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _SetDataDownloadState:(BOOL)checkFileExist
+{
+    BOOL                            fileExist;
+    
+    fileExist                       = NO;
+    if ( [self _IsDownloaded: &fileExist] == NO )
+    {
+        return NO;
+    }
+    
+    //  for check download action.
+    if ( YES == checkFileExist )
+    {
+        if ( NO == fileExist )
+        {
+            return YES;
+        }
+        //  finish ... then ...
+        dataIsDownloaded            = YES;
+        actionFinished              = YES;
+        
+        [downloadButton             setEnabled: NO];
+        [deleteButton               setHidden: NO];
+        return YES;
+    }
+
+    //  for check delete action.
+    if ( YES == fileExist )
+    {
+        return YES;
+    }
+    
+    //  finish ... then ...
+    dataIsDownloaded                = NO;
+    actionFinished                  = YES;
+    
+    [downloadButton                 setEnabled: YES];
+    [deleteButton                   setHidden: YES];
+    return YES;
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -464,6 +713,7 @@
     [self                           _CreateNavigationBar];
     
     [self                           _CreateDownloadButton];
+    [self                           _CreateDeleteButton];
     
     
     
