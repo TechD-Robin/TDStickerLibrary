@@ -32,6 +32,9 @@
 {
     UILabel                       * titleLabel;
     
+    UIImageView                   * informationView;
+    UIImageView                   * downloadView;
+    
 }
 //  ------------------------------------------------------------------------------------------------
 
@@ -79,6 +82,26 @@
 - ( BOOL ) _CreateTitle;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a information view.
+ *  create a information view.
+ *
+ *  @return YES|NO                  method success or failure
+ */
+- ( BOOL ) _CreateInformationView;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a download view.
+ *  create a download view.
+ *
+ *  @return YES|NO                  method success or failure
+ */
+- ( BOOL ) _CreateDownloadView;
+
+//  ------------------------------------------------------------------------------------------------
+
+
 
 @end
 
@@ -100,6 +123,8 @@
 - ( void ) _InitAttributes
 {
     titleLabel                      = nil;
+    informationView                 = nil;
+    downloadView                    = nil;
     
     
     [self                           setSectionIndex: 0];
@@ -165,9 +190,88 @@
     
     [[self                          idDelegate] collectionView: (UICollectionView *)[self superview] didSelectHeaderInSection: [self sectionIndex]];
     
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateInformationView
+{
+    CGRect                          infoViewRect;
+    CGFloat                         headerHeight;
+    
+    headerHeight                    = [self bounds].size.height;
+    headerHeight                    *= ( 2.0f / 3.0f );
+    infoViewRect                    = CGRectMake( 2.0f, 1.0f, headerHeight, headerHeight );
+    informationView                 = [[UIImageView alloc] initWithFrame: infoViewRect];
+    if ( nil == informationView )
+    {
+        return NO;
+    }
+    
+    [self                           addSubview: informationView];
+    
+    [informationView                setUserInteractionEnabled: YES];
+    [UIGestureRecognizer            tapGestureRecognizer: informationView withTarget: self action: @selector( _TapInfoViewAction: )];
     
     
     
+    //  test.
+    [informationView                setBackgroundColor: [UIColor darkGrayColor]];
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _TapInfoViewAction:(UITapGestureRecognizer *)sender
+{
+    if ( ( [self superview] == nil ) || ( [[self superview] isKindOfClass: [UICollectionView class]] == NO ) )
+    {
+        return;
+    }
+    
+    if ( sender.state != UIGestureRecognizerStateEnded )
+    {
+        return;
+    }
+    
+    if ( [self idDelegate] == nil )
+    {
+        NSLog( @"!!!!Warning!!!! maybe lose to assign delegate of the class: %@ ", NSStringFromClass( [self class] ));
+        NSParameterAssert( [self idDelegate] );
+    }
+    
+    if ( [[self idDelegate] respondsToSelector: @selector( collectionView: didSelectHeaderInformationInSection: )] == NO )
+    {
+        return;
+    }
+    
+    [[self                          idDelegate] collectionView: (UICollectionView *)[self superview] didSelectHeaderInformationInSection: [self sectionIndex]];
+    
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateDownloadView
+{
+    CGRect                          dlViewRect;
+    CGFloat                         height;
+    CGFloat                         left;
+    
+    left                            = [self bounds].size.width;
+    height                          = [self bounds].size.height;
+    height                          -= ( 2 * 2 );
+    left                            -= ( 2 + height );
+    dlViewRect                      = CGRectMake( left, 2.0f, height, height );
+    downloadView                    = [[UIImageView alloc] initWithFrame: dlViewRect];
+    if ( nil == downloadView )
+    {
+        return NO;
+    }
+    
+    [self                           addSubview: downloadView];
+    
+    
+    //  test.
+    [downloadView                   setBackgroundColor: [UIColor darkGrayColor]];
+    return YES;
 }
 
 
@@ -190,6 +294,7 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark synthesize variable.
 @synthesize sectionIndex            = _sectionIndex;
+@synthesize isDownloadedData        = _isDownloadedData;
 @synthesize sectionTitle            = _sectionTitle;
 
 //  ------------------------------------------------------------------------------------------------
@@ -207,6 +312,8 @@
     [self                           _InitAttributes];
     
     [self                           _CreateTitle];
+    [self                           _CreateInformationView];
+    [self                           _CreateDownloadView];
     
     [self                           _CreateTapAction];
     return self;
@@ -224,6 +331,8 @@
     [self                           _InitAttributes];
     
     [self                           _CreateTitle];
+    [self                           _CreateInformationView];
+    [self                           _CreateDownloadView];
     
     [self                           _CreateTapAction];
     return self;
@@ -236,6 +345,18 @@
     {
         SAFE_ARC_RELEASE( titleLabel );
         SAFE_ARC_ASSIGN_POINTER_NIL( titleLabel );
+    }
+    
+    if ( nil != informationView )
+    {
+        SAFE_ARC_RELEASE( informationView );
+        SAFE_ARC_ASSIGN_POINTER_NIL( informationView );
+    }
+    
+    if ( nil != downloadView )
+    {
+        SAFE_ARC_RELEASE( downloadView );
+        SAFE_ARC_ASSIGN_POINTER_NIL( downloadView );
     }
     
     SAFE_ARC_SUPER_DEALLOC();
@@ -257,6 +378,27 @@
         return;
     }
     [titleLabel                     setText: [self sectionTitle]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setIsDownloadedData:(BOOL)isDownloaded
+{
+    _isDownloadedData               = isDownloaded;
+    
+    
+    //  test.
+    if ( [self isDownloadedData] == NO )
+    {
+        [informationView            setBackgroundColor: [UIColor blackColor]];
+        
+        [downloadView               setHidden: NO];
+    }
+    else
+    {
+        [informationView            setBackgroundColor: [UIColor darkGrayColor]];
+        
+        [downloadView               setHidden: YES];
+    }
 }
 
 //  ------------------------------------------------------------------------------------------------

@@ -570,9 +570,11 @@
         return nil;
     }
     
+    BOOL                            isDownloaded;
     NSString                      * title;
     TDStickerLibrarySectionHeader * header;
     
+    isDownloaded                    = NO;
     title                           = nil;
     header                          = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
                                                                          withReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionHeader class] ) forIndexPath: indexPath];
@@ -590,6 +592,12 @@
     [header                         setIdDelegate: self];
     [header                         setSectionIndex: indexPath.section];
     [header                         setSectionTitle: title];
+    
+    //  check download state.
+    if ( [sectionStates downloadState: &isDownloaded inSection: indexPath.section] == YES )
+    {
+        [header                     setIsDownloadedData: isDownloaded];
+    }
     return header;
 }
 
@@ -690,6 +698,7 @@
         
         //  when action is finish.
         [sectionStates              updateDownloadState: isDownloaded inSection: sectionIndex];
+        [self                       reloadData];
     }];
     
     
@@ -1324,6 +1333,23 @@
     [self _CollectionView: collectionView didSelectNormalModeHeaderInSection: section];
     return;
 }
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) collectionView:(UICollectionView *)collectionView didSelectHeaderInformationInSection:(NSInteger)section
+{
+    NSParameterAssert( nil != pageConfigure );
+    NSParameterAssert( nil != sectionStates );
+    
+    
+    //  先設定成 沒有 download info 就不能進去這一頁.
+    //  check again.
+    if ( [self _IsMustDownloadStickerAtIndex: section] == NO )
+    {
+        return;
+    }
+    [self                           _CreateIntroductionForSection: section];
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark protocol required for TDSectionPreviewCellDelegate.
