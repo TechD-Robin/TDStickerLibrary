@@ -40,10 +40,15 @@
      */
     UINavigationBar               * navigationBar;
     
+    /**
+     *  a download button for download action.
+     */
     UIButton                      * downloadButton;
-    UIButton                      * deleteButton;
     
-    // ...
+    /**
+     *  a delete button for delete action.
+     */
+    UIButton                      * deleteButton;
     
     /**
      *  a view for sticker preview.
@@ -132,9 +137,21 @@
 - ( BOOL ) _CreateNavigationBar;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a download action's button object into this object.
+ *  create a download action's button object into this object.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _CreateDownloadButton;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a delete action's button object into this object.
+ *  create a delete action's button object into this object.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _CreateDeleteButton;
 
 //  ------------------------------------------------------------------------------------------------
@@ -159,10 +176,27 @@
 
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for check object's properties.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check the file is downloaded or not.
+ *  check the file is downloaded or not, a data is downloaded, the value is YES, otherwise it's NO(maybe is mean data delete).
+ *
+ *  @param isDownloaded             pointer of the download state to get result..
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _IsDownloaded:(BOOL *)isDownloaded;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set some states of data download.
+ *  set some states of data download, include variable & UI object's properties.
+ *
+ *  @param checkFileExist           set these states about file is exist or not.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _SetDataDownloadState:(BOOL)checkFileExist;
 
 //  ------------------------------------------------------------------------------------------------
@@ -411,7 +445,6 @@
     [deleteButton                   setFrame: buttonRect];
     [deleteButton                   setBackgroundColor: [UIColor darkGrayColor]];
     [deleteButton                   setTitle: @" Delete "      forState: UIControlStateNormal];
-//    [deleteButton                   setTitle: @" Is Downloaded " forState: UIControlStateDisabled];
     [[self                          view] addSubview: deleteButton];
     
     //  width stretchy when device Orientation is changed.
@@ -575,6 +608,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for check object's properties.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _IsDownloaded:(BOOL *)isDownloaded
 {
@@ -682,6 +716,15 @@
         navigationBar               = nil;
     }
     
+    if ( nil != downloadButton )
+    {
+        downloadButton              = nil;
+    }
+    if ( nil != deleteButton )
+    {
+        deleteButton                = nil;
+    }
+    
     if ( nil != stickerPageView )
     {
         SAFE_ARC_RELEASE( stickerPageView );
@@ -698,6 +741,11 @@
     if ( nil != pageConfigure )
     {
         pageConfigure               = nil;
+    }
+    
+    if ( nil != finishedCallbackBlock )
+    {
+        finishedCallbackBlock       = nil;
     }
     
 }
