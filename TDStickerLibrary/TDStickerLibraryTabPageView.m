@@ -570,9 +570,11 @@
         return nil;
     }
     
+    BOOL                            isDownloaded;
     NSString                      * title;
     TDStickerLibrarySectionHeader * header;
     
+    isDownloaded                    = NO;
     title                           = nil;
     header                          = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
                                                                          withReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionHeader class] ) forIndexPath: indexPath];
@@ -590,6 +592,12 @@
     [header                         setIdDelegate: self];
     [header                         setSectionIndex: indexPath.section];
     [header                         setSectionTitle: title];
+    
+    //  check download state.
+    if ( [sectionStates downloadState: &isDownloaded inSection: indexPath.section] == YES )
+    {
+        [header                     setIsDownloadedData: isDownloaded];
+    }
     return header;
 }
 
@@ -667,18 +675,32 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateIntroductionForSection:(NSInteger)section
 {
-    
     NSString                          * ID;
     TDStickerLibraryStickerIntroDLVC  * introVC;
     id                                  viewController;
     
-    ID                              = [pageConfigure dataIDAtIndex: section];
+    ID                              = [sectionStates idInSection: section];
     introVC                         = [TDStickerLibraryStickerIntroDLVC introductionDL: customizationParam
                                                                              configure: pageConfigure forSection: section identifier: ID];
     if ( nil == introVC )
     {
         return NO;
     }
+    
+    //  set callbackup.
+    [introVC                        setFinishedIntroDLVCCallbackBlock: ^(NSString * stickerID, NSInteger sectionIndex,BOOL isDownloaded, BOOL actionFinished)
+    {
+        NSLog( @"finished :%d  sticker ID :%@  index : %d  isDownload : %d", actionFinished, stickerID, sectionIndex, isDownloaded );
+        if ( ( NO == actionFinished ) || ( -1 == sectionIndex ) || ( [stickerID isEqualToString: ID] == NO ) )
+        {
+            return;
+        }
+        
+        //  when action is finish.
+        [sectionStates              updateDownloadState: isDownloaded inSection: sectionIndex];
+        [self                       reloadData];
+    }];
+    
     
     viewController                  = [self viewController];
     if ( nil == viewController )
@@ -1311,6 +1333,23 @@
     [self _CollectionView: collectionView didSelectNormalModeHeaderInSection: section];
     return;
 }
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) collectionView:(UICollectionView *)collectionView didSelectHeaderInformationInSection:(NSInteger)section
+{
+    NSParameterAssert( nil != pageConfigure );
+    NSParameterAssert( nil != sectionStates );
+    
+    
+    //  先設定成 沒有 download info 就不能進去這一頁.
+    //  check again.
+    if ( [self _IsMustDownloadStickerAtIndex: section] == NO )
+    {
+        return;
+    }
+    [self                           _CreateIntroductionForSection: section];
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark protocol required for TDSectionPreviewCellDelegate.

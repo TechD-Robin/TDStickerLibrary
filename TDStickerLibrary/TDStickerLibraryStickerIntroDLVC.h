@@ -16,6 +16,27 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+#pragma mark type define.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief a block section be executed when closed this view controller.
+ *  a block section be executed when closed this view controller, these parameters will return finish information to method caller.
+ *
+ *  @param stickerID                identifier of sticker's data.
+ *  @param index                    section index.
+ *  @param isDownloaded (YES|NO)    a boolean value, a data is downloaded, the value is YES, otherwise it's NO(maybe is mean data delete).
+ *  @param actionFinished (YES|NO)  the action(download or delete) in this view controller is finished or not.
+ *
+ *  @return void                    nothing.
+ */
+typedef     void (^FinishedIntroDLVCCallbackBlock)(NSString * stickerID, NSInteger sectionIndex, BOOL isDownloaded, BOOL actionFinished);
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 /**
  *  the Sticker Library Sticker IntroDLVC(Introducton & Download View Controller) is a functional view controller,
  *  that for sticker preview or download.
@@ -48,6 +69,16 @@
 
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for base methos of procedure
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a block section be executed when closed this view controller.
+ *  set a block section be executed when closed this view controller, if you need result of this view controll, call this method.
+ *
+ *  @param callbackBlock            a block section be executed when closed this view controller.
+ */
+- ( void ) setFinishedIntroDLVCCallbackBlock:(FinishedIntroDLVCCallbackBlock)callbackBlock;
+
 //  ------------------------------------------------------------------------------------------------
 
 

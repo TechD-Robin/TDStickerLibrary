@@ -16,6 +16,7 @@
 
 #import "TDStickerLibraryStickerIntroDLVC.h"
 #import "TDStickerLibraryTabPageView.h"
+#import "TDDownloadManager.h"
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -39,7 +40,15 @@
      */
     UINavigationBar               * navigationBar;
     
-    // ...
+    /**
+     *  a download button for download action.
+     */
+    UIButton                      * downloadButton;
+    
+    /**
+     *  a delete button for delete action.
+     */
+    UIButton                      * deleteButton;
     
     /**
      *  a view for sticker preview.
@@ -68,6 +77,21 @@
      *  identifier of sticker's data.
      */
     NSString                      * stickerIdentifier;
+
+    /**
+     *  set the flag when data is downloaded or data is delete.
+     */
+    BOOL                            dataIsDownloaded;
+
+    /**
+     *  set the flag when action is success or failure
+     */
+    BOOL                            actionFinished;
+    
+    /**
+     *  assign a block's pointer for be executed when closed this view controller.
+     */
+    FinishedIntroDLVCCallbackBlock  finishedCallbackBlock;
     
 }
 //  ------------------------------------------------------------------------------------------------
@@ -112,6 +136,23 @@
  */
 - ( BOOL ) _CreateNavigationBar;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a download action's button object into this object.
+ *  create a download action's button object into this object.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _CreateDownloadButton;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a delete action's button object into this object.
+ *  create a delete action's button object into this object.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _CreateDeleteButton;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -132,6 +173,31 @@
  *  @return                         subview's top position.
  */
 - ( CGFloat ) _GetNewSubviewTopPosition;
+
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for check object's properties.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check the file is downloaded or not.
+ *  check the file is downloaded or not, a data is downloaded, the value is YES, otherwise it's NO(maybe is mean data delete).
+ *
+ *  @param isDownloaded             pointer of the download state to get result..
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _IsDownloaded:(BOOL *)isDownloaded;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set some states of data download.
+ *  set some states of data download, include variable & UI object's properties.
+ *
+ *  @param checkFileExist           set these states about file is exist or not.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _SetDataDownloadState:(BOOL)checkFileExist;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -157,6 +223,9 @@
 {
     //  sub view.
     navigationBar                   = nil;
+    downloadButton                  = nil;
+    deleteButton                    = nil;
+    
     
     stickerPageView                 = nil;
     
@@ -167,6 +236,10 @@
     //  sticker's page.
     sectionIndex                    = -1;
     stickerIdentifier               = nil;
+    
+    dataIsDownloaded                = NO;
+    actionFinished                  = NO;
+    finishedCallbackBlock           = nil;
 }
 
 //  --------------------------------
@@ -236,7 +309,231 @@
         {
             return;
         }
+        
+        if ( nil != finishedCallbackBlock )
+        {
+            finishedCallbackBlock( stickerIdentifier, sectionIndex, dataIsDownloaded, actionFinished );
+        }
     }];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateDownloadButton
+{
+    BOOL                            isDownloaded;
+    CGFloat                         screenWidth;
+    CGFloat                         subviewTop;
+    CGFloat                         buttonHeight;
+    CGRect                          buttonRect;
+    UITapGestureRecognizer        * tap;
+    
+    tap                             = nil;
+    isDownloaded                    = NO;
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    subviewTop                      = [self _GetNewSubviewTopPosition];
+    
+    subviewTop                      += 40.0f;
+    buttonHeight                    = 36.0f;
+    
+    buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );
+//.    downloadButton                  = [[UIButton alloc] initWithFrame: buttonRect];
+    downloadButton                  = [UIButton buttonWithType: UIButtonTypeInfoDark];
+    if ( nil == downloadButton )
+    {
+        return NO;
+    }
+    
+    [downloadButton                 setFrame: buttonRect];
+    [downloadButton                 setBackgroundColor: [UIColor darkGrayColor]];
+    [downloadButton                 setTitle: @" Download "      forState: UIControlStateNormal];
+    [downloadButton                 setTitle: @" Is Downloaded " forState: UIControlStateDisabled];
+    [[self                          view] addSubview: downloadButton];
+    
+    //  width stretchy when device Orientation is changed.
+    [NSLayoutConstraint             constraintForWidthStretchy: downloadButton top: ( subviewTop + 1.0f ) height: buttonHeight in: [self view]];
+
+    if ( [self _IsDownloaded: &isDownloaded] == YES )
+    {
+        [downloadButton             setEnabled: !isDownloaded];
+    }
+    
+    tap                             = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector( _TapDownloadButtonAction: )];
+    if ( nil == tap )
+    {
+        return YES;
+    }
+    [downloadButton                 addGestureRecognizer: tap];
+    
+    SAFE_ARC_RELEASE( tap );
+    tap                             = nil;
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _TapDownloadButtonAction:(id)sender
+{
+    NSParameterAssert( [pageConfigure infoDataCount] == 1 );
+    
+    NSInteger                       index;
+    NSString                      * ID;
+    NSString                      * configure;
+    NSString                      * dataLink;
+    NSString                      * timestamp;
+    
+    index                           = 0;
+    ID                              = [pageConfigure dataIDAtIndex: index];
+    configure                       = [pageConfigure configureNameAtIndex: index];
+    dataLink                        = [pageConfigure dataLinkAtIndex: index];
+    timestamp                       = [pageConfigure timestampAtIndex: index];
+    
+    //  need not to download
+    if ( ( nil == configure ) || ( nil == dataLink ) || ( nil == timestamp ) )
+    {
+        return;
+    }
+    
+    //  check ID equal.
+    if ( [stickerIdentifier isEqualToString: ID] == NO )
+    {
+        return;
+    }
+    
+    //  call download method.
+    [TDDownloadManager              download: configure from: dataLink
+                                        into: [customization stickerDownloadSubpath] of: [customization stickerDownloadDirectory]
+                               updateCheckBy: timestamp completed: ^(NSError * error, NSString * fullPath, BOOL finished)
+    {
+         NSLog( @"result %d, %@", finished, error );
+         NSLog( @"file full path : %@", fullPath );
+        if ( NO == finished )
+        {
+            return;
+        }
+        [self                       _SetDataDownloadState: YES];
+    }];
+    
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateDeleteButton
+{
+    
+    BOOL                            isDownloaded;
+    CGFloat                         screenWidth;
+    CGFloat                         subviewTop;
+    CGFloat                         buttonHeight;
+    CGRect                          buttonRect;
+    UITapGestureRecognizer        * tap;
+    
+    tap                             = nil;
+    isDownloaded                    = NO;
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    subviewTop                      = [self _GetNewSubviewTopPosition];
+    
+    subviewTop                      += 40.0f;
+    buttonHeight                    = 36.0f;
+    
+    buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );
+    
+    deleteButton                    = [UIButton buttonWithType: UIButtonTypeInfoDark];
+    if ( nil == deleteButton )
+    {
+        return NO;
+    }
+    
+    [deleteButton                   setFrame: buttonRect];
+    [deleteButton                   setBackgroundColor: [UIColor darkGrayColor]];
+    [deleteButton                   setTitle: @" Delete "      forState: UIControlStateNormal];
+    [[self                          view] addSubview: deleteButton];
+    
+    //  width stretchy when device Orientation is changed.
+    [NSLayoutConstraint             constraintForWidthStretchy: deleteButton top: ( subviewTop + 1.0f ) height: buttonHeight in: [self view]];
+    
+    
+    if ( [self _IsDownloaded: &isDownloaded] == YES )
+    {
+        [deleteButton               setHidden: !isDownloaded];
+    }
+    
+    tap                             = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector( _TapDeleteButtonAction: )];
+    if ( nil == tap )
+    {
+        return YES;
+    }
+    [deleteButton                   addGestureRecognizer: tap];
+    
+    SAFE_ARC_RELEASE( tap );
+    tap                             = nil;
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _TapDeleteButtonAction:(id)sender
+{
+    NSParameterAssert( [pageConfigure infoDataCount] == 1 );
+    
+    NSInteger                       index;
+    NSString                      * ID;
+    NSString                      * configure;
+    NSString                      * timestamp;
+    NSString                      * filePath;
+    
+    index                           = 0;
+    ID                              = [pageConfigure dataIDAtIndex: index];
+    configure                       = [pageConfigure configureNameAtIndex: index];
+    timestamp                       = [pageConfigure timestampAtIndex: index];
+    
+    //  need not to download
+    if ( ( nil == configure ) || ( nil == timestamp ) )
+    {
+        return;
+    }
+    
+    //  check ID equal.
+    if ( [stickerIdentifier isEqualToString: ID] == NO )
+    {
+        return;
+    }
+    
+    filePath                        = TDGetPathForDirectoriesWithTimestamp( [customization stickerDownloadDirectory],
+                                                                           configure, timestamp, nil,
+                                                                           [customization stickerDownloadSubpath], YES );
+    if ( nil == filePath )
+    {
+        return;
+    }
+    
+    
+    //  remove file.
+    NSFileManager                 * manager;
+    NSError                       * error;
+    BOOL                            isDir;
+    
+    error                           = nil;
+    isDir                           = NO;
+    
+    //  when file exist, delete it.
+    manager                         = [NSFileManager defaultManager];
+    if ( [manager fileExistsAtPath: filePath isDirectory: &isDir] == NO )
+    {
+        return;
+    }
+    if ( YES == isDir )
+    {
+        return;
+    }
+    
+    if ( [manager removeItemAtPath: filePath error: &error] == NO )
+    {
+        NSLog( @"remove file error : %@ ", error );
+        return;
+    }
+    
+    //  delete file finish.
+    [self                       _SetDataDownloadState: NO];
+    return;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -289,6 +586,11 @@
     {
         subviewTop                  += [navigationBar bounds].size.height;
     }
+    if ( nil != downloadButton )
+    {
+        subviewTop                  += [downloadButton bounds].size.height;
+    }
+    
 //    if ( nil != bannerView )
 //    {
 //        subviewTop                  += [bannerView bounds].size.height;
@@ -305,6 +607,81 @@
     return subviewTop;
 }
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for check object's properties.
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _IsDownloaded:(BOOL *)isDownloaded
+{
+    NSParameterAssert( [pageConfigure infoDataCount] == 1 );
+
+    NSInteger                       index;
+    NSString                      * configure;
+    NSString                      * timestamp;
+    NSString                      * filePath;
+    
+    index                           = 0;
+    configure                       = [pageConfigure configureNameAtIndex: index];
+    timestamp                       = [pageConfigure timestampAtIndex: index];
+    
+    //  need not to download
+    if ( ( nil == configure ) || ( nil == timestamp ) )
+    {
+        return NO;
+    }
+    
+    filePath                        = TDGetPathForDirectoriesWithTimestamp( [customization stickerDownloadDirectory],
+                                                                           configure,
+                                                                           timestamp,
+                                                                           nil,
+                                                                           [customization stickerDownloadSubpath], YES );
+    if ( NULL != isDownloaded )
+    {
+        *isDownloaded               = ( ( nil == filePath ) ? NO : YES );
+    }
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _SetDataDownloadState:(BOOL)checkFileExist
+{
+    BOOL                            fileExist;
+    
+    fileExist                       = NO;
+    if ( [self _IsDownloaded: &fileExist] == NO )
+    {
+        return NO;
+    }
+    
+    //  for check download action.
+    if ( YES == checkFileExist )
+    {
+        if ( NO == fileExist )
+        {
+            return YES;
+        }
+        //  finish ... then ...
+        dataIsDownloaded            = YES;
+        actionFinished              = YES;
+        
+        [downloadButton             setEnabled: NO];
+        [deleteButton               setHidden: NO];
+        return YES;
+    }
+
+    //  for check delete action.
+    if ( YES == fileExist )
+    {
+        return YES;
+    }
+    
+    //  finish ... then ...
+    dataIsDownloaded                = NO;
+    actionFinished                  = YES;
+    
+    [downloadButton                 setEnabled: YES];
+    [deleteButton                   setHidden: YES];
+    return YES;
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -339,6 +716,15 @@
         navigationBar               = nil;
     }
     
+    if ( nil != downloadButton )
+    {
+        downloadButton              = nil;
+    }
+    if ( nil != deleteButton )
+    {
+        deleteButton                = nil;
+    }
+    
     if ( nil != stickerPageView )
     {
         SAFE_ARC_RELEASE( stickerPageView );
@@ -357,6 +743,11 @@
         pageConfigure               = nil;
     }
     
+    if ( nil != finishedCallbackBlock )
+    {
+        finishedCallbackBlock       = nil;
+    }
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -368,6 +759,9 @@
     // Do any additional setup after loading the view.
 
     [self                           _CreateNavigationBar];
+    
+    [self                           _CreateDownloadButton];
+    [self                           _CreateDeleteButton];
     
     
     
@@ -418,6 +812,17 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for base methos of procedure
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setFinishedIntroDLVCCallbackBlock:(FinishedIntroDLVCCallbackBlock)callbackBlock
+{
+    if ( nil == callbackBlock )
+    {
+        return;
+    }
+    finishedCallbackBlock           = callbackBlock;
+}
+
 //  ------------------------------------------------------------------------------------------------
 
 

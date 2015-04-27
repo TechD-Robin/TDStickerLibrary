@@ -29,7 +29,14 @@
 - ( void ) collectionView:(UICollectionView *)collectionView didSelectHeaderInSection:(NSInteger)section;
 
 //  ------------------------------------------------------------------------------------------------
-
+/**
+ *  @brief when header's information view in section of collection view is tap, call the delegate method.
+ *  when header's information view in section of collection view is tap, call the delegate method.
+ *
+ *  @param collectionView           the collection view( header's super view).
+ *  @param section                  section index.
+ */
+- ( void ) collectionView:(UICollectionView *)collectionView didSelectHeaderInformationInSection:(NSInteger)section;
 //  ------------------------------------------------------------------------------------------------
 
 @end
@@ -60,6 +67,11 @@
  *  section's index.
  */
 @property( nonatomic, assign ) NSInteger                        sectionIndex;
+
+/**
+ *  set to assign the section's data is download or not.
+ */
+@property( nonatomic, assign ) BOOL                             isDownloadedData;
 
 /**
  *  section's title.

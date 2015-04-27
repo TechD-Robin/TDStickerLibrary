@@ -269,6 +269,20 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
 #pragma mark method for i/o the state data in section.
 //  ------------------------------------------------------------------------------------------------
 //  mini state.
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) idInSection:(NSInteger)section
+{
+    NSDictionary                  * stateInfo;
+    
+    stateInfo                       = [self _GetStateInfoAtIndex: section];
+    if ( nil == stateInfo )
+    {
+        return nil;
+    }
+    return [stateInfo objectForKey: kTDSectionStateKeyID];
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) miniState:(BOOL *)miniState inSection:(NSInteger)section;
 {
     NSDictionary                  * stateInfo;
