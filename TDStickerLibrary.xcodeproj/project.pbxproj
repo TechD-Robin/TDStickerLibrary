@@ -79,6 +79,71 @@
 		2AA8CEBC1AC171DE003901EB /* UIImageView+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEAE1AC171DE003901EB /* UIImageView+TechD.m */; };
 		2AA8CEBD1AC171DE003901EB /* UIScreen+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEB11AC171DE003901EB /* UIScreen+TechD.m */; };
 		2AA8CEBE1AC171DE003901EB /* UIScreen+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEB11AC171DE003901EB /* UIScreen+TechD.m */; };
+		2AAB793C1AEE9F0C00DA71A8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB793B1AEE9F0C00DA71A8 /* main.m */; };
+		2AAB793F1AEE9F0C00DA71A8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB793E1AEE9F0C00DA71A8 /* AppDelegate.m */; };
+		2AAB79421AEE9F0C00DA71A8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB79411AEE9F0C00DA71A8 /* ViewController.m */; };
+		2AAB79471AEE9F0C00DA71A8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB79461AEE9F0C00DA71A8 /* Images.xcassets */; };
+		2AAB79561AEE9F0C00DA71A8 /* DemoStickerLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB79551AEE9F0C00DA71A8 /* DemoStickerLibraryTests.m */; };
+		2AAB795F1AEEA19400DA71A8 /* Configure in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB795E1AEEA19400DA71A8 /* Configure */; };
+		2AAB79601AEEA19400DA71A8 /* Configure in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB795E1AEEA19400DA71A8 /* Configure */; };
+		2AAB79611AEEA19400DA71A8 /* Configure in Resources */ = {isa = PBXBuildFile; fileRef = 2AAB795E1AEEA19400DA71A8 /* Configure */; };
+		2AAB79621AEEA1CF00DA71A8 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB7062F1A6FE00C006C6845 /* libz.dylib */; };
+		2AAB79631AEEA21300DA71A8 /* TDMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207821AC08A1E005FE8A7 /* TDMath.m */; };
+		2AAB79641AEEA21300DA71A8 /* TDTrigonometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207841AC08A1E005FE8A7 /* TDTrigonometry.m */; };
+		2AAB79651AEEA21300DA71A8 /* TDGeometricFigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207801AC08A1E005FE8A7 /* TDGeometricFigure.m */; };
+		2AAB79661AEEA21300DA71A8 /* UIScreen+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEB11AC171DE003901EB /* UIScreen+TechD.m */; };
+		2AAB79671AEEA21300DA71A8 /* UIImage+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEAC1AC171DE003901EB /* UIImage+TechD.m */; };
+		2AAB79681AEEA21300DA71A8 /* UIView+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD9D5581AE4374700B2634F /* UIView+TechD.m */; };
+		2AAB79691AEEA21300DA71A8 /* UIImageView+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEAE1AC171DE003901EB /* UIImageView+TechD.m */; };
+		2AAB796A1AEEA21300DA71A8 /* UIGestureRecognizer+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEAA1AC171DE003901EB /* UIGestureRecognizer+TechD.m */; };
+		2AAB796B1AEEA21300DA71A8 /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEA81AC171DE003901EB /* NSLayoutConstraint+TechD.m */; };
+		2AAB796C1AEEA21300DA71A8 /* NSString+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207F71AC08B15005FE8A7 /* NSString+TechD.m */; };
+		2AAB796D1AEEA21300DA71A8 /* NSDate+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9A765A1AE17AE5007F36D3 /* NSDate+TechD.m */; };
+		2AAB796E1AEEA21300DA71A8 /* NSJSONSerialization+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207F51AC08B15005FE8A7 /* NSJSONSerialization+TechD.m */; };
+		2AAB796F1AEEA21300DA71A8 /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5D039C1A750A8E002B4A5D /* TDUtilities.m */; };
+		2AAB79701AEEA21300DA71A8 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2FE8B1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m */; };
+		2AAB79711AEEA21300DA71A8 /* TDJSONReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59F51AD8450C000CEA93 /* TDJSONReader.m */; };
+		2AAB79721AEEA21300DA71A8 /* TDBaseTabMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABD8E361A714E9300626356 /* TDBaseTabMenuItem.m */; };
+		2AAB79731AEEA21400DA71A8 /* ZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706281A6FDFE4006C6845 /* ZipArchive.m */; };
+		2AAB79741AEEA21400DA71A8 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207AC1AC08A8C005FE8A7 /* AFNetworkActivityIndicatorManager.m */; };
+		2AAB79751AEEA21400DA71A8 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207AE1AC08A8C005FE8A7 /* UIActivityIndicatorView+AFNetworking.m */; };
+		2AAB79761AEEA21400DA71A8 /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207B01AC08A8C005FE8A7 /* UIAlertView+AFNetworking.m */; };
+		2AAB79771AEEA21400DA71A8 /* UIButton+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207B21AC08A8C005FE8A7 /* UIButton+AFNetworking.m */; };
+		2AAB79781AEEA21400DA71A8 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207B41AC08A8C005FE8A7 /* UIImageView+AFNetworking.m */; };
+		2AAB79791AEEA21400DA71A8 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207B71AC08A8C005FE8A7 /* UIProgressView+AFNetworking.m */; };
+		2AAB797A1AEEA21400DA71A8 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207B91AC08A8C005FE8A7 /* UIRefreshControl+AFNetworking.m */; };
+		2AAB797B1AEEA21400DA71A8 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207BB1AC08A8C005FE8A7 /* UIWebView+AFNetworking.m */; };
+		2AAB797C1AEEA21400DA71A8 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207961AC08A8C005FE8A7 /* AFHTTPRequestOperation.m */; };
+		2AAB797D1AEEA21400DA71A8 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207981AC08A8C005FE8A7 /* AFHTTPRequestOperationManager.m */; };
+		2AAB797E1AEEA21400DA71A8 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52079A1AC08A8C005FE8A7 /* AFHTTPSessionManager.m */; };
+		2AAB797F1AEEA21400DA71A8 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52079D1AC08A8C005FE8A7 /* AFNetworkReachabilityManager.m */; };
+		2AAB79801AEEA21400DA71A8 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52079F1AC08A8C005FE8A7 /* AFSecurityPolicy.m */; };
+		2AAB79811AEEA21400DA71A8 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207A11AC08A8C005FE8A7 /* AFURLConnectionOperation.m */; };
+		2AAB79821AEEA21400DA71A8 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207A31AC08A8C005FE8A7 /* AFURLRequestSerialization.m */; };
+		2AAB79831AEEA21400DA71A8 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207A51AC08A8C005FE8A7 /* AFURLResponseSerialization.m */; };
+		2AAB79841AEEA21400DA71A8 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207A71AC08A8C005FE8A7 /* AFURLSessionManager.m */; };
+		2AAB79851AEEA21400DA71A8 /* TDNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207E91AC08AF7005FE8A7 /* TDNetworkReachabilityManager.m */; };
+		2AAB79861AEEA21400DA71A8 /* TDDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207E71AC08AF7005FE8A7 /* TDDownloadManager.m */; };
+		2AAB79871AEEA21400DA71A8 /* TDPreUpdateProcedure.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BE1961ACD4EC3005CA500 /* TDPreUpdateProcedure.m */; };
+		2AAB79881AEEA21400DA71A8 /* TDPreUpdateJSONInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59F81AD84552000CEA93 /* TDPreUpdateJSONInfo.m */; };
+		2AAB79891AEEA23000DA71A8 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7061E1A6FDFE4006C6845 /* ioapi.c */; };
+		2AAB798A1AEEA23000DA71A8 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706201A6FDFE4006C6845 /* mztools.c */; };
+		2AAB798B1AEEA23000DA71A8 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706221A6FDFE4006C6845 /* unzip.c */; };
+		2AAB798C1AEEA23000DA71A8 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706241A6FDFE4006C6845 /* zip.c */; };
+		2AAB798D1AEEA24200DA71A8 /* TDStickerLibraryUnzip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743671A8219EC0057586A /* TDStickerLibraryUnzip.m */; };
+		2AAB798E1AEEA24200DA71A8 /* TDStickerLibraryTabInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */; };
+		2AAB798F1AEEA24200DA71A8 /* TDStickerLibraryTabPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A47436D1A823CE30057586A /* TDStickerLibraryTabPageInfo.m */; };
+		2AAB79901AEEA24200DA71A8 /* TDStickerLibrarySectionStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AFDFAD61A838B8D00A82E55 /* TDStickerLibrarySectionStates.m */; };
+		2AAB79911AEEA24200DA71A8 /* TDStickerLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */; };
+		2AAB79921AEEA24200DA71A8 /* TDStickerLibraryCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7068E1A700918006C6845 /* TDStickerLibraryCustomization.m */; };
+		2AAB79931AEEA24200DA71A8 /* TDStickerLibraryUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A29D0101ADAE1460096161D /* TDStickerLibraryUpdate.m */; };
+		2AAB79941AEEA24200DA71A8 /* TDStickerLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF5071A695E7B0026EF9D /* TDStickerLibraryViewController.m */; };
+		2AAB79951AEEA24200DA71A8 /* TDStickerLibraryTabPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743761A826D5E0057586A /* TDStickerLibraryTabPageLayout.m */; };
+		2AAB79961AEEA24200DA71A8 /* TDStickerLibrarySectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743791A8270140057586A /* TDStickerLibrarySectionHeader.m */; };
+		2AAB79971AEEA24200DA71A8 /* TDStickerLibrarySectionPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A47437C1A82710C0057586A /* TDStickerLibrarySectionPreviewCell.m */; };
+		2AAB79981AEEA24200DA71A8 /* TDStickerLibraryStickerSoloView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A99ECF71A8A6FB30059AA41 /* TDStickerLibraryStickerSoloView.m */; };
+		2AAB79991AEEA24200DA71A8 /* TDStickerLibraryTabPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A47437F1A8272050057586A /* TDStickerLibraryTabPageView.m */; };
+		2AAB799A1AEEA24200DA71A8 /* TDStickerLibraryStickerIntroDLVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA733DB1AE3AD1F0050B7FC /* TDStickerLibraryStickerIntroDLVC.m */; };
 		2AADF4BD1A69599E0026EF9D /* TDStickerLibrary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */; };
 		2AADF4BF1A69599E0026EF9D /* TDStickerLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */; };
 		2AADF4C51A69599E0026EF9D /* libTDStickerLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */; };
@@ -98,6 +163,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2AAB79501AEE9F0C00DA71A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AADF4B11A69599E0026EF9D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2AAB79361AEE9F0B00DA71A8;
+			remoteInfo = DemoStickerLibrary;
+		};
 		2AADF4C61A69599E0026EF9D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2AADF4B11A69599E0026EF9D /* Project object */;
@@ -224,6 +296,18 @@
 		2AA8CEAF1AC171DE003901EB /* UIKit+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKit+TechD.h"; sourceTree = "<group>"; };
 		2AA8CEB01AC171DE003901EB /* UIScreen+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+TechD.h"; sourceTree = "<group>"; };
 		2AA8CEB11AC171DE003901EB /* UIScreen+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+TechD.m"; sourceTree = "<group>"; };
+		2AAB79371AEE9F0B00DA71A8 /* DemoStickerLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoStickerLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AAB793A1AEE9F0C00DA71A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2AAB793B1AEE9F0C00DA71A8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2AAB793D1AEE9F0C00DA71A8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2AAB793E1AEE9F0C00DA71A8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2AAB79401AEE9F0C00DA71A8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		2AAB79411AEE9F0C00DA71A8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		2AAB79461AEE9F0C00DA71A8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2AAB794F1AEE9F0C00DA71A8 /* DemoStickerLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoStickerLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AAB79541AEE9F0C00DA71A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2AAB79551AEE9F0C00DA71A8 /* DemoStickerLibraryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoStickerLibraryTests.m; sourceTree = "<group>"; };
+		2AAB795E1AEEA19400DA71A8 /* Configure */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Configure; path = Resources/Configure; sourceTree = "<group>"; };
 		2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTDStickerLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDStickerLibrary.h; sourceTree = "<group>"; };
 		2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibrary.m; sourceTree = "<group>"; };
@@ -263,6 +347,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2AAB79341AEE9F0B00DA71A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AAB79621AEEA1CF00DA71A8 /* libz.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AAB794C1AEE9F0C00DA71A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2AADF4B61A69599E0026EF9D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -475,13 +574,63 @@
 			path = "UIKit+TechD";
 			sourceTree = "<group>";
 		};
+		2AAB79381AEE9F0B00DA71A8 /* DemoStickerLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				2AAB793D1AEE9F0C00DA71A8 /* AppDelegate.h */,
+				2AAB793E1AEE9F0C00DA71A8 /* AppDelegate.m */,
+				2AAB79401AEE9F0C00DA71A8 /* ViewController.h */,
+				2AAB79411AEE9F0C00DA71A8 /* ViewController.m */,
+				2AAB79461AEE9F0C00DA71A8 /* Images.xcassets */,
+				2AAB79391AEE9F0C00DA71A8 /* Supporting Files */,
+			);
+			path = DemoStickerLibrary;
+			sourceTree = "<group>";
+		};
+		2AAB79391AEE9F0C00DA71A8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2AAB793A1AEE9F0C00DA71A8 /* Info.plist */,
+				2AAB793B1AEE9F0C00DA71A8 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2AAB79521AEE9F0C00DA71A8 /* DemoStickerLibraryTests */ = {
+			isa = PBXGroup;
+			children = (
+				2AAB79551AEE9F0C00DA71A8 /* DemoStickerLibraryTests.m */,
+				2AAB79531AEE9F0C00DA71A8 /* Supporting Files */,
+			);
+			path = DemoStickerLibraryTests;
+			sourceTree = "<group>";
+		};
+		2AAB79531AEE9F0C00DA71A8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2AAB79541AEE9F0C00DA71A8 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2AAB795D1AEEA16C00DA71A8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2AAB795E1AEEA19400DA71A8 /* Configure */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		2AADF4B01A69599E0026EF9D = {
 			isa = PBXGroup;
 			children = (
 				2AADF50F1A695F230026EF9D /* ARCMacros.h */,
 				2AADF4BB1A69599E0026EF9D /* TDStickerLibrary */,
 				2AADF4C81A69599E0026EF9D /* TDStickerLibraryTests */,
+				2AAB79381AEE9F0B00DA71A8 /* DemoStickerLibrary */,
+				2AAB79521AEE9F0C00DA71A8 /* DemoStickerLibraryTests */,
 				2AADF5051A695E600026EF9D /* Libraries */,
+				2AAB795D1AEEA16C00DA71A8 /* Resources */,
 				2AADF4BA1A69599E0026EF9D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -491,6 +640,8 @@
 			children = (
 				2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */,
 				2AADF4C41A69599E0026EF9D /* TDStickerLibraryTests.xctest */,
+				2AAB79371AEE9F0B00DA71A8 /* DemoStickerLibrary.app */,
+				2AAB794F1AEE9F0C00DA71A8 /* DemoStickerLibraryTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -620,6 +771,41 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2AAB79361AEE9F0B00DA71A8 /* DemoStickerLibrary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AAB795B1AEE9F0C00DA71A8 /* Build configuration list for PBXNativeTarget "DemoStickerLibrary" */;
+			buildPhases = (
+				2AAB79331AEE9F0B00DA71A8 /* Sources */,
+				2AAB79341AEE9F0B00DA71A8 /* Frameworks */,
+				2AAB79351AEE9F0B00DA71A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DemoStickerLibrary;
+			productName = DemoStickerLibrary;
+			productReference = 2AAB79371AEE9F0B00DA71A8 /* DemoStickerLibrary.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2AAB794E1AEE9F0C00DA71A8 /* DemoStickerLibraryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AAB795C1AEE9F0C00DA71A8 /* Build configuration list for PBXNativeTarget "DemoStickerLibraryTests" */;
+			buildPhases = (
+				2AAB794B1AEE9F0C00DA71A8 /* Sources */,
+				2AAB794C1AEE9F0C00DA71A8 /* Frameworks */,
+				2AAB794D1AEE9F0C00DA71A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2AAB79511AEE9F0C00DA71A8 /* PBXTargetDependency */,
+			);
+			name = DemoStickerLibraryTests;
+			productName = DemoStickerLibraryTests;
+			productReference = 2AAB794F1AEE9F0C00DA71A8 /* DemoStickerLibraryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		2AADF4B81A69599E0026EF9D /* TDStickerLibrary */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2AADF4CD1A69599E0026EF9D /* Build configuration list for PBXNativeTarget "TDStickerLibrary" */;
@@ -664,6 +850,13 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = TechD;
 				TargetAttributes = {
+					2AAB79361AEE9F0B00DA71A8 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					2AAB794E1AEE9F0C00DA71A8 = {
+						CreatedOnToolsVersion = 6.3.1;
+						TestTargetID = 2AAB79361AEE9F0B00DA71A8;
+					};
 					2AADF4B81A69599E0026EF9D = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
@@ -678,6 +871,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 2AADF4B01A69599E0026EF9D;
 			productRefGroup = 2AADF4BA1A69599E0026EF9D /* Products */;
@@ -686,21 +880,115 @@
 			targets = (
 				2AADF4B81A69599E0026EF9D /* TDStickerLibrary */,
 				2AADF4C31A69599E0026EF9D /* TDStickerLibraryTests */,
+				2AAB79361AEE9F0B00DA71A8 /* DemoStickerLibrary */,
+				2AAB794E1AEE9F0C00DA71A8 /* DemoStickerLibraryTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2AAB79351AEE9F0B00DA71A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AAB79471AEE9F0C00DA71A8 /* Images.xcassets in Resources */,
+				2AAB79601AEEA19400DA71A8 /* Configure in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AAB794D1AEE9F0C00DA71A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AAB79611AEEA19400DA71A8 /* Configure in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2AADF4C21A69599E0026EF9D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AAB795F1AEEA19400DA71A8 /* Configure in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2AAB79331AEE9F0B00DA71A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AAB798D1AEEA24200DA71A8 /* TDStickerLibraryUnzip.m in Sources */,
+				2AAB798E1AEEA24200DA71A8 /* TDStickerLibraryTabInfo.m in Sources */,
+				2AAB798F1AEEA24200DA71A8 /* TDStickerLibraryTabPageInfo.m in Sources */,
+				2AAB79901AEEA24200DA71A8 /* TDStickerLibrarySectionStates.m in Sources */,
+				2AAB79911AEEA24200DA71A8 /* TDStickerLibrary.m in Sources */,
+				2AAB79921AEEA24200DA71A8 /* TDStickerLibraryCustomization.m in Sources */,
+				2AAB79931AEEA24200DA71A8 /* TDStickerLibraryUpdate.m in Sources */,
+				2AAB79941AEEA24200DA71A8 /* TDStickerLibraryViewController.m in Sources */,
+				2AAB79951AEEA24200DA71A8 /* TDStickerLibraryTabPageLayout.m in Sources */,
+				2AAB79961AEEA24200DA71A8 /* TDStickerLibrarySectionHeader.m in Sources */,
+				2AAB79971AEEA24200DA71A8 /* TDStickerLibrarySectionPreviewCell.m in Sources */,
+				2AAB79981AEEA24200DA71A8 /* TDStickerLibraryStickerSoloView.m in Sources */,
+				2AAB79991AEEA24200DA71A8 /* TDStickerLibraryTabPageView.m in Sources */,
+				2AAB799A1AEEA24200DA71A8 /* TDStickerLibraryStickerIntroDLVC.m in Sources */,
+				2AAB79891AEEA23000DA71A8 /* ioapi.c in Sources */,
+				2AAB798A1AEEA23000DA71A8 /* mztools.c in Sources */,
+				2AAB798B1AEEA23000DA71A8 /* unzip.c in Sources */,
+				2AAB798C1AEEA23000DA71A8 /* zip.c in Sources */,
+				2AAB79631AEEA21300DA71A8 /* TDMath.m in Sources */,
+				2AAB79641AEEA21300DA71A8 /* TDTrigonometry.m in Sources */,
+				2AAB79651AEEA21300DA71A8 /* TDGeometricFigure.m in Sources */,
+				2AAB79661AEEA21300DA71A8 /* UIScreen+TechD.m in Sources */,
+				2AAB79671AEEA21300DA71A8 /* UIImage+TechD.m in Sources */,
+				2AAB79681AEEA21300DA71A8 /* UIView+TechD.m in Sources */,
+				2AAB79691AEEA21300DA71A8 /* UIImageView+TechD.m in Sources */,
+				2AAB796A1AEEA21300DA71A8 /* UIGestureRecognizer+TechD.m in Sources */,
+				2AAB796B1AEEA21300DA71A8 /* NSLayoutConstraint+TechD.m in Sources */,
+				2AAB796C1AEEA21300DA71A8 /* NSString+TechD.m in Sources */,
+				2AAB796D1AEEA21300DA71A8 /* NSDate+TechD.m in Sources */,
+				2AAB796E1AEEA21300DA71A8 /* NSJSONSerialization+TechD.m in Sources */,
+				2AAB796F1AEEA21300DA71A8 /* TDUtilities.m in Sources */,
+				2AAB79701AEEA21300DA71A8 /* TDTexturePackerXMLReader.m in Sources */,
+				2AAB79711AEEA21300DA71A8 /* TDJSONReader.m in Sources */,
+				2AAB79721AEEA21300DA71A8 /* TDBaseTabMenuItem.m in Sources */,
+				2AAB79731AEEA21400DA71A8 /* ZipArchive.m in Sources */,
+				2AAB79741AEEA21400DA71A8 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				2AAB79751AEEA21400DA71A8 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				2AAB79761AEEA21400DA71A8 /* UIAlertView+AFNetworking.m in Sources */,
+				2AAB79771AEEA21400DA71A8 /* UIButton+AFNetworking.m in Sources */,
+				2AAB79781AEEA21400DA71A8 /* UIImageView+AFNetworking.m in Sources */,
+				2AAB79791AEEA21400DA71A8 /* UIProgressView+AFNetworking.m in Sources */,
+				2AAB797A1AEEA21400DA71A8 /* UIRefreshControl+AFNetworking.m in Sources */,
+				2AAB797B1AEEA21400DA71A8 /* UIWebView+AFNetworking.m in Sources */,
+				2AAB797C1AEEA21400DA71A8 /* AFHTTPRequestOperation.m in Sources */,
+				2AAB797D1AEEA21400DA71A8 /* AFHTTPRequestOperationManager.m in Sources */,
+				2AAB797E1AEEA21400DA71A8 /* AFHTTPSessionManager.m in Sources */,
+				2AAB797F1AEEA21400DA71A8 /* AFNetworkReachabilityManager.m in Sources */,
+				2AAB79801AEEA21400DA71A8 /* AFSecurityPolicy.m in Sources */,
+				2AAB79811AEEA21400DA71A8 /* AFURLConnectionOperation.m in Sources */,
+				2AAB79821AEEA21400DA71A8 /* AFURLRequestSerialization.m in Sources */,
+				2AAB79831AEEA21400DA71A8 /* AFURLResponseSerialization.m in Sources */,
+				2AAB79841AEEA21400DA71A8 /* AFURLSessionManager.m in Sources */,
+				2AAB79851AEEA21400DA71A8 /* TDNetworkReachabilityManager.m in Sources */,
+				2AAB79861AEEA21400DA71A8 /* TDDownloadManager.m in Sources */,
+				2AAB79871AEEA21400DA71A8 /* TDPreUpdateProcedure.m in Sources */,
+				2AAB79881AEEA21400DA71A8 /* TDPreUpdateJSONInfo.m in Sources */,
+				2AAB79421AEE9F0C00DA71A8 /* ViewController.m in Sources */,
+				2AAB793F1AEE9F0C00DA71A8 /* AppDelegate.m in Sources */,
+				2AAB793C1AEE9F0C00DA71A8 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AAB794B1AEE9F0C00DA71A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AAB79561AEE9F0C00DA71A8 /* DemoStickerLibraryTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2AADF4B51A69599E0026EF9D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -803,6 +1091,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2AAB79511AEE9F0C00DA71A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2AAB79361AEE9F0B00DA71A8 /* DemoStickerLibrary */;
+			targetProxy = 2AAB79501AEE9F0C00DA71A8 /* PBXContainerItemProxy */;
+		};
 		2AADF4C71A69599E0026EF9D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2AADF4B81A69599E0026EF9D /* TDStickerLibrary */;
@@ -811,6 +1104,80 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		2AAB79571AEE9F0C00DA71A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = DemoStickerLibrary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2AAB79581AEE9F0C00DA71A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = DemoStickerLibrary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		2AAB79591AEE9F0C00DA71A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = DemoStickerLibraryTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoStickerLibrary.app/DemoStickerLibrary";
+			};
+			name = Debug;
+		};
+		2AAB795A1AEE9F0C00DA71A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = DemoStickerLibraryTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoStickerLibrary.app/DemoStickerLibrary";
+			};
+			name = Release;
+		};
 		2AADF4CB1A69599E0026EF9D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -936,6 +1303,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2AAB795B1AEE9F0C00DA71A8 /* Build configuration list for PBXNativeTarget "DemoStickerLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AAB79571AEE9F0C00DA71A8 /* Debug */,
+				2AAB79581AEE9F0C00DA71A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2AAB795C1AEE9F0C00DA71A8 /* Build configuration list for PBXNativeTarget "DemoStickerLibraryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AAB79591AEE9F0C00DA71A8 /* Debug */,
+				2AAB795A1AEE9F0C00DA71A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		2AADF4B41A69599E0026EF9D /* Build configuration list for PBXProject "TDStickerLibrary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
