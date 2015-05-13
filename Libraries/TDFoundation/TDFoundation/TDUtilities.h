@@ -9,6 +9,7 @@
 //  ------------------------------------------------------------------------------------------------
 
 #import <Foundation/Foundation.h>
+#import <Availability.h>
 
 @interface TDUtilities : NSObject
 
@@ -68,8 +69,42 @@ NSString * TDGetPathForDirectoriesWithTimestamp( TDGetPathDirectory directory, N
  *
  *  @return image name|nil          the name with scale|nil
  */
-NSString * TDGetImageNameForScreenScale( NSString * imageName, NSInteger scaleScreen );
+NSString * TDGetImageNameForScreenScale( NSString * imageName, NSInteger scaleScreen ) NS_DEPRECATED_IOS(6_0, 7_1, "use TDGetPNGImageFilenameWithAssetScale"); ;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a PNG image's filename with asset scale.
+ *  get a PNG image's filename with asset scale.
+ *
+ *  @param filename                 a image filename wannt to append. (png)
+ *  @param assetScale               scale of asset. (Canvas Size (pts) to Design Canvas (px))
+ *
+ *  @return filename|nil            the name with scale or nil.
+ */
+NSString * TDGetPNGImageFilenameWithAssetScale( NSString * filename, NSInteger assetScale );
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a filename with asset scale.
+ *  get a filename with asset scale. ( filename format like 'abc@1x', 'abc@2x.png', 'abc@3x.xyz' ).
+ *
+ *  @param filename                 a filename want to append.
+ *  @param assetScale               scale of asset.
+ *
+ *  @return filename|nil            format's filename or nil.
+ */
+NSString * TDGetFilenameWithAssetScale( NSString * filename, NSInteger assetScale );
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check a filename is with asset scale or not.
+ *  check a filename is with asset scale or not. ( filename format like 'abc@1x', 'abc@2x.png', 'abc@3x.xyz'; without '@0x' ).
+ *
+ *  @param filename                 the filename want to check.
+ *
+ *  @return YES|NO                  filename is match format or not.
+ */
+BOOL TDCheckFilenameWithAssetScale( NSString * filename );
 
 //  ------------------------------------------------------------------------------------------------
 

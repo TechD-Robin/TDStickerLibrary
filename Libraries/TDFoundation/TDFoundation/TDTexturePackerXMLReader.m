@@ -94,10 +94,12 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
  *  @param filename                 XML file name (without Extension part).
  *  @param directory                enumeration for directory.
  *  @param subpath                  resource's sub directory name of configure
+ *  @param encode                   charset encode.
  *
  *  @return YES|NO                  method success or failure.
  */
-- ( BOOL ) _LoadProcedure:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath;
+- ( BOOL ) _LoadProcedure:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
+                 encoding:(NSStringEncoding)encode;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -105,10 +107,11 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
  *  load procedure for read & parse a data.
  *
  *  @param source                   the source data.
+ *  @param encode                   charset encode.
  *
  *  @return YES|NO                  method success or failure.
  */
-- ( BOOL ) _LoadProcedure:(NSData *)source;
+- ( BOOL ) _LoadProcedure:(NSData *)source encoding:(NSStringEncoding)encode;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -196,6 +199,7 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
 #pragma mark method for load procedure.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _LoadProcedure:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
+                 encoding:(NSStringEncoding)encode
 {
     if ( nil == filename )
     {
@@ -219,14 +223,14 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
     xmlData                         = nil;
     xmlString                       = nil;
     error                           = nil;
-    xmlString                       = [NSString stringWithContentsOfFile: filePath encoding: NSUTF8StringEncoding error: &error];
+    xmlString                       = [NSString stringWithContentsOfFile: filePath encoding: encode error: &error];
     if ( nil != error )
     {
         NSLog( @"error : %@", error );
         return NO;
     }
     
-    xmlData                         = [xmlString dataUsingEncoding: NSUTF8StringEncoding];
+    xmlData                         = [xmlString dataUsingEncoding: encode];
     if ( nil == xmlData )
     {
         return NO;
@@ -240,7 +244,7 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _LoadProcedure:(NSData *)source
+- ( BOOL ) _LoadProcedure:(NSData *)source encoding:(NSStringEncoding)encode
 {
     if ( nil == source )
     {
@@ -253,13 +257,13 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
     
     xmlData                         = nil;
     xmlString                       = nil;
-    xmlString                       = [[NSString alloc] initWithData: source encoding: NSUTF8StringEncoding];
+    xmlString                       = [[NSString alloc] initWithData: source encoding: encode];
     if ( nil == xmlString )
     {
         return NO;
     }
     
-    xmlData                         = [xmlString dataUsingEncoding: NSUTF8StringEncoding];
+    xmlData                         = [xmlString dataUsingEncoding: encode];
     if ( nil == xmlData )
     {
         return NO;
@@ -446,7 +450,7 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) init
 {
-    return [self initWithFile: nil forDirectories: TDTemporaryDirectory inDirectory: nil];
+    return [self initWithFile: nil forDirectories: TDTemporaryDirectory inDirectory: nil encoding: NSASCIIStringEncoding];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -470,6 +474,7 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) initWithFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
+                       encoding:(NSStringEncoding)encode
 {
     self                            = [super init];
     if ( nil == self )
@@ -478,7 +483,7 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
     }
     
     [self                           _InitAttributes];
-    if ( [self _LoadProcedure: filename forDirectories: directory inDirectory: subpath] == NO )
+    if ( [self _LoadProcedure: filename forDirectories: directory inDirectory: subpath encoding: encode] == NO )
     {
         SAFE_ARC_RELEASE( self );
         SAFE_ARC_ASSIGN_POINTER_NIL( self );
@@ -488,7 +493,7 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithData:(NSData *)source
+- ( instancetype ) initWithData:(NSData *)source encoding:(NSStringEncoding)encode
 {
     self                            = [super init];
     if ( nil == self )
@@ -502,7 +507,7 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
     NSData                        * xmlData;
     
     xmlData                         = [NSData dataWithData: source];
-    if ( [self _LoadProcedure: xmlData] == NO )
+    if ( [self _LoadProcedure: xmlData encoding: encode] == NO )
     {
         SAFE_ARC_RELEASE( self );
         SAFE_ARC_ASSIGN_POINTER_NIL( self );
@@ -513,14 +518,15 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
 
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) loadData:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
+                   encoding:(NSStringEncoding)encode
 {
-    return [[[self class] alloc] initWithFile: filename forDirectories: directory inDirectory: subpath];
+    return [[[self class] alloc] initWithFile: filename forDirectories: directory inDirectory: subpath encoding: encode];
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( instancetype ) loadFromData:(NSData *)source
++ ( instancetype ) loadFromData:(NSData *)source encoding:(NSStringEncoding)encode
 {
-    return [[[self class] alloc] initWithData: source];
+    return [[[self class] alloc] initWithData: source encoding: encode];
 }
 
 

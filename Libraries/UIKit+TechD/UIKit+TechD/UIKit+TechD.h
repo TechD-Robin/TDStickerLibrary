@@ -11,6 +11,7 @@
 #ifndef _UIKIT_TECHD_
     #define _UIKIT_TECHD_
 
+    #import "UIDevice+TechD.h"
     #import "UIScreen+TechD.h"
     #import "UIImage+TechD.h"
     #import "UIView+TechD.h"

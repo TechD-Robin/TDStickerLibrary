@@ -303,7 +303,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) loadFrames:(NSData *)confgureData
 {
-    xmlReader                       = [TDTexturePackerXMLReader loadFromData: confgureData];
+    xmlReader                       = [TDTexturePackerXMLReader loadFromData: confgureData encoding: NSUTF8StringEncoding];
     
     //  don't load & parse on here, delay to touch action.
     return YES;

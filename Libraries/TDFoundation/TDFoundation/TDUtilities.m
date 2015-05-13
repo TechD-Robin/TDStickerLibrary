@@ -7,10 +7,20 @@
 //
 
 #import "TDUtilities.h"
+#import "Foundation+TechD.h"
 
 @implementation TDUtilities
 
 @end
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark define constant string.
+//  ------------------------------------------------------------------------------------------------
+static  NSString  * const kTDRegularExpressionAssetScale            = @"[^*|:\"<>?]+@[1-9][0-9]*[xX]$";
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -131,6 +141,87 @@ NSString * TDGetImageNameForScreenScale( NSString * imageName, NSInteger scaleSc
     return imageName;
 }
 
+//  ------------------------------------------------------------------------------------------------
+NSString * TDGetPNGImageFilenameWithAssetScale( NSString * filename, NSInteger assetScale )
+{
+    if ( ( nil == filename ) || ( 0 >= assetScale ) )
+    {
+        return nil;
+    }
+    
+    NSString                      * file;
+    NSString                      * extension;
+    
+    file                            = [filename stringByDeletingPathExtension];
+    extension                       = [filename pathExtension];
+    
+    if ( ( nil != extension ) && ( [extension length] != 0 ) )
+    {
+        if ( [[extension lowercaseString] isEqualToString: @"png"] == NO )
+        {
+            return nil;
+        }
+        
+        if ( TDCheckFilenameWithAssetScale( filename ) == YES )
+        {
+            //  skip to append.
+            return filename;
+        }
+    }
+    file                            = [file stringByAppendingFormat: @"@%dx.png", (int)assetScale];
+    return file;
+}
+
+//  ------------------------------------------------------------------------------------------------
+NSString * TDGetFilenameWithAssetScale( NSString * filename, NSInteger assetScale )
+{
+    if ( ( nil == filename ) || ( [filename length] == 0 ) || ( 0 >= assetScale ) )
+    {
+        return nil;
+    }
+    
+    NSString                      * file;
+    NSString                      * extension;
+    
+    file                            = filename;
+    extension                       = [filename pathExtension];
+    if ( ( nil != extension ) && ( [extension length] != 0 ) )
+    {
+        file                        = [file stringByDeletingPathExtension];
+    }
+    
+    if ( [file compareByRegularExpression: kTDRegularExpressionAssetScale] == YES )
+    {
+        return filename;
+    }
+    
+    file                            = [file stringByAppendingFormat: @"@%dx", (int)assetScale];
+    if ( ( nil != extension ) && ( [extension length] != 0 ) )
+    {
+        file                        = [file stringByAppendingPathExtension: extension];
+    }
+    return file;
+}
+
+//  ------------------------------------------------------------------------------------------------
+BOOL TDCheckFilenameWithAssetScale( NSString * filename )
+{
+    if ( ( nil == filename ) || ( [filename length] == 0 ) )
+    {
+        return NO;
+    }
+    
+    NSString                      * file;
+    NSString                      * extension;
+    
+    file                            = filename;
+    extension                       = [filename pathExtension];
+    if ( ( nil != extension ) && ( [extension length] != 0 ) )
+    {
+        file                        = [file stringByDeletingPathExtension];
+    }
+    return [file compareByRegularExpression: kTDRegularExpressionAssetScale];
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

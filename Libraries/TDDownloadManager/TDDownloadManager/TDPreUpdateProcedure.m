@@ -631,7 +631,7 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
 }
 
 //  ------------------------------------------------------------------------------------------------
-#pragma mark method for base methos of procedure
+#pragma mark method for base methods of procedure
 //  ------------------------------------------------------------------------------------------------
 - ( void ) stopProcedure
 {

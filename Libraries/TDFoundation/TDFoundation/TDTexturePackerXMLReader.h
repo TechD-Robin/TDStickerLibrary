@@ -32,10 +32,12 @@
  *  @param filename                 XML file name (without Extension part).
  *  @param directory                enumeration for directory.
  *  @param subpath                  resource's sub directory name of configure
+ *  @param encode                   charset encode.
  *
  *  @return object|nil              the Texture Packer XML Reader object or nil.
  */
-+ ( instancetype ) loadData:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath;
++ ( instancetype ) loadData:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
+                   encoding:(NSStringEncoding)encode;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -43,10 +45,11 @@
  *  load a data that is configure sprite frames about texture packer, the data is iOS plist data format.
  *
  *  @param source                   the source data.
+ *  @param encode                   charset encode.
  *
  *  @return object|nil              the Texture Packer XML Reader object or nil.
  */
-+ ( instancetype ) loadFromData:(NSData *)source;
++ ( instancetype ) loadFromData:(NSData *)source encoding:(NSStringEncoding)encode;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for get texture data.

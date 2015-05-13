@@ -24,6 +24,16 @@
  */
 - ( BOOL ) isNumeric;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief compare the string by regular expression.
+ *  compare the string by regular expression.
+ *
+ *  @param regularExpression        the regular expression string.
+ *
+ *  @return YES|NO                  the string match by regular expression or not.
+ */
+- ( BOOL ) compareByRegularExpression:(NSString *)regularExpression;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

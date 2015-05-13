@@ -97,7 +97,7 @@ typedef     void (^PreUpdateCompletionBlock)(NSDictionary * updateResponses, NSE
 - ( void ) startProcedureWithKeys:(NSArray *)keyList;
 
 //  ------------------------------------------------------------------------------------------------
-#pragma mark declare for base methos of procedure
+#pragma mark declare for base methods of procedure
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief stop this pre-update procedure when complete.

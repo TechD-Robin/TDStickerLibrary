@@ -24,7 +24,7 @@
     
     mainBoundsSize                  = [[UIScreen mainScreen] bounds].size;
     applicationFrameSize            = [[UIScreen mainScreen] applicationFrame].size;
-    return ( ( fabsf( mainBoundsSize.width - applicationFrameSize.width ) + fabsf( mainBoundsSize.height - applicationFrameSize.height ) ) );
+    return ( ( fabsf( (float)(mainBoundsSize.width - applicationFrameSize.width ) ) + fabsf( (float)( mainBoundsSize.height - applicationFrameSize.height ) ) ) );
 }
 
 //  ------------------------------------------------------------------------------------------------

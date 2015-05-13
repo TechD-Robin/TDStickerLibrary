@@ -64,6 +64,24 @@
 		2A5207FD1AC08B15005FE8A7 /* NSString+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207F71AC08B15005FE8A7 /* NSString+TechD.m */; };
 		2A5D039D1A750A8E002B4A5D /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5D039C1A750A8E002B4A5D /* TDUtilities.m */; };
 		2A7BE1971ACD4EC3005CA500 /* TDPreUpdateProcedure.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BE1961ACD4EC3005CA500 /* TDPreUpdateProcedure.m */; };
+		2A88D4C81B03D82F00F6D0D5 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4BB1B03D82F00F6D0D5 /* ioapi.c */; };
+		2A88D4C91B03D82F00F6D0D5 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4BB1B03D82F00F6D0D5 /* ioapi.c */; };
+		2A88D4CA1B03D82F00F6D0D5 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4BD1B03D82F00F6D0D5 /* mztools.c */; };
+		2A88D4CB1B03D82F00F6D0D5 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4BD1B03D82F00F6D0D5 /* mztools.c */; };
+		2A88D4CC1B03D82F00F6D0D5 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4BF1B03D82F00F6D0D5 /* unzip.c */; };
+		2A88D4CD1B03D82F00F6D0D5 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4BF1B03D82F00F6D0D5 /* unzip.c */; };
+		2A88D4CE1B03D82F00F6D0D5 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4C11B03D82F00F6D0D5 /* zip.c */; };
+		2A88D4CF1B03D82F00F6D0D5 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4C11B03D82F00F6D0D5 /* zip.c */; };
+		2A88D4D21B03D82F00F6D0D5 /* ZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4C61B03D82F00F6D0D5 /* ZipArchive.m */; };
+		2A88D4D31B03D82F00F6D0D5 /* ZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4C61B03D82F00F6D0D5 /* ZipArchive.m */; };
+		2A88D4D61B03D93900F6D0D5 /* UIDevice+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4D51B03D93900F6D0D5 /* UIDevice+TechD.m */; };
+		2A88D4D71B03D93900F6D0D5 /* UIDevice+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4D51B03D93900F6D0D5 /* UIDevice+TechD.m */; };
+		2A88D4DA1B03D98400F6D0D5 /* NSBundle+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4D91B03D98400F6D0D5 /* NSBundle+TechD.m */; };
+		2A88D4DB1B03D98400F6D0D5 /* NSBundle+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4D91B03D98400F6D0D5 /* NSBundle+TechD.m */; };
+		2A88D4DE1B03D99300F6D0D5 /* NSPropertyListSerialization+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4DD1B03D99300F6D0D5 /* NSPropertyListSerialization+TechD.m */; };
+		2A88D4DF1B03D99300F6D0D5 /* NSPropertyListSerialization+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4DD1B03D99300F6D0D5 /* NSPropertyListSerialization+TechD.m */; };
+		2A88D4E91B03DAA600F6D0D5 /* TDResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4E51B03DAA600F6D0D5 /* TDResourceManager.m */; };
+		2A88D4EA1B03DAA600F6D0D5 /* TDResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4E51B03DAA600F6D0D5 /* TDResourceManager.m */; };
 		2A8A59F61AD8450C000CEA93 /* TDJSONReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59F51AD8450C000CEA93 /* TDJSONReader.m */; };
 		2A8A59F91AD84552000CEA93 /* TDPreUpdateJSONInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59F81AD84552000CEA93 /* TDPreUpdateJSONInfo.m */; };
 		2A99ECF81A8A6FB30059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A99ECF71A8A6FB30059AA41 /* TDStickerLibraryStickerSoloView.m */; };
@@ -104,7 +122,6 @@
 		2AAB79701AEEA21300DA71A8 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2FE8B1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m */; };
 		2AAB79711AEEA21300DA71A8 /* TDJSONReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59F51AD8450C000CEA93 /* TDJSONReader.m */; };
 		2AAB79721AEEA21300DA71A8 /* TDBaseTabMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABD8E361A714E9300626356 /* TDBaseTabMenuItem.m */; };
-		2AAB79731AEEA21400DA71A8 /* ZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706281A6FDFE4006C6845 /* ZipArchive.m */; };
 		2AAB79741AEEA21400DA71A8 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207AC1AC08A8C005FE8A7 /* AFNetworkActivityIndicatorManager.m */; };
 		2AAB79751AEEA21400DA71A8 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207AE1AC08A8C005FE8A7 /* UIActivityIndicatorView+AFNetworking.m */; };
 		2AAB79761AEEA21400DA71A8 /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207B01AC08A8C005FE8A7 /* UIAlertView+AFNetworking.m */; };
@@ -126,10 +143,6 @@
 		2AAB79861AEEA21400DA71A8 /* TDDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207E71AC08AF7005FE8A7 /* TDDownloadManager.m */; };
 		2AAB79871AEEA21400DA71A8 /* TDPreUpdateProcedure.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BE1961ACD4EC3005CA500 /* TDPreUpdateProcedure.m */; };
 		2AAB79881AEEA21400DA71A8 /* TDPreUpdateJSONInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59F81AD84552000CEA93 /* TDPreUpdateJSONInfo.m */; };
-		2AAB79891AEEA23000DA71A8 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7061E1A6FDFE4006C6845 /* ioapi.c */; };
-		2AAB798A1AEEA23000DA71A8 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706201A6FDFE4006C6845 /* mztools.c */; };
-		2AAB798B1AEEA23000DA71A8 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706221A6FDFE4006C6845 /* unzip.c */; };
-		2AAB798C1AEEA23000DA71A8 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706241A6FDFE4006C6845 /* zip.c */; };
 		2AAB798D1AEEA24200DA71A8 /* TDStickerLibraryUnzip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743671A8219EC0057586A /* TDStickerLibraryUnzip.m */; };
 		2AAB798E1AEEA24200DA71A8 /* TDStickerLibraryTabInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */; };
 		2AAB798F1AEEA24200DA71A8 /* TDStickerLibraryTabPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A47436D1A823CE30057586A /* TDStickerLibraryTabPageInfo.m */; };
@@ -148,11 +161,6 @@
 		2AADF4BF1A69599E0026EF9D /* TDStickerLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */; };
 		2AADF4C51A69599E0026EF9D /* libTDStickerLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */; };
 		2AADF5081A695E7B0026EF9D /* TDStickerLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF5071A695E7B0026EF9D /* TDStickerLibraryViewController.m */; };
-		2AB706291A6FDFE4006C6845 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7061E1A6FDFE4006C6845 /* ioapi.c */; };
-		2AB7062A1A6FDFE4006C6845 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706201A6FDFE4006C6845 /* mztools.c */; };
-		2AB7062B1A6FDFE4006C6845 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706221A6FDFE4006C6845 /* unzip.c */; };
-		2AB7062C1A6FDFE4006C6845 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706241A6FDFE4006C6845 /* zip.c */; };
-		2AB7062E1A6FDFE4006C6845 /* ZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706281A6FDFE4006C6845 /* ZipArchive.m */; };
 		2AB706301A6FE00C006C6845 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB7062F1A6FE00C006C6845 /* libz.dylib */; };
 		2AB706891A6FE42F006C6845 /* TDStickerLibraryTabInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */; };
 		2AB7068F1A700918006C6845 /* TDStickerLibraryCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7068E1A700918006C6845 /* TDStickerLibraryCustomization.m */; };
@@ -273,6 +281,30 @@
 		2A5D039C1A750A8E002B4A5D /* TDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUtilities.m; path = Libraries/TDFoundation/TDFoundation/TDUtilities.m; sourceTree = "<group>"; };
 		2A7BE1951ACD4EC3005CA500 /* TDPreUpdateProcedure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDPreUpdateProcedure.h; sourceTree = "<group>"; };
 		2A7BE1961ACD4EC3005CA500 /* TDPreUpdateProcedure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDPreUpdateProcedure.m; sourceTree = "<group>"; };
+		2A88D4B71B03D82F00F6D0D5 /* ARCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARCMacros.h; path = Libraries/fork_ZipArchive/ARCMacros.h; sourceTree = "<group>"; };
+		2A88D4B81B03D82F00F6D0D5 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = Libraries/fork_ZipArchive/LICENSE; sourceTree = "<group>"; };
+		2A88D4BA1B03D82F00F6D0D5 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		2A88D4BB1B03D82F00F6D0D5 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		2A88D4BC1B03D82F00F6D0D5 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		2A88D4BD1B03D82F00F6D0D5 /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		2A88D4BE1B03D82F00F6D0D5 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
+		2A88D4BF1B03D82F00F6D0D5 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		2A88D4C01B03D82F00F6D0D5 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		2A88D4C11B03D82F00F6D0D5 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		2A88D4C21B03D82F00F6D0D5 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		2A88D4C31B03D82F00F6D0D5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = Libraries/fork_ZipArchive/README.md; sourceTree = "<group>"; };
+		2A88D4C51B03D82F00F6D0D5 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZipArchive.h; path = Libraries/fork_ZipArchive/ZipArchive.h; sourceTree = "<group>"; };
+		2A88D4C61B03D82F00F6D0D5 /* ZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZipArchive.m; path = Libraries/fork_ZipArchive/ZipArchive.m; sourceTree = "<group>"; };
+		2A88D4D41B03D93900F6D0D5 /* UIDevice+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+TechD.h"; sourceTree = "<group>"; };
+		2A88D4D51B03D93900F6D0D5 /* UIDevice+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+TechD.m"; sourceTree = "<group>"; };
+		2A88D4D81B03D98400F6D0D5 /* NSBundle+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+TechD.h"; sourceTree = "<group>"; };
+		2A88D4D91B03D98400F6D0D5 /* NSBundle+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+TechD.m"; sourceTree = "<group>"; };
+		2A88D4DC1B03D99300F6D0D5 /* NSPropertyListSerialization+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPropertyListSerialization+TechD.h"; sourceTree = "<group>"; };
+		2A88D4DD1B03D99300F6D0D5 /* NSPropertyListSerialization+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPropertyListSerialization+TechD.m"; sourceTree = "<group>"; };
+		2A88D4E11B03DAA600F6D0D5 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = Libraries/TDResourceManager/LICENSE; sourceTree = "<group>"; };
+		2A88D4E21B03DAA600F6D0D5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = Libraries/TDResourceManager/README.md; sourceTree = "<group>"; };
+		2A88D4E41B03DAA600F6D0D5 /* TDResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDResourceManager.h; sourceTree = "<group>"; };
+		2A88D4E51B03DAA600F6D0D5 /* TDResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDResourceManager.m; sourceTree = "<group>"; };
 		2A8A59F41AD8450C000CEA93 /* TDJSONReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDJSONReader.h; path = Libraries/TDFoundation/TDFoundation/TDJSONReader.h; sourceTree = "<group>"; };
 		2A8A59F51AD8450C000CEA93 /* TDJSONReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDJSONReader.m; path = Libraries/TDFoundation/TDFoundation/TDJSONReader.m; sourceTree = "<group>"; };
 		2A8A59F71AD84552000CEA93 /* TDPreUpdateJSONInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDPreUpdateJSONInfo.h; sourceTree = "<group>"; };
@@ -316,20 +348,6 @@
 		2AADF5061A695E7B0026EF9D /* TDStickerLibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryViewController.h; sourceTree = "<group>"; };
 		2AADF5071A695E7B0026EF9D /* TDStickerLibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryViewController.m; sourceTree = "<group>"; };
 		2AADF50F1A695F230026EF9D /* ARCMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARCMacros.h; sourceTree = "<group>"; };
-		2AB7061A1A6FDFE4006C6845 /* ARCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCMacros.h; sourceTree = "<group>"; };
-		2AB7061B1A6FDFE4006C6845 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		2AB7061D1A6FDFE4006C6845 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
-		2AB7061E1A6FDFE4006C6845 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
-		2AB7061F1A6FDFE4006C6845 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
-		2AB706201A6FDFE4006C6845 /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
-		2AB706211A6FDFE4006C6845 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
-		2AB706221A6FDFE4006C6845 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
-		2AB706231A6FDFE4006C6845 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
-		2AB706241A6FDFE4006C6845 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
-		2AB706251A6FDFE4006C6845 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
-		2AB706261A6FDFE4006C6845 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		2AB706271A6FDFE4006C6845 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
-		2AB706281A6FDFE4006C6845 /* ZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipArchive.m; sourceTree = "<group>"; };
 		2AB7062F1A6FE00C006C6845 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		2AB706871A6FE42F006C6845 /* TDStickerLibraryTabInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryTabInfo.h; sourceTree = "<group>"; };
 		2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryTabInfo.m; sourceTree = "<group>"; };
@@ -513,8 +531,12 @@
 				2A5207F71AC08B15005FE8A7 /* NSString+TechD.m */,
 				2A9A76591AE17AE5007F36D3 /* NSDate+TechD.h */,
 				2A9A765A1AE17AE5007F36D3 /* NSDate+TechD.m */,
+				2A88D4D81B03D98400F6D0D5 /* NSBundle+TechD.h */,
+				2A88D4D91B03D98400F6D0D5 /* NSBundle+TechD.m */,
 				2A5207F41AC08B15005FE8A7 /* NSJSONSerialization+TechD.h */,
 				2A5207F51AC08B15005FE8A7 /* NSJSONSerialization+TechD.m */,
+				2A88D4DC1B03D99300F6D0D5 /* NSPropertyListSerialization+TechD.h */,
+				2A88D4DD1B03D99300F6D0D5 /* NSPropertyListSerialization+TechD.m */,
 			);
 			path = "Foundation+TechD";
 			sourceTree = "<group>";
@@ -543,6 +565,57 @@
 			name = TDFoundation;
 			sourceTree = "<group>";
 		};
+		2A88D4B61B03D80600F6D0D5 /* fork_ZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				2AB7062F1A6FE00C006C6845 /* libz.dylib */,
+				2A88D4B81B03D82F00F6D0D5 /* LICENSE */,
+				2A88D4C31B03D82F00F6D0D5 /* README.md */,
+				2A88D4B71B03D82F00F6D0D5 /* ARCMacros.h */,
+				2A88D4C51B03D82F00F6D0D5 /* ZipArchive.h */,
+				2A88D4C61B03D82F00F6D0D5 /* ZipArchive.m */,
+				2A88D4B91B03D82F00F6D0D5 /* minizip */,
+			);
+			name = fork_ZipArchive;
+			sourceTree = "<group>";
+		};
+		2A88D4B91B03D82F00F6D0D5 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				2A88D4BA1B03D82F00F6D0D5 /* crypt.h */,
+				2A88D4BB1B03D82F00F6D0D5 /* ioapi.c */,
+				2A88D4BC1B03D82F00F6D0D5 /* ioapi.h */,
+				2A88D4BD1B03D82F00F6D0D5 /* mztools.c */,
+				2A88D4BE1B03D82F00F6D0D5 /* mztools.h */,
+				2A88D4BF1B03D82F00F6D0D5 /* unzip.c */,
+				2A88D4C01B03D82F00F6D0D5 /* unzip.h */,
+				2A88D4C11B03D82F00F6D0D5 /* zip.c */,
+				2A88D4C21B03D82F00F6D0D5 /* zip.h */,
+			);
+			name = minizip;
+			path = Libraries/fork_ZipArchive/minizip;
+			sourceTree = "<group>";
+		};
+		2A88D4E01B03DA7100F6D0D5 /* TDResourceManager */ = {
+			isa = PBXGroup;
+			children = (
+				2A88D4E11B03DAA600F6D0D5 /* LICENSE */,
+				2A88D4E21B03DAA600F6D0D5 /* README.md */,
+				2A88D4E31B03DAA600F6D0D5 /* TDResourceManager */,
+			);
+			name = TDResourceManager;
+			sourceTree = "<group>";
+		};
+		2A88D4E31B03DAA600F6D0D5 /* TDResourceManager */ = {
+			isa = PBXGroup;
+			children = (
+				2A88D4E41B03DAA600F6D0D5 /* TDResourceManager.h */,
+				2A88D4E51B03DAA600F6D0D5 /* TDResourceManager.m */,
+			);
+			name = TDResourceManager;
+			path = Libraries/TDResourceManager/TDResourceManager;
+			sourceTree = "<group>";
+		};
 		2AA8CEA31AC171DE003901EB /* UIKit+TechD */ = {
 			isa = PBXGroup;
 			children = (
@@ -558,6 +631,8 @@
 			isa = PBXGroup;
 			children = (
 				2AA8CEAF1AC171DE003901EB /* UIKit+TechD.h */,
+				2A88D4D41B03D93900F6D0D5 /* UIDevice+TechD.h */,
+				2A88D4D51B03D93900F6D0D5 /* UIDevice+TechD.m */,
 				2AA8CEB01AC171DE003901EB /* UIScreen+TechD.h */,
 				2AA8CEB11AC171DE003901EB /* UIScreen+TechD.m */,
 				2AA8CEAB1AC171DE003901EB /* UIImage+TechD.h */,
@@ -693,47 +768,17 @@
 		2AADF5051A695E600026EF9D /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2A88D4B61B03D80600F6D0D5 /* fork_ZipArchive */,
 				2A52077B1AC08A1E005FE8A7 /* TDMath */,
 				2AA8CEA31AC171DE003901EB /* UIKit+TechD */,
 				2A5207F11AC08B15005FE8A7 /* Foundation+TechD */,
 				2A5D03991A750A6E002B4A5D /* TDFoundation */,
 				2ABD8E341A714DAF00626356 /* TDBaseObjects */,
-				2AB706191A6FDFE4006C6845 /* ZipArchive */,
+				2A88D4E01B03DA7100F6D0D5 /* TDResourceManager */,
 				2A5207931AC08A8C005FE8A7 /* AFNetworking */,
 				2A5207E11AC08AF7005FE8A7 /* TDDownloadManager */,
 			);
 			name = Libraries;
-			sourceTree = "<group>";
-		};
-		2AB706191A6FDFE4006C6845 /* ZipArchive */ = {
-			isa = PBXGroup;
-			children = (
-				2AB7062F1A6FE00C006C6845 /* libz.dylib */,
-				2AB7061C1A6FDFE4006C6845 /* minizip */,
-				2AB7061A1A6FDFE4006C6845 /* ARCMacros.h */,
-				2AB7061B1A6FDFE4006C6845 /* LICENSE */,
-				2AB706261A6FDFE4006C6845 /* README.md */,
-				2AB706271A6FDFE4006C6845 /* ZipArchive.h */,
-				2AB706281A6FDFE4006C6845 /* ZipArchive.m */,
-			);
-			name = ZipArchive;
-			path = Libraries/ZipArchive;
-			sourceTree = "<group>";
-		};
-		2AB7061C1A6FDFE4006C6845 /* minizip */ = {
-			isa = PBXGroup;
-			children = (
-				2AB7061D1A6FDFE4006C6845 /* crypt.h */,
-				2AB7061E1A6FDFE4006C6845 /* ioapi.c */,
-				2AB7061F1A6FDFE4006C6845 /* ioapi.h */,
-				2AB706201A6FDFE4006C6845 /* mztools.c */,
-				2AB706211A6FDFE4006C6845 /* mztools.h */,
-				2AB706221A6FDFE4006C6845 /* unzip.c */,
-				2AB706231A6FDFE4006C6845 /* unzip.h */,
-				2AB706241A6FDFE4006C6845 /* zip.c */,
-				2AB706251A6FDFE4006C6845 /* zip.h */,
-			);
-			path = minizip;
 			sourceTree = "<group>";
 		};
 		2AB706861A6FE42F006C6845 /* Data */ = {
@@ -926,23 +971,22 @@
 				2AAB79911AEEA24200DA71A8 /* TDStickerLibrary.m in Sources */,
 				2AAB79921AEEA24200DA71A8 /* TDStickerLibraryCustomization.m in Sources */,
 				2AAB79931AEEA24200DA71A8 /* TDStickerLibraryUpdate.m in Sources */,
+				2A88D4DB1B03D98400F6D0D5 /* NSBundle+TechD.m in Sources */,
 				2AAB79941AEEA24200DA71A8 /* TDStickerLibraryViewController.m in Sources */,
+				2A88D4EA1B03DAA600F6D0D5 /* TDResourceManager.m in Sources */,
 				2AAB79951AEEA24200DA71A8 /* TDStickerLibraryTabPageLayout.m in Sources */,
 				2AAB79961AEEA24200DA71A8 /* TDStickerLibrarySectionHeader.m in Sources */,
 				2AAB79971AEEA24200DA71A8 /* TDStickerLibrarySectionPreviewCell.m in Sources */,
 				2AAB79981AEEA24200DA71A8 /* TDStickerLibraryStickerSoloView.m in Sources */,
 				2AAB79991AEEA24200DA71A8 /* TDStickerLibraryTabPageView.m in Sources */,
 				2AAB799A1AEEA24200DA71A8 /* TDStickerLibraryStickerIntroDLVC.m in Sources */,
-				2AAB79891AEEA23000DA71A8 /* ioapi.c in Sources */,
-				2AAB798A1AEEA23000DA71A8 /* mztools.c in Sources */,
-				2AAB798B1AEEA23000DA71A8 /* unzip.c in Sources */,
-				2AAB798C1AEEA23000DA71A8 /* zip.c in Sources */,
 				2AAB79631AEEA21300DA71A8 /* TDMath.m in Sources */,
 				2AAB79641AEEA21300DA71A8 /* TDTrigonometry.m in Sources */,
 				2AAB79651AEEA21300DA71A8 /* TDGeometricFigure.m in Sources */,
 				2AAB79661AEEA21300DA71A8 /* UIScreen+TechD.m in Sources */,
 				2AAB79671AEEA21300DA71A8 /* UIImage+TechD.m in Sources */,
 				2AAB79681AEEA21300DA71A8 /* UIView+TechD.m in Sources */,
+				2A88D4D71B03D93900F6D0D5 /* UIDevice+TechD.m in Sources */,
 				2AAB79691AEEA21300DA71A8 /* UIImageView+TechD.m in Sources */,
 				2AAB796A1AEEA21300DA71A8 /* UIGestureRecognizer+TechD.m in Sources */,
 				2AAB796B1AEEA21300DA71A8 /* NSLayoutConstraint+TechD.m in Sources */,
@@ -950,13 +994,15 @@
 				2AAB796D1AEEA21300DA71A8 /* NSDate+TechD.m in Sources */,
 				2AAB796E1AEEA21300DA71A8 /* NSJSONSerialization+TechD.m in Sources */,
 				2AAB796F1AEEA21300DA71A8 /* TDUtilities.m in Sources */,
+				2A88D4D31B03D82F00F6D0D5 /* ZipArchive.m in Sources */,
 				2AAB79701AEEA21300DA71A8 /* TDTexturePackerXMLReader.m in Sources */,
+				2A88D4CD1B03D82F00F6D0D5 /* unzip.c in Sources */,
 				2AAB79711AEEA21300DA71A8 /* TDJSONReader.m in Sources */,
 				2AAB79721AEEA21300DA71A8 /* TDBaseTabMenuItem.m in Sources */,
-				2AAB79731AEEA21400DA71A8 /* ZipArchive.m in Sources */,
 				2AAB79741AEEA21400DA71A8 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				2AAB79751AEEA21400DA71A8 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2AAB79761AEEA21400DA71A8 /* UIAlertView+AFNetworking.m in Sources */,
+				2A88D4CF1B03D82F00F6D0D5 /* zip.c in Sources */,
 				2AAB79771AEEA21400DA71A8 /* UIButton+AFNetworking.m in Sources */,
 				2AAB79781AEEA21400DA71A8 /* UIImageView+AFNetworking.m in Sources */,
 				2AAB79791AEEA21400DA71A8 /* UIProgressView+AFNetworking.m in Sources */,
@@ -972,8 +1018,11 @@
 				2AAB79831AEEA21400DA71A8 /* AFURLResponseSerialization.m in Sources */,
 				2AAB79841AEEA21400DA71A8 /* AFURLSessionManager.m in Sources */,
 				2AAB79851AEEA21400DA71A8 /* TDNetworkReachabilityManager.m in Sources */,
+				2A88D4CB1B03D82F00F6D0D5 /* mztools.c in Sources */,
 				2AAB79861AEEA21400DA71A8 /* TDDownloadManager.m in Sources */,
+				2A88D4C91B03D82F00F6D0D5 /* ioapi.c in Sources */,
 				2AAB79871AEEA21400DA71A8 /* TDPreUpdateProcedure.m in Sources */,
+				2A88D4DF1B03D99300F6D0D5 /* NSPropertyListSerialization+TechD.m in Sources */,
 				2AAB79881AEEA21400DA71A8 /* TDPreUpdateJSONInfo.m in Sources */,
 				2AAB79421AEE9F0C00DA71A8 /* ViewController.m in Sources */,
 				2AAB793F1AEE9F0C00DA71A8 /* AppDelegate.m in Sources */,
@@ -1004,34 +1053,38 @@
 				2A5207DF1AC08A8C005FE8A7 /* UIWebView+AFNetworking.m in Sources */,
 				2AB7068F1A700918006C6845 /* TDStickerLibraryCustomization.m in Sources */,
 				2A5207DB1AC08A8C005FE8A7 /* UIProgressView+AFNetworking.m in Sources */,
+				2A88D4DA1B03D98400F6D0D5 /* NSBundle+TechD.m in Sources */,
 				2A5207D11AC08A8C005FE8A7 /* AFNetworkActivityIndicatorManager.m in Sources */,
-				2AB7062B1A6FDFE4006C6845 /* unzip.c in Sources */,
+				2A88D4DE1B03D99300F6D0D5 /* NSPropertyListSerialization+TechD.m in Sources */,
 				2AF2FE8C1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m in Sources */,
 				2A5207CA1AC08A8C005FE8A7 /* AFURLResponseSerialization.m in Sources */,
 				2A29D0111ADAE1460096161D /* TDStickerLibraryUpdate.m in Sources */,
+				2A88D4CA1B03D82F00F6D0D5 /* mztools.c in Sources */,
+				2A88D4CC1B03D82F00F6D0D5 /* unzip.c in Sources */,
 				2A99ECF81A8A6FB30059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */,
 				2A5207FA1AC08B15005FE8A7 /* NSJSONSerialization+TechD.m in Sources */,
 				2A9A765B1AE17AE5007F36D3 /* NSDate+TechD.m in Sources */,
 				2A4743771A826D5E0057586A /* TDStickerLibraryTabPageLayout.m in Sources */,
 				2A5207D71AC08A8C005FE8A7 /* UIButton+AFNetworking.m in Sources */,
-				2AB7062E1A6FDFE4006C6845 /* ZipArchive.m in Sources */,
 				2AA8CEBD1AC171DE003901EB /* UIScreen+TechD.m in Sources */,
 				2A8A59F91AD84552000CEA93 /* TDPreUpdateJSONInfo.m in Sources */,
 				2AADF5081A695E7B0026EF9D /* TDStickerLibraryViewController.m in Sources */,
+				2A88D4D61B03D93900F6D0D5 /* UIDevice+TechD.m in Sources */,
 				2A5207BC1AC08A8C005FE8A7 /* AFHTTPRequestOperation.m in Sources */,
-				2AB706291A6FDFE4006C6845 /* ioapi.c in Sources */,
 				2A5207C61AC08A8C005FE8A7 /* AFURLConnectionOperation.m in Sources */,
 				2A52078A1AC08A1E005FE8A7 /* TDMath.m in Sources */,
 				2A4743681A8219EC0057586A /* TDStickerLibraryUnzip.m in Sources */,
 				2A47437D1A82710C0057586A /* TDStickerLibrarySectionPreviewCell.m in Sources */,
+				2A88D4CE1B03D82F00F6D0D5 /* zip.c in Sources */,
 				2AA8CEB71AC171DE003901EB /* UIGestureRecognizer+TechD.m in Sources */,
 				2AA733DC1AE3AD1F0050B7FC /* TDStickerLibraryStickerIntroDLVC.m in Sources */,
 				2A5207BE1AC08A8C005FE8A7 /* AFHTTPRequestOperationManager.m in Sources */,
 				2A52078C1AC08A1E005FE8A7 /* TDTrigonometry.m in Sources */,
-				2AB7062C1A6FDFE4006C6845 /* zip.c in Sources */,
 				2A5207C01AC08A8C005FE8A7 /* AFHTTPSessionManager.m in Sources */,
 				2A5207ED1AC08AF7005FE8A7 /* TDDownloadManager.m in Sources */,
+				2A88D4D21B03D82F00F6D0D5 /* ZipArchive.m in Sources */,
 				2A47436E1A823CE30057586A /* TDStickerLibraryTabPageInfo.m in Sources */,
+				2A88D4C81B03D82F00F6D0D5 /* ioapi.c in Sources */,
 				2AFDFAD71A838B8D00A82E55 /* TDStickerLibrarySectionStates.m in Sources */,
 				2A5207C81AC08A8C005FE8A7 /* AFURLRequestSerialization.m in Sources */,
 				2A5207D91AC08A8C005FE8A7 /* UIImageView+AFNetworking.m in Sources */,
@@ -1044,10 +1097,10 @@
 				2AA8CEB51AC171DE003901EB /* NSLayoutConstraint+TechD.m in Sources */,
 				2A5207FC1AC08B15005FE8A7 /* NSString+TechD.m in Sources */,
 				2ABD8E371A714E9300626356 /* TDBaseTabMenuItem.m in Sources */,
+				2A88D4E91B03DAA600F6D0D5 /* TDResourceManager.m in Sources */,
 				2A5207D31AC08A8C005FE8A7 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2A8A59F61AD8450C000CEA93 /* TDJSONReader.m in Sources */,
 				2A5207C21AC08A8C005FE8A7 /* AFNetworkReachabilityManager.m in Sources */,
-				2AB7062A1A6FDFE4006C6845 /* mztools.c in Sources */,
 				2A5207EF1AC08AF7005FE8A7 /* TDNetworkReachabilityManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1310,6 +1363,7 @@
 				2AAB79581AEE9F0C00DA71A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2AAB795C1AEE9F0C00DA71A8 /* Build configuration list for PBXNativeTarget "DemoStickerLibraryTests" */ = {
 			isa = XCConfigurationList;
@@ -1318,6 +1372,7 @@
 				2AAB795A1AEE9F0C00DA71A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2AADF4B41A69599E0026EF9D /* Build configuration list for PBXProject "TDStickerLibrary" */ = {
 			isa = XCConfigurationList;

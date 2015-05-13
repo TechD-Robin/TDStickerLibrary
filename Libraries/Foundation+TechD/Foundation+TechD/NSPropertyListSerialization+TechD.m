@@ -1,43 +1,48 @@
 //
-//  NSJSONSerialization+TechD.m
+//  NSPropertyListSerialization+TechD.m
 //  Foundation+TechD
 //
-//  Created by Robin Hsu on 2015/3/20.
+//  Created by Robin Hsu on 2015/4/27.
 //  Copyright (c) 2015年 TechD. All rights reserved.
 //
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 
-#import "NSJSONSerialization+TechD.h"
+#import "NSPropertyListSerialization+TechD.h"
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark define constant string.
 //  ------------------------------------------------------------------------------------------------
-static NSString   * const NSJSONSerialization_TechD                 = @"NSJSONSerialization+TechD";
-static NSString   * const NSJSONSerialization_TechDErrorDomain      = @"com.techd.ns.json.serialization.error";
+static NSString   * const NSPropertyListSerialization_TechD             = @"NSPropertyListSerialization+TechD";
+static NSString   * const NSPropertyListSerialization_TechDErrorDomain  = @"com.techd.ns.plist.serialization.error";
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare enumeration.
 //  ------------------------------------------------------------------------------------------------
 
-typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
+typedef NS_ENUM( NSInteger, NSPropertyListSerialization_TechDErrorCode )
 {
     /**
      *  maybe unknow how to define the error.
      */
-    NSJSONSerialization_TechDErrorCodeUndefined             = -1,
+    NSPropertyListSerialization_TechDErrorCodeUndefined                 = -1,
     
     /**
      *  when has error, file not exist.
      */
-    NSJSONSerialization_TechDErrorCodeFileNotExist          = -2,
+    NSPropertyListSerialization_TechDErrorCodeFileNotExist              = -2,
     
     /**
      *  when has error, the file name is directory.
      */
-    NSJSONSerialization_TechDErrorCodeFileIsDir,
-
+    NSPropertyListSerialization_TechDErrorCodeFileIsDir,
+    
+    /**
+     *  when has error, allocate data object.
+     */
+    NSPropertyListSerialization_TechDErrorCodeAllocDataObject,
+    
 };
 
 //  ------------------------------------------------------------------------------------------------
@@ -49,7 +54,7 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
 #pragma mark -
 #pragma mark declare private category (_Techd)
 //  ------------------------------------------------------------------------------------------------
-@interface NSJSONSerialization (_Techd)
+@interface NSPropertyListSerialization (_Techd)
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for error output
@@ -63,7 +68,7 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
  *
  *  @return object|nil              a error object or nil.
  */
-+ ( NSError * ) _ErrorMessage:(id)relationObject with:(NSJSONSerialization_TechDErrorCode)errorCode;
++ ( NSError * ) _ErrorMessage:(id)relationObject with:(NSPropertyListSerialization_TechDErrorCode)errorCode;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -79,12 +84,12 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
 #pragma mark -
 #pragma mark implementation private category (_Techd)
 //  ------------------------------------------------------------------------------------------------
-@implementation NSJSONSerialization (_Techd)
+@implementation NSPropertyListSerialization (_Techd)
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for error output
 //  ------------------------------------------------------------------------------------------------
-+ ( NSError * ) _ErrorMessage:(id)relationObject with:(NSJSONSerialization_TechDErrorCode)errorCode
++ ( NSError * ) _ErrorMessage:(id)relationObject with:(NSPropertyListSerialization_TechDErrorCode)errorCode
 {
     NSString                      * errorMessage;
     NSMutableDictionary           * errorInfos;
@@ -92,15 +97,20 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
     errorMessage                    = nil;
     switch ( errorCode )
     {
-        case NSJSONSerialization_TechDErrorCodeFileNotExist:
+        case NSPropertyListSerialization_TechDErrorCodeFileNotExist:
         {
             //  is equal NSCocoaErrorDomain Code=260.
             errorMessage            = [NSString stringWithFormat: @"file(%@) is not exist.", relationObject];
             break;
         }
-        case NSJSONSerialization_TechDErrorCodeFileIsDir:
+        case NSPropertyListSerialization_TechDErrorCodeFileIsDir:
         {
             errorMessage            = [NSString stringWithFormat: @"file name(%@) is directory.", relationObject];
+            break;
+        }
+        case NSPropertyListSerialization_TechDErrorCodeAllocDataObject:
+        {
+            errorMessage            = [NSString stringWithFormat: @"cannot allocate data object from strng(%@)", relationObject];
             break;
         }
             
@@ -112,10 +122,10 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
     }
     
     errorInfos                      = [@{
-                                         NSLocalizedDescriptionKey: NSLocalizedStringFromTable( errorMessage, NSJSONSerialization_TechD, nil ),
+                                         NSLocalizedDescriptionKey: NSLocalizedStringFromTable( errorMessage, NSPropertyListSerialization_TechD, nil ),
                                          } mutableCopy];
     
-    return [NSError errorWithDomain: NSJSONSerialization_TechDErrorDomain code: errorCode userInfo: errorInfos];
+    return [NSError errorWithDomain: NSPropertyListSerialization_TechDErrorDomain code: errorCode userInfo: errorInfos];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -127,11 +137,11 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
 #pragma mark -
 #pragma mark implementation public category (Techd)
 //  ------------------------------------------------------------------------------------------------
-@implementation NSJSONSerialization (TechD)
+@implementation NSPropertyListSerialization (TechD)
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) saveJSONContainer:(NSDictionary *)container toFileAtPath:(NSString *)filepath error:(NSError * __autoreleasing *)error
++ ( BOOL ) savePropertyList:(NSDictionary *)container toFileAtPath:(NSString *)filepath error:(NSError * __autoreleasing *)error
 {
     NSParameterAssert( nil != container );
     NSParameterAssert( nil != filepath );
@@ -144,7 +154,7 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
     outputStream                    = nil;
     manager                         = [NSFileManager defaultManager];
     NSParameterAssert( nil != manager );
-
+    
     //  pre-create subpath on here, because NSJSONSerialization's writeJSONObject: toStream: ..., save the JSON file without create subpath of the file path.
     if ( [manager fileExistsAtPath: [filepath stringByDeletingLastPathComponent]] == NO )
     {
@@ -175,7 +185,7 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
     
     saveError                       = nil;
     [outputStream                   open];
-    [NSJSONSerialization            writeJSONObject: container toStream: outputStream options: 0 error: &saveError];
+    [NSPropertyListSerialization writePropertyList: container toStream: outputStream format: NSPropertyListXMLFormat_v1_0 options: 0 error: &saveError];
     if ( nil != saveError )
     {
         if ( nil != error )
@@ -196,15 +206,15 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( id ) loadJSON:(NSString *)filepath encoding:(NSStringEncoding)encode error:(NSError * __autoreleasing *)error
++ ( NSMutableDictionary * ) loadPropertyList:(NSString *)filepath encoding:(NSStringEncoding)encode error:(NSError * __autoreleasing *)error
 {
     NSParameterAssert( nil != filepath );
     
     BOOL                            isDir;
-    NSString                      * json;
+    
     NSError                       * loadError;
     NSFileManager                 * manager;
-    id                              dataContainer;
+    NSMutableDictionary           * dataContainer;
     
     loadError                       = nil;
     dataContainer                   = nil;
@@ -217,7 +227,7 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
     {
         if ( NULL != error )
         {
-            *error                  = [[self class] _ErrorMessage: filepath with: NSJSONSerialization_TechDErrorCodeFileNotExist];
+            *error                  = [[self class] _ErrorMessage: filepath with: NSPropertyListSerialization_TechDErrorCodeFileNotExist];
         }
         return nil;
     }
@@ -226,23 +236,38 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
     {
         if ( NULL != error )
         {
-            *error                  = [[self class] _ErrorMessage: filepath with: NSJSONSerialization_TechDErrorCodeFileIsDir];
+            *error                  = [[self class] _ErrorMessage: filepath with: NSPropertyListSerialization_TechDErrorCodeFileIsDir];
         }
         return nil;
     }
     
-    json                            = [NSString stringWithContentsOfFile: filepath encoding: encode error: &loadError];
+    NSData                        * plistData;
+    NSString                      * plistString;
+    NSPropertyListFormat            format;
+    
+    plistString                     = [NSString stringWithContentsOfFile: filepath encoding: encode error: &loadError];
     if ( nil != loadError )
     {
         if ( ( nil != loadError ) && ( NULL != error ) )
         {
             *error                  = loadError;
+        }
+        return nil;
+    }
+
+    plistData                       = [plistString dataUsingEncoding: encode];
+    if ( nil == plistData )
+    {
+        if ( NULL != error )
+        {
+            *error                  = [[self class] _ErrorMessage: plistString with: NSPropertyListSerialization_TechDErrorCodeAllocDataObject];
         }
         return nil;
     }
     
     loadError                       = nil;
-    dataContainer                   = [NSJSONSerialization JSONObjectWithData: [json dataUsingEncoding: encode] options: NSJSONReadingMutableContainers error: &loadError];
+    dataContainer                   = [NSPropertyListSerialization propertyListWithData: plistData options: NSPropertyListMutableContainersAndLeaves
+                                                                                 format: &format error: &loadError];
     if ( nil != loadError )
     {
         if ( ( nil != loadError ) && ( NULL != error ) )
@@ -251,13 +276,9 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
         }
         return nil;
     }
-    
-    if ( nil != error )
-    {
-        *error                      = NULL;
-    }
     return dataContainer;
 }
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
