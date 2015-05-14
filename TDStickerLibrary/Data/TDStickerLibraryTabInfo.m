@@ -182,7 +182,7 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 - ( NSData * ) imageDataForKey:(NSString *)aKey
 {
-    aKey                            = TDGetImageNameForScreenScale( aKey, [[UIScreen mainScreen] scaleMultiple] );
+    aKey                            = TDGetPNGImageFilenameWithAssetScale( aKey, [[UIScreen mainScreen] scaleMultiple] );
     return [self unzipDataForKey: aKey];
 }
 

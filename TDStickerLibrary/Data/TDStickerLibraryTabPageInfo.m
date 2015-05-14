@@ -115,7 +115,8 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 //  ------------------------------------------------------------------------------------------------
 - ( NSData * ) _GetImageDataForKey:(NSString *)aKey
 {
-    aKey                            = TDGetImageNameForScreenScale( aKey, (NSInteger)[[UIScreen mainScreen] scaleMultiple] );
+//    aKey                            = TDGetImageNameForScreenScale( aKey, (NSInteger)[[UIScreen mainScreen] scaleMultiple] );
+//    aKey                            = TDGetPNGImageFilenameWithAssetScale( aKey, (NSInteger)[[UIScreen mainScreen] scaleMultiple] );
     if ( nil == aKey )
     {
         return nil;

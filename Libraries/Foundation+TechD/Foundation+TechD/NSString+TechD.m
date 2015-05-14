@@ -51,6 +51,7 @@
     
     regex_t                         regular;
     int                             result;
+    int                             length;
     regmatch_t                      matches[1];
 
     char                            errorMsg[BUFSIZ];
@@ -79,7 +80,10 @@
         regfree( &regular );
         return NO;
     }
-    if ( ( [self length] ) != matches[0].rm_eo  )   //  check match length equal or not.
+
+    //  when string has wide char, the check method have different length base; must set to the same base.
+    length                          = strlen( [self UTF8String] );
+    if ( length != matches[0].rm_eo  )   //  check match length equal or not.
     {
         regfree( &regular );
         return NO;
