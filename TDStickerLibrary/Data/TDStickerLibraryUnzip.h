@@ -30,8 +30,8 @@
 #pragma mark declare for create the object.
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief initial a Sticker Libaray Unzip object.
- *  initial a Sticker Libaray Unzip object.
+ *  @brief create a Sticker Libaray Unzip object.
+ *  create a Sticker Libaray Unzip object.
  *
  *  @param filename                 zipped file name (without Extension part).
  *  @param directory                enumeration for directory.
@@ -42,20 +42,14 @@
  *
  *  @return object|nil              the Sticker Library Unzip object or nil.
  */
-- ( instancetype ) initWithZipFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
-                      inZippedPath:(NSString *)prefix with:(NSString *)password
-                         configure:(NSString *)rootKey;
-
-
 + ( instancetype ) unzipFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
                 inZippedPath:(NSString *)prefix with:(NSString *)password
                    configure:(NSString *)rootKey;
 
-
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief initial a Sticker Libaray Unzip object.
- *  initial a Sticker Libaray Unzip object.
+ *  @brief create a Sticker Libaray Unzip object.
+ *  create a Sticker Libaray Unzip object.
  *
  *  @param fullPath                 zipped file name (full path).
  *  @param prefix                   prefix path name in zipped file.
@@ -64,10 +58,9 @@
  *
  *  @return object|nil              the Sticker Library Unzip object or nil.
  */
-- ( instancetype ) initWithZipFile:(NSString *)fullPath
-                      inZippedPath:(NSString *)prefix with:(NSString *)password
-                         configure:(NSString *)rootKey;
-
++( instancetype ) unzipFile:(NSString *)fullPath
+               inZippedPath:(NSString *)prefix with:(NSString *)password
+                  configure:(NSString *)rootKey;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for update this object.

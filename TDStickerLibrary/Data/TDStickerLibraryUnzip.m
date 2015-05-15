@@ -508,20 +508,15 @@
         }
     }
     
-    NSLog( @"(%d)configure : %@", [configureData count], configureData );
     //  remove from contaner on here.
     for ( int i = 0; i < [removeObject count]; ++i )
     {
         [configureData              removeObject: [removeObject objectAtIndex: i]];
     }
     
-    NSLog( @"(%d)configure : %@", [configureData count], configureData );
     //  finish, insert into container.
     //[configureData                  addEntriesFromDictionary: tabData];
     [configureData                  addObjectsFromArray: (NSArray *)tabData];
-    
-    NSLog( @"(%d)configure : %@", [configureData count], configureData );
-    
     
     
     SAFE_ARC_RELEASE( removeObject );
@@ -611,11 +606,20 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 #pragma mark overwrite implementation of NSObject
-////  ------------------------------------------------------------------------------------------------
-//- ( instancetype ) init
-//{
-//    return [self initWithZipFile: nil forDirectories: TDTemporaryDirectory inDirectory: nil inZippedPath: nil with: nil configure: nil];
-//}
+//  ------------------------------------------------------------------------------------------------
+- ( instancetype ) init
+{
+    //  ※ 這邊這個 [super init] 其實在宣告的地方被我用 NS_UNAVAILABLE 停止被呼叫了，可是程式還是能運作
+    //    之後， release 或是其他狀況導致有問題，這邊可以嘗試回去把 super class 的 NS_UNAVAILABLE 拿掉。
+    self                            = [super init];
+    if ( nil == self )
+    {
+        return nil;
+    }
+    
+    [self                           _InitAttributes];
+    return self;
+}
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
@@ -655,7 +659,6 @@
                 inZippedPath:(NSString *)prefix with:(NSString *)password
                    configure:(NSString *)rootKey
 {
-    
     TDStickerLibraryUnzip         * unzipFile;
     BOOL                            isUpdate;
     NSString                      * filePath;
@@ -674,17 +677,12 @@
         return nil;
     }
     
-//    [unzipFile                      copyContainerData];
-    
-    
     if ( YES == isUpdate )
     {
         filename                    = [filename stringByDeletingPathExtension];
     }
     
     [unzipFile                      _SetPrefixDirectory: ( ( nil == prefix ) ? @"" : prefix ) ];
-    
-    
     if ( [unzipFile _GetConfigureJsonData: filename configure: rootKey with: nil] == NO )
     {
         NSLog( @"get configure data has warning. ");
@@ -695,47 +693,37 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithZipFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
-                      inZippedPath:(NSString*)prefix with:(NSString *)password
-                         configure:(NSString *)rootKey;
++( instancetype ) unzipFile:(NSString *)fullPath
+               inZippedPath:(NSString *)prefix with:(NSString *)password
+                  configure:(NSString *)rootKey
 {
-    //.    self                            = [super init];
-    if ( nil == self )
+    NSParameterAssert( nil != fullPath );
+    
+    TDStickerLibraryUnzip         * unzipFile;
+    NSString                      * filename;
+    NSArray                       * fileSeparated;
+    
+    filename                        = [fullPath lastPathComponent];
+    fileSeparated                   = [filename componentsSeparatedByString: @"."];
+    if ( ( [fileSeparated count] >= 2 ) && ( [[filename pathExtension] isNumeric] == YES ) )
+    {
+        filename                    = [filename stringByDeletingPathExtension];
+    }
+    
+    unzipFile                       = [[self class] zippedFileEnvironment: fullPath with: password onSingleton: NO];
+    if ( nil == unzipFile )
     {
         return nil;
     }
     
-    [self                           _InitAttributes];
-    if ( [self _UnzipProcedure: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: rootKey with: nil] == NO )
+    [unzipFile                      _SetPrefixDirectory: ( ( nil == prefix ) ? @"" : prefix ) ];
+    if ( [unzipFile _GetConfigureJsonData: filename configure: rootKey with: nil] == NO )
     {
-        SAFE_ARC_RELEASE( self );
-        SAFE_ARC_ASSIGN_POINTER_NIL( self );
-        return nil;
+        NSLog( @"get configure data has warning. ");
+        return unzipFile;
     }
-    
-    return self;
-}
 
-//  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithZipFile:(NSString *)fullPath
-                      inZippedPath:(NSString *)prefix with:(NSString *)password
-                         configure:(NSString *)rootKey
-{
-//.    self                            = [super init];
-    if ( nil == self )
-    {
-        return nil;
-    }
-    
-    [self                           _InitAttributes];
-    if ( [self _UnzipProcedure: fullPath inZippedPath: prefix with: password configure: rootKey with: nil] == NO )
-    {
-        SAFE_ARC_RELEASE( self );
-        SAFE_ARC_ASSIGN_POINTER_NIL( self );
-        return nil;
-    }
-    
-    return self;
+    return unzipFile;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -746,8 +734,6 @@
                    configure:(NSString *)rootKey with:(NSString *)updateKey
 
 {
-//.    return [self _UnzipProcedure: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: rootKey with: updateKey];
-
     BOOL                            isUpdate;
     NSString                      * filePath;
     

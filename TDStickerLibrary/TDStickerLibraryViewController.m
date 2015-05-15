@@ -219,7 +219,7 @@
     tabConfigure                    = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam systemConfigureTabDefaultFilename]
                                                                 forDirectories: [customizationParam systemConfigureDefaultDirectory]
                                                                    inDirectory: [customizationParam systemConfigureDefaultSubpath]
-                                                                  inZippedPath: [customizationParam systemConfigureTabDefaultInZippedPrefix]];
+                                                                  inZippedPath: [customizationParam systemConfigureTabDefaultInZippedPrefix] with: nil];
     if ( nil == tabConfigure )
     {
         return;

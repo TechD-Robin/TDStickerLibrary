@@ -31,20 +31,6 @@
 #pragma mark declare for create the object.
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief unzip a zipped file that is configure and resources about tab information.
- *  unzip a zipped file that is configure and resources about tab information.
- *
- *  @param filename                 zipped file name (without Extension part).
- *  @param directory                enumeration for directory.
- *  @param subpath                  resource's sub directory name of configure
- *  @param prefix                   prefix path name in zipped file.
- *
- *  @return object|nil              the Sticker Libaray Tab Info object or nil.
- */
-+ ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix;
-
-//  ------------------------------------------------------------------------------------------------
-/**
  *  @brief unzip a zipped file with password that is configure and resources about tab information.
  *  unzip a zipped file with password that is configure and resources about tab information.
  *
@@ -56,19 +42,8 @@
  *
  *  @return object|nil              the Sticker Libaray Tab Info object or nil.
  */
-+ ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix with:(NSString *)password;
-
-//  ------------------------------------------------------------------------------------------------
-/**
- *  @brief unzip a zipped file that is configure and resources about tab information.
- *  unzip a zipped file that is configure and resources about tab information.
- *
- *  @param fullPath                 zipped file name (full path).
- *  @param prefix                   prefix path name in zipped file.
- *
- *  @return object|nil              the Sticker Libaray Tab Info object or nil.
- */
-+ ( instancetype ) loadDataFromzip:(NSString *)fullPath inZippedPath:(NSString *)prefix;
++ ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
+                      inZippedPath:(NSString *)prefix with:(NSString *)password;
 
 //  ------------------------------------------------------------------------------------------------
 /**
