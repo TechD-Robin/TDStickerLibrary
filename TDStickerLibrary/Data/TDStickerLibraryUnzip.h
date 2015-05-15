@@ -10,6 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TDFoundation.h"
+#import "TDResourceManager.h"
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -18,7 +19,7 @@
  *  the zipped file include configure file and other resources, 
  *  and the file can use password or not to zip by ZipCrypto. 
  */
-@interface TDStickerLibraryUnzip : NSObject
+@interface TDStickerLibraryUnzip : TDResourceManager
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
@@ -44,6 +45,12 @@
 - ( instancetype ) initWithZipFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
                       inZippedPath:(NSString *)prefix with:(NSString *)password
                          configure:(NSString *)rootKey;
+
+
++ ( instancetype ) unzipFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
+                inZippedPath:(NSString *)prefix with:(NSString *)password
+                   configure:(NSString *)rootKey;
+
 
 //  ------------------------------------------------------------------------------------------------
 /**

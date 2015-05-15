@@ -148,11 +148,11 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 #pragma mark overwrite implementation of NSObject
-//  ------------------------------------------------------------------------------------------------
-- ( instancetype ) init
-{
-    return [self initWithZipFile: nil forDirectories: TDTemporaryDirectory inDirectory: nil inZippedPath: nil with: nil configure: nil];
-}
+////  ------------------------------------------------------------------------------------------------
+//- ( instancetype ) init
+//{
+//    return [self initWithZipFile: nil forDirectories: TDTemporaryDirectory inDirectory: nil inZippedPath: nil with: nil configure: nil];
+//}
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
@@ -175,7 +175,11 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 + ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
                       inZippedPath:(NSString *)prefix configure:(NSString *)rootKey
 {
-    return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: nil configure: rootKey];
+//.    return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: nil configure: rootKey];
+    
+    return [[self class] unzipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: nil configure: rootKey];
+    
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -183,7 +187,9 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
                       inZippedPath:(NSString *)prefix with:(NSString *)password
                          configure:(NSString *)rootKey
 {
-    return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: rootKey];
+//.    return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: rootKey];
+    
+    return [[self class] unzipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: rootKey];
 }
 
 

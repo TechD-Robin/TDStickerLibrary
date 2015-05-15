@@ -117,11 +117,11 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 #pragma mark overwrite implementation of NSObject
-//  ------------------------------------------------------------------------------------------------
-- ( instancetype ) init
-{
-    return [self initWithZipFile: nil forDirectories: TDTemporaryDirectory inDirectory: nil inZippedPath: nil with: nil];
-}
+////  ------------------------------------------------------------------------------------------------
+//- ( instancetype ) init
+//{
+//    return [self initWithZipFile: nil forDirectories: TDTemporaryDirectory inDirectory: nil inZippedPath: nil with: nil];
+//}
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
@@ -147,13 +147,17 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix
 {
-    return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: nil];
+//.    return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: nil];
+    return [[self class] unzipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: nil configure: kTDTabInfoKeyRoot];
+
 }
 
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix with:(NSString *)password
 {
-    return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password];
+//.    return [[[self class] alloc] initWithZipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password];
+    return [[self class] unzipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: kTDTabInfoKeyRoot];
+    
 }
 
 //  ------------------------------------------------------------------------------------------------

@@ -485,7 +485,8 @@
     }
     
     viewRect                        = CGRectMake( 0.0f, subviewTop, screenWidth, viewHeight );
-    view                            = [TDStickerLibraryTabPageView tabPageWithFrame: viewRect customization: customizationParam data: configure from: dataLink updateCheckBy: timestamp forKey: configureKey];
+    view                            = [TDStickerLibraryTabPageView tabPageWithFrame: viewRect customization: customizationParam data:
+                                       configure from: dataLink updateCheckBy: timestamp forKey: configureKey];
     if ( nil == view )
     {
         return nil;
@@ -636,34 +637,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
-    if ( nil != navigationBar )
-    {
-        SAFE_ARC_RELEASE( navigationBar );
-        SAFE_ARC_ASSIGN_POINTER_NIL( navigationBar );
-    }
-    if ( nil != bannerView )
-    {
-        SAFE_ARC_RELEASE( bannerView );
-        SAFE_ARC_ASSIGN_POINTER_NIL( bannerView );
-    }
-    if ( nil != tabMenu )
-    {
-        SAFE_ARC_RELEASE( tabMenu );
-        SAFE_ARC_ASSIGN_POINTER_NIL( tabMenu );
-    }
-    
-    if ( nil != customizationParam )
-    {
-        SAFE_ARC_RETAIN( customizationParam );
-        SAFE_ARC_ASSIGN_POINTER_NIL( customizationParam );
-    }
-    
-    if ( nil != tabConfigure )
-    {
-        SAFE_ARC_RETAIN( tabConfigure );
-        SAFE_ARC_ASSIGN_POINTER_NIL( tabConfigure );
-    }
-    
+    [self                           releaseCreatedObject];
     SAFE_ARC_SUPER_DEALLOC();
 }
 
@@ -693,6 +667,13 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self                           releaseCreatedObject];          //  be executed this, will trigger system to call dealloc.
+    [super                          viewDidDisappear: animated];
+}
+
+//  ------------------------------------------------------------------------------------------------
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -704,6 +685,60 @@
 //{
 //    return NO;
 //}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+//  release object that's created by self.
+- ( void ) releaseCreatedObject
+{
+    if ( nil != navigationBar )
+    {
+        SAFE_ARC_RELEASE( navigationBar );
+        navigationBar               = nil;
+    }
+    if ( nil != bannerView )
+    {
+        SAFE_ARC_RELEASE( bannerView );
+        bannerView                  = nil;
+    }
+    if ( nil != tabMenu )
+    {
+        if ( [[tabMenu subviews] count] != 0 )
+        {
+            NSMutableArray        * subviews;
+            subviews                = [NSMutableArray arrayWithArray: [tabMenu subviews]];
+            for ( id idObject in subviews )
+            {
+                if ( ( nil == idObject ) || ( [idObject isKindOfClass: [TDBaseTabMenuItem class]] == NO ) )
+                {
+                    continue;
+                }
+                [idObject           removeFromSuperview];
+                SAFE_ARC_RELEASE( idObject );
+                SAFE_ARC_ASSIGN_POINTER_NIL( idObject );
+            }
+            [subviews               removeAllObjects];
+            SAFE_ARC_RELEASE( subviews );
+            subviews                = nil;
+        }
+        
+        SAFE_ARC_RELEASE( tabMenu );
+        tabMenu                     = nil;
+    }
+    
+    if ( nil != customizationParam )
+    {
+        //SAFE_ARC_RELEASE( customizationParam );
+        customizationParam          = nil;
+    }
+    
+    if ( nil != tabConfigure )
+    {
+        SAFE_ARC_RELEASE( tabConfigure );
+        tabConfigure                = nil;
+    }
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
