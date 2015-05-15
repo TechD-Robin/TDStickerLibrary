@@ -40,11 +40,6 @@
     NSString                      * prefixDirectory;
     
     /**
-     *  the container of unzipped data.
-     */
-//.    NSMutableDictionary           * unzipDataContainer;
-    
-    /**
      *  the container of configure data.
      */
     //NSMutableDictionary           * configureData;      //  json struct.
@@ -79,59 +74,19 @@
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
-+ ( NSString *) _GetZippedFileFullPath:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
-                             isUpdate:(BOOL *)updateFile;
-
-
-//  ------------------------------------------------------------------------------------------------
-#pragma mark declare for unzip file.
-//  ------------------------------------------------------------------------------------------------
 /**
- *  @brief unzip procedure for unzip a zipped file.
- *  unzip procedure for unzip a zipped file.
+ *  @brief get a zipped file's full path with check the state of update.
+ *  get a zipped file's full path with check the state of update.
  *
  *  @param filename                 zipped file name (without Extension part).
  *  @param directory                enumeration for directory.
  *  @param subpath                  resource's sub directory name of configure
- *  @param prefix                   prefix path name in zipped file.
- *  @param password                 password of zipped file.
- *  @param rootKey                  key of root of configure file.
- *  @param updateKey                key for update data.
+ *  @param updateFile               pointer of extensioin result of method, to express file exist is update or default.
  *
- *  @return YES|NO                  method success or failure.
+ *  @return full path|nil           the file's full path or nil.
  */
-- ( BOOL ) _UnzipProcedure:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
-              inZippedPath:(NSString*)prefix with:(NSString *)password
-                 configure:(NSString *)rootKey with:(NSString *)updateKey;
-
-//  ------------------------------------------------------------------------------------------------
-/**
- *  @brief unzip procedure for unzip a zipped file.
- *  unzip procedure for unzip a zipped file.
- *
- *  @param fullPath                 zipped file name (full path).
- *  @param prefix                   prefix path name in zipped file.
- *  @param password                 password of zipped file.
- *  @param rootKey                  key of root of configure file.
- *  @param updateKey                key for update data.
- *
- *  @return YES|NO                  method success or failure.
- */
-- ( BOOL ) _UnzipProcedure:(NSString *)fullPath
-              inZippedPath:(NSString*)prefix with:(NSString *)password
-                 configure:(NSString *)rootKey with:(NSString *)updateKey;
-
-//  ------------------------------------------------------------------------------------------------
-/**
- *  @brief unzip a zipped file with password.
- *  unzip a zipped file with password.
- *
- *  @param filename                 zipped file name (full path).
- *  @param password                 password of zipped file.
- *
- *  @return YES|NO                  method success or failure.
- */
-- ( BOOL ) _UnZipConfigureFile:(NSString *)filename with:(NSString *)password;
++ ( NSString *) _GetZippedFileFullPath:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
+                             isUpdate:(BOOL *)updateFile;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for json data.
@@ -160,6 +115,26 @@
  *  @return YES|NO                  method success or failure.
  */
 - ( BOOL ) _ParseJsonStruct:(NSMutableDictionary *)json  configure:(NSString *)rootKey with:(NSString *)updateKey;
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for i/o properties.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the prefix path name in zipped file.
+ *  get the prefix path name in zipped file.
+ *
+ *  @return prefix|nil              the prefix path name or nil
+ */
+- ( NSString * ) _GetPrefixDirectory;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a prefix path name in zipped file.
+ *  set a prefix path name in zipped file.
+ *
+ *  @param prefix                   a prefix path name.
+ */
+- ( void ) _SetPrefixDirectory:(NSString *)prefix;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for get data in Zipped file.
@@ -218,8 +193,6 @@
 {
     prefixDirectory                 = nil;
     
-//.    unzipDataContainer              = nil;
-    
     configureData                   = nil;
     
     swapSource                      = nil;
@@ -244,177 +217,6 @@
         zipFileExtension            = nil;
     }
     return TDGetPathForDirectories( directory, filename, zipFileExtension, subpath, YES );
-}
-
-
-
-//  ------------------------------------------------------------------------------------------------
-#pragma mark method for unzip file.
-//  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _UnzipProcedure:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
-              inZippedPath:(NSString*)prefix with:(NSString *)password
-                 configure:(NSString *)rootKey with:(NSString *)updateKey
-{
-    if ( nil == filename )
-    {
-        NSLog( @"filename is nil(%s).", __FUNCTION__ );
-        return NO;
-    }
-    
-    prefixDirectory                 = prefix;
-    if ( nil == prefixDirectory )
-    {
-        prefixDirectory             = @"";
-    }
-    
-    BOOL                            isUpdate;
-    NSString                      * filePath;
-    NSString                      * zipFileExtension;
-    NSArray                       * fileSeparated;
-    
-    isUpdate                        = NO;
-    zipFileExtension                = @"zip";
-    fileSeparated                   = [filename componentsSeparatedByString: @"."];
-    //  check file name for appended timpstamp.
-    if ( ( [fileSeparated count] >= 2 ) && ( [[filename pathExtension] isNumeric] == YES ) )
-    {
-        isUpdate                    = YES;
-        zipFileExtension            = nil;
-    }
-    
-    filePath                        = TDGetPathForDirectories( directory, filename, zipFileExtension, subpath, YES );
-    if ( nil == filePath )
-    {
-        NSLog( @"file %s no exist.", [filePath UTF8String] );
-        return NO;
-    }
-    
-    if ( [self _UnZipConfigureFile: filePath with: password] == NO )
-    {
-        NSLog( @"unzip configure file has warning." );
-        return NO;
-    }
-    
-    if ( YES == isUpdate )
-    {
-        filename                    = [filename stringByDeletingPathExtension];
-    }
-    
-    if ( [self _GetConfigureJsonData: filename configure: rootKey with: updateKey] == NO )
-    {
-        NSLog( @"get configure data has warning. ");
-        return NO;
-    }
-    
-    return YES;
-}
-
-//  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _UnzipProcedure:(NSString *)fullPath
-              inZippedPath:(NSString*)prefix with:(NSString *)password
-                 configure:(NSString *)rootKey with:(NSString *)updateKey
-{
-    NSParameterAssert( nil != fullPath );
-
-    prefixDirectory                 = prefix;
-    if ( nil == prefixDirectory )
-    {
-        prefixDirectory             = @"";
-    }
-    
-    NSString                      * filename;
-    NSArray                       * fileSeparated;
-    
-    filename                        = [fullPath lastPathComponent];
-    fileSeparated                   = [filename componentsSeparatedByString: @"."];
-    if ( ( [fileSeparated count] >= 2 ) && ( [[filename pathExtension] isNumeric] == YES ) )
-    {
-        filename                    = [filename stringByDeletingPathExtension];
-    }
-    
-    if ( [self _UnZipConfigureFile: fullPath with: password] == NO )
-    {
-        NSLog( @"unzip configure file has warning." );
-        return NO;
-    }
-    
-    if ( [self _GetConfigureJsonData: filename configure: rootKey with: updateKey] == NO )
-    {
-        NSLog( @"get configure data has warning. ");
-        return NO;
-    }
-    
-    return YES;
-}
-
-//  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _UnZipConfigureFile:(NSString *)filename with:(NSString *)password
-{
-//    if ( nil == filename )
-//    {
-//        return NO;
-//    }
-//    
-//    BOOL                            result;
-//    ZipArchive                    * zip;
-//    NSDictionary                  * zipFiles;
-//    
-//    result                          = NO;
-//    zipFiles                        = nil;
-//    zip                             = [[ZipArchive alloc] init];
-//    if ( nil == zip )
-//    {
-//        NSLog( @"cannot create zip archive object!" );
-//        return NO;
-//    }
-//    
-//    ////  set process call back.
-//    //[zip                            setProgressBlock: ^(int percentage, int filesProcessed, unsigned long numFiles, NSString * filename )
-//    // {
-//    //     NSLog( @"[%d%%] %d/%ld  %s", percentage, filesProcessed, numFiles, [filename UTF8String] );
-//    // }];
-//    
-//    if ( nil == password )
-//    {
-//        result                      = [zip UnzipOpenFile: filename];
-//    }
-//    else
-//    {
-//        result                      = [zip UnzipOpenFile: filename Password: password];
-//    }
-//    
-//    if ( result == NO )
-//    {
-//        NSLog( @"cannot open zip file %s.", __FUNCTION__ );
-//        [zip                        UnzipCloseFile];
-//        return NO;
-//    }
-//    zipFiles                        = [zip UnzipFileToMemory];
-//    if ( nil == zipFiles )
-//    {
-//        NSLog( @"cannot unzip file to memory");
-//        [zip                        UnzipCloseFile];
-//        return NO;
-//    }
-//    
-//    if ( nil == unzipDataContainer )
-//    {
-//        unzipDataContainer              = [[NSMutableDictionary alloc] initWithDictionary: zipFiles copyItems: YES];
-//    }
-//    else
-//    {
-//        [unzipDataContainer             addEntriesFromDictionary: zipFiles];
-//    }
-//    
-//    //.NSLog( @"unzip file in memory : %@", zipFiles );
-//    [zip                            UnzipCloseFile];
-//    
-//    SAFE_ARC_RELEASE( zipFiles );
-//    SAFE_ARC_ASSIGN_POINTER_NIL( zipFiles );
-//    
-//    SAFE_ARC_RELEASE( zip );
-//    SAFE_ARC_ASSIGN_POINTER_NIL( zip );
-    return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -454,7 +256,7 @@
     [[self                          unzipDataContainer] removeObjectForKey: key];
     
     SAFE_ARC_RELEASE( json );
-    SAFE_ARC_ASSIGN_POINTER_NIL( json );
+    json                            = nil;
     
     return YES;
 }
@@ -520,45 +322,35 @@
     
     
     SAFE_ARC_RELEASE( removeObject );
-    SAFE_ARC_ASSIGN_POINTER_NIL( removeObject );
+    removeObject                    = nil;
     
     return YES;
 }
 
-
-
-//prefixDirectory
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for i/o properties.
 //  ------------------------------------------------------------------------------------------------
 - ( NSString * ) _GetPrefixDirectory
 {
     return prefixDirectory;
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( void ) _SetPrefixDirectory:(NSString *)prefix
 {
     prefixDirectory                 = prefix;
 }
-
-
-
-
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for get data in Zipped file.
 //  ------------------------------------------------------------------------------------------------
 - ( NSData * ) _UnzipDataForKey:(NSString *)aKey
 {
-//    if ( ( nil == aKey ) || ( nil == unzipDataContainer ) || ( [unzipDataContainer count] == 0 ) )
-//    {
-//        return nil;
-//    }
-//    return [unzipDataContainer objectForKey: aKey];
     if ( ( nil == aKey ) || ( nil == [self unzipDataContainer] ) || ( [[self unzipDataContainer] count] == 0 ) )
     {
         return nil;
     }
     return [[self unzipDataContainer] objectForKey: aKey];
-    
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -629,24 +421,17 @@
         SAFE_ARC_ASSIGN_POINTER_NIL( prefixDirectory );
     }
     
-//    if ( nil != unzipDataContainer )
-//    {
-//        [unzipDataContainer         removeAllObjects];
-//        SAFE_ARC_RELEASE( unzipDataContainer );
-//        SAFE_ARC_ASSIGN_POINTER_NIL( unzipDataContainer );
-//    }
-    
     if ( nil != configureData )
     {
         [configureData              removeAllObjects];
         SAFE_ARC_RELEASE( configureData );
-        SAFE_ARC_ASSIGN_POINTER_NIL( configureData );
+        configureData               = nil;
     }
     
     if ( nil != swapSource )
     {
         SAFE_ARC_RELEASE( swapSource );
-        SAFE_ARC_ASSIGN_POINTER_NIL( swapSource );
+        swapSource                  = nil;
     }
     
     SAFE_ARC_SUPER_DEALLOC();
@@ -659,7 +444,9 @@
                 inZippedPath:(NSString *)prefix with:(NSString *)password
                    configure:(NSString *)rootKey
 {
-    TDStickerLibraryUnzip         * unzipFile;
+    NSParameterAssert( nil != filename );
+    
+    TDStickerLibraryUnzip         * unziper;
     BOOL                            isUpdate;
     NSString                      * filePath;
     
@@ -671,8 +458,8 @@
         return NO;
     }
     
-    unzipFile                       = [[self class] zippedFileEnvironment: filePath with: password onSingleton: NO];
-    if ( nil == unzipFile )
+    unziper                         = [[self class] zippedFileEnvironment: filePath with: password onSingleton: NO];
+    if ( nil == unziper )
     {
         return nil;
     }
@@ -682,14 +469,14 @@
         filename                    = [filename stringByDeletingPathExtension];
     }
     
-    [unzipFile                      _SetPrefixDirectory: ( ( nil == prefix ) ? @"" : prefix ) ];
-    if ( [unzipFile _GetConfigureJsonData: filename configure: rootKey with: nil] == NO )
+    [unziper                        _SetPrefixDirectory: ( ( nil == prefix ) ? @"" : prefix ) ];
+    if ( [unziper _GetConfigureJsonData: filename configure: rootKey with: nil] == NO )
     {
         NSLog( @"get configure data has warning. ");
-        return unzipFile;
+        return unziper;
     }
     
-    return unzipFile;
+    return unziper;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -699,7 +486,7 @@
 {
     NSParameterAssert( nil != fullPath );
     
-    TDStickerLibraryUnzip         * unzipFile;
+    TDStickerLibraryUnzip         * unziper;
     NSString                      * filename;
     NSArray                       * fileSeparated;
     
@@ -710,20 +497,20 @@
         filename                    = [filename stringByDeletingPathExtension];
     }
     
-    unzipFile                       = [[self class] zippedFileEnvironment: fullPath with: password onSingleton: NO];
-    if ( nil == unzipFile )
+    unziper                         = [[self class] zippedFileEnvironment: fullPath with: password onSingleton: NO];
+    if ( nil == unziper )
     {
         return nil;
     }
+    [unziper                        _SetPrefixDirectory: ( ( nil == prefix ) ? @"" : prefix ) ];
     
-    [unzipFile                      _SetPrefixDirectory: ( ( nil == prefix ) ? @"" : prefix ) ];
-    if ( [unzipFile _GetConfigureJsonData: filename configure: rootKey with: nil] == NO )
+    if ( [unziper _GetConfigureJsonData: filename configure: rootKey with: nil] == NO )
     {
         NSLog( @"get configure data has warning. ");
-        return unzipFile;
+        return unziper;
     }
 
-    return unzipFile;
+    return unziper;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -734,6 +521,8 @@
                    configure:(NSString *)rootKey with:(NSString *)updateKey
 
 {
+    NSParameterAssert( nil != filename );
+    
     BOOL                            isUpdate;
     NSString                      * filePath;
     
@@ -747,18 +536,15 @@
     
     if ( [self updateZippedFileContainer: filePath with: password] == NO )
     {
-        NSLog( @"" );
+        NSLog( @"update zipped file container failed." );
         return NO;
     }
-    
+    [self                           _SetPrefixDirectory: ( ( nil == prefix ) ? @"" : prefix ) ];
     
     if ( YES == isUpdate )
     {
         filename                    = [filename stringByDeletingPathExtension];
     }
-    
-    [self                           _SetPrefixDirectory: ( ( nil == prefix ) ? @"" : prefix ) ];
-    
     
     if ( [self _GetConfigureJsonData: filename configure: rootKey with: updateKey] == NO )
     {
