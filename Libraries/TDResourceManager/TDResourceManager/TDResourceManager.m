@@ -416,6 +416,12 @@
     dispatch_once( &oneToken, ^
     {
         _defaultManager             = [[self alloc] init];
+        if ( [NSStringFromClass( [_defaultManager class] ) isEqualToString: @"TDResourceManager"] == NO )
+        {
+            @throw [NSException exceptionWithName:NSInvalidArgumentException reason: [NSString stringWithFormat:@"%s must be overridden in a subclass/category",
+                                                                                      __PRETTY_FUNCTION__] userInfo:nil];
+        }
+        
     });
     return _defaultManager;
 }
@@ -824,6 +830,17 @@
 {
     return unzipDataContainer;
 }
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for get properties of object.
+//  ------------------------------------------------------------------------------------------------
+- ( TDResourceManageSourceType ) currentEnvironment
+{
+    return currentSourceType;
+}
+
+//  ------------------------------------------------------------------------------------------------
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

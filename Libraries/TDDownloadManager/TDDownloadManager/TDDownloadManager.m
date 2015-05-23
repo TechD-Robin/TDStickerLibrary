@@ -9,6 +9,7 @@
 #import "TDDownloadManager.h"
 
 #import "AFNetworking.h"
+#import "UIProgressView+AFNetworking.h"
 #import "Foundation+TechD.h"
 
 //  ------------------------------------------------------------------------------------------------
@@ -468,6 +469,32 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 #pragma mark -
 #pragma mark class TDDownloadManager
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare private category ()
+//  ------------------------------------------------------------------------------------------------
+@interface TDDownloadManager ()
+{
+    /**
+     *  a download task of session; for set a progress view.
+     */
+    NSURLSessionDownloadTask      * sessionDownloadTask;
+}
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  assign a block's pointer for be executed when download task is running.
+ */
+@property (readwrite, nonatomic, copy) TDDownloadTaskDidWriteDataBlock      didWriteDataBlock;
+
+//  ------------------------------------------------------------------------------------------------
+
+@end
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -477,7 +504,36 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 @interface TDDownloadManager (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for initial this class.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief initial the attributes of class.
+ *  initial the attributes of class.
+ */
+- ( void ) _InitAttributes;
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark declare for download procedure.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a Download Manager object with AFManager for set some callback block section.
+ *  create a Download Manager object with AFManager for set some callback block section.
+ *
+ *  @param afManager                a AF URL Session manager object.
+ *
+ *  @return object|nil              the download manager object or nil.
+ */
++ ( instancetype ) _DownloadManagerTaskDidWriteDataBlockWith:(AFURLSessionManager *)afManager;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a download task of session.
+ *  set a download task of session; for set a progress view.
+ *
+ *  @param downloadTask             a download task.
+ */
+- ( void ) _SetDownloadManagerTask:(NSURLSessionDownloadTask *)downloadTask;
+
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief download a file from URL and save the file to directory.
@@ -488,11 +544,12 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
  *  @param coverOldFile             decision to replace older file or not.
  *  @param completed                a block section be executed when download completed.
  *
+ 
  *  @return YES|NO                  method success or failure.
+ 
  */
-+ ( BOOL ) _DownloadProcedure:(NSString *)destinationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder
-                    completed:(DownloadCompletedCallbackBlock)completed;
-
++ ( instancetype ) _DownloadProcedure:(NSString *)destinationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder
+                            completed:(TDDownloadCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -511,10 +568,49 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 @implementation TDDownloadManager (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for initial this class.
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _InitAttributes
+{
+    [self                           setDidWriteDataBlock: nil];
+    sessionDownloadTask             = nil;
+}
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark method for download procedure.
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) _DownloadProcedure:(NSString *)destinationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder
-                    completed:(DownloadCompletedCallbackBlock)completed
++ ( instancetype ) _DownloadManagerTaskDidWriteDataBlockWith:(AFURLSessionManager *)afManager
+{
+    NSParameterAssert( nil != afManager );
+    
+    //  set callback block to get bytes information of downloading.
+    TDDownloadManager             * downloadManager;
+    
+    downloadManager                 = [[[self class] alloc] init];
+    [afManager                      setDownloadTaskDidWriteDataBlock:
+     ^(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite)
+     {
+         if ( ( nil != downloadManager) && ( nil != downloadManager.didWriteDataBlock ) )
+         {
+             downloadManager.didWriteDataBlock( bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
+         }
+     }];
+    return downloadManager;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _SetDownloadManagerTask:(NSURLSessionDownloadTask *)downloadTask
+{
+    if ( nil == downloadTask )
+    {
+        return;
+    }
+    sessionDownloadTask             = downloadTask;
+}
+
+//  ------------------------------------------------------------------------------------------------
++ ( instancetype ) _DownloadProcedure:(NSString *)destinationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder
+                            completed:(TDDownloadCompletedCallbackBlock)completed
 {
     NSParameterAssert( nil != destinationFile );
     NSParameterAssert( nil != fileURL );
@@ -565,8 +661,24 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
         }
     }];
     
+    [manager setDownloadTaskDidWriteDataBlock: ^(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite)
+    {
+        NSLog( @"session : %@, download task : %@\nbytesWritten : %lld, totalBytesWritten : %lld, totalBytesExpectedToWrite : %lld.",
+              session, downloadTask, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
+    }];
+    
     [downloatTask                   resume];
-    return YES;
+
+    
+    //  set callback block to get  bytes information of downloading.
+    TDDownloadManager             * downloadManager;
+
+    downloadManager                 = [[self class] _DownloadManagerTaskDidWriteDataBlockWith: manager];
+    if ( nil != downloadManager )
+    {
+        [downloadManager            _SetDownloadManagerTask: downloatTask];
+    }
+    return downloadManager;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -587,9 +699,35 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 @implementation TDDownloadManager
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark overwrite implementation of NSObject.
+//  ------------------------------------------------------------------------------------------------
+- ( instancetype ) init
+{
+    self                            = [super init];
+    if ( nil == self )
+    {
+        return nil;
+    }
+    
+    //  initial.
+    [self                           _InitAttributes];
+    return self;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) dealloc
+{
+    if ( nil != sessionDownloadTask )
+    {
+        sessionDownloadTask    = nil;
+    }
+}
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark method for download file.
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) simpleDownload:(NSString *)downloadURL forDirectory:(NSSearchPathDirectory)directory completed:(DownloadCompletedCallbackBlock)completed
++ ( instancetype ) simpleDownload:(NSString *)downloadURL forDirectory:(NSSearchPathDirectory)directory
+                        completed:(TDDownloadCompletedCallbackBlock)completed
 {
     NSParameterAssert( nil != downloadURL );
     
@@ -633,22 +771,34 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     }];
     
     [downloatTask                   resume];
-    return YES;
+    
+    
+    //  set callback block to get  bytes information of downloading.
+    TDDownloadManager             * downloadManager;
+    
+    downloadManager                 = [[self class] _DownloadManagerTaskDidWriteDataBlockWith: manager];
+    if ( nil != downloadManager )
+    {
+        [downloadManager            _SetDownloadManagerTask: downloatTask];
+    }
+    return downloadManager;
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) download:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory updateCheckBy:(NSString *)timestamp
-          completed:(DownloadCompletedCallbackBlock)completed
++ ( instancetype ) download:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory
+      updateCheckBy:(NSString *)timestamp
+          completed:(TDDownloadCompletedCallbackBlock)completed
 {
     NSParameterAssert( nil != filename );
     NSParameterAssert( nil != fileURL );
     
-    BOOL                            result;
     BOOL                            download;
+    TDDownloadManager             * downloadManager;
     NSString                      * destinationFilename;
     
-    result                          = NO;
+    
     download                        = NO;
+    downloadManager                 = nil;
     destinationFilename             = nil;
     destinationFilename             = TDGetPathForDirectoriesWithTimestamp( directory, [filename stringByDeletingPathExtension], timestamp, [filename pathExtension], subpath, NO );
     NSParameterAssert( nil != destinationFilename );
@@ -661,11 +811,12 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
             completed( nil, destinationFilename, YES );
         }
         NSLog( @"already have a latest file in the directory. %@", filename );
-        return YES;
+        return nil;
     }
     
     //  when download finish, delete update older files.    //  cover older's value change to set: YES, because maybe find the same filename in destination directory, but it's 'dir'.
-    result                          = [TDDownloadManager _DownloadProcedure: destinationFilename from: fileURL into: subpath coverOlder: YES completed: ^ (NSError * error, NSString * fullPath, BOOL finished)
+    downloadManager                 = [TDDownloadManager _DownloadProcedure: destinationFilename from: fileURL into: subpath coverOlder: YES completed:
+                                       ^ (NSError * error, NSString * fullPath, BOOL finished)
     {
         if ( nil != completed )
         {
@@ -678,12 +829,12 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
         _RemoveUpdateOlderFile( filename, [destinationFilename stringByDeletingLastPathComponent], timestamp );
     }];
     
-    return result;
+    return downloadManager;
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) replacementDownload:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory
-                     completed:(DownloadCompletedCallbackBlock)completed
++ ( instancetype ) replacementDownload:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory
+                     completed:(TDDownloadCompletedCallbackBlock)completed
 {
     NSParameterAssert( nil != filename );
     NSParameterAssert( nil != fileURL );
@@ -694,7 +845,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     destinationFilename             = TDGetPathForDirectories( directory, [filename stringByDeletingPathExtension], [filename pathExtension], subpath, NO );
     if ( nil == destinationFilename )
     {
-        return NO;
+        return nil;
     }
     
     return [TDDownloadManager _DownloadProcedure: destinationFilename from: fileURL into: subpath coverOlder: YES completed: completed];
@@ -703,7 +854,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for download JSON data.
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) readJSONFile:(NSString *)jsonURL completed:(ReadJSONCompletedCallbackBlock)completed
++ ( BOOL ) readJSONFile:(NSString *)jsonURL completed:(TDReadJSONCompletedCallbackBlock)completed
 {
     NSSet                         * contentTypes;
     NSURL                         * url;
@@ -744,7 +895,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) readJSONFile:(NSString *)jsonURL
                withSave:(NSString *)filename into:(NSString *)subpath of:(TDGetPathDirectory)directory extension:(NSString *)timestamp
-             completed:(ReadJSONCompletedCallbackBlock)completed
+             completed:(TDReadJSONCompletedCallbackBlock)completed
 {
     NSParameterAssert( nil != jsonURL );
     NSParameterAssert( nil != filename );
@@ -787,7 +938,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) readJSONFile:(NSString *)jsonURL withSaveInto:(NSString *)fullPath completed:(ReadJSONCompletedCallbackBlock)completed
++ ( BOOL ) readJSONFile:(NSString *)jsonURL withSaveInto:(NSString *)fullPath completed:(TDReadJSONCompletedCallbackBlock)completed
 {
     NSParameterAssert( nil != jsonURL );
     NSParameterAssert( nil != fullPath );
@@ -820,6 +971,32 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for base methods of procedure
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setDownloadTaskDidWriteDataBlock:(TDDownloadTaskDidWriteDataBlock)dataBlock
+{
+    if ( nil == dataBlock )
+    {
+        return;
+    }
+    [self                           setDidWriteDataBlock: dataBlock];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setDownloadTaskProgressView:(UIProgressView *)progressView
+{
+    if ( nil == progressView )
+    {
+        return;
+    }
+    
+    if ( [progressView respondsToSelector: @selector( setProgressWithDownloadProgressOfTask: animated: )] == NO )
+    {
+        return;
+    }
+    [progressView setProgressWithDownloadProgressOfTask: sessionDownloadTask animated: YES];
+}
+
 //  ------------------------------------------------------------------------------------------------
 
 

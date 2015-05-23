@@ -13,6 +13,10 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+@class UIProgressView;
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 #pragma mark declare for get path.
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -50,12 +54,12 @@ NSString * TDGetCurrentFilePathWithUpdate( NSString * filename, NSString * subpa
  *
  *  @return void                    nothing.
  */
-typedef     void (^ReadJSONCompletedCallbackBlock)(NSDictionary * jsonContent, NSError * error, BOOL finished);
+typedef     void (^TDReadJSONCompletedCallbackBlock)(NSDictionary * jsonContent, NSError * error, BOOL finished);
 
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief a block section be execute when download file from internet is completed.
- *  a block section be execute when download file from internet is completed, these parameters witll return completed information to method caller.
+ *  a block section be execute when download file from internet is completed, these parameters will return completed information to method caller.
  *
  *  @param error                    a NSError object, if download method failure then this object has error information, otherwise it's nil object.
  *  @param fullPath                 save the download file to this file's full path.
@@ -63,7 +67,22 @@ typedef     void (^ReadJSONCompletedCallbackBlock)(NSDictionary * jsonContent, N
  *
  *  @return void                    nothing.
  */
-typedef     void (^DownloadCompletedCallbackBlock)(NSError * error, NSString * fullPath, BOOL finished);
+typedef     void (^TDDownloadCompletedCallbackBlock)(NSError * error, NSString * fullPath, BOOL finished);
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief a block section be execute when download file from internet is running.
+ *  a block section be execute when download file from internet is running, these parameters will return process bytes to method caller.
+ *
+ *  @param bytesWritten                 the file's download bytes when a process loop.
+ *  @param totalBytesWritten            the file's already download bytes.
+ *  @param totalBytesExpectedToWrite    the file's total bytes.
+ *
+ *  @return void                        nothing.
+ */
+typedef     void (^TDDownloadTaskDidWriteDataBlock)(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite);
+
+
 
 //  ------------------------------------------------------------------------------------------------
 //  the Download Manager provide method simply download data from URL;
@@ -72,6 +91,9 @@ typedef     void (^DownloadCompletedCallbackBlock)(NSError * error, NSString * f
 #pragma mark -
 #pragma mark class TDDownloadManager
 @interface TDDownloadManager : NSObject
+
+//  ------------------------------------------------------------------------------------------------
+- (instancetype)init NS_UNAVAILABLE;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for download file.
@@ -84,9 +106,10 @@ typedef     void (^DownloadCompletedCallbackBlock)(NSError * error, NSString * f
  *  @param directory                enumeration for directory.
  *  @param completed                a block section be executed when download completed.
  *
- *  @return YES|NO                  method success or failure.
+ *  @return object|nil              the download manager object or nil.
  */
-+ ( BOOL ) simpleDownload:(NSString *)downloadURL forDirectory:(NSSearchPathDirectory)directory completed:(DownloadCompletedCallbackBlock)completed;
++ ( instancetype ) simpleDownload:(NSString *)downloadURL forDirectory:(NSSearchPathDirectory)directory
+                        completed:(TDDownloadCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -101,16 +124,17 @@ typedef     void (^DownloadCompletedCallbackBlock)(NSError * error, NSString * f
  *  @param timestamp                the file update condition that was check for integer type.
  *  @param completed                a block section be executed when download completed.
  *
- *  @return YES|NO                  method success or failure.
+ *  @return object|nil              the download manager object or nil.
  */
-+ ( BOOL ) download:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory updateCheckBy:(NSString *)timestamp
-          completed:(DownloadCompletedCallbackBlock)completed ;
++ ( instancetype ) download:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory
+              updateCheckBy:(NSString *)timestamp
+                  completed:(TDDownloadCompletedCallbackBlock)completed ;
 
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief download a file from URL and save the file to directory.
  *  download a file from URL and save the file to directory which these parameters is path condition for append.
- * if find the same filename in the directory, download and replace it.
+ *  if find the same filename in the directory, download and replace it.
  *
  *  @param filename                 save filename.
  *  @param fileURL                  the URL of file at internet.
@@ -118,10 +142,10 @@ typedef     void (^DownloadCompletedCallbackBlock)(NSError * error, NSString * f
  *  @param directory                enumeration for directory.
  *  @param completed                a block section be executed when download completed.
  *
- *  @return YES|NO                  method success or failure.
+ *  @return object|nil              the download manager object or nil.
  */
-+ ( BOOL ) replacementDownload:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory
-                     completed:(DownloadCompletedCallbackBlock)completed;
++ ( instancetype ) replacementDownload:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory
+                             completed:(TDDownloadCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for download JSON data.
@@ -135,7 +159,7 @@ typedef     void (^DownloadCompletedCallbackBlock)(NSError * error, NSString * f
  *
  *  @return YES|NO                  method success or failure.
  */
-+ ( BOOL ) readJSONFile:(NSString *)jsonURL completed:(ReadJSONCompletedCallbackBlock)completed;
++ ( BOOL ) readJSONFile:(NSString *)jsonURL completed:(TDReadJSONCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -154,7 +178,7 @@ typedef     void (^DownloadCompletedCallbackBlock)(NSError * error, NSString * f
  */
 + ( BOOL ) readJSONFile:(NSString *)jsonURL
                withSave:(NSString *)filename into:(NSString *)subpath of:(TDGetPathDirectory)directory extension:(NSString *)timestamp
-             completed:(ReadJSONCompletedCallbackBlock)completed;
+             completed:(TDReadJSONCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -167,7 +191,27 @@ typedef     void (^DownloadCompletedCallbackBlock)(NSError * error, NSString * f
  *
  *  @return YES|NO                  method success or failure.
  */
-+ ( BOOL ) readJSONFile:(NSString *)jsonURL withSaveInto:(NSString *)fullPath completed:(ReadJSONCompletedCallbackBlock)completed;
++ ( BOOL ) readJSONFile:(NSString *)jsonURL withSaveInto:(NSString *)fullPath completed:(TDReadJSONCompletedCallbackBlock)completed;
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for base methods of procedure
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a block section be executed when download task is running.
+ *  set a block section be executed when download task is running; if you need process bytes of download task, call this method.
+ *
+ *  @param dataBlock                a block section be executed when download task running.
+ */
+- ( void ) setDownloadTaskDidWriteDataBlock:(TDDownloadTaskDidWriteDataBlock)dataBlock;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a progress view for download task.
+ *  set a progress view for download task.
+ *
+ *  @param progressView             a progress view.
+ */
+- ( void ) setDownloadTaskProgressView:(UIProgressView *)progressView;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

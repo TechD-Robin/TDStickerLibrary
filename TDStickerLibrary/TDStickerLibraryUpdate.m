@@ -118,7 +118,7 @@
  *
  *  @return YES|NO                  method success or failure.
  */
-- ( BOOL ) _UpdateProcedure:(NSString *)name from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp completed:(DownloadCompletedCallbackBlock)completed;
+- ( BOOL ) _UpdateProcedure:(NSString *)name from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp completed:(TDDownloadCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -277,7 +277,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _UpdateProcedure:(NSString *)name from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp completed:(DownloadCompletedCallbackBlock)completed
+- ( BOOL ) _UpdateProcedure:(NSString *)name from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp completed:(TDDownloadCompletedCallbackBlock)completed
 {
     NSParameterAssert( nil != name );
     NSParameterAssert( nil != dataLink );

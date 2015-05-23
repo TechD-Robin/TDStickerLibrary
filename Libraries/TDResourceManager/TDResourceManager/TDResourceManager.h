@@ -350,6 +350,17 @@ typedef NS_ENUM( NSInteger, TDResourceManageSourceType ){
 - ( NSMutableDictionary * ) unzipDataContainer;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for get properties of object.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the resource type of current environment.
+ *  get the resource type of current environment.
+ *
+ *  @return                         resource type.
+ */
+- ( TDResourceManageSourceType ) currentEnvironment;
+
+//  ------------------------------------------------------------------------------------------------
 
 @end
 

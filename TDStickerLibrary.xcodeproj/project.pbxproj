@@ -86,6 +86,8 @@
 		2A8A59F91AD84552000CEA93 /* TDPreUpdateJSONInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59F81AD84552000CEA93 /* TDPreUpdateJSONInfo.m */; };
 		2A99ECF81A8A6FB30059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A99ECF71A8A6FB30059AA41 /* TDStickerLibraryStickerSoloView.m */; };
 		2A9A765B1AE17AE5007F36D3 /* NSDate+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9A765A1AE17AE5007F36D3 /* NSDate+TechD.m */; };
+		2AA056451B10DB6E0005E16D /* TDConfigureData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA056441B10DB6E0005E16D /* TDConfigureData.m */; };
+		2AA056461B10DB6E0005E16D /* TDConfigureData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA056441B10DB6E0005E16D /* TDConfigureData.m */; };
 		2AA733DC1AE3AD1F0050B7FC /* TDStickerLibraryStickerIntroDLVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA733DB1AE3AD1F0050B7FC /* TDStickerLibraryStickerIntroDLVC.m */; };
 		2AA8CEB51AC171DE003901EB /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEA81AC171DE003901EB /* NSLayoutConstraint+TechD.m */; };
 		2AA8CEB61AC171DE003901EB /* NSLayoutConstraint+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8CEA81AC171DE003901EB /* NSLayoutConstraint+TechD.m */; };
@@ -313,6 +315,8 @@
 		2A99ECF71A8A6FB30059AA41 /* TDStickerLibraryStickerSoloView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryStickerSoloView.m; sourceTree = "<group>"; };
 		2A9A76591AE17AE5007F36D3 /* NSDate+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TechD.h"; sourceTree = "<group>"; };
 		2A9A765A1AE17AE5007F36D3 /* NSDate+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TechD.m"; sourceTree = "<group>"; };
+		2AA056431B10DB6E0005E16D /* TDConfigureData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDConfigureData.h; sourceTree = "<group>"; };
+		2AA056441B10DB6E0005E16D /* TDConfigureData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDConfigureData.m; sourceTree = "<group>"; };
 		2AA733DA1AE3AD1F0050B7FC /* TDStickerLibraryStickerIntroDLVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryStickerIntroDLVC.h; sourceTree = "<group>"; };
 		2AA733DB1AE3AD1F0050B7FC /* TDStickerLibraryStickerIntroDLVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryStickerIntroDLVC.m; sourceTree = "<group>"; };
 		2AA8CEA41AC171DE003901EB /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -611,6 +615,8 @@
 			children = (
 				2A88D4E41B03DAA600F6D0D5 /* TDResourceManager.h */,
 				2A88D4E51B03DAA600F6D0D5 /* TDResourceManager.m */,
+				2AA056431B10DB6E0005E16D /* TDConfigureData.h */,
+				2AA056441B10DB6E0005E16D /* TDConfigureData.m */,
 			);
 			name = TDResourceManager;
 			path = Libraries/TDResourceManager/TDResourceManager;
@@ -996,6 +1002,7 @@
 				2AAB796F1AEEA21300DA71A8 /* TDUtilities.m in Sources */,
 				2A88D4D31B03D82F00F6D0D5 /* ZipArchive.m in Sources */,
 				2AAB79701AEEA21300DA71A8 /* TDTexturePackerXMLReader.m in Sources */,
+				2AA056461B10DB6E0005E16D /* TDConfigureData.m in Sources */,
 				2A88D4CD1B03D82F00F6D0D5 /* unzip.c in Sources */,
 				2AAB79711AEEA21300DA71A8 /* TDJSONReader.m in Sources */,
 				2AAB79721AEEA21300DA71A8 /* TDBaseTabMenuItem.m in Sources */,
@@ -1055,6 +1062,7 @@
 				2A5207DB1AC08A8C005FE8A7 /* UIProgressView+AFNetworking.m in Sources */,
 				2A88D4DA1B03D98400F6D0D5 /* NSBundle+TechD.m in Sources */,
 				2A5207D11AC08A8C005FE8A7 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				2AA056451B10DB6E0005E16D /* TDConfigureData.m in Sources */,
 				2A88D4DE1B03D99300F6D0D5 /* NSPropertyListSerialization+TechD.m in Sources */,
 				2AF2FE8C1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m in Sources */,
 				2A5207CA1AC08A8C005FE8A7 /* AFURLResponseSerialization.m in Sources */,

@@ -95,7 +95,17 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
     /**
      *  assign a block's pointer for be executed when pre-update procedure is completed
      */
-    PreUpdateCompletionBlock        preUpdateCompletionBlock;
+    TDPreUpdateCompletionBlock          preUpdateCompletionBlock;
+    
+    /**
+     *  assign a block's pointer for be executed when pre-update procedure is running.
+     */
+    TDPreUpdateTaskDidWriteDataBlock    didWriteDataBlock;
+    
+    /**
+     *  a progress view for a download task of pre-update procedure.
+     */
+    UIProgressView                    * preUpdateProgressView;
     
 }
 
@@ -176,7 +186,7 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
  *
  *  @return YES|NO                  method success or failure.
  */
-- ( BOOL ) _UpdateDataWith:(NSDictionary *)updateInfo completed:(DownloadCompletedCallbackBlock)completed;
+- ( BOOL ) _UpdateDataWith:(NSDictionary *)updateInfo completed:(TDDownloadCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -209,7 +219,6 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for initial this class.
 //  ------------------------------------------------------------------------------------------------
-
 - ( void ) _InitAttributes
 {
     configureUpdateURL              = nil;
@@ -226,6 +235,8 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
     downloadCounter                 = 0;
     
     preUpdateCompletionBlock        = nil;
+    didWriteDataBlock               = nil;
+    preUpdateProgressView           = nil;
 
 }
 
@@ -303,7 +314,7 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _PreDownloadSystemConfigure:(void(^)(BOOL finished) )completed
 {
-    ReadJSONCompletedCallbackBlock  readJSONCallbackBlock;
+    TDReadJSONCompletedCallbackBlock    readJSONCallbackBlock;
     
     //  get JSON data from container.
     readJSONCallbackBlock           = ^(NSDictionary * jsonContent, NSError * error, BOOL finished)
@@ -419,7 +430,7 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _UpdateDataWith:(NSDictionary *)updateInfo completed:(DownloadCompletedCallbackBlock)completed
+- ( BOOL ) _UpdateDataWith:(NSDictionary *)updateInfo completed:(TDDownloadCompletedCallbackBlock)completed
 {
     if ( ( nil == updateInfo ) || ( [updateInfo count] == 0 ) )
     {
@@ -429,6 +440,7 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
     NSString                      * name;
     NSString                      * timestamp;
     NSString                      * dataLink;
+    TDDownloadManager             * downloadManager;
     
     name                            = [updateInfo objectForKey: @"Name"];
     timestamp                       = [updateInfo objectForKey: @"Timestamp"];
@@ -439,8 +451,24 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
     }
     
     [NSThread                       sleepForTimeInterval: 0.1f];
-    [TDDownloadManager              download: name from: dataLink into: configureSubpath of: configureDirectory updateCheckBy: timestamp completed: completed];
+    downloadManager                 = [TDDownloadManager download: name from: dataLink into: configureSubpath of: configureDirectory
+                                                    updateCheckBy: timestamp completed: completed];
+
+    //  just want to get bytes information of downloading.
+    if ( nil == downloadManager )
+    {
+        return YES;
+    }
+    [downloadManager                setDownloadTaskDidWriteDataBlock:
+     ^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite)
+    {
+        if ( nil != didWriteDataBlock )
+        {
+            didWriteDataBlock( name, timestamp, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
+        }
+    }];
     
+    [downloadManager                setDownloadTaskProgressView: preUpdateProgressView];
     return YES;
 }
 
@@ -537,6 +565,12 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
         SAFE_ARC_ASSIGN_POINTER_NIL( preUpdateCompletionBlock );
     }
     
+    if ( nil != didWriteDataBlock )
+    {
+        SAFE_ARC_RELEASE( didWriteDataBlock );
+        didWriteDataBlock           = nil;
+    }
+        
     SAFE_ARC_SUPER_DEALLOC();
 }
 
@@ -648,11 +682,17 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
         preUpdateCompletionBlock    = nil;
     }
     
+    if ( nil != didWriteDataBlock )
+    {
+        SAFE_ARC_RELEASE( didWriteDataBlock );
+        didWriteDataBlock           = nil;
+    }
+    
     downloadCounter                 = 0;
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) setPreUpdateCompletionBlock:(PreUpdateCompletionBlock)completionBlock
+- ( void ) setPreUpdateCompletionBlock:(TDPreUpdateCompletionBlock)completionBlock
 {
     if ( nil == completionBlock )
     {
@@ -661,6 +701,25 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
     preUpdateCompletionBlock        = completionBlock;
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setPreUpdateDidWriteDataBlock:(TDPreUpdateTaskDidWriteDataBlock)dataBlock
+{
+    if ( nil == dataBlock )
+    {
+        return;
+    }
+    didWriteDataBlock               = dataBlock;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setPreUpdateProgressView:(UIProgressView *)progressView
+{
+    if ( nil == progressView )
+    {
+        return;
+    }
+    preUpdateProgressView           = progressView;
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
