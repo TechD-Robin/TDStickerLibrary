@@ -130,13 +130,18 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 + ( instancetype ) loadDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
                       inZippedPath:(NSString *)prefix with:(NSString *)password
 {
-    return [[self class] unzipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: kTDTabInfoKeyRoot];
+    return [[self class] loadConfigureData: filename type: TDConfigureDataSourceFileTypeJSON
+                                  encoding: NSUTF8StringEncoding withConfigure: kTDTabInfoKeyRoot
+                                      from: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password onSingleton: NO];
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) loadDataFromzip:(NSString *)fullPath inZippedPath:(NSString *)prefix with:(NSString *)password
 {
-    return [[self class] unzipFile: fullPath inZippedPath: prefix with: password configure: kTDTabInfoKeyRoot];
+    return [[self class] loadConfigureData: [fullPath lastPathComponent] type: TDConfigureDataSourceFileTypeJSON
+                                  encoding: NSUTF8StringEncoding withConfigure: kTDTabInfoKeyRoot
+                                      from: fullPath inZippedPath: prefix with: password onSingleton: NO];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -144,7 +149,9 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) updateDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath inZippedPath:(NSString *)prefix with:(NSString *)password
 {
-    return [self updateDataFromZip: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: kTDTabInfoKeyRoot  with: kTDTabInfoKeyName];
+    return [self updateConfigureData: filename type: TDConfigureDataSourceFileTypeJSON encoding: NSUTF8StringEncoding
+                       withConfigure: kTDTabInfoKeyRoot and: kTDTabInfoKeyName
+                                from: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password];
 }
 
 //  ------------------------------------------------------------------------------------------------

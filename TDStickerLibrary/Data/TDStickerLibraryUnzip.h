@@ -10,7 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TDFoundation.h"
-#import "TDResourceManager.h"
+#import "TDConfigureData.h"
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -19,69 +19,12 @@
  *  the zipped file include configure file and other resources, 
  *  and the file can use password or not to zip by ZipCrypto. 
  */
-@interface TDStickerLibraryUnzip : TDResourceManager
+@interface TDStickerLibraryUnzip : TDConfigureData
+
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
 //  ------------------------------------------------------------------------------------------------
-
-
-//  ------------------------------------------------------------------------------------------------
-#pragma mark declare for create the object.
-//  ------------------------------------------------------------------------------------------------
-/**
- *  @brief create a Sticker Libaray Unzip object.
- *  create a Sticker Libaray Unzip object.
- *
- *  @param filename                 zipped file name (without Extension part).
- *  @param directory                enumeration for directory.
- *  @param subpath                  resource's sub directory name of configure
- *  @param prefix                   prefix path name in zipped file.
- *  @param password                 password of zipped file.
- *  @param rootKey                  key of root of configure file.
- *
- *  @return object|nil              the Sticker Library Unzip object or nil.
- */
-+ ( instancetype ) unzipFile:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
-                inZippedPath:(NSString *)prefix with:(NSString *)password
-                   configure:(NSString *)rootKey;
-
-//  ------------------------------------------------------------------------------------------------
-/**
- *  @brief create a Sticker Libaray Unzip object.
- *  create a Sticker Libaray Unzip object.
- *
- *  @param fullPath                 zipped file name (full path).
- *  @param prefix                   prefix path name in zipped file.
- *  @param password                 password of zipped file.
- *  @param rootKey                  key of root of configure file.
- *
- *  @return object|nil              the Sticker Library Unzip object or nil.
- */
-+( instancetype ) unzipFile:(NSString *)fullPath
-               inZippedPath:(NSString *)prefix with:(NSString *)password
-                  configure:(NSString *)rootKey;
-
-//  ------------------------------------------------------------------------------------------------
-#pragma mark declare for update this object.
-//  ------------------------------------------------------------------------------------------------
-/**
- *  @brief update data for the Sticker Libaray Unzip object.
- *  update data for the Sticker Libaray Unzip object.
- *
- *  @param filename                 zipped file name (without Extension part).
- *  @param directory                enumeration for directory.
- *  @param subpath                  resource's sub directory name of configure
- *  @param prefix                   prefix path name in zipped file.
- *  @param password                 password of zipped file.
- *  @param rootKey                  key of root of configure file.
- *  @param updateKey                key for update data.
- *
- *  @return YES|NO                  method success or failure.
- */
-- ( BOOL ) updateDataFromZip:(NSString *)filename forDirectories:(TDGetPathDirectory) directory inDirectory:(NSString *)subpath
-                inZippedPath:(NSString *)prefix with:(NSString *)password
-                   configure:(NSString *)rootKey with:(NSString *)updateKey;
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -96,29 +39,6 @@
  *  @return data|nil                the data or nil.
  */
 - ( NSData * ) unzipDataForKey:(NSString *)aKey;
-
-//  ------------------------------------------------------------------------------------------------
-#pragma mark declare for special i/o information data.
-//  ------------------------------------------------------------------------------------------------
-/**
- *  @brief swap the information data with index.
- *  swap the information data with index, the current pointer is point from all's to one.
- *  that's mean the container have only a current data at index.
- *
- *  @param index                    index of information data.
- *
- *  @return YES|NO                  method success or failure.
- */
-- ( BOOL ) swapInfoDataWithIndex:(NSInteger)index;
-
-//  ------------------------------------------------------------------------------------------------
-/**
- *  @brief reverse the information data.
- *  reverse the information data to un-swapped.
- *
- *  @return YES|NO                  method success or failure.
- */
-- ( BOOL ) reverseInfoData;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for get information data.

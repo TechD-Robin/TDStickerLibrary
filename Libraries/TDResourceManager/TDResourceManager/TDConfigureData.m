@@ -544,8 +544,12 @@
     
     TDConfigureData               * configureData;
     NSString                      * filePath;
+    NSString                      * extension;
     
-    filePath                        = TDGetPathForDirectories( directory, zippedFilename, @"zip", subpath, YES );
+    extension                       = ( ( [[self class] _IsUpdateFileName: zippedFilename] ) ? @"" : @"zip" );
+    filePath                        = TDGetPathForDirectories( directory, zippedFilename, extension, subpath, YES );
+    
+    
     if ( nil == filePath )
     {
         NSLog( @"file %s no exist.", [filePath UTF8String] );
@@ -663,7 +667,7 @@
 
     NSString                      * filePath;
     
-    filePath                        = TDGetPathForDirectories( directory, zippedFilename, @"zip", subpath, YES );
+    filePath                        = TDGetPathForDirectories( directory, zippedFilename, nil, subpath, YES );
     if ( nil == filePath )
     {
         NSLog( @"file %s no exist.", [filePath UTF8String] );
@@ -719,6 +723,12 @@
 - ( NSMutableArray *) configureData
 {
     return configureData;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setConfigureData:(NSMutableArray *)container
+{
+    configureData                   = container;
 }
 
 //  ------------------------------------------------------------------------------------------------

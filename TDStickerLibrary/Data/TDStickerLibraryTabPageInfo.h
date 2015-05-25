@@ -68,6 +68,29 @@
                    configure:(NSString *)rootKey;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for special i/o information data.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief swap the information data with index.
+ *  swap the information data with index, the current pointer is point from all's to one.
+ *  that's mean the container have only a current data at index.
+ *
+ *  @param index                    index of information data.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) swapInfoDataWithIndex:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief reverse the information data.
+ *  reverse the information data to un-swapped.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) reverseInfoData;
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark declare for get information data.
 //  ------------------------------------------------------------------------------------------------
 /**

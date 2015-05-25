@@ -45,7 +45,10 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 //  ------------------------------------------------------------------------------------------------
 @interface TDStickerLibraryTabPageInfo ()
 {
-    
+    /**
+     *  temporary the information data when swap.
+     */
+    id                              swapSource;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -107,7 +110,7 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _InitAttributes
 {
-    
+    swapSource                      = nil;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -149,10 +152,15 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 //  ------------------------------------------------------------------------------------------------
 #pragma mark overwrite implementation of NSObject
 //  ------------------------------------------------------------------------------------------------
-//- ( void ) dealloc
-//{
-//    SAFE_ARC_SUPER_DEALLOC();
-//}
+- ( void ) dealloc
+{
+    if ( nil != swapSource )
+    {
+        SAFE_ARC_RELEASE( swapSource );
+        swapSource                  = nil;
+    }
+    SAFE_ARC_SUPER_DEALLOC();
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -162,7 +170,8 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
                       inZippedPath:(NSString *)prefix with:(NSString *)password
                          configure:(NSString *)rootKey
 {
-    return [[self class] unzipFile: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: rootKey];
+    return [[self class] loadConfigureData: filename type: TDConfigureDataSourceFileTypeJSON encoding: NSUTF8StringEncoding withConfigure: rootKey
+                                      from: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password onSingleton: NO];
 }
 
 
@@ -173,9 +182,47 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
                 inZippedPath:(NSString *)prefix with:(NSString *)password
                    configure:(NSString *)rootKey
 {
-    return [self updateDataFromZip: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password configure: rootKey with: kTDPageInfoKeyID];
+    return [self  updateConfigureData: filename type: TDConfigureDataSourceFileTypeJSON encoding: NSUTF8StringEncoding
+                        withConfigure: rootKey and: kTDPageInfoKeyID
+                                 from: filename forDirectories: directory inDirectory: subpath inZippedPath: prefix with: password];
 }
 
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for special i/o information data.
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) swapInfoDataWithIndex:(NSInteger)index
+{
+    if ( ( 0 > index ) || ( [self configureData] == nil ) || ( [[self configureData] count] == 0 ) )
+    {
+        return NO;
+    }
+    
+    id                              infoData;
+    
+    infoData                        = [[self configureData] objectAtIndex: index];
+    if ( nil == infoData )
+    {
+        return NO;
+    }
+    
+    swapSource                      = [self configureData];
+    [self                           setConfigureData: [NSMutableArray arrayWithObjects: infoData, nil]];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) reverseInfoData
+{
+    if ( nil == swapSource )
+    {
+        return NO;
+    }
+    
+    [self                           setConfigureData: swapSource];
+    swapSource                      = nil;
+    return YES;
+}
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for get information data.

@@ -231,6 +231,16 @@ typedef NS_ENUM( NSInteger, TDConfigureDataSourceFileType ){
 - ( NSMutableArray *) configureData;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a container of configure data.
+ *  set a container of configure data, change contents at action special.
+ *
+ *  @param container                a contaiiner of data.
+ */
+- ( void ) setConfigureData:(NSMutableArray *)container;
+
+//  ------------------------------------------------------------------------------------------------
+
 
 
 @end
