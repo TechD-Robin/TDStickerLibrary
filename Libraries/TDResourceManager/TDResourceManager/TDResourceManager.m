@@ -635,7 +635,23 @@
         case TDResourceManageSourceTypeDefault:
         case TDResourceManageSourceTypeInAssetsBundle:
         {
-            image                   = [UIImage imageNamed: fullPath];
+            image                   = [UIImage imageWithContentsOfFile: fullPath];
+            //  above the method cannot get the image object at iOS 7.1, but at iOS 8.1 is OK.
+            //  so, re-get image from below.
+            if ( nil == image )
+            {
+                if ( ( nil == ext ) || ( [ext length] == 0 ) )
+                {
+                    ext             = @"png";
+                }
+                if ( TDCheckFilenameWithAssetScale( name ) == NO )
+                {
+                    name            = TDGetFilenameWithAssetScale( name, (int)[[UIScreen mainScreen] scale] );
+                }
+                fullPath            = [self _GetResourcePath: name ofType: ext inDirectory: subpath withCheck: NO];
+                NSParameterAssert( nil != fullPath );
+                image               = [UIImage imageWithContentsOfFile: fullPath];
+            }
             break;
         }
         case TDResourceManageSourceTypeInZipped:

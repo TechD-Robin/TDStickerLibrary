@@ -38,6 +38,32 @@
 - ( instancetype ) clipping:(CGRect)clippingRect;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for create a image with tinted color.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a new image with tinted color.
+ *  create a new image with tinted color.
+ *
+ *  @param tintedColor              a tinted color
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( instancetype ) imageWithTintedColor:(UIColor *)tintedColor;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a new image with tinted color and color's alpha.
+ *  create a new image with tinted color and color's alpha
+ *
+ *  @param tintedColor              a tinted color
+ *  @param alpha                    a color's alpha ( value is 0 ~ 1.0f ).
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( instancetype ) imageWithTintedColor:(UIColor *)tintedColor colorAlpha:(CGFloat)alpha;
+
+//  ------------------------------------------------------------------------------------------------
+
 
 @end
 

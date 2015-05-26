@@ -92,6 +92,57 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for create a image with tinted color.
+//  ------------------------------------------------------------------------------------------------
+- ( instancetype ) imageWithTintedColor:(UIColor *)tintedColor
+{
+    return [self imageWithTintedColor: tintedColor colorAlpha: 0.0f blendMode: kCGBlendModeDestinationIn];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( instancetype ) imageWithTintedColor:(UIColor *)tintedColor colorAlpha:(CGFloat)alpha
+{
+    return [self imageWithTintedColor: tintedColor colorAlpha: alpha blendMode: kCGBlendModeDestinationIn];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( instancetype ) imageWithTintedColor:(UIColor *)tintedColor colorAlpha:(CGFloat)fraction blendMode:(CGBlendMode)blendMode
+{
+    if ( nil == tintedColor )
+    {
+        return nil;
+    }
+    
+    CGRect                          bounds;
+    UIImage                       * tintedImage;
+    
+    tintedImage                     = nil;
+    bounds                          = CGRectZero;
+    bounds.origin                   = CGPointMake( 0.0f, 0.0f );
+    bounds.size                     = [self size];
+    
+    UIGraphicsBeginImageContextWithOptions( [self size], NO, 0.0f );
+    [tintedColor                    setFill];
+    UIRectFill( bounds );
+    
+    // Mask tint color-swatch to this image's opaque mask.
+    // We want behaviour like NSCompositeDestinationIn on Mac OS X.
+    [self                           drawInRect: bounds blendMode: blendMode alpha: 1.0f];
+
+    // Finally, composite this image over the tinted mask at desired opacity.
+    if ( 0.0f < fraction )
+    {
+        // We want behaviour like NSCompositeSourceOver on Mac OS X.
+        [self                       drawInRect: bounds blendMode: kCGBlendModeSourceAtop alpha: fraction];
+    }
+    tintedImage                     = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return tintedImage;
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 @end
