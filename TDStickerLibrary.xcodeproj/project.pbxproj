@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2A29D0111ADAE1460096161D /* TDStickerLibraryUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A29D0101ADAE1460096161D /* TDStickerLibraryUpdate.m */; };
+		2A41225E1B135CA3004262E2 /* TDSystemCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A41225D1B135CA3004262E2 /* TDSystemCustomization.m */; };
+		2A4122631B138877004262E2 /* SystemCustomization.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2A4122621B138877004262E2 /* SystemCustomization.bundle */; };
 		2A4743681A8219EC0057586A /* TDStickerLibraryUnzip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743671A8219EC0057586A /* TDStickerLibraryUnzip.m */; };
 		2A47436E1A823CE30057586A /* TDStickerLibraryTabPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A47436D1A823CE30057586A /* TDStickerLibraryTabPageInfo.m */; };
 		2A4743771A826D5E0057586A /* TDStickerLibraryTabPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4743761A826D5E0057586A /* TDStickerLibraryTabPageLayout.m */; };
@@ -205,6 +207,9 @@
 /* Begin PBXFileReference section */
 		2A29D00F1ADAE1460096161D /* TDStickerLibraryUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUpdate.h; sourceTree = "<group>"; };
 		2A29D0101ADAE1460096161D /* TDStickerLibraryUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUpdate.m; sourceTree = "<group>"; };
+		2A41225C1B135CA3004262E2 /* TDSystemCustomization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSystemCustomization.h; path = Objects/TDSystemCustomization.h; sourceTree = "<group>"; };
+		2A41225D1B135CA3004262E2 /* TDSystemCustomization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSystemCustomization.m; path = Objects/TDSystemCustomization.m; sourceTree = "<group>"; };
+		2A4122621B138877004262E2 /* SystemCustomization.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SystemCustomization.bundle; path = Assets/SystemCustomization.bundle; sourceTree = "<group>"; };
 		2A4743661A8219EC0057586A /* TDStickerLibraryUnzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUnzip.h; sourceTree = "<group>"; };
 		2A4743671A8219EC0057586A /* TDStickerLibraryUnzip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUnzip.m; sourceTree = "<group>"; };
 		2A47436C1A823CE30057586A /* TDStickerLibraryTabPageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryTabPageInfo.h; sourceTree = "<group>"; };
@@ -403,6 +408,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A41225B1B135C31004262E2 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				2A41225C1B135CA3004262E2 /* TDSystemCustomization.h */,
+				2A41225D1B135CA3004262E2 /* TDSystemCustomization.m */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
+		2A4122611B138847004262E2 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				2A4122621B138877004262E2 /* SystemCustomization.bundle */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		2A52077B1AC08A1E005FE8A7 /* TDMath */ = {
 			isa = PBXGroup;
 			children = (
@@ -658,6 +680,8 @@
 		2AAB79381AEE9F0B00DA71A8 /* DemoStickerLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				2A4122611B138847004262E2 /* Assets */,
+				2A41225B1B135C31004262E2 /* Objects */,
 				2AAB793D1AEE9F0C00DA71A8 /* AppDelegate.h */,
 				2AAB793E1AEE9F0C00DA71A8 /* AppDelegate.m */,
 				2AAB79401AEE9F0C00DA71A8 /* ViewController.h */,
@@ -942,6 +966,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A4122631B138877004262E2 /* SystemCustomization.bundle in Resources */,
 				2AAB79471AEE9F0C00DA71A8 /* Images.xcassets in Resources */,
 				2AAB79601AEEA19400DA71A8 /* Configure in Resources */,
 			);
@@ -1030,6 +1055,7 @@
 				2A88D4C91B03D82F00F6D0D5 /* ioapi.c in Sources */,
 				2AAB79871AEEA21400DA71A8 /* TDPreUpdateProcedure.m in Sources */,
 				2A88D4DF1B03D99300F6D0D5 /* NSPropertyListSerialization+TechD.m in Sources */,
+				2A41225E1B135CA3004262E2 /* TDSystemCustomization.m in Sources */,
 				2AAB79881AEEA21400DA71A8 /* TDPreUpdateJSONInfo.m in Sources */,
 				2AAB79421AEE9F0C00DA71A8 /* ViewController.m in Sources */,
 				2AAB793F1AEE9F0C00DA71A8 /* AppDelegate.m in Sources */,
