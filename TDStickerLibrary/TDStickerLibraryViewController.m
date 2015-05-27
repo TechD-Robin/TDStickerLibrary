@@ -736,12 +736,12 @@
     
 }
 
-//  ------------------------------------------------------------------------------------------------
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [self                           releaseCreatedObject];          //  be executed this, will trigger system to call dealloc.
-    [super                          viewDidDisappear: animated];
-}
+////  ------------------------------------------------------------------------------------------------
+//- (void)viewDidDisappear:(BOOL)animated
+//{
+//    [self                           releaseCreatedObject];          //  be executed this, will trigger system to call dealloc.
+//    [super                          viewDidDisappear: animated];
+//}
 
 //  ------------------------------------------------------------------------------------------------
 - (void)didReceiveMemoryWarning
