@@ -35,8 +35,7 @@
     
     UIImageView                   * informationView;
     
-//    UIButton                      * downloadView;
-    UIImageView                   * downloadView;
+    UIButton                      * downloadView;
     
 }
 //  ------------------------------------------------------------------------------------------------
@@ -63,6 +62,9 @@
  *  initial the attributes of class.
  */
 - ( void ) _InitAttributes;
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _AssignCurrentPropertiesDownloadView;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create object.
@@ -139,6 +141,28 @@
     [self                           setBackgroundColor: [UIColor grayColor]];
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _AssignCurrentPropertiesDownloadView
+{
+    if ( ( [self customization] == nil ) || ( nil == downloadView ) )
+    {
+        return;
+    }
+    
+    CGPoint                         offset;
+    UIImage                       * image;
+
+    image                           = [[self customization] downloadImage];
+    if ( nil == image )
+    {
+        return;
+    }
+    offset                          = CGPointMake( ( [self bounds].size.width - [image size].width - 8.0f ), 0.0f );
+    
+    [downloadView                   setFrame: CGRectMake( offset.x, offset.y, [image size].width, [image size].height )];
+    [downloadView                   setImage: image forState: UIControlStateNormal];
+    [downloadView                   setImage: [[self customization] downloadImageHighlighted] forState: UIControlStateHighlighted];
+}
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create object.
@@ -256,54 +280,23 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateDownloadView
 {
-//    if ( ( [self customization] == nil ) || ( [[self customization] downloadImage] == nil ) )
-//    {
-//        return NO;
-//    }
-//    
-//    if ( nil != downloadView )
-//    {
-//        [downloadView               setHidden: ( ( [self isDownloadedData] == NO ) ? NO : YES )];        
-//        return YES;
-//    }
-//    
-//    CGPoint                         offset;
-//    UIButton                      * download;
-//    UIImage                       * image;
-//    
-//    image                           = [[self customization] downloadImage];
-//    offset                          = CGPointMake( ( [self bounds].size.width - [image size].width - 2.0f ) , 0.0f );
-//    
-//    download                        = [UIButton buttonWithImage: image highlighted: [[self customization] downloadImageHighlighted] origin: offset];
-//    if ( nil == download )
-//    {
-//        return NO;
-//    }
-//    
-//    [self                           addSubview: download];
-//    downloadView                    = download;
-    
-    
-    CGRect                          dlViewRect;
+    CGRect                          downloadRect;
     CGFloat                         height;
     CGFloat                         left;
-    
+
     left                            = [self bounds].size.width;
     height                          = [self bounds].size.height;
-    height                          -= ( 2 * 2 );
-    left                            -= ( 2 + height );
-    dlViewRect                      = CGRectMake( left, 2.0f, height, height );
-    downloadView                    = [[UIImageView alloc] initWithFrame: dlViewRect];
+    left                            -= ( 0.0f + height );
+    downloadRect                    = CGRectMake( left, 0.0f, height, height );
+    downloadView                    = [UIButton buttonWithType: UIButtonTypeCustom];
     if ( nil == downloadView )
     {
         return NO;
     }
     
+    [downloadView                   setFrame: downloadRect];
+    [downloadView                   setUserInteractionEnabled: NO];
     [self                           addSubview: downloadView];
-    
-    
-    //  test.
-    [downloadView                   setBackgroundColor: [UIColor darkGrayColor]];
     return YES;
 }
 
@@ -432,15 +425,18 @@
         
         [downloadView               setHidden: YES];
     }
-    
-//    if ( [self isDownloadedData] == NO )
-//    {
-//        [self                       _CreateDownloadView];
-//    }
 }
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+- ( void ) assignCurrentProperties
+{
+    [self                           _AssignCurrentPropertiesDownloadView];    
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+
 
 
 @end
