@@ -65,6 +65,8 @@
 		2A5207FC1AC08B15005FE8A7 /* NSString+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207F71AC08B15005FE8A7 /* NSString+TechD.m */; };
 		2A5207FD1AC08B15005FE8A7 /* NSString+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207F71AC08B15005FE8A7 /* NSString+TechD.m */; };
 		2A5D039D1A750A8E002B4A5D /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5D039C1A750A8E002B4A5D /* TDUtilities.m */; };
+		2A7A465B1B15CB83001C04DB /* UIButton+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7A465A1B15CB83001C04DB /* UIButton+TechD.m */; };
+		2A7A465C1B15CB83001C04DB /* UIButton+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7A465A1B15CB83001C04DB /* UIButton+TechD.m */; };
 		2A7BE1971ACD4EC3005CA500 /* TDPreUpdateProcedure.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BE1961ACD4EC3005CA500 /* TDPreUpdateProcedure.m */; };
 		2A88D4C81B03D82F00F6D0D5 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4BB1B03D82F00F6D0D5 /* ioapi.c */; };
 		2A88D4C91B03D82F00F6D0D5 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4BB1B03D82F00F6D0D5 /* ioapi.c */; };
@@ -286,6 +288,8 @@
 		2A5207F91AC08B15005FE8A7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2A5D039B1A750A8E002B4A5D /* TDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUtilities.h; path = Libraries/TDFoundation/TDFoundation/TDUtilities.h; sourceTree = "<group>"; };
 		2A5D039C1A750A8E002B4A5D /* TDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUtilities.m; path = Libraries/TDFoundation/TDFoundation/TDUtilities.m; sourceTree = "<group>"; };
+		2A7A46591B15CB83001C04DB /* UIButton+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+TechD.h"; sourceTree = "<group>"; };
+		2A7A465A1B15CB83001C04DB /* UIButton+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+TechD.m"; sourceTree = "<group>"; };
 		2A7BE1951ACD4EC3005CA500 /* TDPreUpdateProcedure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDPreUpdateProcedure.h; sourceTree = "<group>"; };
 		2A7BE1961ACD4EC3005CA500 /* TDPreUpdateProcedure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDPreUpdateProcedure.m; sourceTree = "<group>"; };
 		2A88D4B71B03D82F00F6D0D5 /* ARCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARCMacros.h; path = Libraries/fork_ZipArchive/ARCMacros.h; sourceTree = "<group>"; };
@@ -667,6 +671,8 @@
 				2AA8CEAC1AC171DE003901EB /* UIImage+TechD.m */,
 				2AD9D5571AE4374700B2634F /* UIView+TechD.h */,
 				2AD9D5581AE4374700B2634F /* UIView+TechD.m */,
+				2A7A46591B15CB83001C04DB /* UIButton+TechD.h */,
+				2A7A465A1B15CB83001C04DB /* UIButton+TechD.m */,
 				2AA8CEAD1AC171DE003901EB /* UIImageView+TechD.h */,
 				2AA8CEAE1AC171DE003901EB /* UIImageView+TechD.m */,
 				2AA8CEA91AC171DE003901EB /* UIGestureRecognizer+TechD.h */,
@@ -999,6 +1005,7 @@
 				2AAB798E1AEEA24200DA71A8 /* TDStickerLibraryTabInfo.m in Sources */,
 				2AAB798F1AEEA24200DA71A8 /* TDStickerLibraryTabPageInfo.m in Sources */,
 				2AAB79901AEEA24200DA71A8 /* TDStickerLibrarySectionStates.m in Sources */,
+				2A7A465C1B15CB83001C04DB /* UIButton+TechD.m in Sources */,
 				2AAB79911AEEA24200DA71A8 /* TDStickerLibrary.m in Sources */,
 				2AAB79921AEEA24200DA71A8 /* TDStickerLibraryCustomization.m in Sources */,
 				2AAB79931AEEA24200DA71A8 /* TDStickerLibraryUpdate.m in Sources */,
@@ -1097,6 +1104,7 @@
 				2A88D4CC1B03D82F00F6D0D5 /* unzip.c in Sources */,
 				2A99ECF81A8A6FB30059AA41 /* TDStickerLibraryStickerSoloView.m in Sources */,
 				2A5207FA1AC08B15005FE8A7 /* NSJSONSerialization+TechD.m in Sources */,
+				2A7A465B1B15CB83001C04DB /* UIButton+TechD.m in Sources */,
 				2A9A765B1AE17AE5007F36D3 /* NSDate+TechD.m in Sources */,
 				2A4743771A826D5E0057586A /* TDStickerLibraryTabPageLayout.m in Sources */,
 				2A5207D71AC08A8C005FE8A7 /* UIButton+AFNetworking.m in Sources */,
