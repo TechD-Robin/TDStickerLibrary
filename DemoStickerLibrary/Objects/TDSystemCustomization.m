@@ -25,9 +25,7 @@
 //  ------------------------------------------------------------------------------------------------
 //  --------------------------------
 @interface TDSystemCustomization ()
-{
-    UIImage                       * backToMenuImage;
-}
+
 //  ------------------------------------------------------------------------------------------------
 
 @end
@@ -78,15 +76,18 @@
 //  --------------------------------
 - ( void ) _InitAttributes
 {
-    [self                           setBackgroundColor: [UIColor clearColor]];
-    [self                           setNormalTinyColor: nil];
+
+    styleBackgroundColor            = nil;
+    styleTintedColor                = nil;
+    styleTintedColorAlpha           = 0.0f;
     
     //  for UIimage.
-//    [self                           setBackToMenuImage: nil];
     backToMenuImage                 = nil;
-//    [self                           setBackToMenuImageHighlighted: nil];
-    
     backToMenuImageHighlighted      = nil;
+    
+    downloadImage                   = nil;
+    downloadImageHighlighted        = nil;
+    downloadImageDisabled           = nil;
     
 }
 
@@ -108,13 +109,6 @@
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark synthesize variable.
-@synthesize backgroundColor                 = _backgroundColor;
-@synthesize normalTinyColor                 = _normalTinyColor;
-
-//  for UIimage.
-//@synthesize backToMenuImage                 = _backToMenuImage;
-//@synthesize backToMenuImageHighlighted      = _backToMenuImageHighlighted;
-
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -150,20 +144,6 @@ static TDSystemCustomization              * _customization = nil;
     });
     return _customization;
 }
-
-//  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-- ( void ) setBackToMenuImage:(UIImage *)image
-{
-    backToMenuImage                 = image;
-}
-
-//  ------------------------------------------------------------------------------------------------
-- ( UIImage * ) backToMenuImage
-{
-    return backToMenuImage;
-}
-
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

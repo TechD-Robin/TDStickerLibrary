@@ -116,6 +116,15 @@
 @property( nonatomic, assign ) CGSize                       tabMenuItemSizeInset;
 
 
+@property( nonatomic, assign ) UIImage                    * backToMenuImage;
+
+@property( nonatomic, assign ) UIImage                    * backToMenuImageHighlighted;
+
+@property( nonatomic, assign ) UIImage                    * downloadImage;
+@property( nonatomic, assign ) UIImage                    * downloadImageHighlighted;
+@property( nonatomic, assign ) UIImage                    * downloadImageDisabled;
+
+
 //  for UICollectionView(Sticker Libaray Tab Page View's layout).
 /**
  *  common size of table's item.
@@ -141,6 +150,7 @@
  *  common minimum line spacing of table's section.
  */
 @property( nonatomic, assign ) CGFloat                      tableMinimumLineSpacing;
+
 
 
 //  for Sticker Solo View.

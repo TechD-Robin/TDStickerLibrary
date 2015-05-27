@@ -21,23 +21,26 @@
     
     @public
     
+    UIColor                       * styleBackgroundColor;
+    UIColor                       * styleTintedColor;
+    CGFloat                         styleTintedColorAlpha;
+    
+    //  for UIimage.
+    UIImage                       * backToMenuImage;
     UIImage                       * backToMenuImageHighlighted;
+    
+    UIImage                       * downloadImage;
+    UIImage                       * downloadImageHighlighted;
+    UIImage                       * downloadImageDisabled;
+    
 }
 
 //  --------------------------------
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
 //  ------------------------------------------------------------------------------------------------
-//@property( nonatomic, assign ) UIColor                    * navigationBGC;
-@property( nonatomic, assign ) UIColor                    * backgroundColor;
-
-@property( nonatomic, assign ) UIColor                    * normalTinyColor;
-
 
 //  for UIimage.
-//@property( nonatomic, assign ) UIImage                    * backToMenuImage;
-//@property( nonatomic, assign ) UIImage                    * backToMenuImageHighlighted;
-
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create the object.
@@ -49,12 +52,6 @@
 
 
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-- ( void ) setBackToMenuImage:(UIImage *)image;
-
-//  ------------------------------------------------------------------------------------------------
-- ( UIImage * ) backToMenuImage;
-
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

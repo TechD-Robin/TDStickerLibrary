@@ -122,6 +122,13 @@
     [self                           setTabMenuItemSize: CGSizeMake( 48.0f, 48.0f )];
     [self                           setTabMenuItemSizeInset: CGSizeMake( 3.0f, 3.0f )];
     
+    [self                           setBackToMenuImage: nil];
+    [self                           setBackToMenuImageHighlighted: nil];
+    
+    [self                           setDownloadImage: nil];
+    [self                           setDownloadImageHighlighted: nil];
+    [self                           setDownloadImageDisabled: nil];
+    
     //  for UICollectionView.
     [self                           setTableCommonItemSize: CGSizeMake( 64.0f, 64.0f )];
     [self                           setTableCommonSectionInset: UIEdgeInsetsMake( 12.0f, 12.0f, 12.0f, 12.0f )];
@@ -211,6 +218,13 @@
 
 @synthesize tabMenuItemSize         = _tabMenuItemSize;
 @synthesize tabMenuItemSizeInset    = _tabMenuItemSizeInset;
+
+@synthesize backToMenuImage             = _backToMenuImage;
+@synthesize backToMenuImageHighlighted  = _backToMenuImageHighlighted;
+
+@synthesize downloadImage               = _downloadImage;
+@synthesize downloadImageHighlighted    = _downloadImageHighlighted;
+@synthesize downloadImageDisabled       = _downloadImageDisabled;
 
 
 //  for UICollectionView.

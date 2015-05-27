@@ -42,6 +42,10 @@
      */
     UINavigationBar               * navigationBar;
     
+    
+    UIView                        * topView;
+    
+    
     /**
      *  a banner view; for plugin method used.
      */
@@ -107,6 +111,8 @@
  *  @return YES|NO                  method success or failure.
  */
 - ( BOOL ) _CreateNavigationBar;
+
+- ( BOOL ) _CreateTopView;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -201,6 +207,8 @@
 {
     //  sub view.
     navigationBar                   = nil;
+    
+    topView                         = nil;
     bannerView                      = nil;
     
     tabMenu                         = nil;
@@ -302,6 +310,63 @@
     [self                           dismissViewControllerAnimated: YES completion: ^()
     {
     }];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateTopView
+{
+    //  init Top bar & back button.
+    CGFloat                         screenWidth;
+    CGFloat                         subviewTop;
+    CGFloat                         topViewHight;
+    CGRect                          topViewRect;
+    
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    subviewTop                      = [self _GetNewSubviewTopPosition];
+    topViewHight                    = [customizationParam navigationBarHeight];
+    topViewRect                     = CGRectMake( 0, ( subviewTop + 1.0f ), screenWidth,  topViewHight );
+    topView                         = [[UIView alloc] initWithFrame: topViewRect];
+    if ( nil == topView )
+    {
+        return NO;
+    }
+    
+    [topView                        setBackgroundColor: [UIColor clearColor]];
+    [[self                          view] addSubview: topView];
+    
+    //  width stretchy when device Orientation is changed.
+    [NSLayoutConstraint             constraintForWidthStretchy: topView top: ( subviewTop + 1.0f ) height: topViewHight in: [self view]];
+    
+
+    
+    UIButton                      * button;
+    
+    button                          = [UIButton buttonWithImage: [customizationParam backToMenuImage]
+                                                    highlighted: [customizationParam backToMenuImageHighlighted]
+                                                         origin: CGPointMake( 6.0f, 0.0f )];
+    [topView                        addSubview: button];
+    [button                         addTarget: self action: @selector( _BackToMenuAction: ) forControlEvents: UIControlEventTouchUpInside];
+    
+    UILabel                       * topTitle;
+    
+
+    topTitle                        = [[UILabel alloc] init];
+    [topTitle                       setText: @"Sticker Libraries"];
+    [topTitle                       setTextAlignment: NSTextAlignmentCenter];
+    [topTitle                       setFrame: CGRectMake( 0.0f, 0.0f, screenWidth, topViewHight)];
+    [topView                        addSubview: topTitle];
+    
+    [NSLayoutConstraint             constraintForWidthStretchy: topTitle top: 0.0f height: topViewHight in: topView];
+
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _BackToMenuAction:(id)sender
+{
+    [self                           dismissViewControllerAnimated: YES completion: ^()
+     {
+     }];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -596,6 +661,10 @@
     {
         subviewTop                  += [navigationBar bounds].size.height;
     }
+    if ( nil != topView )
+    {
+        subviewTop                  += [topView bounds].size.height;
+    }
     if ( nil != bannerView )
     {
         subviewTop                  += [bannerView bounds].size.height;
@@ -649,7 +718,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self                           _CreateNavigationBar];
+//    [self                           _CreateNavigationBar];
+    [self                           _CreateTopView];
     
     if ( [customizationParam bannerHeight] != 0.0f )
     {

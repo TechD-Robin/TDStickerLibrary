@@ -13,6 +13,7 @@
 #endif  //  End of __ARCMacros_H__.
 
 #import "UIKit+TechD.h"
+#import "TDStickerLibraryCustomization.h"
 #import "TDStickerLibrarySectionHeader.h"
 
 //  ------------------------------------------------------------------------------------------------
@@ -33,6 +34,8 @@
     UILabel                       * titleLabel;
     
     UIImageView                   * informationView;
+    
+//    UIButton                      * downloadView;
     UIImageView                   * downloadView;
     
 }
@@ -129,6 +132,8 @@
     
     [self                           setSectionIndex: 0];
     [self                           setSectionTitle: nil];
+    
+    [self                           setCustomization: nil];
     
     
     [self                           setBackgroundColor: [UIColor grayColor]];
@@ -251,6 +256,34 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateDownloadView
 {
+//    if ( ( [self customization] == nil ) || ( [[self customization] downloadImage] == nil ) )
+//    {
+//        return NO;
+//    }
+//    
+//    if ( nil != downloadView )
+//    {
+//        [downloadView               setHidden: ( ( [self isDownloadedData] == NO ) ? NO : YES )];        
+//        return YES;
+//    }
+//    
+//    CGPoint                         offset;
+//    UIButton                      * download;
+//    UIImage                       * image;
+//    
+//    image                           = [[self customization] downloadImage];
+//    offset                          = CGPointMake( ( [self bounds].size.width - [image size].width - 2.0f ) , 0.0f );
+//    
+//    download                        = [UIButton buttonWithImage: image highlighted: [[self customization] downloadImageHighlighted] origin: offset];
+//    if ( nil == download )
+//    {
+//        return NO;
+//    }
+//    
+//    [self                           addSubview: download];
+//    downloadView                    = download;
+    
+    
     CGRect                          dlViewRect;
     CGFloat                         height;
     CGFloat                         left;
@@ -297,6 +330,7 @@
 @synthesize isDownloadedData        = _isDownloadedData;
 @synthesize sectionTitle            = _sectionTitle;
 
+@synthesize customization           = _customization;
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 #pragma mark overwrite implementation of NSObject.
@@ -385,7 +419,6 @@
 {
     _isDownloadedData               = isDownloaded;
     
-    
     //  test.
     if ( [self isDownloadedData] == NO )
     {
@@ -399,8 +432,14 @@
         
         [downloadView               setHidden: YES];
     }
+    
+//    if ( [self isDownloadedData] == NO )
+//    {
+//        [self                       _CreateDownloadView];
+//    }
 }
 
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 

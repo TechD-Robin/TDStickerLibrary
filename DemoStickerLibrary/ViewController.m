@@ -8,7 +8,9 @@
 
 #import "UIKit+TechD.h"
 #import "TDStickerLibrary.h"
+#import "TDResourceManager.h"
 #import "TDPreUpdateProcedure.h"
+#import "TDSystemCustomization.h"
 
 #import "ViewController.h"
 
@@ -22,6 +24,109 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 @implementation ViewController
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _Image:(NSString *)imageName from:(TDResourceManager *)manager
+{
+    NSParameterAssert( nil != imageName );
+    NSParameterAssert( nil != manager );
+    
+    UIImage                       * image;
+    TDSystemCustomization         * sysCustomization;
+    
+    sysCustomization                = [TDSystemCustomization customization];
+    NSParameterAssert( nil != sysCustomization );
+    
+    image                           = [manager image: imageName ofType: @"png" inDirectory: @"Images"];
+    NSParameterAssert( nil != image );
+    
+    image                           = [image imageWithTintedColor: sysCustomization->styleTintedColor
+                                                       colorAlpha: sysCustomization->styleTintedColorAlpha];
+    NSParameterAssert( nil != image );
+    return image;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _InitSystemCustomization
+{
+    TDResourceManager             * manager;
+    TDSystemCustomization         * sysCustomization;
+    
+    sysCustomization                = [TDSystemCustomization customization];
+    
+    sysCustomization->styleBackgroundColor      = [UIColor blackColor];
+    sysCustomization->styleTintedColor          = [UIColor cyanColor];
+    sysCustomization->styleTintedColorAlpha     = 0.32f;
+    
+    
+    manager                         = [TDResourceManager assetsBundleEnvironment: @"SystemCustomization.bundle"
+                                                                            with: [self class] onSingleton: YES];
+    NSParameterAssert( nil != manager );
+    
+    //  image menu.
+    sysCustomization->backToMenuImage               = [self _Image: @"ic_menu_grey600_36dp" from: manager];
+    sysCustomization->backToMenuImageHighlighted    = [self _Image: @"ic_menu_white_36dp" from: manager];
+    
+    //  image download.
+    sysCustomization->downloadImage                 = [self _Image: @"ic_get_app_grey600_36dp" from: manager];
+    sysCustomization->downloadImageHighlighted      = [self _Image: @"ic_get_app_white_36dp" from: manager];
+    
+    
+    
+    
+    
+//    UIImage                       * image;
+//    
+//    image                           = [resourceManager image: @"ic_menu_grey600_36dp" ofType: @"png" inDirectory: @"Images"];
+//    NSParameterAssert( nil != image );
+//    imageView                       = [self _CreateTestImageView: image position: CGPointMake( 160 , 160)];
+//    NSParameterAssert( nil != imageView );
+//    
+//
+//    image                           = [resourceManager image: @"ic_menu_white_36dp" ofType: nil inDirectory: @"Images"];
+//    NSParameterAssert( nil != image );
+//    image                           = [image imageWithTintedColor: [UIColor cyanColor]];
+//    NSParameterAssert( nil != image );
+//    imageView                       = [self _CreateTestImageView: image position: CGPointMake( 160 , 200)];
+//    NSParameterAssert( nil != imageView );
+//    
+//    
+//    image                           = [resourceManager image: @"star-test-image" ofType: @"png" inDirectory: @"Images"];
+////    image                           = [resourceManager image: @"ic_perm_device_info_other_36dp" ofType: @"png" inDirectory: @"Images"];
+//    
+//    NSParameterAssert( nil != image );
+//    image                           = [image imageWithTintedColor: [UIColor orangeColor] colorAlpha: 0.8f];
+//    
+//    
+//    
+//    NSParameterAssert( nil != image );
+//    
+//    imageView                       = [self _CreateTestImageView: image position: CGPointMake( 160 , 240)];
+//    NSParameterAssert( nil != imageView );
+////    [imageView                      setImageTintColor: [UIColor cyanColor]];
+    
+}
+
+- ( UIImageView * ) _CreateTestImageView:(UIImage *)image position:(CGPoint)center;
+{
+    if ( nil == image )
+    {
+        return nil;
+    }
+    
+    UIImageView                   * imageView;
+    
+    imageView                       = [[UIImageView alloc] initWithImage: image];
+    if ( nil == imageView )
+    {
+        return nil;
+    }
+    
+    [[self                          view] addSubview: imageView];
+    [imageView                      setCenter: center];
+    return imageView;
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 //  --------------------------------
@@ -38,6 +143,7 @@
         return;
     }
     
+    [button                         setTintColor: [UIColor blueColor]];
     [button                         setBackgroundColor: [UIColor darkGrayColor]];
     [button                         setFrame: CGRectMake( 0, 0, 120, 36)];
     [button                         setCenter: CGPointMake( ( mainRect.size.width / 2.0f ), ( mainRect.size.height /2.0f ) )];
@@ -76,11 +182,25 @@
 {
     TDStickerLibraryViewController* controller;
     TDStickerLibraryCustomization * customization;
+    TDSystemCustomization         * sysCustomization;
     
+    
+    
+    sysCustomization                = [TDSystemCustomization customization];
     customization                   = [TDStickerLibraryCustomization new];
+    NSParameterAssert( nil != sysCustomization );
     NSParameterAssert( nil != customization );
     
+    //  init customization.
     [customization                  setSystemConfigureUpdateDirectory: TDDocumentDirectory];
+    [customization                  setBackToMenuImage:             sysCustomization->backToMenuImage];
+    [customization                  setBackToMenuImageHighlighted:  sysCustomization->backToMenuImageHighlighted];
+    
+    [customization                  setDownloadImage:               sysCustomization->downloadImage];
+    [customization                  setDownloadImageHighlighted:    sysCustomization->downloadImageHighlighted];
+    [customization                  setDownloadImageDisabled:       sysCustomization->downloadImageDisabled];
+    
+    
     //controller                      = [TDStickerLibraryViewController stickerLibaray];
     controller                      = [TDStickerLibraryViewController stickerLibarayWithCustomization: customization];
     if ( nil == controller )
@@ -188,8 +308,11 @@
     [[self view] setBackgroundColor: [UIColor grayColor]];
 
     
+    [self                           _InitSystemCustomization];
+    
     [self                           _CreateButton];
     [self                           _CreatePreUpdateButton];
+    
     
 //    [[UIApplication sharedApplication] setStatusBarHidden: NO withAnimation:UIStatusBarAnimationFade];
 }

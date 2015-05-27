@@ -593,6 +593,8 @@
     [header                         setSectionIndex: indexPath.section];
     [header                         setSectionTitle: title];
     
+    [header                         setCustomization: customizationParam];
+    
     //  check download state.
     if ( [sectionStates downloadState: &isDownloaded inSection: indexPath.section] == YES )
     {
