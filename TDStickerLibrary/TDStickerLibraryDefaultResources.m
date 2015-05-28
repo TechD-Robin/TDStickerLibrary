@@ -8,6 +8,7 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
+#import "UIImage+TechD.h"
 #import "TDStickerLibraryDefaultResources.h"
 
 //  ------------------------------------------------------------------------------------------------
@@ -131,19 +132,36 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderInforImage
 {
-    return [self defaultImage: @"ic_perm_device_info_black_36dp"];
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_perm_device_info_grey600_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [UIColor blackColor] colorAlpha: 0.0f];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderInforImageHighlighted
 {
-    return [self defaultImage: @"ic_perm_device_info_white_36dp"];
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_perm_device_info_grey600_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [UIColor whiteColor] colorAlpha: 0.33f];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderInforImageDisabled
 {
     return [self defaultImage: @"ic_perm_device_info_grey600_36dp"];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowDownImage
 {
     return [self defaultImage: @"ic_arrow_drop_down_black_36dp"];
