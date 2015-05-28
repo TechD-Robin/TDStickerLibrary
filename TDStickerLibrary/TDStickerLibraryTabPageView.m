@@ -571,10 +571,12 @@
     }
     
     BOOL                            isDownloaded;
+    BOOL                            isEnabled;
     NSString                      * title;
     TDStickerLibrarySectionHeader * header;
     
     isDownloaded                    = NO;
+    isEnabled                       = NO;
     title                           = nil;
     header                          = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
                                                                          withReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionHeader class] ) forIndexPath: indexPath];
@@ -599,6 +601,11 @@
     {
         [header                     assignCurrentProperties];
     }
+    
+    
+    //  先設定成 沒有 download info, informatioin view is disabled.
+    isEnabled                       = [self _IsMustDownloadStickerAtIndex: indexPath.section];
+    [header                         setInformationState: isEnabled];
     
     //  check download state.
     if ( [sectionStates downloadState: &isDownloaded inSection: indexPath.section] == YES )

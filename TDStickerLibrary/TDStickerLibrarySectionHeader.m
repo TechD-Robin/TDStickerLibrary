@@ -178,9 +178,11 @@
     CGPoint                         offset;
     UIImage                       * image;
     UIImage                       * imageHighlighted;
+    UIImage                       * imageDisabled;
     
     image                           = [[self customization] sectionHeaderInforImage];
     imageHighlighted                = [[self customization] sectionHeaderInforImageHighlighted];
+    imageDisabled                   = [[self customization] sectionHeaderInforImageDisabled];
     if ( nil == image )
     {
         return;
@@ -190,6 +192,7 @@
     [informationView                setFrame: CGRectMake( offset.x, offset.y, [informationView frame].size.width, [informationView frame].size.height )];
     [informationView                setImage: image forState: UIControlStateNormal];
     [informationView                setImage: imageHighlighted forState: UIControlStateHighlighted];
+    [informationView                setImage: imageDisabled forState: UIControlStateDisabled];
 }
 
 
@@ -469,6 +472,17 @@
     
     [self                           _AssignCurrentPropertiesInformationView];
 }
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setInformationState:(BOOL)isEnabled
+{
+    if ( nil == informationView )
+    {
+        return;
+    }
+    [informationView                setEnabled: isEnabled];
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
