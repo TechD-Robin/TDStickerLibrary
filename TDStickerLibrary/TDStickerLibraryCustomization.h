@@ -49,6 +49,10 @@
 
 @property( nonatomic, assign ) CGFloat                      sysStyleTintedColorAlpha;
 
+
+
+
+
 //  for system configure default.
 /**
  *  default's subpath of system configure.
@@ -249,6 +253,26 @@
 - ( UIImage * ) sysStyleDownloadImageHighlighted;
 
 - ( UIImage * ) sysStyleDownloadImageDisabled;
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sectionHeaderInforImage;
+
+- ( UIImage * ) sectionHeaderInforImageHighlighted;
+
+- ( UIImage * ) sectionHeaderInforImageDisabled;
+
+- ( UIImage * ) sectionHeaderArrowDownImage;
+
+- ( UIImage * ) sectionHeaderArrowDownImageHighlighted;
+
+- ( UIImage * ) sectionHeaderArrowDownImageDisabled;
+
+- ( UIImage * ) sectionHeaderArrowUpImage;
+
+- ( UIImage * ) sectionHeaderArrowUpImageHighlighted;
+
+- ( UIImage * ) sectionHeaderArrowUpImageDisabled;
 
 
 //  ------------------------------------------------------------------------------------------------

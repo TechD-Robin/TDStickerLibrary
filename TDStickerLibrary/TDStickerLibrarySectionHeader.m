@@ -33,7 +33,8 @@
 {
     UILabel                       * titleLabel;
     
-    UIImageView                   * informationView;
+//    UIImageView                   * informationView;
+    UIButton                      * informationView;
     
     UIButton                      * downloadView;
     
@@ -65,6 +66,8 @@
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _AssignCurrentPropertiesDownloadView;
+
+- ( void ) _AssignCurrentPropertiesInformationView;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create object.
@@ -165,6 +168,32 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( void ) _AssignCurrentPropertiesInformationView
+{
+    if ( ( [self customization] == nil ) || ( nil == informationView ) )
+    {
+        return;
+    }
+    
+    CGPoint                         offset;
+    UIImage                       * image;
+    UIImage                       * imageHighlighted;
+    
+    image                           = [[self customization] sectionHeaderInforImage];
+    imageHighlighted                = [[self customization] sectionHeaderInforImageHighlighted];
+    if ( nil == image )
+    {
+        return;
+    }
+    offset                          = CGPointMake( 8.0f, [informationView frame].origin.y );
+    
+    [informationView                setFrame: CGRectMake( offset.x, offset.y, [informationView frame].size.width, [informationView frame].size.height )];
+    [informationView                setImage: image forState: UIControlStateNormal];
+    [informationView                setImage: imageHighlighted forState: UIControlStateHighlighted];
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark method for create object.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateTitle
@@ -230,21 +259,24 @@
     headerHeight                    = [self bounds].size.height;
     headerHeight                    *= ( 2.0f / 3.0f );
     infoViewRect                    = CGRectMake( 2.0f, 1.0f, headerHeight, headerHeight );
-    informationView                 = [[UIImageView alloc] initWithFrame: infoViewRect];
+//    informationView                 = [[UIImageView alloc] initWithFrame: infoViewRect];
+    informationView                 = [UIButton buttonWithType: UIButtonTypeCustom];
     if ( nil == informationView )
     {
         return NO;
     }
     
+    [informationView                setFrame: infoViewRect];
+    [informationView                setUserInteractionEnabled: YES];
     [self                           addSubview: informationView];
     
-    [informationView                setUserInteractionEnabled: YES];
-    [UIGestureRecognizer            tapGestureRecognizer: informationView withTarget: self action: @selector( _TapInfoViewAction: )];
+//    [UIGestureRecognizer            tapGestureRecognizer: informationView withTarget: self action: @selector( _TapInfoViewAction: )];
+    [informationView                addTarget: self action: @selector( _TapInfoViewAction: ) forControlEvents: UIControlEventTouchUpInside];
     
     
     
     //  test.
-    [informationView                setBackgroundColor: [UIColor darkGrayColor]];
+//    [informationView                setBackgroundColor: [UIColor darkGrayColor]];
     
     return YES;
 }
@@ -417,13 +449,13 @@
     //  test.
     if ( [self isDownloadedData] == NO )
     {
-        [informationView            setBackgroundColor: [UIColor blackColor]];
+//        [informationView            setBackgroundColor: [UIColor blackColor]];
         
         [downloadView               setHidden: NO];
     }
     else
     {
-        [informationView            setBackgroundColor: [UIColor darkGrayColor]];
+//        [informationView            setBackgroundColor: [UIColor darkGrayColor]];
         
         [downloadView               setHidden: YES];
     }
@@ -433,7 +465,9 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) assignCurrentProperties
 {
-    [self                           _AssignCurrentPropertiesDownloadView];    
+    [self                           _AssignCurrentPropertiesDownloadView];
+    
+    [self                           _AssignCurrentPropertiesInformationView];
 }
 
 //  ------------------------------------------------------------------------------------------------

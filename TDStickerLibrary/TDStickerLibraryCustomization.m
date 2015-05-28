@@ -11,6 +11,7 @@
 #import "UIKit+TechD.h"
 #import "TDResourceManager.h"
 #import "TDStickerLibraryCustomization.h"
+#import "TDStickerLibraryDefaultResources.h"
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -29,7 +30,10 @@
 @interface TDStickerLibraryCustomization ()
 {
     //  sys style.
-    TDResourceManager             * sysStyleBundleManager;
+    TDResourceManager                     * sysStyleBundleManager;
+    
+    //  sticker library default.
+    TDStickerLibraryDefaultResources      * defaultResources;
     
     /**
      *  a state flags for customization.
@@ -66,6 +70,8 @@
  *  initial the attributes of class.
  */
 - ( void ) _InitAttributes;
+
+- ( void ) _InitDefaultResources;
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -107,6 +113,9 @@
 {
     //  sys style.
     sysStyleBundleManager           = nil;
+    
+    //  sticker library default.
+    defaultResources                = nil;
     
     [self                           setSysStyleBundleName: nil];
     [self                           setSysStyleImageSubpathInBundle: nil];
@@ -180,6 +189,15 @@
     [self                           setTabMenuBGC: [[self class] _TabMenuColor]];
     
     
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _InitDefaultResources
+{
+    defaultResources                = [TDStickerLibraryDefaultResources assetsBundleEnvironment: kTDStickerLibraryDefaultResourcesBundle
+                                                                                           with: [self class]
+                                                                                    onSingleton: NO];
+    NSParameterAssert( nil != defaultResources );
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -326,7 +344,7 @@
     }
     
     [self                           _InitAttributes];
-    
+    [self                           _InitDefaultResources];
     return self;
 }
 
@@ -396,6 +414,89 @@
 - ( UIImage * ) sysStyleDownloadImageDisabled
 {
     return [self _ImageFromSysStyleBundleWithTintedColor: [self sysStyleDownloadDisabledImageName]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sectionHeaderInforImage
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources sectionHeaderInforImage];
+}
+
+- ( UIImage * ) sectionHeaderInforImageHighlighted
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources sectionHeaderInforImageHighlighted];
+}
+
+- ( UIImage * ) sectionHeaderInforImageDisabled
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources sectionHeaderInforImageDisabled];
+}
+
+- ( UIImage * ) sectionHeaderArrowDownImage
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources sectionHeaderArrowDownImage];
+}
+
+- ( UIImage * ) sectionHeaderArrowDownImageHighlighted
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources sectionHeaderArrowDownImageHighlighted];
+}
+
+- ( UIImage * ) sectionHeaderArrowDownImageDisabled
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources sectionHeaderArrowDownImageDisabled];
+}
+
+- ( UIImage * ) sectionHeaderArrowUpImage
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources sectionHeaderArrowUpImage];
+}
+
+- ( UIImage * ) sectionHeaderArrowUpImageHighlighted;
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources sectionHeaderArrowUpImageHighlighted];
+}
+
+- ( UIImage * ) sectionHeaderArrowUpImageDisabled;
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources sectionHeaderArrowUpImageDisabled];
 }
 
 

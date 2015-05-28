@@ -68,6 +68,9 @@
 		2A7A465B1B15CB83001C04DB /* UIButton+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7A465A1B15CB83001C04DB /* UIButton+TechD.m */; };
 		2A7A465C1B15CB83001C04DB /* UIButton+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7A465A1B15CB83001C04DB /* UIButton+TechD.m */; };
 		2A7BE1971ACD4EC3005CA500 /* TDPreUpdateProcedure.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BE1961ACD4EC3005CA500 /* TDPreUpdateProcedure.m */; };
+		2A87E7071B1737310066FC59 /* StickerLibraryDefault.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2A87E7061B1737310066FC59 /* StickerLibraryDefault.bundle */; };
+		2A87E70A1B17388A0066FC59 /* TDStickerLibraryDefaultResources.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A87E7091B17388A0066FC59 /* TDStickerLibraryDefaultResources.m */; };
+		2A87E70B1B17388A0066FC59 /* TDStickerLibraryDefaultResources.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A87E7091B17388A0066FC59 /* TDStickerLibraryDefaultResources.m */; };
 		2A88D4C81B03D82F00F6D0D5 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4BB1B03D82F00F6D0D5 /* ioapi.c */; };
 		2A88D4C91B03D82F00F6D0D5 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4BB1B03D82F00F6D0D5 /* ioapi.c */; };
 		2A88D4CA1B03D82F00F6D0D5 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A88D4BD1B03D82F00F6D0D5 /* mztools.c */; };
@@ -292,6 +295,9 @@
 		2A7A465A1B15CB83001C04DB /* UIButton+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+TechD.m"; sourceTree = "<group>"; };
 		2A7BE1951ACD4EC3005CA500 /* TDPreUpdateProcedure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDPreUpdateProcedure.h; sourceTree = "<group>"; };
 		2A7BE1961ACD4EC3005CA500 /* TDPreUpdateProcedure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDPreUpdateProcedure.m; sourceTree = "<group>"; };
+		2A87E7061B1737310066FC59 /* StickerLibraryDefault.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = StickerLibraryDefault.bundle; path = Assets/StickerLibraryDefault.bundle; sourceTree = "<group>"; };
+		2A87E7081B17388A0066FC59 /* TDStickerLibraryDefaultResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryDefaultResources.h; sourceTree = "<group>"; };
+		2A87E7091B17388A0066FC59 /* TDStickerLibraryDefaultResources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryDefaultResources.m; sourceTree = "<group>"; };
 		2A88D4B71B03D82F00F6D0D5 /* ARCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARCMacros.h; path = Libraries/fork_ZipArchive/ARCMacros.h; sourceTree = "<group>"; };
 		2A88D4B81B03D82F00F6D0D5 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = Libraries/fork_ZipArchive/LICENSE; sourceTree = "<group>"; };
 		2A88D4BA1B03D82F00F6D0D5 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
@@ -595,6 +601,14 @@
 			name = TDFoundation;
 			sourceTree = "<group>";
 		};
+		2A87E7051B1736790066FC59 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				2A87E7061B1737310066FC59 /* StickerLibraryDefault.bundle */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		2A88D4B61B03D80600F6D0D5 /* fork_ZipArchive */ = {
 			isa = PBXGroup;
 			children = (
@@ -760,11 +774,14 @@
 		2AADF4BB1A69599E0026EF9D /* TDStickerLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				2A87E7051B1736790066FC59 /* Assets */,
 				2AB706861A6FE42F006C6845 /* Data */,
 				2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */,
 				2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */,
 				2AB7068D1A700918006C6845 /* TDStickerLibraryCustomization.h */,
 				2AB7068E1A700918006C6845 /* TDStickerLibraryCustomization.m */,
+				2A87E7081B17388A0066FC59 /* TDStickerLibraryDefaultResources.h */,
+				2A87E7091B17388A0066FC59 /* TDStickerLibraryDefaultResources.m */,
 				2A29D00F1ADAE1460096161D /* TDStickerLibraryUpdate.h */,
 				2A29D0101ADAE1460096161D /* TDStickerLibraryUpdate.m */,
 				2AADF5061A695E7B0026EF9D /* TDStickerLibraryViewController.h */,
@@ -975,6 +992,7 @@
 				2A4122631B138877004262E2 /* SystemCustomization.bundle in Resources */,
 				2AAB79471AEE9F0C00DA71A8 /* Images.xcassets in Resources */,
 				2AAB79601AEEA19400DA71A8 /* Configure in Resources */,
+				2A87E7071B1737310066FC59 /* StickerLibraryDefault.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1027,6 +1045,7 @@
 				2A88D4D71B03D93900F6D0D5 /* UIDevice+TechD.m in Sources */,
 				2AAB79691AEEA21300DA71A8 /* UIImageView+TechD.m in Sources */,
 				2AAB796A1AEEA21300DA71A8 /* UIGestureRecognizer+TechD.m in Sources */,
+				2A87E70B1B17388A0066FC59 /* TDStickerLibraryDefaultResources.m in Sources */,
 				2AAB796B1AEEA21300DA71A8 /* NSLayoutConstraint+TechD.m in Sources */,
 				2AAB796C1AEEA21300DA71A8 /* NSString+TechD.m in Sources */,
 				2AAB796D1AEEA21300DA71A8 /* NSDate+TechD.m in Sources */,
@@ -1092,6 +1111,7 @@
 				2AA8CEB91AC171DE003901EB /* UIImage+TechD.m in Sources */,
 				2A5207DF1AC08A8C005FE8A7 /* UIWebView+AFNetworking.m in Sources */,
 				2AB7068F1A700918006C6845 /* TDStickerLibraryCustomization.m in Sources */,
+				2A87E70A1B17388A0066FC59 /* TDStickerLibraryDefaultResources.m in Sources */,
 				2A5207DB1AC08A8C005FE8A7 /* UIProgressView+AFNetworking.m in Sources */,
 				2A88D4DA1B03D98400F6D0D5 /* NSBundle+TechD.m in Sources */,
 				2A5207D11AC08A8C005FE8A7 /* AFNetworkActivityIndicatorManager.m in Sources */,
