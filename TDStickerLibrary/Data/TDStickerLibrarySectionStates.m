@@ -406,6 +406,11 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) downloadState:(BOOL *)downloadState inSection:(NSInteger)section
 {
+    if ( NULL == downloadState )
+    {
+        return NO;
+    }
+    
     NSMutableDictionary           * stateInfo;
     BOOL                            mustDownload;
     BOOL                            isDownloaded;
