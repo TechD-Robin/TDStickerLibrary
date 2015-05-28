@@ -28,6 +28,27 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
 //  ------------------------------------------------------------------------------------------------
+//  sys style.
+@property( nonatomic, assign ) NSString                   * sysStyleBundleName;
+
+@property( nonatomic, assign ) NSString                   * sysStyleImageSubpathInBundle;
+
+@property( nonatomic, assign ) NSString                   * sysStyleBackToMenuImageName;
+
+@property( nonatomic, assign ) NSString                   * sysStyleBackToMenuHighlightedImageName;
+
+@property( nonatomic, assign ) NSString                   * sysStyleDownloadImageName;
+
+@property( nonatomic, assign ) NSString                   * sysStyleDownloadHighlightedImageName;
+
+@property( nonatomic, assign ) NSString                   * sysStyleDownloadDisabledImageName;
+
+
+
+@property( nonatomic, assign ) UIColor                    * sysStyleTintedColor;
+
+@property( nonatomic, assign ) CGFloat                      sysStyleTintedColorAlpha;
+
 //  for system configure default.
 /**
  *  default's subpath of system configure.
@@ -114,16 +135,6 @@
  *  inset of tab menu's item.
  */
 @property( nonatomic, assign ) CGSize                       tabMenuItemSizeInset;
-
-
-@property( nonatomic, assign ) UIImage                    * backToMenuImage;
-
-@property( nonatomic, assign ) UIImage                    * backToMenuImageHighlighted;
-
-@property( nonatomic, assign ) UIImage                    * downloadImage;
-@property( nonatomic, assign ) UIImage                    * downloadImageHighlighted;
-@property( nonatomic, assign ) UIImage                    * downloadImageDisabled;
-
 
 //  for UICollectionView(Sticker Libaray Tab Page View's layout).
 /**
@@ -227,6 +238,20 @@
  */
 @property( nonatomic, assign ) UIColor                    * tabMenuBGC;
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sysStyleBackToMenuImage;
+
+- ( UIImage * ) sysStyleBackToMenuImageHighlighted;
+
+- ( UIImage * ) sysStyleDownloadImage;
+
+- ( UIImage * ) sysStyleDownloadImageHighlighted;
+
+- ( UIImage * ) sysStyleDownloadImageDisabled;
+
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 

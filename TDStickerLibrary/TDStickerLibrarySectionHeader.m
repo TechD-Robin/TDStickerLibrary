@@ -152,7 +152,7 @@
     CGPoint                         offset;
     UIImage                       * image;
 
-    image                           = [[self customization] downloadImage];
+    image                           = [[self customization] sysStyleDownloadImage];
     if ( nil == image )
     {
         return;
@@ -161,7 +161,7 @@
     
     [downloadView                   setFrame: CGRectMake( offset.x, offset.y, [image size].width, [image size].height )];
     [downloadView                   setImage: image forState: UIControlStateNormal];
-    [downloadView                   setImage: [[self customization] downloadImageHighlighted] forState: UIControlStateHighlighted];
+    [downloadView                   setImage: [[self customization] sysStyleDownloadImageHighlighted] forState: UIControlStateHighlighted];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -257,10 +257,10 @@
         return;
     }
     
-    if ( sender.state != UIGestureRecognizerStateEnded )
-    {
-        return;
-    }
+    //if ( sender.state != UIGestureRecognizerStateEnded )
+    //{
+    //    return;
+    //}
     
     if ( [self idDelegate] == nil )
     {
@@ -295,8 +295,10 @@
     }
     
     [downloadView                   setFrame: downloadRect];
-    [downloadView                   setUserInteractionEnabled: NO];
+    [downloadView                   setUserInteractionEnabled: YES];
     [self                           addSubview: downloadView];
+    
+    [downloadView                   addTarget: self action: @selector( _TapInfoViewAction: ) forControlEvents: UIControlEventTouchUpInside];
     return YES;
 }
 

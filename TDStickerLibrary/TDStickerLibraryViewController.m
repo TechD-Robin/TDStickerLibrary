@@ -341,8 +341,8 @@
     
     UIButton                      * button;
     
-    button                          = [UIButton buttonWithImage: [customizationParam backToMenuImage]
-                                                    highlighted: [customizationParam backToMenuImageHighlighted]
+    button                          = [UIButton buttonWithImage: [customizationParam sysStyleBackToMenuImage]
+                                                    highlighted: [customizationParam sysStyleBackToMenuImageHighlighted]
                                                          origin: CGPointMake( 6.0f, 0.0f )];
     [topView                        addSubview: button];
     [button                         addTarget: self action: @selector( _BackToMenuAction: ) forControlEvents: UIControlEventTouchUpInside];

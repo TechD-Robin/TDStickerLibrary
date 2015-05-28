@@ -8,6 +8,8 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
+#import "UIKit+TechD.h"
+#import "TDResourceManager.h"
 #import "TDStickerLibraryCustomization.h"
 
 //  ------------------------------------------------------------------------------------------------
@@ -23,8 +25,12 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare private category ()
 //  ------------------------------------------------------------------------------------------------
+//  --------------------------------
 @interface TDStickerLibraryCustomization ()
 {
+    //  sys style.
+    TDResourceManager             * sysStyleBundleManager;
+    
     /**
      *  a state flags for customization.
      */
@@ -63,6 +69,12 @@
 
 
 //  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _ImageFromSysStyleBundle:(NSString *)imageName;
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _ImageFromSysStyleBundleWithTintedColor:(NSString *)imageName;
+
+//  ------------------------------------------------------------------------------------------------
 /**
  *  when user define new UIColor without default, must call the new UIColor by class method or singleton class method ( static method );
  *  otherwise project will crash when call by instance method.
@@ -93,6 +105,24 @@
 //  --------------------------------
 - ( void ) _InitAttributes
 {
+    //  sys style.
+    sysStyleBundleManager           = nil;
+    
+    [self                           setSysStyleBundleName: nil];
+    [self                           setSysStyleImageSubpathInBundle: nil];
+    
+    [self                           setSysStyleBackToMenuImageName: nil];
+    [self                           setSysStyleBackToMenuHighlightedImageName: nil];
+    
+    [self                           setSysStyleDownloadImageName: nil];
+    [self                           setSysStyleDownloadHighlightedImageName: nil];
+    [self                           setSysStyleDownloadDisabledImageName: nil];
+    
+    
+    [self                           setSysStyleTintedColor: nil];
+    [self                           setSysStyleTintedColorAlpha: 0.0f];
+    
+    
     //  for system configure default.
     [self                           setSystemConfigureDefaultSubpath:           @"Configure"];
     [self                           setSystemConfigureDefaultDirectory:         TDResourcesDirectory];
@@ -121,13 +151,6 @@
     
     [self                           setTabMenuItemSize: CGSizeMake( 48.0f, 48.0f )];
     [self                           setTabMenuItemSizeInset: CGSizeMake( 3.0f, 3.0f )];
-    
-    [self                           setBackToMenuImage: nil];
-    [self                           setBackToMenuImageHighlighted: nil];
-    
-    [self                           setDownloadImage: nil];
-    [self                           setDownloadImageHighlighted: nil];
-    [self                           setDownloadImageDisabled: nil];
     
     //  for UICollectionView.
     [self                           setTableCommonItemSize: CGSizeMake( 64.0f, 64.0f )];
@@ -160,6 +183,39 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _ImageFromSysStyleBundle:(NSString *)imageName
+{
+    if ( nil == sysStyleBundleManager )
+    {
+        return nil;
+    }
+    return [sysStyleBundleManager image: imageName ofType: @"png" inDirectory: [self sysStyleImageSubpathInBundle]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _ImageFromSysStyleBundleWithTintedColor:(NSString *)imageName
+{
+    NSParameterAssert( [self sysStyleTintedColor] != nil );
+    if ( nil == sysStyleBundleManager )
+    {
+        return nil;
+    }
+    
+    UIImage                       * image;
+    
+    image                           = [sysStyleBundleManager image: imageName ofType: @"png"
+                                                       inDirectory: [self sysStyleImageSubpathInBundle]];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [self sysStyleTintedColor] colorAlpha: [self sysStyleTintedColorAlpha]];
+}
+
+
+
+//  ------------------------------------------------------------------------------------------------
 + ( UIColor * ) _TabMenuColor
 {
     return [UIColor colorWithRed: 0.5f green: ( 200 / 255.0f ) blue: ( 200 / 255.0f ) alpha: 1.0f ];
@@ -190,6 +246,21 @@
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark synthesize variable.
+//  sys style.
+@synthesize sysStyleBundleName                      = _sysStyleBundleName;
+@synthesize sysStyleImageSubpathInBundle            = _sysStyleImageSubpathInBundle;
+
+@synthesize sysStyleBackToMenuImageName             = _sysStyleBackToMenuImageName;
+@synthesize sysStyleBackToMenuHighlightedImageName  = _sysStyleBackToMenuHighlightedImageName;
+
+@synthesize sysStyleDownloadImageName               = _sysStyleDownloadImageName;
+@synthesize sysStyleDownloadHighlightedImageName    = _sysStyleDownloadHighlightedImageName;
+@synthesize sysStyleDownloadDisabledImageName       = _sysStyleDownloadDisabledImageName;
+
+@synthesize sysStyleTintedColor                     = _sysStyleTintedColor;
+@synthesize sysStyleTintedColorAlpha                = _sysStyleTintedColorAlpha;
+
+
 //  for system configure default.
 @synthesize systemConfigureDefaultSubpath           = _systemConfigureDefaultSubpath;
 @synthesize systemConfigureDefaultDirectory         = _systemConfigureDefaultDirectory;
@@ -218,14 +289,6 @@
 
 @synthesize tabMenuItemSize         = _tabMenuItemSize;
 @synthesize tabMenuItemSizeInset    = _tabMenuItemSizeInset;
-
-@synthesize backToMenuImage             = _backToMenuImage;
-@synthesize backToMenuImageHighlighted  = _backToMenuImageHighlighted;
-
-@synthesize downloadImage               = _downloadImage;
-@synthesize downloadImageHighlighted    = _downloadImageHighlighted;
-@synthesize downloadImageDisabled       = _downloadImageDisabled;
-
 
 //  for UICollectionView.
 @synthesize tableCommonItemSize             = _tableCommonItemSize;
@@ -270,6 +333,17 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark overwrite properties of the class
 //  ------------------------------------------------------------------------------------------------
+- ( void ) setSysStyleBundleName:(NSString *)bundleName
+{
+    _sysStyleBundleName             = bundleName;
+    
+    if ( ( nil == sysStyleBundleManager ) && ( nil != bundleName ) )
+    {
+        sysStyleBundleManager       = [TDResourceManager assetsBundleEnvironment: bundleName with: [self class] onSingleton: NO];
+    }
+    
+}
+
 - ( BOOL ) isStickerSoloViewEnabled
 {
     return stateFlags.stickerSoloViewEnabled;
@@ -293,6 +367,39 @@
     stateFlags.stickerSoloViewUseBlurLayer  = stickerSoloViewUseBlurLayer;
 }
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sysStyleBackToMenuImage
+{
+    return [self _ImageFromSysStyleBundleWithTintedColor: [self sysStyleBackToMenuImageName]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sysStyleBackToMenuImageHighlighted
+{
+    return [self _ImageFromSysStyleBundleWithTintedColor: [self sysStyleBackToMenuHighlightedImageName]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sysStyleDownloadImage
+{
+    return [self _ImageFromSysStyleBundleWithTintedColor: [self sysStyleDownloadImageName]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sysStyleDownloadImageHighlighted
+{
+    return [self _ImageFromSysStyleBundleWithTintedColor: [self sysStyleDownloadHighlightedImageName]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sysStyleDownloadImageDisabled
+{
+    return [self _ImageFromSysStyleBundleWithTintedColor: [self sysStyleDownloadDisabledImageName]];
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 

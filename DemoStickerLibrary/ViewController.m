@@ -63,6 +63,7 @@
                                                                             with: [self class] onSingleton: YES];
     NSParameterAssert( nil != manager );
     
+    
     //  image menu.
     sysCustomization->backToMenuImage               = [self _Image: @"ic_menu_grey600_36dp" from: manager];
     sysCustomization->backToMenuImageHighlighted    = [self _Image: @"ic_menu_white_36dp" from: manager];
@@ -193,12 +194,20 @@
     
     //  init customization.
     [customization                  setSystemConfigureUpdateDirectory: TDDocumentDirectory];
-    [customization                  setBackToMenuImage:             sysCustomization->backToMenuImage];
-    [customization                  setBackToMenuImageHighlighted:  sysCustomization->backToMenuImageHighlighted];
     
-    [customization                  setDownloadImage:               sysCustomization->downloadImage];
-    [customization                  setDownloadImageHighlighted:    sysCustomization->downloadImageHighlighted];
-    [customization                  setDownloadImageDisabled:       sysCustomization->downloadImageDisabled];
+    //  system style.
+    [customization                  setSysStyleBundleName: @"SystemCustomization.bundle"];
+    [customization                  setSysStyleImageSubpathInBundle: @"Images"];
+    
+    [customization                  setSysStyleBackToMenuImageName: @"ic_menu_grey600_36dp"];
+    [customization                  setSysStyleBackToMenuHighlightedImageName: @"ic_menu_white_36dp"];
+    
+    [customization                  setSysStyleDownloadImageName: @"ic_get_app_grey600_36dp"];
+    [customization                  setSysStyleDownloadHighlightedImageName: @"ic_get_app_white_36dp"];
+    
+    
+    [customization                  setSysStyleTintedColor:         sysCustomization->styleTintedColor];
+    [customization                  setSysStyleTintedColorAlpha:    sysCustomization->styleTintedColorAlpha];
     
     
     //controller                      = [TDStickerLibraryViewController stickerLibaray];
