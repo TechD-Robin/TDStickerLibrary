@@ -164,29 +164,62 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowDownImage
 {
-    return [self defaultImage: @"ic_arrow_drop_down_black_36dp"];
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_arrow_drop_down_grey600_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [UIColor blackColor] colorAlpha: 0.0f];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowDownImageHighlighted
 {
-    return [self defaultImage: @"ic_arrow_drop_down_white_36dp"];
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_arrow_drop_down_grey600_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [UIColor whiteColor] colorAlpha: 0.33f];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowDownImageDisabled
 {
     return [self defaultImage: @"ic_arrow_drop_down_grey600_36dp"];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowUpImage
 {
-    return [self defaultImage: @"ic_arrow_drop_up_black_36dp"];
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_arrow_drop_up_grey600_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [UIColor blackColor] colorAlpha: 0.0f];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowUpImageHighlighted
 {
-    return [self defaultImage: @"ic_arrow_drop_up_white_36dp"];
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_arrow_drop_up_grey600_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [UIColor whiteColor] colorAlpha: 0.33f];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowUpImageDisabled
 {
     return [self defaultImage: @"ic_arrow_drop_up_grey600_36dp"];
