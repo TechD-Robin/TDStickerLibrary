@@ -33,10 +33,12 @@
 {
     UILabel                       * titleLabel;
     
-//    UIImageView                   * informationView;
     UIButton                      * informationView;
     
     UIButton                      * downloadView;
+    
+    UIButton                      * inforArrowDownView;
+    UIButton                      * inforArrowUpView;
     
 }
 //  ------------------------------------------------------------------------------------------------
@@ -68,6 +70,8 @@
 - ( void ) _AssignCurrentPropertiesDownloadView;
 
 - ( void ) _AssignCurrentPropertiesInformationView;
+
+- ( void ) _AssignCurrentPropertiesInforArrowsView;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create object.
@@ -108,6 +112,9 @@
 - ( BOOL ) _CreateDownloadView;
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateInforArrows;
+
+//  ------------------------------------------------------------------------------------------------
 
 
 
@@ -134,6 +141,8 @@
     informationView                 = nil;
     downloadView                    = nil;
     
+    inforArrowDownView              = nil;
+    inforArrowUpView                = nil;
     
     [self                           setSectionIndex: 0];
     [self                           setSectionTitle: nil];
@@ -195,6 +204,44 @@
     [informationView                setImage: imageDisabled forState: UIControlStateDisabled];
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _AssignCurrentPropertiesInforArrowsView
+{
+    if ( ( [self customization] == nil ) || ( nil == inforArrowDownView ) || ( nil == inforArrowUpView ) )
+    {
+        return;
+    }
+    
+    CGRect                          arrowsRect;
+    CGPoint                         offset;
+    
+    UIImage                       * arrowDownImage;
+    UIImage                       * arrowDownImageDisabled;
+    UIImage                       * arrowUpImage;
+    UIImage                       * arrowUpImageDisabled;
+    
+    arrowDownImage                  = [[self customization] sectionHeaderArrowDownImage];
+    arrowDownImageDisabled          = [[self customization] sectionHeaderArrowDownImageDisabled];
+    arrowUpImage                    = [[self customization] sectionHeaderArrowUpImage];
+    arrowUpImageDisabled            = [[self customization] sectionHeaderArrowUpImageDisabled];
+    if ( nil == arrowDownImage )
+    {
+        return;
+    }
+    
+    offset                          = CGPointMake( 8.0f, [inforArrowDownView frame].origin.y );
+    arrowsRect.origin               = offset;
+    arrowsRect.size                 = CGSizeMake( ( [arrowDownImage size].width * ( 2.0f / 3.0f ) ) , ( [arrowDownImage size].height / 3.0f ) );
+    
+    [inforArrowDownView             setFrame: arrowsRect];
+    [inforArrowDownView             setImage: arrowDownImage forState: UIControlStateNormal];
+    [inforArrowDownView             setImage: arrowDownImageDisabled forState: UIControlStateDisabled];
+
+    [inforArrowUpView               setFrame: arrowsRect];
+    [inforArrowUpView               setImage: arrowUpImage forState: UIControlStateNormal];
+    [inforArrowUpView               setImage: arrowUpImageDisabled forState: UIControlStateDisabled];
+    
+}
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create object.
@@ -262,7 +309,6 @@
     headerHeight                    = [self bounds].size.height;
     headerHeight                    *= ( 2.0f / 3.0f );
     infoViewRect                    = CGRectMake( 2.0f, 1.0f, headerHeight, headerHeight );
-//    informationView                 = [[UIImageView alloc] initWithFrame: infoViewRect];
     informationView                 = [UIButton buttonWithType: UIButtonTypeCustom];
     if ( nil == informationView )
     {
@@ -271,15 +317,8 @@
     
     [informationView                setFrame: infoViewRect];
     [informationView                setUserInteractionEnabled: YES];
-    [self                           addSubview: informationView];
-    
-//    [UIGestureRecognizer            tapGestureRecognizer: informationView withTarget: self action: @selector( _TapInfoViewAction: )];
+    [self                           addSubview: informationView];    
     [informationView                addTarget: self action: @selector( _TapInfoViewAction: ) forControlEvents: UIControlEventTouchUpInside];
-    
-    
-    
-    //  test.
-//    [informationView                setBackgroundColor: [UIColor darkGrayColor]];
     
     return YES;
 }
@@ -337,6 +376,33 @@
     return YES;
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateInforArrows
+{
+    CGRect                          arrowsRect;
+    CGFloat                         headerHeight;
+    
+    headerHeight                    = [self bounds].size.height;
+    headerHeight                    *= ( 1.0f / 3.0f );
+    arrowsRect                      = CGRectMake( 2.0f, ( ( headerHeight * 2.0f ) + 1.0f ), headerHeight, headerHeight );
+    inforArrowDownView              = [UIButton buttonWithType: UIButtonTypeCustom];
+    inforArrowUpView                = [UIButton buttonWithType: UIButtonTypeCustom];
+    if ( ( nil == inforArrowDownView ) || ( nil == inforArrowUpView ) )
+    {
+        return NO;
+    }
+    
+    [inforArrowDownView             setFrame: arrowsRect];
+    [inforArrowDownView             setUserInteractionEnabled: NO];
+    [self                           addSubview: inforArrowDownView];
+    
+    [inforArrowUpView               setFrame: arrowsRect];
+    [inforArrowUpView               setUserInteractionEnabled: NO];
+    [self                           addSubview: inforArrowUpView];
+    
+    return YES;
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -378,6 +444,7 @@
     [self                           _CreateTitle];
     [self                           _CreateInformationView];
     [self                           _CreateDownloadView];
+    [self                           _CreateInforArrows];
     
     [self                           _CreateTapAction];
     return self;
@@ -397,6 +464,7 @@
     [self                           _CreateTitle];
     [self                           _CreateInformationView];
     [self                           _CreateDownloadView];
+    [self                           _CreateInforArrows];
     
     [self                           _CreateTapAction];
     return self;
@@ -452,14 +520,10 @@
     //  test.
     if ( [self isDownloadedData] == NO )
     {
-//        [informationView            setBackgroundColor: [UIColor blackColor]];
-        
         [downloadView               setHidden: NO];
     }
     else
     {
-//        [informationView            setBackgroundColor: [UIColor darkGrayColor]];
-        
         [downloadView               setHidden: YES];
     }
 }
@@ -471,6 +535,7 @@
     [self                           _AssignCurrentPropertiesDownloadView];
     
     [self                           _AssignCurrentPropertiesInformationView];
+    [self                           _AssignCurrentPropertiesInforArrowsView];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -481,6 +546,41 @@
         return;
     }
     [informationView                setEnabled: isEnabled];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setInformationArrowsState:(BOOL)isEnabled
+{
+    if ( nil != inforArrowDownView )
+    {
+        [inforArrowDownView         setEnabled: isEnabled];
+    }
+    if ( nil != inforArrowUpView )
+    {
+        [inforArrowUpView           setEnabled: isEnabled];
+    }
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setInformationArrow:(BOOL)isArrowDown
+{
+    //  arrow down enabled.
+    if ( YES == isArrowDown )
+    {
+        [inforArrowDownView         setEnabled: YES];
+        [inforArrowDownView         setHidden: NO];
+        
+        [inforArrowUpView           setEnabled: NO];
+        [inforArrowUpView           setHidden: YES];
+        return;
+    }
+    
+    //  arrow up enabled.
+    [inforArrowDownView             setEnabled: NO];
+    [inforArrowDownView             setHidden: YES];
+    
+    [inforArrowUpView               setEnabled: YES];
+    [inforArrowUpView               setHidden: NO];
 }
 
 

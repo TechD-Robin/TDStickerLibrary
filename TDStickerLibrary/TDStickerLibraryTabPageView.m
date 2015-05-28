@@ -153,6 +153,11 @@
 - ( BOOL ) _IsDownloadedStickerAtIndex:(NSInteger)index;
 
 //  ------------------------------------------------------------------------------------------------
+//  is more content for section at index
+
+- ( BOOL ) _IsMoreContent:(BOOL *)moreContent forSectionAtIndex:(NSInteger)section;
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create object.
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -538,6 +543,47 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _IsMoreContent:(BOOL *)moreContent forSectionAtIndex:(NSInteger)section
+{
+    NSParameterAssert( nil != pageConfigure );
+    
+    if ( NULL == moreContent )
+    {
+        return NO;
+    }
+    
+    TDStickerLibraryTabPageLayout * layout;
+    NSInteger                       rowCapacity;
+    NSInteger                       imageTotal;
+    NSInteger                       sectionMode;
+    
+    layout                          = (TDStickerLibraryTabPageLayout *)[self collectionViewLayout];
+    if ( nil == layout )
+    {
+        return NO;
+    }
+    
+    sectionMode                     = 0;
+    if ( [pageConfigure dataMode: &sectionMode atIndex: section] == NO )
+    {
+        return NO;
+    }
+    
+    rowCapacity                     = [layout calculateFirstRowCapacityForSectionAtIndex: section];
+    imageTotal                      = [sectionStates numberOfTotalImagesInSection: section];
+
+    //  when image count less then row's capacity, equal no more content.
+    if ( 0 == sectionMode )
+    {
+        *moreContent                = ( ( imageTotal > rowCapacity ) ? YES : NO );
+        return YES;
+    }
+
+    *moreContent                    = ( ( imageTotal >= rowCapacity ) ? YES : NO );
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark method for create object.
 //  ------------------------------------------------------------------------------------------------
 + ( UICollectionViewLayout * ) _CreateLayout:(TDStickerLibraryCustomization *)customization
@@ -570,13 +616,17 @@
         return nil;
     }
     
-    BOOL                            isDownloaded;
     BOOL                            isEnabled;
+    BOOL                            miniState;
+    BOOL                            moreContent;
+    BOOL                            isDownloaded;
     NSString                      * title;
     TDStickerLibrarySectionHeader * header;
     
-    isDownloaded                    = NO;
     isEnabled                       = NO;
+    miniState                       = NO;
+    moreContent                     = NO;
+    isDownloaded                    = NO;
     title                           = nil;
     header                          = [collectionView dequeueReusableSupplementaryViewOfKind: UICollectionElementKindSectionHeader
                                                                          withReuseIdentifier: NSStringFromClass( [TDStickerLibrarySectionHeader class] ) forIndexPath: indexPath];
@@ -595,17 +645,35 @@
     [header                         setSectionIndex: indexPath.section];
     [header                         setSectionTitle: title];
     
-    [header                     setCustomization: customizationParam];
+    [header                         setCustomization: customizationParam];
+    
     //  when mode is tab page, assign current properties.
-    if ( NO == modeFlags.isIntroduction )
+    if ( YES == modeFlags.isIntroduction )
     {
-        [header                     assignCurrentProperties];
+        return header;
     }
+    [header                         assignCurrentProperties];
     
     
     //  先設定成 沒有 download info, informatioin view is disabled.
     isEnabled                       = [self _IsMustDownloadStickerAtIndex: indexPath.section];
     [header                         setInformationState: isEnabled];
+    
+    if ( [self _IsMoreContent: &moreContent forSectionAtIndex: indexPath.section] == YES )
+    {
+        if ( NO == moreContent )
+        {
+            [header                 setInformationArrowsState: NO];
+        }
+        else
+        {
+            //  set information arrows.
+            if ( [sectionStates miniState: &miniState inSection: indexPath.section] == YES )
+            {
+                [header             setInformationArrow: miniState];
+            }
+        }
+    }
     
     //  check download state.
     if ( [sectionStates downloadState: &isDownloaded inSection: indexPath.section] == YES )
@@ -614,7 +682,6 @@
     }
     return header;
 }
-
 
 //  ------------------------------------------------------------------------------------------------
 - ( UIImageView * ) _CreateCommonSticker:(NSIndexPath *)indexPath
