@@ -33,8 +33,8 @@
     buttonFrame.size.width          = MAX( [image size].width, [highlighted size].width );
     buttonFrame.size.height         = MAX( [image size].height, [highlighted size].height );
     [button                         setFrame: buttonFrame];
-    [button                         setBackgroundImage: image forState: UIControlStateNormal];
-    [button                         setBackgroundImage: highlighted forState: UIControlStateHighlighted];
+    [button                         setImage: image forState: UIControlStateNormal];
+    [button                         setImage: highlighted forState: UIControlStateHighlighted];
     
     return button;
 }
@@ -54,19 +54,19 @@
     buttonFrame.origin              = offset;
     buttonFrame.size                = [image size];
     [button                         setFrame: buttonFrame];
-    [button                         setBackgroundImage: image forState: UIControlStateNormal];
+    [button                         setImage: image forState: UIControlStateNormal];
 
     if ( nil != highlighted )
     {
-        [button                     setBackgroundImage: highlighted forState: UIControlStateHighlighted];
+        [button                     setImage: highlighted forState: UIControlStateHighlighted];
     }
     if ( nil != disabled )
     {
-        [button                     setBackgroundImage: disabled forState: UIControlStateDisabled];
+        [button                     setImage: disabled forState: UIControlStateDisabled];
     }
     if ( nil != selected )
     {
-        [button                     setBackgroundImage: selected forState: UIControlStateSelected];
+        [button                     setImage: selected forState: UIControlStateSelected];
     }
     return button;
 }
