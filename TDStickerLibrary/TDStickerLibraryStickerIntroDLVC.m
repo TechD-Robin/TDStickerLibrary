@@ -367,19 +367,28 @@
     //  width stretchy when device Orientation is changed.
     [NSLayoutConstraint             constraintForWidthStretchy: topView top: ( subviewTop + 1.0f ) height: topViewHight in: [self view]];
     
+    backButton                      = [UIButton buttonWithImage: [customization sysStyleBackImage]
+                                                    highlighted: [customization sysStyleBackImageHighlighted]
+                                                       disabled: [customization sysStyleBackImageDisabled]
+                                                       selected: nil origin: CGPointMake( 6.0f, 0.0f )];
     
-    backButton                      = [UIButton buttonWithImage: [customization sysStyleBackToMenuImage]
-                                                    highlighted: [customization sysStyleBackToMenuImageHighlighted]
-                                                         origin: CGPointMake( 6.0f, 0.0f )];
     [topView                        addSubview: backButton];
     [backButton                     addTarget: self action: @selector( _BackAction: ) forControlEvents: UIControlEventTouchUpInside];
     
-    UILabel                       * topTitle;
     
+    
+    UILabel                       * topTitle;
+    NSString                      * title;
     
     topTitle                        = [[UILabel alloc] init];
-//.    [topTitle                       setText: @"Sticker Libraries"];
+    title                           = [pageConfigure dataTitleAtIndex: 0];
+    if ( nil != title )
+    {
+        [topTitle                   setText: title];
+    }
+
     [topTitle                       setTextAlignment: NSTextAlignmentCenter];
+    [topTitle                       setTextColor: [customization sysStyleTitleTextColor]];
     [topTitle                       setFrame: CGRectMake( 0.0f, 0.0f, screenWidth, topViewHight)];
     [topView                        addSubview: topTitle];
     

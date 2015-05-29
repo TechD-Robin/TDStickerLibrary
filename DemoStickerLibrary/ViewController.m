@@ -26,6 +26,19 @@
 @implementation ViewController
 
 //  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _ImageWithoutTintColor:(NSString *)imageName from:(TDResourceManager *)manager
+{
+    NSParameterAssert( nil != imageName );
+    NSParameterAssert( nil != manager );
+    
+    UIImage                       * image;
+    
+    image                           = [manager image: imageName ofType: @"png" inDirectory: @"Images"];
+    NSParameterAssert( nil != image );
+    return image;
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) _Image:(NSString *)imageName from:(TDResourceManager *)manager
 {
     NSParameterAssert( nil != imageName );
@@ -58,6 +71,7 @@
     sysCustomization->styleTintedColor          = [UIColor cyanColor];
     sysCustomization->styleTintedColorAlpha     = 0.32f;
     
+    sysCustomization->styleTitleTextColor       = [UIColor lightGrayColor];
     
     manager                         = [TDResourceManager assetsBundleEnvironment: @"SystemCustomization.bundle"
                                                                             with: [self class] onSingleton: YES];
@@ -67,7 +81,7 @@
     //  image menu.
     sysCustomization->backToMenuImage               = [self _Image: @"ic_menu_grey600_36dp" from: manager];
     sysCustomization->backToMenuImageHighlighted    = [self _Image: @"ic_menu_white_36dp" from: manager];
-    
+        
     //  image download.
     sysCustomization->downloadImage                 = [self _Image: @"ic_get_app_grey600_36dp" from: manager];
     sysCustomization->downloadImageHighlighted      = [self _Image: @"ic_get_app_white_36dp" from: manager];
@@ -202,12 +216,18 @@
     [customization                  setSysStyleBackToMenuImageName: @"ic_menu_grey600_36dp"];
     [customization                  setSysStyleBackToMenuHighlightedImageName: @"ic_menu_white_36dp"];
     
+    [customization                  setSysStyleBackImageName: @"ic_chevron_left_grey600_36dp"];
+    [customization                  setSysStyleBackHighlightedImageName: @"ic_chevron_left_white_36dp"];
+    [customization                  setSysStyleBackDisabledImageName: @"ic_chevron_left_grey600_36dp"];
+    
     [customization                  setSysStyleDownloadImageName: @"ic_get_app_grey600_36dp"];
     [customization                  setSysStyleDownloadHighlightedImageName: @"ic_get_app_white_36dp"];
     
     
     [customization                  setSysStyleTintedColor:         sysCustomization->styleTintedColor];
     [customization                  setSysStyleTintedColorAlpha:    sysCustomization->styleTintedColorAlpha];
+    
+    [customization                  setSysStyleTitleTextColor:      sysCustomization->styleTitleTextColor];
     
     
     //controller                      = [TDStickerLibraryViewController stickerLibaray];

@@ -49,6 +49,13 @@
  */
 @property( nonatomic, assign ) NSString                   * sysStyleBackToMenuHighlightedImageName;
 
+
+@property( nonatomic, assign ) NSString                   * sysStyleBackImageName;
+
+@property( nonatomic, assign ) NSString                   * sysStyleBackHighlightedImageName;
+
+@property( nonatomic, assign ) NSString                   * sysStyleBackDisabledImageName;
+
 /**
  *  system style's download image name.
  */
@@ -73,6 +80,12 @@
  *  system style's tinted color alpha.
  */
 @property( nonatomic, assign ) CGFloat                      sysStyleTintedColorAlpha;
+
+/**
+ *  system style's title text color.
+ */
+@property( nonatomic, assign ) UIColor                    * sysStyleTitleTextColor;
+
 
 //  for system configure default.
 /**
@@ -282,6 +295,33 @@
  *  @return image|nil               the image object or nil.
  */
 - ( UIImage * ) sysStyleBackToMenuImageHighlighted;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the system style's back image.
+ *  get the system style's back image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) sysStyleBackImage;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the system style's back highlighted image.
+ *  get the system style's back highlighted image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) sysStyleBackImageHighlighted;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the system style's back disabled image.
+ *  get the system style's back disabled image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) sysStyleBackImageDisabled;
 
 //  ------------------------------------------------------------------------------------------------
 /**

@@ -81,6 +81,8 @@
     styleTintedColor                = nil;
     styleTintedColorAlpha           = 0.0f;
     
+    styleTitleTextColor             = nil;
+    
     //  for UIimage.
     backToMenuImage                 = nil;
     backToMenuImageHighlighted      = nil;

@@ -25,6 +25,8 @@
     UIColor                       * styleTintedColor;
     CGFloat                         styleTintedColorAlpha;
     
+    UIColor                       * styleTitleTextColor;
+    
     //  for UIimage.
     UIImage                       * backToMenuImage;
     UIImage                       * backToMenuImageHighlighted;

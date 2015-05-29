@@ -156,6 +156,10 @@
     [self                           setSysStyleBackToMenuImageName: nil];
     [self                           setSysStyleBackToMenuHighlightedImageName: nil];
     
+    [self                           setSysStyleBackImageName: nil];
+    [self                           setSysStyleBackHighlightedImageName: nil];
+    [self                           setSysStyleBackDisabledImageName: nil];
+    
     [self                           setSysStyleDownloadImageName: nil];
     [self                           setSysStyleDownloadHighlightedImageName: nil];
     [self                           setSysStyleDownloadDisabledImageName: nil];
@@ -163,6 +167,8 @@
     
     [self                           setSysStyleTintedColor: nil];
     [self                           setSysStyleTintedColorAlpha: 0.0f];
+    
+    [self                           setSysStyleTitleTextColor: nil];
     
     
     //  for system configure default.
@@ -304,6 +310,10 @@
 @synthesize sysStyleBackToMenuImageName             = _sysStyleBackToMenuImageName;
 @synthesize sysStyleBackToMenuHighlightedImageName  = _sysStyleBackToMenuHighlightedImageName;
 
+@synthesize sysStyleBackImageName                   = _sysStyleBackImageName;
+@synthesize sysStyleBackHighlightedImageName        = _sysStyleBackHighlightedImageName;
+@synthesize sysStyleBackDisabledImageName           = _sysStyleBackDisabledImageName;
+
 @synthesize sysStyleDownloadImageName               = _sysStyleDownloadImageName;
 @synthesize sysStyleDownloadHighlightedImageName    = _sysStyleDownloadHighlightedImageName;
 @synthesize sysStyleDownloadDisabledImageName       = _sysStyleDownloadDisabledImageName;
@@ -311,6 +321,7 @@
 @synthesize sysStyleTintedColor                     = _sysStyleTintedColor;
 @synthesize sysStyleTintedColorAlpha                = _sysStyleTintedColorAlpha;
 
+@synthesize sysStyleTitleTextColor                  = _sysStyleTitleTextColor;
 
 //  for system configure default.
 @synthesize systemConfigureDefaultSubpath           = _systemConfigureDefaultSubpath;
@@ -446,6 +457,24 @@
 - ( UIImage * ) sysStyleBackToMenuImageHighlighted
 {
     return [self _ImageFromSysStyleBundleWithTintedColor: [self sysStyleBackToMenuHighlightedImageName]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sysStyleBackImage
+{
+    return [self _ImageFromSysStyleBundleWithTintedColor: [self sysStyleBackImageName]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sysStyleBackImageHighlighted
+{
+    return [self _ImageFromSysStyleBundleWithTintedColor: [self sysStyleBackHighlightedImageName]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sysStyleBackImageDisabled
+{
+    return [self _ImageFromSysStyleBundle: [self sysStyleBackDisabledImageName]];
 }
 
 //  ------------------------------------------------------------------------------------------------
