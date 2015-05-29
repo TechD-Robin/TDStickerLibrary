@@ -41,6 +41,16 @@
     UINavigationBar               * navigationBar;
     
     /**
+     *  a top view; maybe like navigation bar.
+     */
+    UIView                        * topView;
+    
+    /**
+     *  a back button.
+     */
+    UIButton                      * backButton;
+    
+    /**
      *  a download button for download action.
      */
     UIButton                      * downloadButton;
@@ -138,6 +148,15 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief create a top view.
+ *  create a top view; maybe like navigation bar.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _CreateTopView;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief create a download action's button object into this object.
  *  create a download action's button object into this object.
  *
@@ -223,6 +242,11 @@
 {
     //  sub view.
     navigationBar                   = nil;
+
+    topView                         = nil;
+    
+    backButton                      = nil;
+    
     downloadButton                  = nil;
     deleteButton                    = nil;
     
@@ -300,6 +324,7 @@
     return YES;
 }
 
+
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _BackAction:(id) sender
 {
@@ -315,6 +340,52 @@
         finishedCallbackBlock( stickerIdentifier, sectionIndex, dataIsDownloaded, actionFinished );
     }
     
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateTopView
+{
+    //  init Top bar & back button.
+    CGFloat                         screenWidth;
+    CGFloat                         subviewTop;
+    CGFloat                         topViewHight;
+    CGRect                          topViewRect;
+    
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    subviewTop                      = [self _GetNewSubviewTopPosition];
+    topViewHight                    = [customization navigationBarHeight];
+    topViewRect                     = CGRectMake( 0, ( subviewTop + 1.0f ), screenWidth,  topViewHight );
+    topView                         = [[UIView alloc] initWithFrame: topViewRect];
+    if ( nil == topView )
+    {
+        return NO;
+    }
+    
+    [topView                        setBackgroundColor: [UIColor clearColor]];
+    [[self                          view] addSubview: topView];
+    
+    //  width stretchy when device Orientation is changed.
+    [NSLayoutConstraint             constraintForWidthStretchy: topView top: ( subviewTop + 1.0f ) height: topViewHight in: [self view]];
+    
+    
+    backButton                      = [UIButton buttonWithImage: [customization sysStyleBackToMenuImage]
+                                                    highlighted: [customization sysStyleBackToMenuImageHighlighted]
+                                                         origin: CGPointMake( 6.0f, 0.0f )];
+    [topView                        addSubview: backButton];
+    [backButton                     addTarget: self action: @selector( _BackAction: ) forControlEvents: UIControlEventTouchUpInside];
+    
+    UILabel                       * topTitle;
+    
+    
+    topTitle                        = [[UILabel alloc] init];
+//.    [topTitle                       setText: @"Sticker Libraries"];
+    [topTitle                       setTextAlignment: NSTextAlignmentCenter];
+    [topTitle                       setFrame: CGRectMake( 0.0f, 0.0f, screenWidth, topViewHight)];
+    [topView                        addSubview: topTitle];
+    
+    [NSLayoutConstraint             constraintForWidthStretchy: topTitle top: 0.0f height: topViewHight in: topView];
+    
+    return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -404,6 +475,8 @@
                                         into: [customization stickerDownloadSubpath] of: [customization stickerDownloadDirectory]
                                updateCheckBy: timestamp completed: ^(NSError * error, NSString * fullPath, BOOL finished)
     {
+        [backButton                     setEnabled: YES];
+        
          NSLog( @"result %d, %@", finished, error );
          NSLog( @"file full path : %@", fullPath );
         if ( NO == finished )
@@ -412,6 +485,9 @@
         }
         [self                       _SetDataDownloadState: YES];
     }];
+    
+    //  when downloading, button must disable; ** when system is downloading, touch the back button, system will crash. **
+    [backButton                     setEnabled: NO];
     
 }
 
@@ -586,19 +662,17 @@
     {
         subviewTop                  += [navigationBar bounds].size.height;
     }
+    
+    if ( nil != topView )
+    {
+        subviewTop                  += [topView bounds].size.height;
+    }
+    
     if ( nil != downloadButton )
     {
         subviewTop                  += [downloadButton bounds].size.height;
     }
     
-//    if ( nil != bannerView )
-//    {
-//        subviewTop                  += [bannerView bounds].size.height;
-//    }
-//    if ( nil != tabMenu )
-//    {
-//        subviewTop                  += [tabMenu bounds].size.height;
-//    }
     if ( nil != stickerPageView )
     {
         subviewTop                  += [stickerPageView bounds].size.height;
@@ -716,6 +790,18 @@
         navigationBar               = nil;
     }
     
+    if ( nil != topView )
+    {
+        SAFE_ARC_RELEASE( topView );
+        topView                     = nil;
+    }
+    
+    if ( nil != backButton )
+    {
+        SAFE_ARC_RELEASE( backButton );
+        backButton                  = nil;
+    }
+    
     if ( nil != downloadButton )
     {
         downloadButton              = nil;
@@ -758,7 +844,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    [self                           _CreateNavigationBar];
+//    [self                           _CreateNavigationBar];
+    [self                           _CreateTopView];
     
     [self                           _CreateDownloadButton];
     [self                           _CreateDeleteButton];
