@@ -29,10 +29,15 @@
 //  --------------------------------
 @interface TDStickerLibraryCustomization ()
 {
-    //  sys style.
+    /**
+     *  the object pointer of system style's resources manager.
+     */
     TDResourceManager                     * sysStyleBundleManager;
     
     //  sticker library default.
+    /**
+     *  the object pointer of default resources.
+     */
     TDStickerLibraryDefaultResources      * defaultResources;
     
     /**
@@ -71,15 +76,38 @@
  */
 - ( void ) _InitAttributes;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a default resource object.
+ *  create a default resource object.
+ */
 - ( void ) _InitDefaultResources;
 
-
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for get system style's data.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a image from system style's resources manager.
+ *  get a image from system style's resources manager.
+ *
+ *  @param imageName                image name.
+ *
+ *  @return image|nil               the image object or nil.
+ */
 - ( UIImage * ) _ImageFromSysStyleBundle:(NSString *)imageName;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a image with tinted color from system style's resources manager.
+ *  get a image with tinted color from system style's resources manager.
+ *
+ *  @param imageName                image name.
+ *
+ *  @return image|nil               the image object or nil.
+ */
 - ( UIImage * ) _ImageFromSysStyleBundleWithTintedColor:(NSString *)imageName;
 
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 /**
  *  when user define new UIColor without default, must call the new UIColor by class method or singleton class method ( static method );
@@ -201,6 +229,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get system style's data.
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) _ImageFromSysStyleBundle:(NSString *)imageName
 {
@@ -231,8 +260,7 @@
     return [image imageWithTintedColor: [self sysStyleTintedColor] colorAlpha: [self sysStyleTintedColorAlpha]];
 }
 
-
-
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 + ( UIColor * ) _TabMenuColor
 {
@@ -359,9 +387,9 @@
     {
         sysStyleBundleManager       = [TDResourceManager assetsBundleEnvironment: bundleName with: [self class] onSingleton: NO];
     }
-    
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) isStickerSoloViewEnabled
 {
     return stateFlags.stickerSoloViewEnabled;
@@ -386,6 +414,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get system style's image
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sysStyleBackToMenuImage
 {
@@ -417,6 +446,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get default's assets bundle image
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderInforImage
 {
@@ -427,6 +457,7 @@
     return [defaultResources sectionHeaderInforImage];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderInforImageHighlighted
 {
     if ( nil == defaultResources )
@@ -436,6 +467,7 @@
     return [defaultResources sectionHeaderInforImageHighlighted];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderInforImageDisabled
 {
     if ( nil == defaultResources )
@@ -445,6 +477,7 @@
     return [defaultResources sectionHeaderInforImageDisabled];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowDownImage
 {
     if ( nil == defaultResources )
@@ -454,6 +487,7 @@
     return [defaultResources sectionHeaderArrowDownImage];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowDownImageHighlighted
 {
     if ( nil == defaultResources )
@@ -463,6 +497,7 @@
     return [defaultResources sectionHeaderArrowDownImageHighlighted];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowDownImageDisabled
 {
     if ( nil == defaultResources )
@@ -472,6 +507,7 @@
     return [defaultResources sectionHeaderArrowDownImageDisabled];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowUpImage
 {
     if ( nil == defaultResources )
@@ -481,6 +517,7 @@
     return [defaultResources sectionHeaderArrowUpImage];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowUpImageHighlighted;
 {
     if ( nil == defaultResources )
@@ -490,6 +527,7 @@
     return [defaultResources sectionHeaderArrowUpImageHighlighted];
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowUpImageDisabled;
 {
     if ( nil == defaultResources )
@@ -500,7 +538,6 @@
 }
 
 
-//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 

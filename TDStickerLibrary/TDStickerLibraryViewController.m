@@ -42,7 +42,9 @@
      */
     UINavigationBar               * navigationBar;
     
-    
+    /**
+     *  a top view; maybe like navigation bar.
+     */
     UIView                        * topView;
     
     
@@ -112,6 +114,13 @@
  */
 - ( BOOL ) _CreateNavigationBar;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a top view.
+ *  create a top view; maybe like navigation bar.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _CreateTopView;
 
 //  ------------------------------------------------------------------------------------------------

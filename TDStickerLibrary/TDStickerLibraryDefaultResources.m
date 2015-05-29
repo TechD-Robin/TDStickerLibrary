@@ -117,9 +117,17 @@
     return self;
 }
 
-//  --------------------------------
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get default's assets bundle image
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief  get a image from this resource manager by image name.
+ *   get a image from this resource manager by image name.
+ *
+ *  @param imageName                image name.
+ *
+ *  @return image|nil               the image object or nil.
+ */
 - ( UIImage * ) defaultImage:(NSString *)imageName
 {
     if ( nil == imageName )

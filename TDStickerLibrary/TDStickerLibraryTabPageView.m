@@ -154,7 +154,15 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  is more content for section at index
-
+/**
+ *  @brief check the sticker count or contents  can assign into a row or not.
+ *  check the sticker count or contents  can assign into a row or not. ( equal mini state )
+ *
+ *  @param moreContent              pointer of the content state to get result.
+ *  @param section                  section index.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _IsMoreContent:(BOOL *)moreContent forSectionAtIndex:(NSInteger)section;
 
 //  ------------------------------------------------------------------------------------------------
@@ -652,7 +660,7 @@
     {
         return header;
     }
-    [header                         assignCurrentProperties];
+    [header                         assignCorrectProperties];
     
     
     //  先設定成 沒有 download info, informatioin view is disabled.

@@ -14,6 +14,9 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare protocol for TDSectionPreviewCellDelegate.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  delegate of preview cell of tab page of the Sticker Library.
+ */
 @protocol TDSectionPreviewCellDelegate <NSObject>
 @required
 

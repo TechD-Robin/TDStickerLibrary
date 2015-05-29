@@ -31,13 +31,29 @@
 //  ------------------------------------------------------------------------------------------------
 @interface TDStickerLibrarySectionHeader ()
 {
+    /**
+     *  header's title.
+     */
     UILabel                       * titleLabel;
     
+    /**
+     *  information view.
+     */
     UIButton                      * informationView;
     
+    /**
+     *  download view.
+     */
     UIButton                      * downloadView;
     
+    /**
+     *  information's arrow down view.
+     */
     UIButton                      * inforArrowDownView;
+    
+    /**
+     *  information's arrow up view.
+     */
     UIButton                      * inforArrowUpView;
     
 }
@@ -67,14 +83,32 @@
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) _AssignCurrentPropertiesDownloadView;
+#pragma mark declare for assign object's properties.
+//  ------------------------------------------------------------------------------------------------
+//  assign properties visible after view is did load.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  assign to correct properties of download view.
+ */
+- ( void ) _AssignCorrectPropertiesDownloadView;
 
-- ( void ) _AssignCurrentPropertiesInformationView;
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  assign to corrent properties of information view.
+ */
+- ( void ) _AssignCorrectPropertiesInformationView;
 
-- ( void ) _AssignCurrentPropertiesInforArrowsView;
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  assign to corrent properties of information's arrows view.
+ */
+- ( void ) _AssignCorrectPropertiesInforArrowsView;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create object.
+//  ------------------------------------------------------------------------------------------------
+//  these method just create a object and set some properties of basic,
+//  must be set properties visible by above methods .
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief create tap gesture recognizer.
@@ -112,6 +146,12 @@
 - ( BOOL ) _CreateDownloadView;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a information arrows view.
+ *  create a information arrows view, include arrow down and arrow up.
+ *
+ *  @return YES|NO                  method success or failure
+ */
 - ( BOOL ) _CreateInforArrows;
 
 //  ------------------------------------------------------------------------------------------------
@@ -154,7 +194,9 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) _AssignCurrentPropertiesDownloadView
+#pragma mark method for assign object's properties.
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _AssignCorrectPropertiesDownloadView
 {
     if ( ( [self customization] == nil ) || ( nil == downloadView ) )
     {
@@ -177,7 +219,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) _AssignCurrentPropertiesInformationView
+- ( void ) _AssignCorrectPropertiesInformationView
 {
     if ( ( [self customization] == nil ) || ( nil == informationView ) )
     {
@@ -205,7 +247,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) _AssignCurrentPropertiesInforArrowsView
+- ( void ) _AssignCorrectPropertiesInforArrowsView
 {
     if ( ( [self customization] == nil ) || ( nil == inforArrowDownView ) || ( nil == inforArrowUpView ) )
     {
@@ -491,6 +533,17 @@
         SAFE_ARC_ASSIGN_POINTER_NIL( downloadView );
     }
     
+    if ( nil != inforArrowDownView )
+    {
+        SAFE_ARC_RELEASE( inforArrowDownView );
+        SAFE_ARC_ASSIGN_POINTER_NIL( inforArrowDownView );
+    }
+    if ( nil != inforArrowUpView )
+    {
+        SAFE_ARC_RELEASE( inforArrowUpView );
+        SAFE_ARC_ASSIGN_POINTER_NIL( inforArrowUpView );
+    }
+    
     SAFE_ARC_SUPER_DEALLOC();
 }
 
@@ -529,13 +582,14 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for assign properties.
 //  ------------------------------------------------------------------------------------------------
-- ( void ) assignCurrentProperties
+- ( void ) assignCorrectProperties
 {
-    [self                           _AssignCurrentPropertiesDownloadView];
+    [self                           _AssignCorrectPropertiesDownloadView];
     
-    [self                           _AssignCurrentPropertiesInformationView];
-    [self                           _AssignCurrentPropertiesInforArrowsView];
+    [self                           _AssignCorrectPropertiesInformationView];
+    [self                           _AssignCorrectPropertiesInforArrowsView];
 }
 
 //  ------------------------------------------------------------------------------------------------

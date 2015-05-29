@@ -15,6 +15,9 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare protocol for TDSectionHeaderDelegate.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  delegate of section header of tab page of the Sticker Library.
+ */
 @protocol TDSectionHeaderDelegate <NSObject>
 @required
 
@@ -87,16 +90,40 @@
 
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for assign properties.
 //  ------------------------------------------------------------------------------------------------
-- ( void ) assignCurrentProperties;
+/**
+ *  @brief assign correct properties after sub object is created.
+ *  assign correct properties after sub object is created;
+ *  this method must call after 'customization' setting.
+ */
+- ( void ) assignCorrectProperties;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set information state is enabled or not.
+ *  set information state is enabled or not.
+ *
+ *  @param isEnabled                enabled or not.
+ */
 - ( void ) setInformationState:(BOOL)isEnabled;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set information arrows is enabled or not.
+ *  set information arrows is enabled or not.
+ *
+ *  @param isEnabled                enabled or not.
+ */
 - ( void ) setInformationArrowsState:(BOOL)isEnabled;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set information arrow is arrow down or arrow up.
+ *  set information arrow is arrow down or arrow up.
+ *
+ *  @param isArrowDown              arrow down or arrow up.
+ */
 - ( void ) setInformationArrow:(BOOL)isArrowDown;
 
 

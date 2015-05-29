@@ -27,6 +27,12 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create the object.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a section states's data object.
+ *  create a section states's data object.
+ *
+ *  @return object|nil              the data object or nil.
+ */
 + ( instancetype ) sectionStates;
 
 //  ------------------------------------------------------------------------------------------------
