@@ -222,6 +222,7 @@
     
     [customization                  setSysStyleDownloadImageName: @"ic_get_app_grey600_36dp"];
     [customization                  setSysStyleDownloadHighlightedImageName: @"ic_get_app_white_36dp"];
+    [customization                  setSysStyleDownloadDisabledImageName: @"ic_get_app_grey600_36dp"];
     
     
     [customization                  setSysStyleTintedColor:         sysCustomization->styleTintedColor];

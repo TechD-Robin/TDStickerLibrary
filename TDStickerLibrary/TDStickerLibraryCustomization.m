@@ -492,7 +492,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sysStyleDownloadImageDisabled
 {
-    return [self _ImageFromSysStyleBundleWithTintedColor: [self sysStyleDownloadDisabledImageName]];
+    return [self _ImageFromSysStyleBundle: [self sysStyleDownloadDisabledImageName]];
 }
 
 //  ------------------------------------------------------------------------------------------------

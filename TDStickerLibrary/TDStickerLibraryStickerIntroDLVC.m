@@ -417,7 +417,13 @@
     
     buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );
 //.    downloadButton                  = [[UIButton alloc] initWithFrame: buttonRect];
-    downloadButton                  = [UIButton buttonWithType: UIButtonTypeInfoDark];
+    
+//    downloadButton                  = [UIButton buttonWithType: UIButtonTypeInfoDark];
+    downloadButton                  = [UIButton buttonWithImage: [customization sysStyleDownloadImage]
+                                                    highlighted: [customization sysStyleDownloadImageHighlighted] 
+                                                       disabled: [customization sysStyleDownloadImageDisabled]
+                                                       selected: nil
+                                                         origin: buttonRect.origin];
     if ( nil == downloadButton )
     {
         return NO;
