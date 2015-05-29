@@ -167,9 +167,29 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
 {
     if ( nil != sectionStates )
     {
+        for ( id idObject in sectionStates )
+        {
+            if ( nil == idObject )
+            {
+                continue;
+            }
+            if ( [idObject isKindOfClass: [NSMutableDictionary class]] == YES )
+            {
+                [idObject           removeAllObjects];
+            }
+            SAFE_ARC_RELEASE( idObject );
+            SAFE_ARC_ASSIGN_POINTER_NIL( idObject );
+        }
+        [sectionStates              removeAllObjects];
         SAFE_ARC_RELEASE( sectionStates );
         SAFE_ARC_ASSIGN_POINTER_NIL( sectionStates );
     }
+    
+    if ( nil != currentState )
+    {
+        currentState                = nil;
+    }
+    
     
     SAFE_ARC_SUPER_DEALLOC();
 }

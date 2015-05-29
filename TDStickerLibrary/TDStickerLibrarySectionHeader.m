@@ -518,30 +518,30 @@
     if ( nil != titleLabel )
     {
         SAFE_ARC_RELEASE( titleLabel );
-        SAFE_ARC_ASSIGN_POINTER_NIL( titleLabel );
+        titleLabel                  = nil;
     }
     
     if ( nil != informationView )
     {
         SAFE_ARC_RELEASE( informationView );
-        SAFE_ARC_ASSIGN_POINTER_NIL( informationView );
+        informationView             = nil;
     }
     
     if ( nil != downloadView )
     {
         SAFE_ARC_RELEASE( downloadView );
-        SAFE_ARC_ASSIGN_POINTER_NIL( downloadView );
+        downloadView                = nil;
     }
     
     if ( nil != inforArrowDownView )
     {
         SAFE_ARC_RELEASE( inforArrowDownView );
-        SAFE_ARC_ASSIGN_POINTER_NIL( inforArrowDownView );
+        inforArrowDownView          = nil;
     }
     if ( nil != inforArrowUpView )
     {
         SAFE_ARC_RELEASE( inforArrowUpView );
-        SAFE_ARC_ASSIGN_POINTER_NIL( inforArrowUpView );
+        inforArrowUpView            = nil;
     }
     
     SAFE_ARC_SUPER_DEALLOC();

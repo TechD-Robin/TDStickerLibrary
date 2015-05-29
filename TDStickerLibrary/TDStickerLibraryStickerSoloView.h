@@ -46,12 +46,12 @@ typedef     void (^FinishedCallbackBlock)(BOOL finished);
  *  @param stickerSize              the sticker original frame.
  *  @param nowFrame                 the sticker now frame on screen.
  *  @param window                   a current window object's pointer.
- *  @param customization            the customization object for the Sticker Library.
+ *  @param custom                   the customization object for the Sticker Library.
  *
  *  @return object|nil              the sticker solo view or nil.
  */
 + ( instancetype ) stickerSoloView:(UIImage *)stickerImage original:(CGSize)stickerSize onScreen:(CGRect)nowFrame
-                              with:(UIWindow *)window customization:(TDStickerLibraryCustomization *)customization;
+                              with:(UIWindow *)window customization:(TDStickerLibraryCustomization *)custom;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for show/hide the object.

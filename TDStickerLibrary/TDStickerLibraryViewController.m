@@ -63,7 +63,7 @@
     /**
      *  a pointer for the customization object, reference some properties.
      */
-    TDStickerLibraryCustomization * customizationParam;
+    TDStickerLibraryCustomization * customization;
     
     /**
      *  the pointer for tab information, i/o the configure from this object.
@@ -223,7 +223,7 @@
     tabMenu                         = nil;
     
     //  configure.
-    customizationParam              = nil;
+    customization                   = nil;
     
     tabConfigure                    = nil;
 }
@@ -233,10 +233,10 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _LoadSystemConfigure
 {
-    tabConfigure                    = [TDStickerLibraryTabInfo loadDataFromZip: [customizationParam systemConfigureTabDefaultFilename]
-                                                                forDirectories: [customizationParam systemConfigureDefaultDirectory]
-                                                                   inDirectory: [customizationParam systemConfigureDefaultSubpath]
-                                                                  inZippedPath: [customizationParam systemConfigureTabDefaultInZippedPrefix] with: nil];
+    tabConfigure                    = [TDStickerLibraryTabInfo loadDataFromZip: [customization systemConfigureTabDefaultFilename]
+                                                                forDirectories: [customization systemConfigureDefaultDirectory]
+                                                                   inDirectory: [customization systemConfigureDefaultSubpath]
+                                                                  inZippedPath: [customization systemConfigureTabDefaultInZippedPrefix] with: nil];
     if ( nil == tabConfigure )
     {
         return;
@@ -259,12 +259,12 @@
     }
     
     
-    [customizationParam             setSystemConfigureTabUpdateFilename: [jsonInfo updateConfigureFilenameForKey: updateKey]];
+    [customization                  setSystemConfigureTabUpdateFilename: [jsonInfo updateConfigureFilenameForKey: updateKey]];
     
     
-    [tabConfigure                   updateDataFromZip: [customizationParam systemConfigureTabUpdateFilename]
+    [tabConfigure                   updateDataFromZip: [customization systemConfigureTabUpdateFilename]
                                        forDirectories: TDDocumentDirectory inDirectory: subPath
-                                         inZippedPath: [customizationParam systemConfigureTabUpdateInZippedPrefix]
+                                         inZippedPath: [customization systemConfigureTabUpdateInZippedPrefix]
                                                  with: @"StickerLibrary"];
     
 }
@@ -282,13 +282,13 @@
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetNewSubviewTopPosition];
-    navigationBarHight              = [customizationParam navigationBarHeight];
+    navigationBarHight              = [customization navigationBarHeight];
     navigationBar                   = [[UINavigationBar alloc] initWithFrame: CGRectMake( 0, ( subviewTop + 1.0f ), screenWidth, navigationBarHight )];
     if ( nil == navigationBar )
     {
         return NO;
     }
-    [navigationBar                  setBackgroundColor: [customizationParam navigationBGC]];   // some effect at navigation bar. (錯覺嗎?, 本來應該要沒效果的)
+    [navigationBar                  setBackgroundColor: [customization navigationBGC]];   // some effect at navigation bar. (錯覺嗎?, 本來應該要沒效果的)
     [[self                          view] addSubview: navigationBar];
     
     UIBarButtonItem               * backItem;
@@ -332,7 +332,7 @@
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetNewSubviewTopPosition];
-    topViewHight                    = [customizationParam navigationBarHeight];
+    topViewHight                    = [customization navigationBarHeight];
     topViewRect                     = CGRectMake( 0, ( subviewTop + 1.0f ), screenWidth,  topViewHight );
     topView                         = [[UIView alloc] initWithFrame: topViewRect];
     if ( nil == topView )
@@ -350,8 +350,8 @@
     
     UIButton                      * button;
     
-    button                          = [UIButton buttonWithImage: [customizationParam sysStyleBackToMenuImage]
-                                                    highlighted: [customizationParam sysStyleBackToMenuImageHighlighted]
+    button                          = [UIButton buttonWithImage: [customization sysStyleBackToMenuImage]
+                                                    highlighted: [customization sysStyleBackToMenuImageHighlighted]
                                                          origin: CGPointMake( 6.0f, 0.0f )];
     [topView                        addSubview: button];
     [button                         addTarget: self action: @selector( _BackToMenuAction: ) forControlEvents: UIControlEventTouchUpInside];
@@ -388,7 +388,7 @@
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetNewSubviewTopPosition];
-    bannerHeight                    = [customizationParam bannerHeight];
+    bannerHeight                    = [customization bannerHeight];
     bannerRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, bannerHeight );
     bannerView                      = [[UIView alloc] initWithFrame: bannerRect];
     if ( nil == bannerView )
@@ -396,7 +396,7 @@
         return NO;
     }
     
-    [bannerView                     setBackgroundColor: [customizationParam bannerBGC]];
+    [bannerView                     setBackgroundColor: [customization bannerBGC]];
     [[self                          view] addSubview: bannerView];
     NSLog( @" sub view top %f", subviewTop );
     
@@ -415,7 +415,7 @@
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetNewSubviewTopPosition];
-    tabMenuHeight                   = [customizationParam tabMenuHeight];
+    tabMenuHeight                   = [customization tabMenuHeight];
     tabMenuRect                     = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, tabMenuHeight );
     tabMenu                         = [[UIScrollView alloc] initWithFrame: tabMenuRect];
     if ( nil == tabMenu )
@@ -423,7 +423,7 @@
         return NO;
     }
     
-    [tabMenu                        setBackgroundColor: [customizationParam tabMenuBGC]];
+    [tabMenu                        setBackgroundColor: [customization tabMenuBGC]];
     [[self                          view] addSubview: tabMenu];
     
     //  width stretchy when device Orientation is changed.
@@ -464,7 +464,7 @@
         configure                   = [tabConfigure configureNameAtIndex: i];
         dataLink                    = [tabConfigure dataLinkAtIndex: i];
         timestamp                   = [tabConfigure timestampAtIndex: i];
-        if ( [TDStickerLibraryUpdate checkConfigureFileExist: configure from: dataLink updateCheckBy: timestamp with: customizationParam extensionResult: NULL] == NO )
+        if ( [TDStickerLibraryUpdate checkConfigureFileExist: configure from: dataLink updateCheckBy: timestamp with: customization extensionResult: NULL] == NO )
         {
             continue;
         }
@@ -559,7 +559,7 @@
     }
     
     viewRect                        = CGRectMake( 0.0f, subviewTop, screenWidth, viewHeight );
-    view                            = [TDStickerLibraryTabPageView tabPageWithFrame: viewRect customization: customizationParam data:
+    view                            = [TDStickerLibraryTabPageView tabPageWithFrame: viewRect customization: customization data:
                                        configure from: dataLink updateCheckBy: timestamp forKey: configureKey];
     if ( nil == view )
     {
@@ -633,8 +633,8 @@
     image                           = [UIImage imageWithData: imageData];
     imageHighLight                  = [UIImage imageWithData: imageHighLightData];
     
-    itemSize                        = [customizationParam tabMenuItemSize];
-    itemSizeInset                   = [customizationParam tabMenuItemSizeInset];
+    itemSize                        = [customization tabMenuItemSize];
+    itemSizeInset                   = [customization tabMenuItemSizeInset];
     itemRect                        = CGRectMake( (index * itemSize.width ), 0.0f, itemSize.width, itemSize.height );
     itemRect                        = CGRectInset( itemRect, itemSizeInset.width , itemSizeInset.height );
     baseItem                        = [TDBaseTabMenuItem tabMenuItemWithFrame: itemRect image: image highlightedImage: imageHighLight create: ^( NSInteger tag )
@@ -730,7 +730,7 @@
 //    [self                           _CreateNavigationBar];
     [self                           _CreateTopView];
     
-    if ( [customizationParam bannerHeight] != 0.0f )
+    if ( [customization bannerHeight] != 0.0f )
     {
         [self                       _CreateBannerView];
     }
@@ -775,6 +775,11 @@
         SAFE_ARC_RELEASE( navigationBar );
         navigationBar               = nil;
     }
+    if ( nil != topView )
+    {
+        SAFE_ARC_RELEASE( topView );
+        topView                     = nil;
+    }
     if ( nil != bannerView )
     {
         SAFE_ARC_RELEASE( bannerView );
@@ -805,10 +810,10 @@
         tabMenu                     = nil;
     }
     
-    if ( nil != customizationParam )
+    if ( nil != customization )
     {
-        //SAFE_ARC_RELEASE( customizationParam );
-        customizationParam          = nil;
+        //SAFE_ARC_RELEASE( customization );
+        customization               = nil;
     }
     
     if ( nil != tabConfigure )
@@ -822,7 +827,7 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithCustomization:(TDStickerLibraryCustomization *)customization
+- ( instancetype ) initWithCustomization:(TDStickerLibraryCustomization *)custom
 {
     self                            = [super init];
     if ( nil == self )
@@ -832,11 +837,11 @@
     [self                           _InitAttributes];
     
     //  when customization is nil, system create a default object.
-    if ( nil == customization )
+    if ( nil == custom )
     {
-        customization               = [[TDStickerLibraryCustomization alloc] init];
+        custom                      = [[TDStickerLibraryCustomization alloc] init];
     }
-    customizationParam              = customization;
+    customization                   = custom;
     [self                           _LoadSystemConfigure];
     
     return self;
@@ -849,9 +854,9 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( instancetype ) stickerLibarayWithCustomization:(TDStickerLibraryCustomization *)customization
++ ( instancetype ) stickerLibarayWithCustomization:(TDStickerLibraryCustomization *)custom
 {
-    return [[[self class] alloc] initWithCustomization: customization];
+    return [[[self class] alloc] initWithCustomization: custom];
 }
 
 //  ------------------------------------------------------------------------------------------------

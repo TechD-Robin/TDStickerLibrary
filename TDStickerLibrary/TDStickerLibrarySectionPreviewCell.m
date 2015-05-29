@@ -279,7 +279,7 @@
     if ( nil != xmlReader )
     {
         SAFE_ARC_RELEASE( xmlReader );
-        SAFE_ARC_ASSIGN_POINTER_NIL( xmlReader );
+        xmlReader                   = nil;
     }
 
     SAFE_ARC_SUPER_DEALLOC();

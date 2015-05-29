@@ -34,7 +34,7 @@
     /**
      *  the pointer for the customization object, reference some properties.
      */
-    TDStickerLibraryCustomization * customizationParam;
+    TDStickerLibraryCustomization * customization;
     
     
     //  sticker image view.
@@ -172,7 +172,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _InitAttributes
 {
-    customizationParam              = nil;
+    customization                   = nil;
     
     //  sticker image view.
     stickerOriginalSize             = CGSizeZero;
@@ -246,8 +246,8 @@
     //  # must declare the porperty  change 'assign' to 'copy'; otherwise project will crash when call following code.
     //  ※ 這個地方很奇怪, 就算用了之前解決 tabMenuBGC 的 static method 方式, 一樣無法解決,
     //    一定要在 property 的地方, 把 assign 換成 copy 才能完全排除掉可能透過各種方式產生 UIColor 物件, 造成後面這行 CGColor 程式會 crash 調的問題.
-    //CGContextSetFillColorWithColor( context, [[[customizationParam soloViewBlurLayerColor] copy] CGColor] );
-    CGContextSetFillColorWithColor( context, [[customizationParam soloViewBlurLayerColor] CGColor] );
+    //CGContextSetFillColorWithColor( context, [[[customization soloViewBlurLayerColor] copy] CGColor] );
+    CGContextSetFillColorWithColor( context, [[customization soloViewBlurLayerColor] CGColor] );
     CGContextFillRect( context, mainRect );
     CGContextStrokePath( context );
     
@@ -262,7 +262,7 @@
 {
     CGRect                          layerFrame;
 
-    layerFrame                      = CGRectInset( stickerOnScreenFrame, [customizationParam soloViewBlurLayerInsetSize].width, [customizationParam soloViewBlurLayerInsetSize].height );
+    layerFrame                      = CGRectInset( stickerOnScreenFrame, [customization soloViewBlurLayerInsetSize].width, [customization soloViewBlurLayerInsetSize].height );
 
     UIImage                       * blurImage;
     
@@ -316,18 +316,18 @@
     blockBlur                       = blurImageView;
 
     [self                           setHidden: NO];
-    [UIView animateWithDuration: [customizationParam soloViewShowAnimateDuration] animations: ^
+    [UIView animateWithDuration: [customization soloViewShowAnimateDuration] animations: ^
     {
         CGRect                      newFrame;
         
-        newFrame                    = CGRectInset( stickerMaxFrame, [customizationParam soloViewInsetSize].width, [customizationParam soloViewInsetSize].height );
+        newFrame                    = CGRectInset( stickerMaxFrame, [customization soloViewInsetSize].width, [customization soloViewInsetSize].height );
         [blockSticker               setFrame: newFrame];
         
         if ( nil != blockBlur )
         {
-            newFrame                = CGRectInset( newFrame, [customizationParam soloViewBlurLayerInsetSizeOnTop].width, [customizationParam soloViewBlurLayerInsetSizeOnTop].height );
+            newFrame                = CGRectInset( newFrame, [customization soloViewBlurLayerInsetSizeOnTop].width, [customization soloViewBlurLayerInsetSizeOnTop].height );
             [blockBlur              setFrame: newFrame];
-            [blockBlur              setAlpha: [customizationParam soloViewBlurLayerAlphaOnTop]];
+            [blockBlur              setAlpha: [customization soloViewBlurLayerAlphaOnTop]];
         }
     }
     completion: ^ ( BOOL finished )
@@ -349,7 +349,7 @@
     blockSelf                       = self;
     blockSticker                    = stickerImageView;
     blockBlur                       = blurImageView;
-    [UIView animateWithDuration: [customizationParam soloViewHideAnimateDuration] animations: ^
+    [UIView animateWithDuration: [customization soloViewHideAnimateDuration] animations: ^
     {
         [blockSticker               setFrame: stickerOnScreenFrame];
         if ( nil != blockBlur )
@@ -411,22 +411,22 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
-    if ( nil != customizationParam )
+    if ( nil != customization )
     {
         //  release by creator.
-        SAFE_ARC_ASSIGN_POINTER_NIL( customizationParam );
+        customization               = nil;
     }
     
     if ( nil != stickerImageView )
     {
         SAFE_ARC_RELEASE( stickerImageView );
-        SAFE_ARC_ASSIGN_POINTER_NIL( stickerImageView );
+        stickerImageView            = nil;
     }
     
     if ( nil != blurImageView )
     {
         SAFE_ARC_RELEASE( blurImageView );
-        SAFE_ARC_ASSIGN_POINTER_NIL( blurImageView );
+        blurImageView               = nil;
     }
     
     SAFE_ARC_SUPER_DEALLOC();
@@ -436,7 +436,7 @@
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
 - ( instancetype ) initWithStickerSoloView:(UIImage *)stickerImage original:(CGSize)stickerSize onScreen:(CGRect)nowFrame
-                                      with:(UIWindow *)window customization:(TDStickerLibraryCustomization *)customization
+                                      with:(UIWindow *)window customization:(TDStickerLibraryCustomization *)custom
 {
     self                            = [super initWithFrame: [[UIScreen mainScreen] bounds]];
     if ( nil == self )
@@ -449,10 +449,10 @@
     //  sticker image view.
     stickerOriginalSize             = stickerSize;
     stickerOnScreenFrame            = nowFrame;
-    customizationParam              = customization;
+    customization                   = custom;
     [self                           _CreateStickerImageView: stickerImage];
     
-    if ( [customizationParam isStickerSoloViewUseBlurLayer] == YES )
+    if ( [customization isStickerSoloViewUseBlurLayer] == YES )
     {
         [self                       _CreateBlurImageView];
     }
@@ -468,9 +468,9 @@
 
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) stickerSoloView:(UIImage *)stickerImage original:(CGSize)stickerSize onScreen:(CGRect)nowFrame
-                              with:(UIWindow *)window customization:(TDStickerLibraryCustomization *)customization
+                              with:(UIWindow *)window customization:(TDStickerLibraryCustomization *)custom
 {
-    return [[[self class] alloc] initWithStickerSoloView: stickerImage original: stickerSize onScreen: nowFrame with: window customization: customization];
+    return [[[self class] alloc] initWithStickerSoloView: stickerImage original: stickerSize onScreen: nowFrame with: window customization: custom];
 }
 
 

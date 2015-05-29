@@ -36,7 +36,7 @@
  *  create a Tab Page View (collection view).
  *
  *  @param frame                    the frame of tab page view.
- *  @param customization            the customization object for the Sticker Library.
+ *  @param custom                   the customization object for the Sticker Library.
  *  @param configure                a configure name for collection view.
  *  @param dataLink                 a data link relation to configure name for update.
  *  @param timestamp                a timestamp relation to configure name for update.
@@ -44,7 +44,7 @@
  *
  *  @return object|nil              the tab page view or nil.
  */
-+ ( instancetype ) tabPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
++ ( instancetype ) tabPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)custom
                                data:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp forKey:(NSString *)aKey;
 
 //  ------------------------------------------------------------------------------------------------
@@ -53,13 +53,13 @@
  *  create a Page View for introduction mode; this view is like a detail view.
  *
  *  @param frame                    the frame of sticker page view.
- *  @param customization            the customization object for the Sticker Library.
+ *  @param custom                   the customization object for the Sticker Library.
  *  @param pageInfo                 the page information object.
  *  @param index                    section index of the sticker tab page view.
  *
  *  @return object|nil              the page view or nil.
  */
-+ ( instancetype ) introductionPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
++ ( instancetype ) introductionPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)custom
                                    configure:(TDStickerLibraryTabPageInfo *)pageInfo forSection:(NSInteger)index;
 
 

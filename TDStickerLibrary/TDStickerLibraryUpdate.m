@@ -32,7 +32,7 @@
     /**
      *  a pointer for the customization object, reference some properties.
      */
-    TDStickerLibraryCustomization * customizationParam;
+    TDStickerLibraryCustomization * customization;
     
     //  for download asynchronous.
     /**
@@ -144,7 +144,7 @@
 - ( void ) _InitAttributes
 {
     //  configure.
-    customizationParam              = nil;
+    customization                   = nil;
     
     //  for download asynchronous.
     downloadResponse                = nil;
@@ -283,7 +283,7 @@
     NSParameterAssert( nil != dataLink );
     
     [NSThread                       sleepForTimeInterval: 0.1f];
-    [TDDownloadManager              download: name from: dataLink into: [customizationParam systemConfigureUpdateSubpath] of: [customizationParam systemConfigureUpdateDirectory] updateCheckBy: timestamp completed: completed];
+    [TDDownloadManager              download: name from: dataLink into: [customization systemConfigureUpdateSubpath] of: [customization systemConfigureUpdateDirectory] updateCheckBy: timestamp completed: completed];
     
     return YES;
 }
@@ -321,10 +321,10 @@
 - ( void ) dealloc
 {
     [self                           stopProcedure];
-    if ( nil != customizationParam )
+    if ( nil != customization )
     {
-        SAFE_ARC_RELEASE( customizationParam );
-        SAFE_ARC_ASSIGN_POINTER_NIL( customizationParam );
+        SAFE_ARC_RELEASE( customization );
+        SAFE_ARC_ASSIGN_POINTER_NIL( customization );
     }
     
     SAFE_ARC_SUPER_DEALLOC();
@@ -333,7 +333,7 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithCustomization:(TDStickerLibraryCustomization *)customization
+- ( instancetype ) initWithCustomization:(TDStickerLibraryCustomization *)custom
 {
     self                            = [super init];
     if ( nil == self )
@@ -347,7 +347,7 @@
     {
         customization               = [[TDStickerLibraryCustomization alloc] init];
     }
-    customizationParam              = customization;
+    customization                   = custom;
     return self;
 }
 
@@ -358,9 +358,9 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( instancetype ) stickerLibraryUpdateWithCustomization:(TDStickerLibraryCustomization *)customization
++ ( instancetype ) stickerLibraryUpdateWithCustomization:(TDStickerLibraryCustomization *)custom
 {
-    return [[[self class] alloc] initWithCustomization: customization];
+    return [[[self class] alloc] initWithCustomization: custom];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -374,9 +374,9 @@
     TDPreUpdateProcedure          * procedure;
     
     procedure                       = [TDPreUpdateProcedure preUpdate: updateURL
-                                                             withSave: [customizationParam systemConfigureUpdateFilename]
-                                                                 into: [customizationParam systemConfigureUpdateSubpath]
-                                                                   of: [customizationParam systemConfigureUpdateDirectory]];
+                                                             withSave: [customization systemConfigureUpdateFilename]
+                                                                 into: [customization systemConfigureUpdateSubpath]
+                                                                   of: [customization systemConfigureUpdateDirectory]];
     
     NSParameterAssert( nil != procedure );
     
@@ -414,6 +414,16 @@
 {
     if ( nil != downloadResponse )
     {
+        for ( id idObject in downloadResponse )
+        {
+            if ( nil == idObject )
+            {
+                continue;
+            }
+            SAFE_ARC_RELEASE( idObject );
+            SAFE_ARC_ASSIGN_POINTER_NIL( idObject );
+        }
+        
         [downloadResponse           removeAllObjects];
         SAFE_ARC_RELEASE( downloadResponse );
         downloadResponse            = nil;

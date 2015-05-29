@@ -44,7 +44,7 @@
     /**
      *  the pointer for the customization object, reference some properties.
      */
-    TDStickerLibraryCustomization * customizationParam;
+    TDStickerLibraryCustomization * customization;
     
     /**
      *  the pointer for tab page information, i/o the configure from this object.
@@ -321,7 +321,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _InitAttributes
 {
-    customizationParam              = nil;
+    customization                   = nil;
     
     pageConfigure                   = nil;
     sectionStates                   = nil;
@@ -365,7 +365,7 @@
 {
     BOOL                            isUpdate;
     
-    if ( [TDStickerLibraryUpdate checkConfigureFileExist: configure from: dataLink updateCheckBy: timestamp with: customizationParam extensionResult: &isUpdate] == NO )
+    if ( [TDStickerLibraryUpdate checkConfigureFileExist: configure from: dataLink updateCheckBy: timestamp with: customization extensionResult: &isUpdate] == NO )
     {
         return;
     }
@@ -376,9 +376,9 @@
     TDGetPathDirectory              directory;
     
     filename                        = ( ( YES == isUpdate ) ? ( [configure stringByAppendingPathExtension: timestamp] ) : configure );
-    subpath                         = ( ( YES == isUpdate ) ? [customizationParam systemConfigureUpdateSubpath] : [customizationParam systemConfigureDefaultSubpath] );
+    subpath                         = ( ( YES == isUpdate ) ? [customization systemConfigureUpdateSubpath] : [customization systemConfigureDefaultSubpath] );
     passwd                          = ( ( YES == isUpdate ) ? @"StickerLibrary" : nil );
-    directory                       = ( ( YES == isUpdate ) ? [customizationParam systemConfigureUpdateDirectory] : [customizationParam systemConfigureDefaultDirectory] );
+    directory                       = ( ( YES == isUpdate ) ? [customization systemConfigureUpdateDirectory] : [customization systemConfigureDefaultDirectory] );
     
     pageConfigure                   = [TDStickerLibraryTabPageInfo loadDataFromZip: filename forDirectories: directory inDirectory: subpath inZippedPath: configure  with: passwd configure: aKey];
     if ( nil == pageConfigure )
@@ -538,11 +538,11 @@
         return NO;
     }
     
-    filePath                        = TDGetPathForDirectoriesWithTimestamp( [customizationParam stickerDownloadDirectory],
+    filePath                        = TDGetPathForDirectoriesWithTimestamp( [customization stickerDownloadDirectory],
                                                                             configure,
                                                                             timestamp,
                                                                             nil,
-                                                                            [customizationParam stickerDownloadSubpath], YES );
+                                                                            [customization stickerDownloadSubpath], YES );
     if ( nil == filePath )
     {
         return NO;
@@ -653,7 +653,7 @@
     [header                         setSectionIndex: indexPath.section];
     [header                         setSectionTitle: title];
     
-    [header                         setCustomization: customizationParam];
+    [header                         setCustomization: customization];
     
     //  when mode is tab page, assign current properties.
     if ( YES == modeFlags.isIntroduction )
@@ -714,7 +714,7 @@
     }
     
     //stickerView                     = [[UIImageView alloc] initWithImage: stickerImage];
-    stickerView                     = [UIImageView proportionalImageView: stickerImage reference: [customizationParam tableCommonItemSize] originWith: [customizationParam tableCommonItemSize]];
+    stickerView                     = [UIImageView proportionalImageView: stickerImage reference: [customization tableCommonItemSize] originWith: [customization tableCommonItemSize]];
     if ( nil == stickerView )
     {
         SAFE_ARC_RELEASE( stickerImage );
@@ -783,7 +783,7 @@
     }
     
     ID                              = [sectionStates idInSection: section];
-    introVC                         = [TDStickerLibraryStickerIntroDLVC introductionDL: customizationParam
+    introVC                         = [TDStickerLibraryStickerIntroDLVC introductionDL: customization
                                                                              configure: pageConfigure forSection: section identifier: ID];
     if ( nil == introVC )
     {
@@ -836,7 +836,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) _CalculatePerRowCapacityWithCustomization
 {
-    if ( nil == customizationParam )
+    if ( nil == customization )
     {
         return -1;
     }
@@ -849,9 +849,9 @@
     
     perRowItem                      = 0;
     baseWidth                       = [self bounds].size.width;
-    sectionInset                    = [customizationParam tableCommonSectionInset];
-    itemSize                        = [customizationParam tableCommonItemSize];
-    minimumInteritemSpacing         = [customizationParam tableMinimumInteritemSpacing];
+    sectionInset                    = [customization tableCommonSectionInset];
+    itemSize                        = [customization tableCommonItemSize];
+    minimumInteritemSpacing         = [customization tableMinimumInteritemSpacing];
     
     //  1st, calculate for without edgeInset.
     baseWidth                       -= ( sectionInset.left + sectionInset.right );
@@ -872,7 +872,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( CGSize ) _CalculatePreviewImageProportionalSizeForSectionAtIndex:(NSInteger)section
 {
-    if ( ( nil == pageConfigure ) || ( nil == customizationParam ) )
+    if ( ( nil == pageConfigure ) || ( nil == customization ) )
     {
         return CGSizeZero;
     }
@@ -887,7 +887,7 @@
     previewImage                    = nil;
     newSize                         = CGSizeZero;
     imageData                       = [pageConfigure imageDataAtIndex: section inArray: 0];
-    sectionInset                    = [customizationParam tableCommonSectionInset];
+    sectionInset                    = [customization tableCommonSectionInset];
     if ( nil == imageData )
     {
         return CGSizeZero;
@@ -912,7 +912,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( CGSize ) _CalculatePreviewImageMiniSizeForSectionAtIndex:(NSInteger)section
 {
-    if ( nil == customizationParam )
+    if ( nil == customization )
     {
         return CGSizeZero;
     }
@@ -923,14 +923,14 @@
     
     ratio                           = 1.0f;
     newSize                         = CGSizeZero;
-    sectionInset                    = [customizationParam tableCommonSectionInset];
+    sectionInset                    = [customization tableCommonSectionInset];
 
     newSize                         = [self bounds].size;
     newSize.width                   -= ( sectionInset.left + sectionInset.right );
-    ratio                           = ( [customizationParam tableCommonItemSize].width / newSize.width );
+    ratio                           = ( [customization tableCommonItemSize].width / newSize.width );
     
-//.    newSize.height                  = ( [customizationParam tableCommonItemSize].height + sectionInset.top + [customizationParam tableMinimumLineSpacing] );
-    newSize.height                  = ( [customizationParam tableCommonItemSize].height );
+//.    newSize.height                  = ( [customization tableCommonItemSize].height + sectionInset.top + [customization tableMinimumLineSpacing] );
+    newSize.height                  = ( [customization tableCommonItemSize].height );
     
     return newSize;
 }
@@ -1047,7 +1047,7 @@
     TDStickerLibraryStickerSoloView   * soloView;
     
     soloView                        = [TDStickerLibraryStickerSoloView stickerSoloView: stickerImage original: stickerSize onScreen: nowFrame
-                                                                                  with: [self window] customization: customizationParam];
+                                                                                  with: [self window] customization: customization];
     if ( nil == soloView )
     {
         return NO;
@@ -1093,10 +1093,10 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
-    if ( nil != customizationParam )
+    if ( nil != customization )
     {
         //  release by creator.
-        customizationParam          = nil;
+        customization               = nil;
     }
     
     if ( nil != pageConfigure )
@@ -1108,6 +1108,13 @@
         }
         pageConfigure               = nil;
     }
+    
+    if ( nil != sectionStates )
+    {
+        SAFE_ARC_RELEASE( sectionStates );
+        sectionStates               = nil;
+    }
+    
     SAFE_ARC_SUPER_DEALLOC();
 }
 
@@ -1125,11 +1132,11 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
+- ( instancetype ) initWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)custom
 {
     TDStickerLibraryTabPageLayout * layout;
     
-    layout                          = (TDStickerLibraryTabPageLayout *)[[self class] _CreateLayout: customization];
+    layout                          = (TDStickerLibraryTabPageLayout *)[[self class] _CreateLayout: custom];
     if ( nil == layout )
     {
         NSLog( @"create table layout fail." );
@@ -1145,19 +1152,19 @@
     
     [self                           _InitAttributes];
     [self                           _RegisterClasses];
-    customizationParam              = customization;
+    customization                   = custom;
     return self;
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
+- ( instancetype ) initWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)custom
                             data:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp forKey:(NSString *)aKey
 {
-    NSParameterAssert( nil != customization );
+    NSParameterAssert( nil != custom );
     NSParameterAssert( nil != configure );
     NSParameterAssert( nil != aKey );
     
-    self                            = [self initWithFrame: frame customization: customization];
+    self                            = [self initWithFrame: frame customization: custom];
     if ( nil == self )
     {
         return nil;
@@ -1168,13 +1175,13 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
+- ( instancetype ) initWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)custom
                        configure:(TDStickerLibraryTabPageInfo *)pageInfo forSection:(NSInteger)index
 {
-    NSParameterAssert( nil != customization );
+    NSParameterAssert( nil != custom );
     NSParameterAssert( nil != pageInfo );
     
-    self                            = [self initWithFrame: frame customization: customization];
+    self                            = [self initWithFrame: frame customization: custom];
     if ( nil == self )
     {
         return nil;
@@ -1187,17 +1194,17 @@
 
 
 //  ------------------------------------------------------------------------------------------------
-+ ( instancetype ) tabPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
++ ( instancetype ) tabPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)custom
                                data:(NSString *)configure from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp forKey:(NSString *)aKey
 {
-    return [[[self class] alloc] initWithFrame: frame customization: customization data: configure from: dataLink updateCheckBy: timestamp forKey: aKey];
+    return [[[self class] alloc] initWithFrame: frame customization: custom data: configure from: dataLink updateCheckBy: timestamp forKey: aKey];
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( instancetype ) introductionPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)customization
++ ( instancetype ) introductionPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)custom
                                    configure:(TDStickerLibraryTabPageInfo *)pageInfo forSection:(NSInteger)index
 {
-    return [[[self class] alloc] initWithFrame: frame customization: customization configure: pageInfo forSection: index];
+    return [[[self class] alloc] initWithFrame: frame customization: custom configure: pageInfo forSection: index];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -1309,7 +1316,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( CGSize ) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ( ( nil == customizationParam ) || ( nil == pageConfigure ) || ( nil == sectionStates ) )
+    if ( ( nil == customization ) || ( nil == pageConfigure ) || ( nil == sectionStates ) )
     {
         return CGSizeZero;
     }
@@ -1319,7 +1326,7 @@
     sectionMode                     = 0;
     if ( ( [pageConfigure dataMode: &sectionMode atIndex: indexPath.section] == NO ) || ( 0 == sectionMode ) )
     {
-        return [customizationParam tableCommonItemSize];
+        return [customization tableCommonItemSize];
     }
     return [sectionStates nowSizeOfPreviewImageInSection: indexPath.section];
 }
@@ -1327,7 +1334,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIEdgeInsets ) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return [customizationParam tableCommonSectionInset];
+    return [customization tableCommonSectionInset];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -1344,9 +1351,9 @@
     
     if ( [(UICollectionViewFlowLayout *)collectionViewLayout scrollDirection] == UICollectionViewScrollDirectionHorizontal )
     {
-        return CGSizeMake( [customizationParam tableCommonHeaderReferenceSize].height, [collectionView frame].size.height );
+        return CGSizeMake( [customization tableCommonHeaderReferenceSize].height, [collectionView frame].size.height );
     }
-    return CGSizeMake( [collectionView frame].size.width, [customizationParam tableCommonHeaderReferenceSize].height );
+    return CGSizeMake( [collectionView frame].size.width, [customization tableCommonHeaderReferenceSize].height );
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -1409,7 +1416,7 @@
         return;
     }
 
-    if ( [customizationParam isStickerSoloViewEnabled] == NO )
+    if ( [customization isStickerSoloViewEnabled] == NO )
     {
         return;
     }
@@ -1535,7 +1542,7 @@
         return;
     }
     
-    if ( [customizationParam isStickerSoloViewEnabled] == NO )
+    if ( [customization isStickerSoloViewEnabled] == NO )
     {
         return;
     }

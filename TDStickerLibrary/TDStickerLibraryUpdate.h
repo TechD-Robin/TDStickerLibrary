@@ -64,11 +64,11 @@ typedef     void (^UpdateCompletionBlock)(NSDictionary * updateResponses, NSErro
  *  @brief create a Sticker Library Update procedure object with customization object.
  *  create a Sticker Library Update procedure object with customization object.
  *
- *  @param customization            a customization configure for the Sticker Library View Controller.
+ *  @param custom                   a customization configure for the Sticker Library View Controller.
  *
  *  @return object|nil              the Sticker Library Update object or nil.
  */
-+ ( instancetype ) stickerLibraryUpdateWithCustomization:(TDStickerLibraryCustomization *)customization;
++ ( instancetype ) stickerLibraryUpdateWithCustomization:(TDStickerLibraryCustomization *)custom;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for start procedure

@@ -8,6 +8,11 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
+
+#ifndef __ARCMacros_H__
+    #import "ARCMacros.h"
+#endif  //  End of __ARCMacros_H__.
+
 #import "UIKit+TechD.h"
 #import "TDResourceManager.h"
 #import "TDStickerLibraryCustomization.h"
@@ -374,6 +379,22 @@
     [self                           _InitAttributes];
     [self                           _InitDefaultResources];
     return self;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) dealloc
+{
+    if ( nil != sysStyleBundleManager )
+    {
+        SAFE_ARC_RELEASE( sysStyleBundleManager );
+        sysStyleBundleManager       = nil;
+    }
+    
+    if ( nil != defaultResources )
+    {
+        SAFE_ARC_RELEASE( defaultResources );
+        defaultResources            = nil;
+    }
 }
 
 //  ------------------------------------------------------------------------------------------------
