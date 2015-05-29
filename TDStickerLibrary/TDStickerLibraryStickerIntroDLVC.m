@@ -303,18 +303,18 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _BackAction:(id) sender
 {
-    [self                           dismissViewControllerAnimated: YES completion: ^()
+    [self                           dismissViewControllerAnimated: YES completion: nil];
+    
+    if ( [pageConfigure reverseInfoData] == NO )
     {
-        if ( [pageConfigure reverseInfoData] == NO )
-        {
-            return;
-        }
-        
-        if ( nil != finishedCallbackBlock )
-        {
-            finishedCallbackBlock( stickerIdentifier, sectionIndex, dataIsDownloaded, actionFinished );
-        }
-    }];
+        return;
+    }
+    
+    if ( nil != finishedCallbackBlock )
+    {
+        finishedCallbackBlock( stickerIdentifier, sectionIndex, dataIsDownloaded, actionFinished );
+    }
+    
 }
 
 //  ------------------------------------------------------------------------------------------------

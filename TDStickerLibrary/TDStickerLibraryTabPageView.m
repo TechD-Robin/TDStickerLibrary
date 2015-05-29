@@ -759,6 +759,20 @@
     NSString                          * ID;
     TDStickerLibraryStickerIntroDLVC  * introVC;
     id                                  viewController;
+    NSInteger                           sectionMode;
+    BOOL                                miniStateActionBefore;
+    
+    sectionMode                     = 0;
+    if ( [pageConfigure dataMode: &sectionMode atIndex: section] == NO )
+    {
+        return NO;
+    }
+    
+    miniStateActionBefore           = NO;
+    if ( [sectionStates miniState: &miniStateActionBefore inSection: section] == NO )
+    {
+        return NO;
+    }
     
     ID                              = [sectionStates idInSection: section];
     introVC                         = [TDStickerLibraryStickerIntroDLVC introductionDL: customizationParam
@@ -778,8 +792,24 @@
         }
         
         //  when action is finish.
+        //  call header's delegate to setting UI state.
+        if ( ( YES == miniStateActionBefore ) || ( YES == isDownloaded ) )
+        {
+            [sectionStates          updateDownloadState: isDownloaded inSection: sectionIndex];
+            [self                   reloadData];
+            return;
+        }
+        
+        if ( 0 == sectionMode )
+        {
+            [self                   _CollectionView: self didSelectNormalModeHeaderInSection: section];
+        }
+        else
+        {
+            [self                   _CollectionView: self didSelectPreviewModeHeaderInSection: section];
+        }
+        
         [sectionStates              updateDownloadState: isDownloaded inSection: sectionIndex];
-        [self                       reloadData];
     }];
     
     
