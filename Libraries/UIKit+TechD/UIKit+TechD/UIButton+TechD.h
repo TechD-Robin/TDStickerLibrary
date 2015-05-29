@@ -19,6 +19,10 @@
 + ( instancetype ) buttonWithImage:(UIImage *)image highlighted:(UIImage *)highlighted origin:(CGPoint)offset;
 
 //  ------------------------------------------------------------------------------------------------
++ ( instancetype ) buttonWithImage:(UIImage *)image highlighted:(UIImage *)highlighted
+                          disabled:(UIImage *)disabled selected:(UIImage *)selected origin:(CGPoint)offset;
+
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
