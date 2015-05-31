@@ -405,9 +405,7 @@
     CGFloat                         subviewTop;
     CGFloat                         buttonHeight;
     CGRect                          buttonRect;
-    UITapGestureRecognizer        * tap;
     
-    tap                             = nil;
     isDownloaded                    = NO;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetNewSubviewTopPosition];
@@ -415,10 +413,7 @@
     subviewTop                      += 40.0f;
     buttonHeight                    = 36.0f;
     
-    buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );
-//.    downloadButton                  = [[UIButton alloc] initWithFrame: buttonRect];
-    
-//    downloadButton                  = [UIButton buttonWithType: UIButtonTypeInfoDark];
+    buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );    
     downloadButton                  = [UIButton buttonWithImage: [customization sysStyleDownloadImage]
                                                     highlighted: [customization sysStyleDownloadImageHighlighted] 
                                                        disabled: [customization sysStyleDownloadImageDisabled]
@@ -434,6 +429,7 @@
     [downloadButton                 setTitle: @" Download "      forState: UIControlStateNormal];
     [downloadButton                 setTitle: @" Is Downloaded " forState: UIControlStateDisabled];
     [[self                          view] addSubview: downloadButton];
+    [downloadButton                 addTarget: self action: @selector( _TapDownloadButtonAction: ) forControlEvents: UIControlEventTouchUpInside];
     
     //  width stretchy when device Orientation is changed.
     [NSLayoutConstraint             constraintForWidthStretchy: downloadButton top: ( subviewTop + 1.0f ) height: buttonHeight in: [self view]];
@@ -442,16 +438,6 @@
     {
         [downloadButton             setEnabled: !isDownloaded];
     }
-    
-    tap                             = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector( _TapDownloadButtonAction: )];
-    if ( nil == tap )
-    {
-        return YES;
-    }
-    [downloadButton                 addGestureRecognizer: tap];
-    
-    SAFE_ARC_RELEASE( tap );
-    tap                             = nil;
     
     return YES;
 }

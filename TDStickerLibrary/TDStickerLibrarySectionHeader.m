@@ -238,7 +238,7 @@
     {
         return;
     }
-    offset                          = CGPointMake( 8.0f, [informationView frame].origin.y );
+    offset                          = CGPointMake( ( 10.0f + ( [informationView bounds].size.width / 6.0f ) ) , [informationView frame].origin.y );
     
     [informationView                setFrame: CGRectMake( offset.x, offset.y, [informationView frame].size.width, [informationView frame].size.height )];
     [informationView                setImage: image forState: UIControlStateNormal];
@@ -273,7 +273,7 @@
     
     offset                          = CGPointMake( 8.0f, [inforArrowDownView frame].origin.y );
     arrowsRect.origin               = offset;
-    arrowsRect.size                 = CGSizeMake( ( [arrowDownImage size].width * ( 2.0f / 3.0f ) ) , ( [arrowDownImage size].height / 3.0f ) );
+    arrowsRect.size                 = [arrowDownImage size];
     
     [inforArrowDownView             setFrame: arrowsRect];
     [inforArrowDownView             setImage: arrowDownImage forState: UIControlStateNormal];
@@ -613,6 +613,7 @@
     {
         [inforArrowUpView           setEnabled: isEnabled];
     }
+    [inforArrowUpView               setHidden: !isEnabled];
 }
 
 //  ------------------------------------------------------------------------------------------------
