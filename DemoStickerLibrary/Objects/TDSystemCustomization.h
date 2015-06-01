@@ -24,10 +24,32 @@
     UIColor                       * styleBackgroundColor;
     UIColor                       * styleTintedColor;
     CGFloat                         styleTintedColorAlpha;
+
+    UIColor                       * styleHighlightedTintedColor;
+    CGFloat                         styleHighlightedTintedColorAlpha;
+    
+    UIColor                       * styleDisabledTintedColor;
+    CGFloat                         styleDisabledTintedColorAlpha;
     
     UIColor                       * styleTitleTextColor;
     
     //  for UIimage.
+    NSString                      * styleBackToMenuImageName;
+    NSString                      * styleBackToMenuHighlightedImageName;
+    NSString                      * styleBackToMenuDisabledImageName;
+    
+    NSString                      * styleBackImageName;
+    NSString                      * styleBackHighlightedImageName;
+    NSString                      * styleBackDisabledImageName;
+    
+    NSString                      * styleDownloadImageName;
+    NSString                      * styleDownloadHighlightedImageName;
+    NSString                      * styleDownloadDisabledImageName;
+    
+    NSString                      * styleDeleteImageName;
+    NSString                      * styleDeleteHighlightedImageName;
+    NSString                      * styleDeleteDisabledImageName;
+    
     UIImage                       * backToMenuImage;
     UIImage                       * backToMenuImageHighlighted;
     

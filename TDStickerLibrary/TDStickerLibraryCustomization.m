@@ -113,6 +113,29 @@
 - ( UIImage * ) _ImageFromSysStyleBundleWithTintedColor:(NSString *)imageName;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a highlighted image with tinted color from system style's resources manager.
+ *  get a highlighted image with tinted color from system style's resources manager.
+ *
+ *  @param imageName                image name.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) _ImageFromSysStyleBundleWithHighlightTintedColor:(NSString *)imageName;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a disabled image with tinted color from system style's resources manager.
+ *  get a disabled image with tinted color from system style's resources manager.
+ *
+ *  @param imageName                image name.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) _ImageFromSysStyleBundleWithDisbledTintedColor:(NSString *)imageName;
+
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 /**
  *  when user define new UIColor without default, must call the new UIColor by class method or singleton class method ( static method );
@@ -167,6 +190,12 @@
     
     [self                           setSysStyleTintedColor: nil];
     [self                           setSysStyleTintedColorAlpha: 0.0f];
+    
+    [self                           setSysStyleHighlightedITintedColor: nil];
+    [self                           setSysStyleHighlightedITintedColorAlpha: 0.0f];
+    
+    [self                           setSysStyleDisabledTintedColor: nil];
+    [self                           setSysStyleDisabledTintedColorAlpha: 0.0f];
     
     [self                           setSysStyleTitleTextColor: nil];
     
@@ -272,6 +301,47 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _ImageFromSysStyleBundleWithHighlightTintedColor:(NSString *)imageName
+{
+    NSParameterAssert( [self sysStyleTintedColor] != nil );
+    if ( nil == sysStyleBundleManager )
+    {
+        return nil;
+    }
+    
+    UIImage                       * image;
+    
+    image                           = [sysStyleBundleManager image: imageName ofType: @"png"
+                                                       inDirectory: [self sysStyleImageSubpathInBundle]];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _ImageFromSysStyleBundleWithDisbledTintedColor:(NSString *)imageName
+{
+    NSParameterAssert( [self sysStyleTintedColor] != nil );
+    if ( nil == sysStyleBundleManager )
+    {
+        return nil;
+    }
+    
+    UIImage                       * image;
+    
+    image                           = [sysStyleBundleManager image: imageName ofType: @"png"
+                                                       inDirectory: [self sysStyleImageSubpathInBundle]];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [self sysStyleDisabledTintedColor] colorAlpha: [self sysStyleDisabledTintedColorAlpha]];
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 + ( UIColor * ) _TabMenuColor
 {
@@ -320,6 +390,13 @@
 
 @synthesize sysStyleTintedColor                     = _sysStyleTintedColor;
 @synthesize sysStyleTintedColorAlpha                = _sysStyleTintedColorAlpha;
+
+@synthesize sysStyleHighlightedITintedColor         = _sysStyleHighlightedITintedColor;
+@synthesize sysStyleHighlightedITintedColorAlpha    = _sysStyleHighlightedITintedColorAlpha;
+
+@synthesize sysStyleDisabledTintedColor             = _sysStyleDisabledTintedColor;
+@synthesize sysStyleDisabledTintedColorAlpha        = _sysStyleDisabledTintedColorAlpha;
+
 
 @synthesize sysStyleTitleTextColor                  = _sysStyleTitleTextColor;
 
@@ -456,7 +533,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sysStyleBackToMenuImageHighlighted
 {
-    return [self _ImageFromSysStyleBundleWithTintedColor: [self sysStyleBackToMenuHighlightedImageName]];
+    return [self _ImageFromSysStyleBundleWithHighlightTintedColor: [self sysStyleBackToMenuHighlightedImageName]];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -468,13 +545,13 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sysStyleBackImageHighlighted
 {
-    return [self _ImageFromSysStyleBundleWithTintedColor: [self sysStyleBackHighlightedImageName]];
+    return [self _ImageFromSysStyleBundleWithHighlightTintedColor: [self sysStyleBackHighlightedImageName]];
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sysStyleBackImageDisabled
 {
-    return [self _ImageFromSysStyleBundle: [self sysStyleBackDisabledImageName]];
+    return [self _ImageFromSysStyleBundleWithDisbledTintedColor: [self sysStyleBackDisabledImageName]];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -486,13 +563,13 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sysStyleDownloadImageHighlighted
 {
-    return [self _ImageFromSysStyleBundleWithTintedColor: [self sysStyleDownloadHighlightedImageName]];
+    return [self _ImageFromSysStyleBundleWithHighlightTintedColor: [self sysStyleDownloadHighlightedImageName]];
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sysStyleDownloadImageDisabled
 {
-    return [self _ImageFromSysStyleBundle: [self sysStyleDownloadDisabledImageName]];
+    return [self _ImageFromSysStyleBundleWithDisbledTintedColor: [self sysStyleDownloadDisabledImageName]];
 }
 
 //  ------------------------------------------------------------------------------------------------

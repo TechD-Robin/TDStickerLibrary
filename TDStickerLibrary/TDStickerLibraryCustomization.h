@@ -82,6 +82,27 @@
 @property( nonatomic, assign ) CGFloat                      sysStyleTintedColorAlpha;
 
 /**
+ *  system style's highlighed tinted color.
+ */
+@property( nonatomic, assign ) UIColor                    * sysStyleHighlightedITintedColor;
+
+/**
+ *  system style's highlighed tinted color alpha.
+ */
+@property( nonatomic, assign ) CGFloat                      sysStyleHighlightedITintedColorAlpha;
+
+/**
+ *  system style's disabled tinted color.
+ */
+@property( nonatomic, assign ) UIColor                    * sysStyleDisabledTintedColor;
+
+/**
+ *  system style's disabled tinted color alpha.
+ */
+@property( nonatomic, assign ) CGFloat                      sysStyleDisabledTintedColorAlpha;
+
+
+/**
  *  system style's title text color.
  */
 @property( nonatomic, assign ) UIColor                    * sysStyleTitleTextColor;

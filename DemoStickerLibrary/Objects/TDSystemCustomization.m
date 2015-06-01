@@ -81,9 +81,32 @@
     styleTintedColor                = nil;
     styleTintedColorAlpha           = 0.0f;
     
+    styleHighlightedTintedColor     = nil;
+    styleHighlightedTintedColorAlpha= 0.0f;
+    
+    styleDisabledTintedColor        = nil;
+    styleDisabledTintedColorAlpha   = 0.0f;
+    
     styleTitleTextColor             = nil;
     
     //  for UIimage.
+    
+    styleBackToMenuImageName                = nil;
+    styleBackToMenuHighlightedImageName     = nil;
+    styleBackToMenuDisabledImageName        = nil;
+    
+    styleBackImageName                      = nil;
+    styleBackHighlightedImageName           = nil;
+    styleBackDisabledImageName              = nil;
+    
+    styleDownloadImageName                  = nil;
+    styleDownloadHighlightedImageName       = nil;
+    styleDownloadDisabledImageName          = nil;
+    
+    styleDeleteImageName                    = nil;
+    styleDeleteHighlightedImageName         = nil;
+    styleDeleteDisabledImageName            = nil;
+    
     backToMenuImage                 = nil;
     backToMenuImageHighlighted      = nil;
     
