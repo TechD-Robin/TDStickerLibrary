@@ -613,6 +613,11 @@
     {
         [inforArrowUpView           setEnabled: isEnabled];
     }
+    //  這是一個很難 debug 的 resueable 的 bug; 最後確認的結果是因為 reuse 的時候, 系統會只有設定各個 object 已經設定到的部分,
+    //  所以, 如果有某些屬性值, 一開始建立時不是每一個值都有設定到時, 後續的 reuseable 的過程就會因為某次沒有設定到該值, 而系統直接取用這個值,
+    //  因為是取用到上一個物件的設定, 然後就會取用到這個不正確的值了.
+    [inforArrowDownView             setHidden: isEnabled];  //  * bug fix.
+    
     [inforArrowUpView               setHidden: !isEnabled];
 }
 
