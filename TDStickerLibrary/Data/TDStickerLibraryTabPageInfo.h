@@ -117,6 +117,7 @@
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief get the mode of the informatioin data at index.
+ *  get the mode of the informatioin data at index.
  *
  *  @param dataMode                 pointer of the mode to get result.
  *  @param index                    index of information data.
@@ -124,6 +125,51 @@
  *  @return YES|NO                  method success or failure.
  */
 - ( BOOL ) dataMode:(NSInteger *)dataMode atIndex:(NSInteger)index;
+
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the illustrator of the information data at index.
+ *  get the illustrator of the information data at index.
+ *
+ *  @param index                    index of information data.
+ *
+ *  @return illustrator|nil         the illustrator or nil.
+ */
+- ( NSString * ) illustratorAtIndex:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the illustrator's E-Mail of the information data at index.
+ *  get the illustrator's E-Mail of the information data at index.
+ *
+ *  @param index                    index of information data.
+ *
+ *  @return email|nil               the email or nil.
+ */
+- ( NSString * ) illustratorEMailAtIndex:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the illustrator' website of the information data at index.
+ *  get the illustrator' website of the information data at index.
+ *
+ *  @param index                    index of information data.
+ *
+ *  @return websit|nil              the websit or nil.
+ */
+- ( NSString * ) illustratorWebsiteAtIndex:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the image's index of introducation of the information data at index.
+ *
+ *  @param imageIndex               pointer of the images's index to get result.
+ *  @param index                    index of information data.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) introImageIndex:(NSInteger *)imageIndex atIndex:(NSInteger)index;
 
 //  ------------------------------------------------------------------------------------------------
 /**

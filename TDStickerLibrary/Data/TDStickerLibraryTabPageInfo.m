@@ -22,6 +22,10 @@
 static  NSString  * const kTDPageInfoKeyID                          = @"ID";
 static  NSString  * const kTDPageInfoKeyMode                        = @"Mode";
 static  NSString  * const kTDPageInfoKeyTitle                       = @"Title";
+static  NSString  * const kTDPageInfoKeyIllustrator                 = @"Author";
+static  NSString  * const kTDPageInfoKeyEMail                       = @"E-Mail";
+static  NSString  * const kTDPageInfoKeyWebsite                     = @"Website";
+static  NSString  * const kTDPageInfoKeyIntroImageIndex             = @"Intro Image Index";
 static  NSString  * const kTDPageInfoKeySubDir                      = @"SubDirectory";
 static  NSString  * const kTDPageInfoKeyImages                      = @"Images";
 static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configure";
@@ -251,6 +255,41 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
     if ( NULL != dataMode )
     {
         *dataMode                   = mode;
+    }
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) illustratorAtIndex:(NSInteger)index
+{
+    return [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyIllustrator];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) illustratorEMailAtIndex:(NSInteger)index
+{
+    return [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyEMail];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) illustratorWebsiteAtIndex:(NSInteger)index
+{
+    return [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyWebsite];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) introImageIndex:(NSInteger *)imageIndex atIndex:(NSInteger)index;
+{
+    NSInteger                       indexData;
+    
+    indexData                       = [self infoDataAtIndex: index integerValueForKey: kTDPageInfoKeyIntroImageIndex];
+    if ( -1 == index )
+    {
+        return NO;
+    }
+    if ( NULL != imageIndex )
+    {
+        *imageIndex                 = indexData;
     }
     return YES;
 }

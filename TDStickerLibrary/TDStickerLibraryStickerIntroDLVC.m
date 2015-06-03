@@ -198,6 +198,15 @@
 #pragma mark declare for check object's properties.
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief check the configure have download information or not.
+ *  check the configure have download information or not.
+ *
+ *  @return YES|NO                  must download or need not.
+ */
+- ( BOOL ) _IsHaveDownloadInformation;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief check the file is downloaded or not.
  *  check the file is downloaded or not, a data is downloaded, the value is YES, otherwise it's NO(maybe is mean data delete).
  *
@@ -685,6 +694,29 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for check object's properties.
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _IsHaveDownloadInformation
+{
+    NSParameterAssert( [pageConfigure infoDataCount] == 1 );
+
+    NSInteger                       index;
+    NSString                      * configure;
+    NSString                      * dataLink;
+    NSString                      * timestamp;
+    
+    index                           = 0;
+    configure                       = [pageConfigure configureNameAtIndex: index];
+    dataLink                        = [pageConfigure dataLinkAtIndex: index];
+    timestamp                       = [pageConfigure timestampAtIndex: index];
+
+    //  have data or not.
+    if ( ( nil == configure ) || ( nil == dataLink ) || ( nil == timestamp ) )
+    {
+        return NO;
+    }
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _IsDownloaded:(BOOL *)isDownloaded
 {
     NSParameterAssert( [pageConfigure infoDataCount] == 1 );
@@ -848,10 +880,11 @@
 //    [self                           _CreateNavigationBar];
     [self                           _CreateTopView];
     
-    [self                           _CreateDownloadButton];
-    [self                           _CreateDeleteButton];
-    
-    
+    if ( [self _IsHaveDownloadInformation] == YES )
+    {
+        [self                       _CreateDownloadButton];
+        [self                       _CreateDeleteButton];
+    }
     
     [self                           _CreatePageView];
 

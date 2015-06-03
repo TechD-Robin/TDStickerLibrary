@@ -153,6 +153,17 @@
 - ( BOOL ) _IsDownloadedStickerAtIndex:(NSInteger)index;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check the sticker data can enable(show) intro page view or not.
+ *  check the sticker data can enable(show) intro page view or not.
+ *
+ *  @param section                  section index.
+ *
+ *  @return YES|NO                  can enabled or not.
+ */
+- ( BOOL ) _IsEnabledIntroPageForSectionAtIndex:(NSInteger)section;
+
+//  ------------------------------------------------------------------------------------------------
 //  is more content for section at index
 /**
  *  @brief check the sticker count or contents  can assign into a row or not.
@@ -551,6 +562,42 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _IsEnabledIntroPageForSectionAtIndex:(NSInteger)section
+{
+    NSParameterAssert( [pageConfigure infoDataCount] > section );
+    
+    if ( [self _IsMustDownloadStickerAtIndex: section] == YES )
+    {
+        return YES;
+    }
+    
+    NSString                      * illustrator;
+    NSString                      * email;
+    NSString                      * website;
+    
+    illustrator                     = [pageConfigure illustratorAtIndex: section];
+    email                           = [pageConfigure illustratorEMailAtIndex: section];
+    website                         = [pageConfigure illustratorWebsiteAtIndex: section];
+    if ( ( nil == illustrator ) || ([illustrator length] == 0 ) )
+    {
+        return NO;
+    }
+    
+    //  illustrator && website.
+    if ( ( nil != website ) && ( [website length] > 0 ) )
+    {
+        return YES;
+    }
+
+    //  illustrator && email.
+    if ( ( nil != email ) && ( [email length] > 0 ) )
+    {
+        return YES;
+    }
+    return NO;
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _IsMoreContent:(BOOL *)moreContent forSectionAtIndex:(NSInteger)section
 {
     NSParameterAssert( nil != pageConfigure );
@@ -663,8 +710,8 @@
     [header                         assignCorrectProperties];
     
     
-    //  先設定成 沒有 download info, informatioin view is disabled.
-    isEnabled                       = [self _IsMustDownloadStickerAtIndex: indexPath.section];
+    //  find information about this section, then set enabled of status.
+    isEnabled                       = [self _IsEnabledIntroPageForSectionAtIndex: indexPath.section];
     [header                         setInformationState: isEnabled];
     
     if ( [self _IsMoreContent: &moreContent forSectionAtIndex: indexPath.section] == YES )
@@ -1465,11 +1512,9 @@
 {
     NSParameterAssert( nil != pageConfigure );
     NSParameterAssert( nil != sectionStates );
-    
-    
-    //  先設定成 沒有 download info 就不能進去這一頁.
+        
     //  check again.
-    if ( [self _IsMustDownloadStickerAtIndex: section] == NO )
+    if ( [self _IsEnabledIntroPageForSectionAtIndex: section] == NO )
     {
         return;
     }
