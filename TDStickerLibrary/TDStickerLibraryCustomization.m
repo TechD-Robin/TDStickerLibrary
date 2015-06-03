@@ -134,6 +134,28 @@
  */
 - ( UIImage * ) _ImageFromSysStyleBundleWithDisbledTintedColor:(NSString *)imageName;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a image with alert's color of tinted's color from system style's resources manager.
+ *  get a image with alert's color of tinted's color from system style's resources manager.
+ *
+ *  @param imageName                image name.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) _ImageFromSysStyleBundleWithAlertTintedColor:(NSString *)imageName;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a highlighted image with alert's color of tinted's color from system style's resources manager.
+ *  get a highlighted image with alert's color of tinted's color from system style's resources manager.
+ *
+ *  @param imageName                image name.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) _ImageFromSysStyleBundleWithHighlightedAlertTintedColor:(NSString *)imageName;
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -187,6 +209,10 @@
     [self                           setSysStyleDownloadHighlightedImageName: nil];
     [self                           setSysStyleDownloadDisabledImageName: nil];
     
+    [self                           setSysStyleDeleteImageName: nil];
+    [self                           setSysStyleDeleteHighlightedImageName: nil];
+    [self                           setSysStyleDeleteDisabledImageName: nil];
+
     
     [self                           setSysStyleTintedColor: nil];
     [self                           setSysStyleTintedColorAlpha: 0.0f];
@@ -196,6 +222,12 @@
     
     [self                           setSysStyleDisabledTintedColor: nil];
     [self                           setSysStyleDisabledTintedColorAlpha: 0.0f];
+    
+    [self                           setSysStyleAlertTintedColor: nil];
+    [self                           setSysStyleAlertTintedColorAlpha: 0.0f];
+
+    [self                           setSysStyleHighlightedAlertTintedColor: nil];
+    [self                           setSysStyleHighlightedAlertTintedColorAlpha: 0.0f];
     
     [self                           setSysStyleTitleTextColor: nil];
     
@@ -303,7 +335,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) _ImageFromSysStyleBundleWithHighlightTintedColor:(NSString *)imageName
 {
-    NSParameterAssert( [self sysStyleTintedColor] != nil );
+    NSParameterAssert( [self sysStyleHighlightedITintedColor] != nil );
     if ( nil == sysStyleBundleManager )
     {
         return nil;
@@ -323,7 +355,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) _ImageFromSysStyleBundleWithDisbledTintedColor:(NSString *)imageName
 {
-    NSParameterAssert( [self sysStyleTintedColor] != nil );
+    NSParameterAssert( [self sysStyleDisabledTintedColor] != nil );
     if ( nil == sysStyleBundleManager )
     {
         return nil;
@@ -338,6 +370,46 @@
         return nil;
     }
     return [image imageWithTintedColor: [self sysStyleDisabledTintedColor] colorAlpha: [self sysStyleDisabledTintedColorAlpha]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _ImageFromSysStyleBundleWithAlertTintedColor:(NSString *)imageName
+{
+    NSParameterAssert( [self sysStyleAlertTintedColor] != nil );
+    if ( nil == sysStyleBundleManager )
+    {
+        return nil;
+    }
+    
+    UIImage                       * image;
+    
+    image                           = [sysStyleBundleManager image: imageName ofType: @"png"
+                                                       inDirectory: [self sysStyleImageSubpathInBundle]];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [self sysStyleAlertTintedColor] colorAlpha: [self sysStyleAlertTintedColorAlpha]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _ImageFromSysStyleBundleWithHighlightedAlertTintedColor:(NSString *)imageName
+{
+    NSParameterAssert( [self sysStyleHighlightedAlertTintedColor] != nil );
+    if ( nil == sysStyleBundleManager )
+    {
+        return nil;
+    }
+    
+    UIImage                       * image;
+    
+    image                           = [sysStyleBundleManager image: imageName ofType: @"png"
+                                                       inDirectory: [self sysStyleImageSubpathInBundle]];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [self sysStyleHighlightedAlertTintedColor] colorAlpha: [self sysStyleHighlightedAlertTintedColorAlpha]];
 }
 
 
@@ -388,6 +460,10 @@
 @synthesize sysStyleDownloadHighlightedImageName    = _sysStyleDownloadHighlightedImageName;
 @synthesize sysStyleDownloadDisabledImageName       = _sysStyleDownloadDisabledImageName;
 
+@synthesize sysStyleDeleteImageName                 = _sysStyleDeleteImageName;
+@synthesize sysStyleDeleteHighlightedImageName      = _sysStyleDeleteHighlightedImageName;
+@synthesize sysStyleDeleteDisabledImageName         = _sysStyleDeleteDisabledImageName;
+
 @synthesize sysStyleTintedColor                     = _sysStyleTintedColor;
 @synthesize sysStyleTintedColorAlpha                = _sysStyleTintedColorAlpha;
 
@@ -397,6 +473,11 @@
 @synthesize sysStyleDisabledTintedColor             = _sysStyleDisabledTintedColor;
 @synthesize sysStyleDisabledTintedColorAlpha        = _sysStyleDisabledTintedColorAlpha;
 
+@synthesize sysStyleAlertTintedColor                = _sysStyleAlertTintedColor;
+@synthesize sysStyleAlertTintedColorAlpha           = _sysStyleAlertTintedColorAlpha;
+
+@synthesize sysStyleHighlightedAlertTintedColor     = _sysStyleHighlightedAlertTintedColor;
+@synthesize sysStyleHighlightedAlertTintedColorAlpha= _sysStyleHighlightedAlertTintedColorAlpha;
 
 @synthesize sysStyleTitleTextColor                  = _sysStyleTitleTextColor;
 
@@ -571,6 +652,25 @@
 {
     return [self _ImageFromSysStyleBundleWithDisbledTintedColor: [self sysStyleDownloadDisabledImageName]];
 }
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sysStyleDeleteImage
+{
+    return [self _ImageFromSysStyleBundleWithAlertTintedColor: [self sysStyleDeleteImageName]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sysStyleDeleteImageHighlighted
+{
+    return [self _ImageFromSysStyleBundleWithHighlightedAlertTintedColor: [self sysStyleDeleteHighlightedImageName]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) sysStyleDeleteImageDisabled
+{
+    return [self _ImageFromSysStyleBundleWithDisbledTintedColor: [self sysStyleDeleteDisabledImageName]];
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for get default's assets bundle image

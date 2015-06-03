@@ -31,6 +31,13 @@
     UIColor                       * styleDisabledTintedColor;
     CGFloat                         styleDisabledTintedColorAlpha;
     
+    UIColor                       * styleAlertTintedColor;
+    CGFloat                         styleAlertTintedColorAlpha;
+    
+    UIColor                       * styleHighlightedAlertTintedColor;
+    CGFloat                         styleHighlightedAlertTintedColorAlpha;
+    
+    
     UIColor                       * styleTitleTextColor;
     
     //  for UIimage.

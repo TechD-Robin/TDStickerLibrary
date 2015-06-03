@@ -87,6 +87,12 @@
     styleDisabledTintedColor        = nil;
     styleDisabledTintedColorAlpha   = 0.0f;
     
+    styleAlertTintedColor                   = nil;
+    styleAlertTintedColorAlpha              = 0.0f;
+    
+    styleHighlightedAlertTintedColor        = nil;
+    styleHighlightedAlertTintedColorAlpha   = 0.0f;
+    
     styleTitleTextColor             = nil;
     
     //  for UIimage.

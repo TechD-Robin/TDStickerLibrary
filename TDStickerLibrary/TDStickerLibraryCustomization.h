@@ -49,11 +49,19 @@
  */
 @property( nonatomic, assign ) NSString                   * sysStyleBackToMenuHighlightedImageName;
 
-
+/**
+ *  system style's back image name.
+ */
 @property( nonatomic, assign ) NSString                   * sysStyleBackImageName;
 
+/**
+ *  system style's back highlighted image name.
+ */
 @property( nonatomic, assign ) NSString                   * sysStyleBackHighlightedImageName;
 
+/**
+ *  system style's back disabled image name.
+ */
 @property( nonatomic, assign ) NSString                   * sysStyleBackDisabledImageName;
 
 /**
@@ -72,6 +80,21 @@
 @property( nonatomic, assign ) NSString                   * sysStyleDownloadDisabledImageName;
 
 /**
+ *  system style's delete image name.
+ */
+@property( nonatomic, assign ) NSString                   * sysStyleDeleteImageName;
+
+/**
+ *  system style's delete highlighted image name.
+ */
+@property( nonatomic, assign ) NSString                   * sysStyleDeleteHighlightedImageName;
+
+/**
+ *  system style's delete disabled image name.
+ */
+@property( nonatomic, assign ) NSString                   * sysStyleDeleteDisabledImageName;
+
+/**
  *  system style's tinted color.
  */
 @property( nonatomic, assign ) UIColor                    * sysStyleTintedColor;
@@ -82,12 +105,12 @@
 @property( nonatomic, assign ) CGFloat                      sysStyleTintedColorAlpha;
 
 /**
- *  system style's highlighed tinted color.
+ *  system style's highlighted tinted color.
  */
 @property( nonatomic, assign ) UIColor                    * sysStyleHighlightedITintedColor;
 
 /**
- *  system style's highlighed tinted color alpha.
+ *  system style's highlighted tinted color alpha.
  */
 @property( nonatomic, assign ) CGFloat                      sysStyleHighlightedITintedColorAlpha;
 
@@ -101,6 +124,25 @@
  */
 @property( nonatomic, assign ) CGFloat                      sysStyleDisabledTintedColorAlpha;
 
+/**
+ *  system style's alert tinted color.
+ */
+@property( nonatomic, assign ) UIColor                    * sysStyleAlertTintedColor;
+
+/**
+ *  system style's alert tinted color alpha.
+ */
+@property( nonatomic, assign ) CGFloat                      sysStyleAlertTintedColorAlpha;
+
+/**
+ *  system style's highlighted alert tinted color.
+ */
+@property( nonatomic, assign ) UIColor                    * sysStyleHighlightedAlertTintedColor;
+
+/**
+ *  system style's highlighted alert tinted color alpha.
+ */
+@property( nonatomic, assign ) CGFloat                      sysStyleHighlightedAlertTintedColorAlpha;
 
 /**
  *  system style's title text color.
@@ -108,6 +150,7 @@
 @property( nonatomic, assign ) UIColor                    * sysStyleTitleTextColor;
 
 
+#pragma mark -
 //  for system configure default.
 /**
  *  default's subpath of system configure.
@@ -370,6 +413,33 @@
  *  @return image|nil               the image object or nil.
  */
 - ( UIImage * ) sysStyleDownloadImageDisabled;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the system style's delete image.
+ *  get the system style's delete image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) sysStyleDeleteImage;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the system style's delete highlighted image.
+ *  get the system style's delete highlighted image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) sysStyleDeleteImageHighlighted;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the system style's delete disabled image.
+ *  get the system style's delete disabled image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) sysStyleDeleteImageDisabled;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for get default's assets bundle image

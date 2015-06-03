@@ -77,6 +77,13 @@
     sysCustomization->styleDisabledTintedColor          = [UIColor lightGrayColor];
     sysCustomization->styleDisabledTintedColorAlpha     = 0.0f;
     
+    sysCustomization->styleAlertTintedColor                 = [UIColor redColor];
+    sysCustomization->styleAlertTintedColorAlpha            = 0.0f;
+    
+    sysCustomization->styleHighlightedAlertTintedColor      = [UIColor redColor];
+    sysCustomization->styleHighlightedAlertTintedColorAlpha = 0.32f;
+    
+    
     sysCustomization->styleTitleTextColor               = [UIColor lightGrayColor];
     
     
@@ -93,9 +100,9 @@
     sysCustomization->styleDownloadHighlightedImageName     = @"ic_get_app_white_36dp";
     sysCustomization->styleDownloadDisabledImageName        = @"ic_get_app_white_36dp";
         
-    sysCustomization->styleDeleteImageName                  = nil;
-    sysCustomization->styleDeleteHighlightedImageName       = nil;
-    sysCustomization->styleDeleteDisabledImageName          = nil;
+    sysCustomization->styleDeleteImageName                  = @"ic_delete_black_36dp";
+    sysCustomization->styleDeleteHighlightedImageName       = @"ic_delete_white_36dp";
+    sysCustomization->styleDeleteDisabledImageName          = @"ic_delete_white_36dp";
 
     
 //    manager                         = [TDResourceManager assetsBundleEnvironment: @"SystemCustomization.bundle"
@@ -250,6 +257,9 @@
     [customization                  setSysStyleDownloadHighlightedImageName:    sysCustomization->styleDownloadHighlightedImageName];
     [customization                  setSysStyleDownloadDisabledImageName:       sysCustomization->styleDownloadDisabledImageName];
 
+    [customization                  setSysStyleDeleteImageName:                 sysCustomization->styleDeleteImageName];
+    [customization                  setSysStyleDeleteHighlightedImageName:      sysCustomization->styleDeleteHighlightedImageName];
+    [customization                  setSysStyleDeleteDisabledImageName:         sysCustomization->styleDeleteDisabledImageName];
     
     
     [customization                  setSysStyleTintedColor:                     sysCustomization->styleTintedColor];
@@ -260,6 +270,13 @@
     
     [customization                  setSysStyleDisabledTintedColor:             sysCustomization->styleDisabledTintedColor];
     [customization                  setSysStyleDisabledTintedColorAlpha:        sysCustomization->styleDisabledTintedColorAlpha];
+    
+    [customization                  setSysStyleAlertTintedColor:                    sysCustomization->styleAlertTintedColor];
+    [customization                  setSysStyleAlertTintedColorAlpha:               sysCustomization->styleAlertTintedColorAlpha];
+
+    [customization                  setSysStyleHighlightedAlertTintedColor:         sysCustomization->styleHighlightedAlertTintedColor];
+    [customization                  setSysStyleHighlightedAlertTintedColorAlpha:    sysCustomization->styleHighlightedAlertTintedColorAlpha];
+    
     
     [customization                  setSysStyleTitleTextColor:                  sysCustomization->styleTitleTextColor];
     

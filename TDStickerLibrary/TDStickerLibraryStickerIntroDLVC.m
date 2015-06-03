@@ -522,7 +522,11 @@
     
     buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );
     
-    deleteButton                    = [UIButton buttonWithType: UIButtonTypeInfoDark];
+    deleteButton                    = [UIButton buttonWithImage: [customization sysStyleDeleteImage]
+                                                    highlighted: [customization sysStyleDeleteImageHighlighted]
+                                                       disabled: [customization sysStyleDeleteImageDisabled]
+                                                       selected: nil
+                                                         origin: buttonRect.origin];
     if ( nil == deleteButton )
     {
         return NO;
