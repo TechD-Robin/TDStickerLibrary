@@ -309,7 +309,19 @@
     {
         return nil;
     }
-    return [sysStyleBundleManager image: imageName ofType: @"png" inDirectory: [self sysStyleImageSubpathInBundle]];
+    
+    UIImage                       * image;
+    
+    image                           = [sysStyleBundleManager image: imageName ofType: @"png" inDirectory: [self sysStyleImageSubpathInBundle]];
+    if ( nil == image )
+    {
+        image                       = [self defaultNoImage];
+        if ( nil == image )
+        {
+            return nil;
+        }
+    }
+    return image;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -327,7 +339,7 @@
                                                        inDirectory: [self sysStyleImageSubpathInBundle]];
     if ( nil == image )
     {
-        return nil;
+        return [self defaultNoImage];
     }
     return [image imageWithTintedColor: [self sysStyleTintedColor] colorAlpha: [self sysStyleTintedColorAlpha]];
 }
@@ -347,7 +359,7 @@
                                                        inDirectory: [self sysStyleImageSubpathInBundle]];
     if ( nil == image )
     {
-        return nil;
+        return [self defaultNoImage];
     }
     return [image imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
 }
@@ -367,7 +379,7 @@
                                                        inDirectory: [self sysStyleImageSubpathInBundle]];
     if ( nil == image )
     {
-        return nil;
+        return [self defaultNoImage];
     }
     return [image imageWithTintedColor: [self sysStyleDisabledTintedColor] colorAlpha: [self sysStyleDisabledTintedColorAlpha]];
 }
@@ -387,7 +399,7 @@
                                                        inDirectory: [self sysStyleImageSubpathInBundle]];
     if ( nil == image )
     {
-        return nil;
+        return [self defaultNoImage];
     }
     return [image imageWithTintedColor: [self sysStyleAlertTintedColor] colorAlpha: [self sysStyleAlertTintedColorAlpha]];
 }
@@ -407,7 +419,7 @@
                                                        inDirectory: [self sysStyleImageSubpathInBundle]];
     if ( nil == image )
     {
-        return nil;
+        return [self defaultNoImage];
     }
     return [image imageWithTintedColor: [self sysStyleHighlightedAlertTintedColor] colorAlpha: [self sysStyleHighlightedAlertTintedColorAlpha]];
 }
@@ -674,6 +686,16 @@
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for get default's assets bundle image
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) defaultNoImage
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources defaultNoImage];
+}
+
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderInforImage
 {

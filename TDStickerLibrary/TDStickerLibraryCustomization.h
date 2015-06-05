@@ -445,6 +445,15 @@
 #pragma mark declare for get default's assets bundle image
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief get a default image is not image.
+ *  get a default image is not image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) defaultNoImage;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief get the section header's information image.
  *  get the section header's information image.
  *

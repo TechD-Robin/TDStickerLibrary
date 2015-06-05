@@ -138,6 +138,12 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) defaultNoImage
+{
+    return [self defaultImage: @"no-image"];
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderInforImage
 {
     return [self defaultImage: @"flaticon_info-sign_3716"];
