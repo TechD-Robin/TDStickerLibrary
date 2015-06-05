@@ -10,6 +10,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TDStickerLibrary.h"
+#import "TDStickerLibraryTabPageLayout.h"
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark forward declarations

@@ -46,6 +46,11 @@
     UIView                        * topView;
     
     /**
+     *  a scroll view, main view's container.
+     */
+    UIScrollView                  * scrollView;
+    
+    /**
      *  a back button.
      */
     UIButton                      * backButton;
@@ -157,6 +162,15 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief create a scroll view.
+ *  create a scroll view; this view is main view of others.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _CreateScrollView;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief create a download action's button object into this object.
  *  create a download action's button object into this object.
  *
@@ -253,6 +267,9 @@
     navigationBar                   = nil;
 
     topView                         = nil;
+    
+    scrollView                      = nil;
+    
     
     backButton                      = nil;
     
@@ -407,6 +424,31 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateScrollView
+{
+    CGFloat                         screenWidth;
+    CGFloat                         subviewTop;
+    CGFloat                         viewHeight;
+    CGRect                          viewRect;
+    
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    subviewTop                      = [self _GetNewSubviewTopPosition];
+    viewHeight                      = ( [[UIScreen mainScreen] bounds].size.height - subviewTop );
+    viewRect                        = CGRectMake( 0.0f, subviewTop, screenWidth, viewHeight );
+
+    scrollView                      = [[UIScrollView alloc] initWithFrame: viewRect];
+    if ( nil == scrollView )
+    {
+        return NO;
+    }
+    
+//    [scrollView                     setBackgroundColor: [UIColor brownColor]];
+    [[self                          view] addSubview: scrollView];
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateDownloadButton
 {
     BOOL                            isDownloaded;
@@ -437,11 +479,17 @@
     [downloadButton                 setBackgroundColor: [UIColor darkGrayColor]];
     [downloadButton                 setTitle: @" Download "      forState: UIControlStateNormal];
     [downloadButton                 setTitle: @" Is Downloaded " forState: UIControlStateDisabled];
-    [[self                          view] addSubview: downloadButton];
+    //[[self                          view] addSubview: downloadButton];
+    if ( nil != scrollView )
+    {
+        [scrollView                 addSubview: downloadButton];
+    }
+    
+    
     [downloadButton                 addTarget: self action: @selector( _TapDownloadButtonAction: ) forControlEvents: UIControlEventTouchUpInside];
     
-    //  width stretchy when device Orientation is changed.
-    [NSLayoutConstraint             constraintForWidthStretchy: downloadButton top: ( subviewTop + 1.0f ) height: buttonHeight in: [self view]];
+    ////  width stretchy when device Orientation is changed.
+    //[NSLayoutConstraint             constraintForWidthStretchy: downloadButton top: ( subviewTop + 1.0f ) height: buttonHeight in: [self view]];
 
     if ( [self _IsDownloaded: &isDownloaded] == YES )
     {
@@ -535,10 +583,14 @@
     [deleteButton                   setFrame: buttonRect];
     [deleteButton                   setBackgroundColor: [UIColor darkGrayColor]];
     [deleteButton                   setTitle: @" Delete "      forState: UIControlStateNormal];
-    [[self                          view] addSubview: deleteButton];
+    //[[self                          view] addSubview: deleteButton];
+    if ( nil != scrollView )
+    {
+        [scrollView                 addSubview: deleteButton];
+    }
     
-    //  width stretchy when device Orientation is changed.
-    [NSLayoutConstraint             constraintForWidthStretchy: deleteButton top: ( subviewTop + 1.0f ) height: buttonHeight in: [self view]];
+    ////  width stretchy when device Orientation is changed.
+    //[NSLayoutConstraint             constraintForWidthStretchy: deleteButton top: ( subviewTop + 1.0f ) height: buttonHeight in: [self view]];
     
     
     if ( [self _IsDownloaded: &isDownloaded] == YES )
@@ -652,7 +704,11 @@
     }
 
     [view                           setHidden: NO];
-    [[self                          view] addSubview: view];
+    //[[self                          view] addSubview: view];
+    if ( nil != scrollView )
+    {
+        [scrollView                 addSubview: view];
+    }
     stickerPageView                 = (TDStickerLibraryTabPageView *)view;
     
     
@@ -833,6 +889,12 @@
         topView                     = nil;
     }
     
+    if ( nil != scrollView )
+    {
+        SAFE_ARC_RELEASE( scrollView )
+        scrollView                  = nil;
+    }
+    
     if ( nil != backButton )
     {
         SAFE_ARC_RELEASE( backButton );
@@ -884,6 +946,8 @@
 //    [self                           _CreateNavigationBar];
     [self                           _CreateTopView];
     
+    [self                           _CreateScrollView];
+    
     if ( [self _IsHaveDownloadInformation] == YES )
     {
         [self                       _CreateDownloadButton];
@@ -894,6 +958,42 @@
 
     [[self                          view] setBackgroundColor: [UIColor darkGrayColor]];
     
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear: animated];
+    
+    if ( ( nil == scrollView ) || ( nil == stickerPageView ) )
+    {
+        return;
+    }
+    
+
+    TDStickerLibraryTabPageLayout * layout;
+    CGRect                          currectRect;
+    CGSize                          correctContentSize;
+    
+    currectRect                     = [stickerPageView frame];
+    layout                          = (TDStickerLibraryTabPageLayout *)[stickerPageView collectionViewLayout];
+    if ( nil == layout )
+    {
+        return;
+    }
+    correctContentSize              = [layout collectionViewContentSize];
+    currectRect.size                = correctContentSize;
+    
+    if ( [stickerPageView frame].size.height >= currectRect.size.height )
+    {
+        return;
+    }
+    
+    [stickerPageView                setFrame: currectRect];
+
+    correctContentSize.height       += currectRect.origin.y;
+    [scrollView                     setContentSize: correctContentSize];
+
 }
 
 //  ------------------------------------------------------------------------------------------------

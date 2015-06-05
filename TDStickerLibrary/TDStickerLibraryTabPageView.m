@@ -16,7 +16,6 @@
 #import "UIKit+TechD.h"
 
 #import "TDStickerLibraryTabPageView.h"
-#import "TDStickerLibraryTabPageLayout.h"
 #import "TDStickerLibrarySectionHeader.h"
 #import "TDStickerLibrarySectionPreviewCell.h"
 #import "TDStickerLibraryStickerSoloView.h"
