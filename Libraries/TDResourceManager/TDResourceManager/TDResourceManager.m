@@ -619,8 +619,12 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) image:(NSString *)name ofType:(NSString *)ext inDirectory:(NSString *)subpath fromData:(TDResourceManageSourceType)sourceType
 {
-    NSParameterAssert( nil != name );
+    //NSParameterAssert( nil != name );
     NSParameterAssert( YES == [self _CheckInitiatedState: sourceType] );
+    if ( ( nil == name ) || ( [name length] == 0 ) )
+    {
+        return nil;
+    }
     
     UIImage                       * image;
     NSString                      * fullPath;
