@@ -207,6 +207,14 @@
  */
 - ( CGFloat ) _GetNewSubviewTopPosition;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief calculate subview's top position of scroll view when create a new subview.
+ *  calculate subview's top position of scroll view when create a new subview.
+ *
+ *  @return                         subview's top position.
+ */
+- ( CGFloat ) _GetScrollViewNewSubviewTopPosition;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for check object's properties.
@@ -459,7 +467,7 @@
     
     isDownloaded                    = NO;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
-    subviewTop                      = [self _GetNewSubviewTopPosition];
+    subviewTop                      = [self _GetScrollViewNewSubviewTopPosition];
     
     subviewTop                      += 40.0f;
     buttonHeight                    = 36.0f;
@@ -563,13 +571,16 @@
     tap                             = nil;
     isDownloaded                    = NO;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
-    subviewTop                      = [self _GetNewSubviewTopPosition];
+    subviewTop                      = [self _GetScrollViewNewSubviewTopPosition];
     
-    subviewTop                      += 40.0f;
+//    subviewTop                      += 40.0f;
     buttonHeight                    = 36.0f;
     
     buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );
-    
+    if ( nil != downloadButton )
+    {
+        buttonRect                  = [downloadButton frame];
+    }
     deleteButton                    = [UIButton buttonWithImage: [customization sysStyleDeleteImage]
                                                     highlighted: [customization sysStyleDeleteImageHighlighted]
                                                        disabled: [customization sysStyleDeleteImageDisabled]
@@ -686,9 +697,9 @@
     CGFloat                         viewHeight;
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
-    subviewTop                      = [self _GetNewSubviewTopPosition];
+    subviewTop                      = [self _GetScrollViewNewSubviewTopPosition];
     
-    subviewTop                      +=80;
+//    subviewTop                      +=80;
     
     viewHeight                      = ( [[UIScreen mainScreen] bounds].size.height - subviewTop );
     
@@ -738,10 +749,10 @@
         subviewTop                  += [topView bounds].size.height;
     }
     
-    if ( nil != downloadButton )
-    {
-        subviewTop                  += [downloadButton bounds].size.height;
-    }
+//    if ( nil != downloadButton )
+//    {
+//        subviewTop                  += [downloadButton bounds].size.height;
+//    }
     
     if ( nil != stickerPageView )
     {
@@ -750,6 +761,22 @@
     
     return subviewTop;
 }
+
+//  ------------------------------------------------------------------------------------------------
+- ( CGFloat ) _GetScrollViewNewSubviewTopPosition
+{
+    CGFloat                         subviewTop;
+    
+    subviewTop                      = 0.0f;
+    if ( nil != downloadButton )
+    {
+        subviewTop                  += [downloadButton frame].origin.y;
+        subviewTop                  += [downloadButton bounds].size.height;
+    }
+    
+    return subviewTop;
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for check object's properties.
