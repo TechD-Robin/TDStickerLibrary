@@ -283,7 +283,7 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
     NSInteger                       indexData;
     
     indexData                       = [self infoDataAtIndex: index integerValueForKey: kTDPageInfoKeyIntroImageIndex];
-    if ( -1 == index )
+    if ( -1 == indexData )
     {
         return NO;
     }
