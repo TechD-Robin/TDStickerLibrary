@@ -20,8 +20,9 @@
 
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark define constant string.
 //  ------------------------------------------------------------------------------------------------
-
+static  NSInteger   const kTDStickerLibraryConfigureIndexAfterSwap      = 0;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -46,14 +47,19 @@
     UIView                        * topView;
     
     /**
+     *  a back button.
+     */
+    UIButton                      * backButton;
+    
+    /**
      *  a scroll view, main view's container.
      */
     UIScrollView                  * scrollView;
     
     /**
-     *  a back button.
+     *  a intro view, information object's container
      */
-    UIButton                      * backButton;
+    UIView                        * introView;
     
     /**
      *  a download button for download action.
@@ -171,6 +177,15 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief create a intro view.
+ *  create a intro view.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _CreateIntroView;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief create a download action's button object into this object.
  *  create a download action's button object into this object.
  *
@@ -218,6 +233,15 @@
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for check object's properties.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check the configure have introducation information or not.
+ *  check the configure have introducation information or not.
+ *
+ *  @return YES|NO                  have information or not.
+ */
+- ( BOOL ) _IsHaveIntroInformation;
+
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief check the configure have download information or not.
@@ -275,11 +299,10 @@
     navigationBar                   = nil;
 
     topView                         = nil;
+    backButton                      = nil;
     
     scrollView                      = nil;
-    
-    
-    backButton                      = nil;
+    introView                       = nil;
     
     downloadButton                  = nil;
     deleteButton                    = nil;
@@ -457,6 +480,44 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateIntroView
+{
+    if ( [self _IsHaveIntroInformation] == NO )
+    {
+        return NO;
+    }
+    
+    CGFloat                         screenWidth;
+//    CGFloat                         subviewTop;
+    CGFloat                         subviewHeight;
+    CGRect                          introRect;
+    
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+//    subviewTop                      = [self _GetScrollViewNewSubviewTopPosition];
+
+    subviewHeight                   = 128.0f;
+//    subviewTop                      += 40.0f;
+//    buttonHeight                    = 36.0f;
+    introRect                       = CGRectMake( 0.0f, 0.0f, screenWidth, subviewHeight );
+    introView                       = [[UIView alloc] initWithFrame: introRect];
+    if ( nil == introView )
+    {
+        return NO;
+    }
+    
+    if ( nil != scrollView )
+    {
+        [scrollView                 addSubview: introView];
+    }
+    
+    
+    
+    [introView                      setBackgroundColor: [UIColor brownColor]];
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateDownloadButton
 {
     BOOL                            isDownloaded;
@@ -469,7 +530,7 @@
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetScrollViewNewSubviewTopPosition];
     
-    subviewTop                      += 40.0f;
+//    subviewTop                      += 40.0f;
     buttonHeight                    = 36.0f;
     
     buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );    
@@ -518,7 +579,7 @@
     NSString                      * dataLink;
     NSString                      * timestamp;
     
-    index                           = 0;
+    index                           = kTDStickerLibraryConfigureIndexAfterSwap;
     ID                              = [pageConfigure dataIDAtIndex: index];
     configure                       = [pageConfigure configureNameAtIndex: index];
     dataLink                        = [pageConfigure dataLinkAtIndex: index];
@@ -633,7 +694,7 @@
     NSString                      * timestamp;
     NSString                      * filePath;
     
-    index                           = 0;
+    index                           = kTDStickerLibraryConfigureIndexAfterSwap;
     ID                              = [pageConfigure dataIDAtIndex: index];
     configure                       = [pageConfigure configureNameAtIndex: index];
     timestamp                       = [pageConfigure timestampAtIndex: index];
@@ -768,9 +829,17 @@
     CGFloat                         subviewTop;
     
     subviewTop                      = 0.0f;
+    if ( nil != introView )
+    {
+        subviewTop                  += [introView bounds].size.height;
+    }
+    
     if ( nil != downloadButton )
     {
-        subviewTop                  += [downloadButton frame].origin.y;
+        if ( 0.0f == subviewTop )
+        {
+            subviewTop              = [downloadButton frame].origin.y;
+        }
         subviewTop                  += [downloadButton bounds].size.height;
     }
     
@@ -781,6 +850,44 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for check object's properties.
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _IsHaveIntroInformation
+{
+    NSParameterAssert( [pageConfigure infoDataCount] == 1 );
+
+    NSInteger                       index;
+    NSInteger                       introImageIndex;
+    NSString                      * illustrator;
+    NSString                      * email;
+    NSString                      * website;
+    BOOL                            result;
+    
+    introImageIndex                 = 0;
+    index                           = kTDStickerLibraryConfigureIndexAfterSwap;
+    illustrator                     = [pageConfigure illustratorAtIndex: index];
+    email                           = [pageConfigure illustratorEMailAtIndex: index];
+    website                         = [pageConfigure illustratorWebsiteAtIndex: index];
+    result                          = [pageConfigure introImageIndex: &introImageIndex atIndex: index];
+    
+    if ( ( nil == illustrator ) || ([illustrator length] == 0 ) ||  ( NO == result ) )
+    {
+        return NO;
+    }
+    
+    //  illustrator && website.
+    if ( ( nil != website ) && ( [website length] > 0 ) )
+    {
+        return YES;
+    }
+    
+    //  illustrator && email.
+    if ( ( nil != email ) && ( [email length] > 0 ) )
+    {
+        return YES;
+    }
+    return NO;
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _IsHaveDownloadInformation
 {
     NSParameterAssert( [pageConfigure infoDataCount] == 1 );
@@ -790,7 +897,7 @@
     NSString                      * dataLink;
     NSString                      * timestamp;
     
-    index                           = 0;
+    index                           = kTDStickerLibraryConfigureIndexAfterSwap;
     configure                       = [pageConfigure configureNameAtIndex: index];
     dataLink                        = [pageConfigure dataLinkAtIndex: index];
     timestamp                       = [pageConfigure timestampAtIndex: index];
@@ -813,7 +920,7 @@
     NSString                      * timestamp;
     NSString                      * filePath;
     
-    index                           = 0;
+    index                           = kTDStickerLibraryConfigureIndexAfterSwap;
     configure                       = [pageConfigure configureNameAtIndex: index];
     timestamp                       = [pageConfigure timestampAtIndex: index];
     
@@ -915,18 +1022,23 @@
         SAFE_ARC_RELEASE( topView );
         topView                     = nil;
     }
+    if ( nil != backButton )
+    {
+        SAFE_ARC_RELEASE( backButton );
+        backButton                  = nil;
+    }
     
     if ( nil != scrollView )
     {
         SAFE_ARC_RELEASE( scrollView )
         scrollView                  = nil;
     }
-    
-    if ( nil != backButton )
+    if ( nil != introView )
     {
-        SAFE_ARC_RELEASE( backButton );
-        backButton                  = nil;
+        SAFE_ARC_RELEASE( introView );
+        introView                   = nil;
     }
+    
     
     if ( nil != downloadButton )
     {
@@ -974,6 +1086,7 @@
     [self                           _CreateTopView];
     
     [self                           _CreateScrollView];
+    [self                           _CreateIntroView];
     
     if ( [self _IsHaveDownloadInformation] == YES )
     {
