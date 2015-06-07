@@ -16,6 +16,7 @@
 
 #import "TDStickerLibraryStickerIntroDLVC.h"
 #import "TDStickerLibraryTabPageView.h"
+#import "TDStickerLibrarySectionPreviewCell.h"
 #import "TDDownloadManager.h"
 
 
@@ -23,6 +24,7 @@
 #pragma mark define constant string.
 //  ------------------------------------------------------------------------------------------------
 static  NSInteger   const kTDStickerLibraryConfigureIndexAfterSwap      = 0;
+static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -60,6 +62,8 @@ static  NSInteger   const kTDStickerLibraryConfigureIndexAfterSwap      = 0;
      *  a intro view, information object's container
      */
     UIView                        * introView;
+    
+    UIImageView                   * introStampView;
     
     /**
      *  a download button for download action.
@@ -185,6 +189,51 @@ static  NSInteger   const kTDStickerLibraryConfigureIndexAfterSwap      = 0;
 - ( BOOL ) _CreateIntroView;
 
 //  ------------------------------------------------------------------------------------------------
+//  1st, create intro stamp view by intro image data(intro image name),
+//       if the method just create a image view, and self's image is nil then 2nd.
+//  2nd, check configure data mode,
+//       if the mode is normal then get a stamp image by index.
+//       if the mode is use preview image then clip a stamp image from preview image.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a stamp view of intro view.
+ *  create a stamp view of intro view.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _CreateIntroStampView;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief  create a stamp image of intro view after create intro stamp's view and it's image is nil.
+ *   create a stamp image of intro view after create intro stamp's view and it's image is nil;
+ *   that's clipping from preview image at index.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _CreateIntroStampImageFromPreview;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a stamp image of intro view, it's clip image from preview image at index.
+ *  create a stamp image of intro view, it's clip image from preview image at index.
+ *
+ *  @param index                    preview image's sprite data index.
+ *
+ *  @return image|nil               a image or nil.
+ */
+- ( UIImage * ) _IntroStampImageFromClipPreviewImageAtIndex:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create description's contents of intro view.
+ *  create description's contents of intro view.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _CreateIntroDescriptionContent;
+
+//  ------------------------------------------------------------------------------------------------
 /**
  *  @brief create a download action's button object into this object.
  *  create a download action's button object into this object.
@@ -303,6 +352,7 @@ static  NSInteger   const kTDStickerLibraryConfigureIndexAfterSwap      = 0;
     
     scrollView                      = nil;
     introView                       = nil;
+    introStampView                  = nil;
     
     downloadButton                  = nil;
     deleteButton                    = nil;
@@ -513,6 +563,233 @@ static  NSInteger   const kTDStickerLibraryConfigureIndexAfterSwap      = 0;
     
     
     [introView                      setBackgroundColor: [UIColor brownColor]];
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateIntroStampView
+{
+    CGFloat                         screenWidth;
+    CGRect                          stampRect;
+    CGSize                          baseSize;
+    NSData                        * stampData;
+    UIImage                       * stampImage;
+    
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    baseSize                        = CGSizeMake( ( 128.0f - 16.0f ),  ( 128.0f - 16.0f ) );
+    stampData                       = [pageConfigure introImageDataAtIndex: kTDStickerLibraryConfigureIndexAfterSwap];
+    if ( nil != stampData )
+    {
+        stampImage                  = [UIImage imageWithData: stampData];
+        if ( nil != stampImage )
+        {
+            introStampView          = [UIImageView proportionalImageView: stampImage reference: baseSize originWith: baseSize];
+        }
+    }
+    
+    stampRect.size                  = baseSize;
+    stampRect.origin                = CGPointMake( ( ( screenWidth / 2.0f ) - baseSize.width ), 8.0f );
+    if ( nil == introStampView )
+    {
+        introStampView              = [[UIImageView alloc] initWithFrame: stampRect];
+    }
+    
+    if ( nil == introStampView )
+    {
+        return NO;
+    }
+    
+    [introStampView                 setFrame: stampRect];
+    [introView                      addSubview: introStampView];
+    
+    //  when cannot set image from configure, get image from preview page. (from index = 0).
+    if ( [introStampView image] == nil )
+    {
+        [self                       _CreateIntroStampImageFromPreview];
+    }
+    
+    [introStampView                 setBackgroundColor: [UIColor orangeColor]];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateIntroStampImageFromPreview
+{
+    if ( ( nil == introStampView ) || ( [introStampView image] != nil ) )
+    {
+        return NO;
+    }
+    
+    NSInteger                       mode;
+    NSData                        * introImageData;
+    UIImage                       * introImage;
+    
+    mode                            = 0;
+    introImage                      = nil;
+    introImageData                  = nil;
+    if ( [pageConfigure dataMode: &mode atIndex: kTDStickerLibraryConfigureIndexAfterSwap] == NO )
+    {
+        return NO;
+    }
+    
+    //  normal mode.
+    if ( 0 == mode )
+    {
+        introImageData              = [pageConfigure imageDataAtIndex: kTDStickerLibraryConfigureIndexAfterSwap
+                                                              inArray: kTDStickerLibraryIntroImageDefaultIndex];
+        if ( nil == introImageData )
+        {
+            return NO;
+        }
+        
+        introImage                  = [UIImage imageWithData: introImageData];
+        if ( nil == introImage )
+        {
+            return NO;
+        }
+        [introStampView             setImage: introImage];
+        return YES;
+    }
+    
+    introImage                      = [self _IntroStampImageFromClipPreviewImageAtIndex: kTDStickerLibraryIntroImageDefaultIndex];
+    if ( nil == introImage )
+    {
+        return NO;
+    }
+    
+    [introStampView                 setImage: introImage];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _IntroStampImageFromClipPreviewImageAtIndex:(NSInteger)index;
+{
+    if ( ( nil == stickerPageView ) || ( [stickerPageView isKindOfClass: [TDStickerLibraryTabPageView class]] == NO ) )
+    {
+        return nil;
+    }
+    
+    NSIndexPath                   * indexPath;
+    UICollectionViewCell          * cell;
+    
+    CGRect                          clippingRect;
+    NSString                      * previewImageName;
+    NSData                        * previewImageData;
+    UIImage                       * previewImage;
+    
+    indexPath                       = [NSIndexPath indexPathForItem: 0 inSection: kTDStickerLibraryConfigureIndexAfterSwap];
+    if ( nil == indexPath )
+    {
+        return nil;
+    }
+    cell                            = [stickerPageView collectionView: stickerPageView cellForItemAtIndexPath: indexPath];
+    if ( ( nil == cell ) || ( [cell isKindOfClass: [TDStickerLibrarySectionPreviewCell class]] == NO ) )
+    {
+        return nil;
+    }
+    
+    previewImageName                = [(TDStickerLibrarySectionPreviewCell *)cell previewTextureName];
+    clippingRect                    = [(TDStickerLibrarySectionPreviewCell *)cell originalSpriteFrameAtIndex: index];
+    if ( ( nil == previewImageName ) || ( CGRectEqualToRect( clippingRect, CGRectZero ) == true ) )
+    {
+        return nil;
+    }
+    
+    previewImageData                = [pageConfigure imageDataAtIndex: kTDStickerLibraryConfigureIndexAfterSwap forKey: previewImageName];
+    if ( nil == previewImageData )
+    {
+        return nil;
+    }
+    
+    previewImage                    = [UIImage imageWithData: previewImageData];
+    if ( nil == previewImage )
+    {
+        return nil;
+    }
+    
+    previewImage                    = [previewImage clipping: clippingRect];
+    if ( nil == previewImage )
+    {
+        return nil;
+    }
+    return previewImage;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateIntroDescriptionContent
+{
+    CGFloat                         screenWidth;
+    NSString                      * illustrator;
+    NSString                      * description;
+    UILabel                       * illustratorLabel;
+    UILabel                       * descriptionLabel;
+    CGRect                          illustratorRect;
+    CGRect                          descriptionRect;
+    
+    description                     = nil;
+    illustratorLabel                = nil;
+    descriptionLabel                = nil;
+    illustratorRect                 = CGRectZero;
+    descriptionRect                 = CGRectZero;
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    illustrator                     = [pageConfigure illustratorAtIndex: kTDStickerLibraryConfigureIndexAfterSwap];
+    if ( nil != illustrator )
+    {
+        NSMutableAttributedString * attributedString;
+        NSRange                     attributedRange;
+        
+        
+        attributedRange             = NSMakeRange( 0,  [illustrator length] );
+        attributedString            = [[NSMutableAttributedString alloc] initWithString: illustrator];
+        if ( nil != attributedString )
+        {
+            [attributedString       addAttribute: NSUnderlineStyleAttributeName value: @(NSUnderlineStyleSingle) range: attributedRange];
+            [attributedString       addAttribute: NSFontAttributeName value: [UIFont boldSystemFontOfSize: 16.0f] range: attributedRange];
+    
+            
+            illustratorRect.size    = CGSizeMake( ( ( screenWidth / 2.0f ) - 8.0f - 4.0f ) , ( 20.0f ) );
+            illustratorRect.origin  = CGPointMake( ( ( screenWidth / 2.0f ) + 4.0f ) , 8.0f );
+            illustratorLabel        = [[UILabel alloc] initWithFrame: illustratorRect];
+            if ( nil != illustratorLabel )
+            {
+                [illustratorLabel   setAttributedText: attributedString];
+                [introView          addSubview: illustratorLabel];
+                
+                [illustratorLabel   setBackgroundColor: [UIColor cyanColor]];
+            }
+        }
+    }
+    
+    description                     = [pageConfigure descriptionAtIndex: kTDStickerLibraryConfigureIndexAfterSwap];
+    if ( nil != description )
+    {
+        NSMutableAttributedString * attributedString;
+        NSRange                     attributedRange;
+        
+        
+        attributedRange             = NSMakeRange( 0,  [description length] );
+        attributedString            = [[NSMutableAttributedString alloc] initWithString: description];
+        if ( nil != attributedString )
+        {
+            [attributedString       addAttribute: NSFontAttributeName value: [UIFont boldSystemFontOfSize: 12.0f] range: attributedRange];
+            
+            
+            descriptionRect.size    = CGSizeMake( ( ( screenWidth / 2.0f ) - 8.0f - 4.0f ) , ( 128.0f - 16.0f - illustratorRect.size.height - 2.0f ) );
+            descriptionRect.origin  = CGPointMake( ( ( screenWidth / 2.0f ) + 4.0f ), ( 8.0f + illustratorRect.size.height + 2.0f ) );
+            descriptionLabel        = [[UILabel alloc] initWithFrame: descriptionRect];
+            if ( nil != descriptionLabel )
+            {
+                [descriptionLabel   setNumberOfLines: 0];
+                [descriptionLabel   setAttributedText: attributedString];
+                [descriptionLabel   sizeToFit];     //  don't code above UIFont setting.
+                
+                [introView          addSubview: descriptionLabel];
+                
+                [descriptionLabel   setBackgroundColor: [UIColor purpleColor]];
+            }
+        }
+    }
     
     return YES;
 }
@@ -859,16 +1136,16 @@ static  NSInteger   const kTDStickerLibraryConfigureIndexAfterSwap      = 0;
     NSString                      * illustrator;
     NSString                      * email;
     NSString                      * website;
-    BOOL                            result;
+//    BOOL                            result;
     
     introImageIndex                 = 0;
     index                           = kTDStickerLibraryConfigureIndexAfterSwap;
     illustrator                     = [pageConfigure illustratorAtIndex: index];
     email                           = [pageConfigure illustratorEMailAtIndex: index];
     website                         = [pageConfigure illustratorWebsiteAtIndex: index];
-    result                          = [pageConfigure introImageIndex: &introImageIndex atIndex: index];
+//    result                          = [pageConfigure introImageIndex: &introImageIndex atIndex: index];
     
-    if ( ( nil == illustrator ) || ([illustrator length] == 0 ) ||  ( NO == result ) )
+    if ( ( nil == illustrator ) || ([illustrator length] == 0 ) )
     {
         return NO;
     }
@@ -1038,7 +1315,11 @@ static  NSInteger   const kTDStickerLibraryConfigureIndexAfterSwap      = 0;
         SAFE_ARC_RELEASE( introView );
         introView                   = nil;
     }
-    
+    if ( nil != introStampView )
+    {
+        SAFE_ARC_RELEASE( introStampView );
+        introStampView              = nil;
+    }
     
     if ( nil != downloadButton )
     {
@@ -1096,6 +1377,9 @@ static  NSInteger   const kTDStickerLibraryConfigureIndexAfterSwap      = 0;
     
     [self                           _CreatePageView];
 
+    [self                           _CreateIntroStampView];
+    [self                           _CreateIntroDescriptionContent];
+    
     [[self                          view] setBackgroundColor: [UIColor darkGrayColor]];
     
 }

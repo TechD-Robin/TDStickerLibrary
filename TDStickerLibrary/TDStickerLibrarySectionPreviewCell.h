@@ -80,6 +80,26 @@
 - ( BOOL ) loadFrames:(NSData *)confgureData;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for get intro DLVC related data.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a preview image's texture name.
+ *  get a preview image's texture name
+ *
+ *  @return name|nil                a texture name or nil.
+ */
+- ( NSString *) previewTextureName;
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a original's sprite frame at index.
+ *  get a original's sprite frame at index.
+ *
+ *  @param index                    a index of sprite frame.
+ *
+ *  @return rect|ZeroRect           the result rect or ZeroRect. 
+ */
+- ( CGRect ) originalSpriteFrameAtIndex:(NSInteger)index;
+//  ------------------------------------------------------------------------------------------------
 
 @end
 

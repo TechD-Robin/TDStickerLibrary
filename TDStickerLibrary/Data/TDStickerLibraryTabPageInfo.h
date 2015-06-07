@@ -162,14 +162,48 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief get the image's index of introducation of the information data at index.
+ *  @brief get the descript of the information data at index.
+ *  get the descript of the information data at index.
  *
- *  @param imageIndex               pointer of the images's index to get result.
  *  @param index                    index of information data.
  *
- *  @return YES|NO                  method success or failure.
+ *  @return description|nil         the description or nil.
  */
-- ( BOOL ) introImageIndex:(NSInteger *)imageIndex atIndex:(NSInteger)index;
+- ( NSString * ) descriptionAtIndex:(NSInteger)index;
+
+////  ------------------------------------------------------------------------------------------------
+///**
+// *  @brief get the image's index of introducation of the information data at index.
+// *
+// *  @param imageIndex               pointer of the images's index to get result.
+// *  @param index                    index of information data.
+// *
+// *  @return YES|NO                  method success or failure.
+// */
+//- ( BOOL ) introImageIndex:(NSInteger *)imageIndex atIndex:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the image's name of introducation of the information data at index.
+ *  get the image's name of introducation of the information data at index.
+ *
+ *  @param index                    index of information data.
+ *
+ *  @return name|nil                the image name or nil.
+ */
+- ( NSString * ) introImageNameAtIndex:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the image's data of introducation of the information data at index.
+ *  get the image's data of introducation of the information data at index.
+ *
+ *  @param index                    index of information data.
+ *
+ *  @return data|nil                the image data or nil.
+ */
+- ( NSData * ) introImageDataAtIndex:(NSInteger)index;
+
 
 //  ------------------------------------------------------------------------------------------------
 /**

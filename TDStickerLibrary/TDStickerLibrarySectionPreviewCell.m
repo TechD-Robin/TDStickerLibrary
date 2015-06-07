@@ -310,6 +310,27 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get intro DLVC related data.
+//  ------------------------------------------------------------------------------------------------
+- ( NSString *) previewTextureName
+{
+    if ( nil == xmlReader )
+    {
+        return nil;
+    }
+    return [xmlReader textureName];
+}
+//  ------------------------------------------------------------------------------------------------
+- ( CGRect ) originalSpriteFrameAtIndex:(NSInteger)index
+{
+    if ( nil == xmlReader )
+    {
+        return CGRectZero;
+    }
+    return [xmlReader spriteFrameAtIndex: index];
+}
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark overwrite implementation of UICollectionViewCell.
 //  ------------------------------------------------------------------------------------------------
 - ( void ) setBackgroundView:(UIView *)backgroundView

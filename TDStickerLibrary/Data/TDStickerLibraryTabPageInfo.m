@@ -25,9 +25,11 @@ static  NSString  * const kTDPageInfoKeyTitle                       = @"Title";
 static  NSString  * const kTDPageInfoKeyIllustrator                 = @"Author";
 static  NSString  * const kTDPageInfoKeyEMail                       = @"E-Mail";
 static  NSString  * const kTDPageInfoKeyWebsite                     = @"Website";
+static  NSString  * const kTDPageInfoKeyDescription                 = @"Description";
 static  NSString  * const kTDPageInfoKeyIntroImageIndex             = @"Intro Image Index";
 static  NSString  * const kTDPageInfoKeySubDir                      = @"SubDirectory";
 static  NSString  * const kTDPageInfoKeyImages                      = @"Images";
+static  NSString  * const kTDPageInfoKeyIntroImage                  = @"IntroImage";
 static  NSString  * const kTDPageInfoKeyConfigure                   = @"Configure";
 static  NSString  * const kTDPageInfoKeyTimestamp                   = @"Timestamp";
 static  NSString  * const kTDPageInfoKeyDataLink                    = @"DataLink";
@@ -278,20 +280,45 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) introImageIndex:(NSInteger *)imageIndex atIndex:(NSInteger)index;
+- ( NSString * ) descriptionAtIndex:(NSInteger)index
 {
-    NSInteger                       indexData;
+    return [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyDescription];
+}
+
+////  ------------------------------------------------------------------------------------------------
+//- ( BOOL ) introImageIndex:(NSInteger *)imageIndex atIndex:(NSInteger)index;
+//{
+//    NSInteger                       indexData;
+//    
+//    indexData                       = [self infoDataAtIndex: index integerValueForKey: kTDPageInfoKeyIntroImageIndex];
+//    if ( -1 == indexData )
+//    {
+//        return NO;
+//    }
+//    if ( NULL != imageIndex )
+//    {
+//        *imageIndex                 = indexData;
+//    }
+//    return YES;
+//}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) introImageNameAtIndex:(NSInteger)index
+{
+    return [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyIntroImage];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSData * ) introImageDataAtIndex:(NSInteger)index
+{
+    NSString                      * introImageName;
     
-    indexData                       = [self infoDataAtIndex: index integerValueForKey: kTDPageInfoKeyIntroImageIndex];
-    if ( -1 == indexData )
+    introImageName                  = [self introImageNameAtIndex: index];
+    if ( nil == introImageName )
     {
-        return NO;
+        return nil;
     }
-    if ( NULL != imageIndex )
-    {
-        *imageIndex                 = indexData;
-    }
-    return YES;
+    return [self imageDataAtIndex: index forKey: introImageName];
 }
 
 //  ------------------------------------------------------------------------------------------------
