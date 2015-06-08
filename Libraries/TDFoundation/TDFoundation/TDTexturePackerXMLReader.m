@@ -585,6 +585,24 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( CGRect ) spriteFrameForKey:(NSString *)aKey
+{
+    if ( ( nil == aKey ) || ( [aKey length] == 0 ) )
+    {
+        return CGRectZero;
+    }
+    
+    NSDictionary                  * infoData;
+    
+    infoData                        = [framesContanier objectForKey: aKey];
+    if ( nil == infoData )
+    {
+        return CGRectZero;
+    }
+    return [[self class] _ConvertSpriteInfoToCGRect: infoData];
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( NSString * ) sprinteNameAtIndex:(NSInteger)index
 {
     if ( 0 > index )

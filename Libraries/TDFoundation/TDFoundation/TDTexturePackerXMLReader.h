@@ -95,6 +95,17 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief get the frame of sprite for key.
+ *  get the frame of sprite for key.
+ *
+ *  @param aKey                     a key of frame.
+ *
+ *  @return frame|ZeroRect          the sprite's frame or ZeroRect.
+ */
+- ( CGRect ) spriteFrameForKey:(NSString *)aKey;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief get the file name of sprite at index.
  *  get the file name of sprite at index.
  *
