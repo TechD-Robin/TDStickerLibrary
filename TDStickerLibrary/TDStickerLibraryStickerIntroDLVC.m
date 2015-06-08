@@ -205,24 +205,21 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief  create a stamp image of intro view after create intro stamp's view and it's image is nil.
- *   create a stamp image of intro view after create intro stamp's view and it's image is nil;
- *   that's clipping from preview image at index.
+ *  @brief create a stamp's image of intro's view, configure is normal mode.
+ *  create a stamp's image of intro's view, configure is normal mode.
  *
- *  @return YES|NO                  method success or failure.
+ *  @return image|nil               a stamp image or nil.
  */
-- ( BOOL ) _CreateIntroStampImageFromPreview;
+- ( UIImage * ) _IntroStampImageWithNormalMode;
 
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief create a stamp image of intro view, it's clip image from preview image at index.
- *  create a stamp image of intro view, it's clip image from preview image at index.
+ *  @brief create a stamp's imge of intro's view, configure is preview mode.
+ *  create a stamp's imge of intro's view, configure is preview mode.
  *
- *  @param index                    preview image's sprite data index.
- *
- *  @return image|nil               a image or nil.
+ *  @return image|nil               a stamp image or nil.
  */
-- ( UIImage * ) _IntroStampImageFromClipPreviewImageAtIndex:(NSInteger)index;
+- ( UIImage * ) _IntroStampImageWithPreviewMode;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -570,128 +567,153 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateIntroStampView
 {
+    if ( nil == introView )
+    {
+        return NO;
+    }
+    
     CGFloat                         screenWidth;
     CGRect                          stampRect;
     CGSize                          baseSize;
+    UIImage                       * stampImage;
+    NSInteger                       mode;
+    
+    
+    mode                            = 0;
+    stampImage                      = nil;
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    baseSize                        = CGSizeMake( ( 128.0f - 16.0f ),  ( 128.0f - 16.0f ) );
+    stampRect.size                  = baseSize;
+    stampRect.origin                = CGPointMake( ( ( screenWidth / 2.0f ) - baseSize.width ), 8.0f );
+    
+    introStampView                  = [[UIImageView alloc] initWithFrame: stampRect];
+    if ( nil == introStampView )
+    {
+        return NO;
+    }
+    
+    [introView                      addSubview: introStampView];
+
+    [introStampView                 setBackgroundColor: [UIColor orangeColor]];
+
+    if ( [pageConfigure dataMode: &mode atIndex: kTDStickerLibraryConfigureIndexAfterSwap] == NO )
+    {
+        return YES;
+    }
+    
+    if ( 0 == mode )
+    {
+        stampImage                  = [self _IntroStampImageWithNormalMode];
+        if ( nil == stampImage )
+        {
+            return NO;
+        }
+        [introStampView             setImage: stampImage];
+        return YES;
+    }
+    
+    stampImage                      = [self _IntroStampImageWithPreviewMode];
+    if ( nil == stampImage )
+    {
+        return NO;
+    }
+    [introStampView                 setImage: stampImage];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _IntroStampImageWithNormalMode
+{
     NSData                        * stampData;
     UIImage                       * stampImage;
     
-    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
-    baseSize                        = CGSizeMake( ( 128.0f - 16.0f ),  ( 128.0f - 16.0f ) );
+    //  first, use configure data to get image.
+    stampImage                      = nil;
     stampData                       = [pageConfigure introImageDataAtIndex: kTDStickerLibraryConfigureIndexAfterSwap];
     if ( nil != stampData )
     {
         stampImage                  = [UIImage imageWithData: stampData];
-        if ( nil != stampImage )
-        {
-            introStampView          = [UIImageView proportionalImageView: stampImage reference: baseSize originWith: baseSize];
-        }
+    }
+    if ( nil != stampImage )
+    {
+        return stampImage;
     }
     
-    stampRect.size                  = baseSize;
-    stampRect.origin                = CGPointMake( ( ( screenWidth / 2.0f ) - baseSize.width ), 8.0f );
-    if ( nil == introStampView )
-    {
-        introStampView              = [[UIImageView alloc] initWithFrame: stampRect];
-    }
-    
-    if ( nil == introStampView )
-    {
-        return NO;
-    }
-    
-    [introStampView                 setFrame: stampRect];
-    [introView                      addSubview: introStampView];
-    
-    //  when cannot set image from configure, get image from preview page. (from index = 0).
-    if ( [introStampView image] == nil )
-    {
-        [self                       _CreateIntroStampImageFromPreview];
-    }
-    
-    [introStampView                 setBackgroundColor: [UIColor orangeColor]];
-    return YES;
-}
-
-//  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _CreateIntroStampImageFromPreview
-{
-    if ( ( nil == introStampView ) || ( [introStampView image] != nil ) )
-    {
-        return NO;
-    }
-    
-    NSInteger                       mode;
-    NSData                        * introImageData;
-    UIImage                       * introImage;
-    
-    mode                            = 0;
-    introImage                      = nil;
-    introImageData                  = nil;
-    if ( [pageConfigure dataMode: &mode atIndex: kTDStickerLibraryConfigureIndexAfterSwap] == NO )
-    {
-        return NO;
-    }
-    
-    //  normal mode.
-    if ( 0 == mode )
-    {
-        introImageData              = [pageConfigure imageDataAtIndex: kTDStickerLibraryConfigureIndexAfterSwap
+    //  second, use preview page data to get image.
+    stampData                       = [pageConfigure imageDataAtIndex: kTDStickerLibraryConfigureIndexAfterSwap
                                                               inArray: kTDStickerLibraryIntroImageDefaultIndex];
-        if ( nil == introImageData )
-        {
-            return NO;
-        }
-        
-        introImage                  = [UIImage imageWithData: introImageData];
-        if ( nil == introImage )
-        {
-            return NO;
-        }
-        [introStampView             setImage: introImage];
-        return YES;
-    }
-    
-    introImage                      = [self _IntroStampImageFromClipPreviewImageAtIndex: kTDStickerLibraryIntroImageDefaultIndex];
-    if ( nil == introImage )
+
+    if ( nil == stampData )
     {
-        return NO;
+        return nil;
     }
     
-    [introStampView                 setImage: introImage];
-    return YES;
+    stampImage                      = [UIImage imageWithData: stampData];
+    return stampImage;
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( UIImage * ) _IntroStampImageFromClipPreviewImageAtIndex:(NSInteger)index;
+- ( UIImage * ) _IntroStampImageWithPreviewMode
 {
     if ( ( nil == stickerPageView ) || ( [stickerPageView isKindOfClass: [TDStickerLibraryTabPageView class]] == NO ) )
     {
         return nil;
     }
     
+    //  get configure data from cell object.
     NSIndexPath                   * indexPath;
     UICollectionViewCell          * cell;
     
-    CGRect                          clippingRect;
-    NSString                      * previewImageName;
-    NSData                        * previewImageData;
-    UIImage                       * previewImage;
-    
+    cell                            = nil;
     indexPath                       = [NSIndexPath indexPathForItem: 0 inSection: kTDStickerLibraryConfigureIndexAfterSwap];
     if ( nil == indexPath )
     {
         return nil;
     }
+    
     cell                            = [stickerPageView collectionView: stickerPageView cellForItemAtIndexPath: indexPath];
     if ( ( nil == cell ) || ( [cell isKindOfClass: [TDStickerLibrarySectionPreviewCell class]] == NO ) )
     {
         return nil;
     }
     
+    //  get preview image from configure data.
+    NSString                      * previewImageName;
+    NSData                        * previewImageData;
+    UIImage                       * previewImage;
+    
+    NSString                      * stampImageName;
+    NSData                        * stampData;
+    UIImage                       * stampImage;
+    CGRect                          clippingRect;
+    
+    stampData                       = nil;
+    stampImage                      = nil;
+    stampImageName                  = nil;
+    previewImageData                = nil;
+    previewImage                    = nil;
+    previewImageName                = nil;
+    clippingRect                    = CGRectZero;
+    
+    //  first, use configure data to get clipping data.
+    stampImageName                  = [pageConfigure introImageNameAtIndex: kTDStickerLibraryConfigureIndexAfterSwap];
+    if ( nil != stampImageName )
+    {
+        clippingRect                = [(TDStickerLibrarySectionPreviewCell *)cell originalSpriteFrameForKey: stampImageName];
+    }
+    
+    //  second, use preview page default to get clipping data. ( index = 0. )
+    if ( CGRectEqualToRect( clippingRect, CGRectZero ) == true )
+    {
+        clippingRect                = [(TDStickerLibrarySectionPreviewCell *)cell originalSpriteFrameAtIndex: kTDStickerLibraryIntroImageDefaultIndex];
+    }
+    if ( CGRectEqualToRect( clippingRect, CGRectZero ) == true )
+    {
+        return nil;
+    }
+    
     previewImageName                = [(TDStickerLibrarySectionPreviewCell *)cell previewTextureName];
-    clippingRect                    = [(TDStickerLibrarySectionPreviewCell *)cell originalSpriteFrameAtIndex: index];
-    if ( ( nil == previewImageName ) || ( CGRectEqualToRect( clippingRect, CGRectZero ) == true ) )
+    if ( nil == previewImageName )
     {
         return nil;
     }
@@ -708,12 +730,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         return nil;
     }
     
-    previewImage                    = [previewImage clipping: clippingRect];
-    if ( nil == previewImage )
-    {
-        return nil;
-    }
-    return previewImage;
+    return [previewImage clipping: clippingRect];
 }
 
 //  ------------------------------------------------------------------------------------------------

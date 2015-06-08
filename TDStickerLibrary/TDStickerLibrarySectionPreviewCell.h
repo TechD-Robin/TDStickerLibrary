@@ -89,6 +89,7 @@
  *  @return name|nil                a texture name or nil.
  */
 - ( NSString *) previewTextureName;
+
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief get a original's sprite frame at index.
@@ -99,7 +100,22 @@
  *  @return rect|ZeroRect           the result rect or ZeroRect. 
  */
 - ( CGRect ) originalSpriteFrameAtIndex:(NSInteger)index;
+
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a original's sprite frame for key.
+ *  get a original's sprite frame for key.
+ *
+ *  @param aKey                     a key of frame.
+ *
+ *  @return rect|ZeroRect           the result rect or ZeroRect.
+ */
+- ( CGRect ) originalSpriteFrameForKey:(NSString *)aKey;
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+
 
 @end
 

@@ -331,6 +331,16 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( CGRect ) originalSpriteFrameForKey:(NSString *)aKey
+{
+    if ( ( nil == xmlReader ) || ( nil == aKey ) || ( [aKey length] == 0 ) )
+    {
+        return CGRectZero;
+    }
+    return [xmlReader spriteFrameForKey: aKey];
+}
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark overwrite implementation of UICollectionViewCell.
 //  ------------------------------------------------------------------------------------------------
 - ( void ) setBackgroundView:(UIView *)backgroundView
