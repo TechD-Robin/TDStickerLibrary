@@ -268,6 +268,14 @@
     [self                           setTableMinimumInteritemSpacing: 10.0f];
     [self                           setTableMinimumLineSpacing: 10.0f];
 
+    //  for Sticker Intro DLVC.
+    [self                           setIntroViewSubViewInsets: UIEdgeInsetsMake( 8.0f, 8.0f, 8.0f, 8.0f)];
+    [self                           setIntroViewHeight: 128.0f];
+    [self                           setIntroViewIllustratorFontSize: 16.0f];
+    [self                           setIntroViewDescriptionFontSize: 12.0f];
+    [self                           setIntroViewContentsLineSpacing: 4.0f];
+
+    
     //  for Sticker Solo View.
     //stateFlags.stickerSoloViewEnabled       = YES;
     //stateFlags.stickerSoloViewUseBlurLayer  = YES;
@@ -529,6 +537,13 @@
 @synthesize tableMinimumInteritemSpacing    = _tableMinimumInteritemSpacing;
 @synthesize tableMinimumLineSpacing         = _tableMinimumLineSpacing;
 
+
+//  for Sticker Intro DLVC.
+@synthesize introViewSubViewInsets          = _introViewSubViewInsets;
+@synthesize introViewHeight                 = _introViewHeight;
+@synthesize introViewIllustratorFontSize    = _introViewIllustratorFontSize;
+@synthesize introViewDescriptionFontSize    = _introViewDescriptionFontSize;
+@synthesize introViewContentsLineSpacing    = _introViewContentsLineSpacing;
 
 //  for StickeSolo View.
 

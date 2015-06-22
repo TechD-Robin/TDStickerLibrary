@@ -542,7 +542,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
 //    subviewTop                      = [self _GetScrollViewNewSubviewTopPosition];
 
-    subviewHeight                   = 128.0f;
+    subviewHeight                   = [customization introViewHeight];
 //    subviewTop                      += 40.0f;
 //    buttonHeight                    = 36.0f;
     introRect                       = CGRectMake( 0.0f, 0.0f, screenWidth, subviewHeight );
@@ -573,6 +573,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     }
     
     CGFloat                         screenWidth;
+    CGFloat                         introViewHeight;
+    UIEdgeInsets                    subViewInsets;
     CGRect                          stampRect;
     CGSize                          baseSize;
     UIImage                       * stampImage;
@@ -582,9 +584,12 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     mode                            = 0;
     stampImage                      = nil;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
-    baseSize                        = CGSizeMake( ( 128.0f - 16.0f ),  ( 128.0f - 16.0f ) );
+    introViewHeight                 = [customization introViewHeight];
+    subViewInsets                   = [customization introViewSubViewInsets];
+    baseSize.width                  = ( introViewHeight - ( subViewInsets.left + subViewInsets.right ) );
+    baseSize.height                 = ( introViewHeight - ( subViewInsets.top + subViewInsets.bottom ) );
     stampRect.size                  = baseSize;
-    stampRect.origin                = CGPointMake( ( ( screenWidth / 2.0f ) - baseSize.width ), 8.0f );
+    stampRect.origin                = CGPointMake( ( ( screenWidth / 2.0f ) - baseSize.width ), subViewInsets.top );
     
     introStampView                  = [[UIImageView alloc] initWithFrame: stampRect];
     if ( nil == introStampView )
@@ -737,6 +742,9 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 - ( BOOL ) _CreateIntroDescriptionContent
 {
     CGFloat                         screenWidth;
+    CGFloat                         introViewHeight;
+    CGFloat                         fontSize;
+    UIEdgeInsets                    subViewInsets;
     NSString                      * illustrator;
     NSString                      * description;
     UILabel                       * illustratorLabel;
@@ -750,6 +758,9 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     illustratorRect                 = CGRectZero;
     descriptionRect                 = CGRectZero;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    introViewHeight                 = [customization introViewHeight];
+    fontSize                        = [customization introViewIllustratorFontSize];
+    subViewInsets                   = [customization introViewSubViewInsets];
     illustrator                     = [pageConfigure illustratorAtIndex: kTDStickerLibraryConfigureIndexAfterSwap];
     if ( nil != illustrator )
     {
@@ -762,11 +773,11 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         if ( nil != attributedString )
         {
             [attributedString       addAttribute: NSUnderlineStyleAttributeName value: @(NSUnderlineStyleSingle) range: attributedRange];
-            [attributedString       addAttribute: NSFontAttributeName value: [UIFont boldSystemFontOfSize: 16.0f] range: attributedRange];
+            [attributedString       addAttribute: NSFontAttributeName value: [UIFont boldSystemFontOfSize: fontSize] range: attributedRange];
     
             
-            illustratorRect.size    = CGSizeMake( ( ( screenWidth / 2.0f ) - 8.0f - 4.0f ) , ( 20.0f ) );
-            illustratorRect.origin  = CGPointMake( ( ( screenWidth / 2.0f ) + 4.0f ) , 8.0f );
+            illustratorRect.size    = CGSizeMake( ( ( screenWidth / 2.0f ) - ( ( subViewInsets.left / 2.0f ) + subViewInsets.right ) ), ( fontSize + ( 2 * 2.0f ) ) );
+            illustratorRect.origin  = CGPointMake( ( ( screenWidth / 2.0f ) + ( subViewInsets.left / 2.0f ) ) , subViewInsets.top );
             illustratorLabel        = [[UILabel alloc] initWithFrame: illustratorRect];
             if ( nil != illustratorLabel )
             {
@@ -783,17 +794,21 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     {
         NSMutableAttributedString * attributedString;
         NSRange                     attributedRange;
+        CGFloat                     lineSpacing;
         
-        
+        fontSize                    = [customization introViewDescriptionFontSize];
+        lineSpacing                 = [customization introViewContentsLineSpacing];
         attributedRange             = NSMakeRange( 0,  [description length] );
         attributedString            = [[NSMutableAttributedString alloc] initWithString: description];
         if ( nil != attributedString )
         {
-            [attributedString       addAttribute: NSFontAttributeName value: [UIFont boldSystemFontOfSize: 12.0f] range: attributedRange];
+            [attributedString       addAttribute: NSFontAttributeName value: [UIFont boldSystemFontOfSize: fontSize] range: attributedRange];
             
+            descriptionRect.size.width      = ( screenWidth / 2.0f ) - ( ( subViewInsets.left / 2.0f ) + subViewInsets.right );
+            descriptionRect.size.height     = introViewHeight - ( illustratorRect.size.height + subViewInsets.top + subViewInsets.bottom + lineSpacing );
+            descriptionRect.origin.x        = ( screenWidth / 2.0f ) + ( subViewInsets.left / 2.0f );
+            descriptionRect.origin.y        = subViewInsets.top + illustratorRect.size.height + lineSpacing;
             
-            descriptionRect.size    = CGSizeMake( ( ( screenWidth / 2.0f ) - 8.0f - 4.0f ) , ( 128.0f - 16.0f - illustratorRect.size.height - 2.0f ) );
-            descriptionRect.origin  = CGPointMake( ( ( screenWidth / 2.0f ) + 4.0f ), ( 8.0f + illustratorRect.size.height + 2.0f ) );
             descriptionLabel        = [[UILabel alloc] initWithFrame: descriptionRect];
             if ( nil != descriptionLabel )
             {

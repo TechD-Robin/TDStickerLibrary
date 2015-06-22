@@ -265,6 +265,32 @@
 @property( nonatomic, assign ) CGFloat                      tableMinimumLineSpacing;
 
 
+//  for Sticker Intro DLVC.
+/**
+ *  insets of introView for subview's.
+ */
+@property( nonatomic, assign ) UIEdgeInsets                 introViewSubViewInsets;
+
+/**
+ *  height of introView.
+ */
+@property( nonatomic, assign ) CGFloat                      introViewHeight;
+
+/**
+ *  font size of introView's illustrator.
+ */
+@property( nonatomic, assign ) CGFloat                      introViewIllustratorFontSize;
+
+/**
+ *  font size of introView's description.
+ */
+@property( nonatomic, assign ) CGFloat                      introViewDescriptionFontSize;
+
+/**
+ *  line spacing of introView's contents.
+ */
+@property( nonatomic, assign ) CGFloat                      introViewContentsLineSpacing;
+
 
 //  for Sticker Solo View.
 /**
