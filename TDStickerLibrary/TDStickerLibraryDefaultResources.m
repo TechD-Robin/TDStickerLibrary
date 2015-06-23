@@ -290,6 +290,12 @@
     {
         return nil;
     }
+    
+    image                           = [image imageWithTintedColor: [UIColor whiteColor]];
+    if ( nil == image )
+    {
+        return nil;
+    }
     return [image imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
 }
 
@@ -312,6 +318,12 @@
     UIImage                       * image;
     
     image                           = [self defaultImage: @"ic_format_indent_increase_36"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    
+    image                           = [image imageWithTintedColor: [UIColor whiteColor]];
     if ( nil == image )
     {
         return nil;
