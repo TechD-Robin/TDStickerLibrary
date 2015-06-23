@@ -14,6 +14,7 @@
     #import "ARCMacros.h"
 #endif  //  End of __ARCMacros_H__.
 
+#import "TDBasePopMenu.h"
 #import "TDStickerLibraryStickerIntroDLVC.h"
 #import "TDStickerLibraryTabPageView.h"
 #import "TDStickerLibrarySectionPreviewCell.h"
@@ -256,6 +257,11 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
  *  @return YES|NO                  method success or failure.
  */
 - ( BOOL ) _CreatePageView;
+
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _createPopMenu;
+
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for calculate object's properties.
@@ -1101,6 +1107,35 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _createPopMenu
+{
+    CGFloat                         statusBarHeight;
+    UIImage                       * popOutMenuImage;
+    UIImage                       * popOutMenuImageHighlighted;
+    UIImage                       * unPopOutMenuImage;
+    UIImage                       * unPopOutMenuImageHighlighted;
+    TDBasePopMenu                 * popMenu;
+    
+    statusBarHeight                 = [[UIScreen mainScreen] getStatusBarHeight];
+    popOutMenuImage                 = [customization popMenuPopOutImage];
+    popOutMenuImageHighlighted      = [customization popMenuPopOutImageHightlighted];
+    popMenu                         = [TDBasePopMenu popMenu: TDBasePopMenuPositionRightTop
+                                                      popOut: popOutMenuImage highlighted: popOutMenuImageHighlighted
+                                                      origin: CGPointMake( -6.0f, statusBarHeight )];
+    if ( nil == popMenu )
+    {
+        return NO;
+    }
+    
+    unPopOutMenuImage               = [customization popMenuUnPopOutImage];
+    unPopOutMenuImageHighlighted    = [customization popMenuUnPopOutImageHightlighted];
+    [popMenu                        setUnPopOut: unPopOutMenuImage highlighted: unPopOutMenuImageHighlighted];
+    
+    [[self                          view] addSubview: popMenu];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark method for calculate object's properties.
 //  ------------------------------------------------------------------------------------------------
 - ( CGFloat ) _GetNewSubviewTopPosition
@@ -1411,6 +1446,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 
     [self                           _CreateIntroStampView];
     [self                           _CreateIntroDescriptionContent];
+    
+    [self                           _createPopMenu];
     
     [[self                          view] setBackgroundColor: [UIColor darkGrayColor]];
     
