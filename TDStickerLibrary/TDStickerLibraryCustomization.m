@@ -631,6 +631,46 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( void ) setSysStyleTintedColor:(UIColor *)sysStyleTintedColor
+{
+    _sysStyleTintedColor                = sysStyleTintedColor;
+    if ( nil != defaultResources )
+    {
+        [defaultResources               setSysStyleTintedColor: sysStyleTintedColor];
+    }
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setSysStyleTintedColorAlpha:(CGFloat)sysStyleTintedColorAlpha
+{
+    _sysStyleTintedColorAlpha           = sysStyleTintedColorAlpha;
+    if ( nil != defaultResources )
+    {
+        [defaultResources               setSysStyleTintedColorAlpha: sysStyleTintedColorAlpha];
+    }
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setSysStyleHighlightedITintedColor:(UIColor *)sysStyleHighlightedITintedColor
+{
+    _sysStyleHighlightedITintedColor    = sysStyleHighlightedITintedColor;
+    if ( nil != defaultResources )
+    {
+        [defaultResources               setSysStyleHighlightedITintedColor: sysStyleHighlightedITintedColor];
+    }
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setSysStyleHighlightedITintedColorAlpha:(CGFloat)sysStyleHighlightedITintedColorAlpha
+{
+    _sysStyleHighlightedITintedColorAlpha   = sysStyleHighlightedITintedColorAlpha;
+    if ( nil != defaultResources )
+    {
+        [defaultResources               setSysStyleHighlightedITintedColorAlpha: sysStyleHighlightedITintedColorAlpha];
+    }
+}
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark method for get system style's image
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sysStyleBackToMenuImage
@@ -801,6 +841,45 @@
     return [defaultResources sectionHeaderArrowUpImageDisabled];
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popMenuPopOutImage
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources popMenuPopOutImage];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popMenuPopOutImageHightlighted
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources popMenuPopOutImageHightlighted];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popMenuUnPopOutImage
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources popMenuUnPopOutImage];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popMenuUnPopOutImageHightlighted
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources popMenuUnPopOutImageHightlighted];
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

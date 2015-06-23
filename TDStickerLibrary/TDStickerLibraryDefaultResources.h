@@ -38,6 +38,31 @@ static  NSString  * const kTDStickerLibraryDefaultImagesInDirectory     = @"Imag
 - ( instancetype ) init NS_UNAVAILABLE;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark property of variable.
+//  ------------------------------------------------------------------------------------------------
+//  sys style.
+/**
+ *  system style's tinted color.
+ */
+@property( nonatomic, assign ) UIColor                    * sysStyleTintedColor;
+
+/**
+ *  system style's tinted color alpha.
+ */
+@property( nonatomic, assign ) CGFloat                      sysStyleTintedColorAlpha;
+
+/**
+ *  system style's highlighted tinted color.
+ */
+@property( nonatomic, assign ) UIColor                    * sysStyleHighlightedITintedColor;
+
+/**
+ *  system style's highlighted tinted color alpha.
+ */
+@property( nonatomic, assign ) CGFloat                      sysStyleHighlightedITintedColorAlpha;
+
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark declare for get default's assets bundle image
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -128,6 +153,15 @@ static  NSString  * const kTDStickerLibraryDefaultImagesInDirectory     = @"Imag
  *  @return image|nil               the image object or nil.
  */
 - ( UIImage * ) sectionHeaderArrowUpImageDisabled;
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popMenuPopOutImage;
+
+- ( UIImage * ) popMenuPopOutImageHightlighted;
+
+- ( UIImage * ) popMenuUnPopOutImage;
+
+- ( UIImage * ) popMenuUnPopOutImageHightlighted;
 
 
 //  ------------------------------------------------------------------------------------------------

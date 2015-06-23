@@ -79,6 +79,12 @@
 //  --------------------------------
 - ( void ) _InitAttributes
 {
+    //  sys style.
+    [self                           setSysStyleTintedColor: nil];
+    [self                           setSysStyleTintedColorAlpha: 0.0f];
+    
+    [self                           setSysStyleHighlightedITintedColor: nil];
+    [self                           setSysStyleHighlightedITintedColorAlpha: 0.0f];
 }
 
 
@@ -100,6 +106,12 @@
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark synthesize variable.
+//  sys style.
+@synthesize sysStyleTintedColor                     = _sysStyleTintedColor;
+@synthesize sysStyleTintedColorAlpha                = _sysStyleTintedColorAlpha;
+
+@synthesize sysStyleHighlightedITintedColor         = _sysStyleHighlightedITintedColor;
+@synthesize sysStyleHighlightedITintedColorAlpha    = _sysStyleHighlightedITintedColorAlpha;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -254,6 +266,60 @@
     }
     return [image imageWithTintedColor: [UIColor darkGrayColor] colorAlpha: 0.12f];
 }
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popMenuPopOutImage
+{
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_format_indent_decrease_36"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [self sysStyleTintedColor] colorAlpha: [self sysStyleTintedColorAlpha]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popMenuPopOutImageHightlighted
+{
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_format_indent_decrease_36"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popMenuUnPopOutImage
+{
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_format_indent_increase_36"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [self sysStyleTintedColor] colorAlpha: [self sysStyleTintedColorAlpha]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popMenuUnPopOutImageHightlighted
+{
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_format_indent_increase_36"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
+}
+
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
