@@ -42,6 +42,10 @@ typedef NS_ENUM( NSInteger, TDBasePopMenuPosition ) {
 - ( BOOL ) setUnPopOut:(UIImage *)image highlighted:(UIImage *)highlighted;
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) AddAction:(UIImage *)image highlighted:(UIImage *)highlighted
+              target:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
+
+//  ------------------------------------------------------------------------------------------------
 
 
 
@@ -49,6 +53,12 @@ typedef NS_ENUM( NSInteger, TDBasePopMenuPosition ) {
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 
 
 
