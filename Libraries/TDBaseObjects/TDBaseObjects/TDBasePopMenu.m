@@ -62,6 +62,14 @@
 - ( void ) _SetFrame;
 
 - ( void ) _SetPopOutFrame;
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( CGSize ) _CalculateActionsMenuContentSize:(CGSize)newItemSize;
+
+//  ------------------------------------------------------------------------------------------------
+- ( CGPoint) _CalculateNewActionItemOrigin;
+
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create object.
 //  ------------------------------------------------------------------------------------------------
@@ -204,6 +212,51 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+- ( CGSize ) _CalculateActionsMenuContentSize:(CGSize)newItemSize
+{
+    if ( CGSizeEqualToSize( newItemSize, CGSizeZero ) == true )
+    {
+        return CGSizeZero;
+    }
+    
+    if ( ( nil == actionsMenu ) || ( [[actionsMenu subviews] count] == 0 ) )
+    {
+        return newItemSize;
+    }
+    
+    CGSize                          contentSize;
+    
+    contentSize                     = [actionsMenu contentSize];
+    contentSize.width               += ( newItemSize.width + 2.0f );
+    contentSize.height              = MAX( contentSize.height, newItemSize.height );
+    return contentSize;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( CGPoint) _CalculateNewActionItemOrigin
+{
+    if ( ( nil == actionsMenu ) || ( [[actionsMenu subviews] count] == 0 ) )
+    {
+        return CGPointZero;
+    }
+    
+    CGPoint                         newOrigin;
+    id                              idObject;
+    
+    newOrigin                       = CGPointZero;
+    idObject                        = [[actionsMenu subviews] lastObject];
+    if ( nil == idObject )
+    {
+        return CGPointZero;
+    }
+    
+    newOrigin.x                     = ( [idObject frame].origin.x + [idObject frame].size.width + 2.0f );
+    return newOrigin;
+}
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 #pragma mark method for create object.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreatePopOutView:(UIImage *)image highlighted:(UIImage *)highlighted
@@ -213,7 +266,7 @@
     
     CGRect                          buttonRect;
     
-    buttonRect                      = CGRectMake( 0.0f, 0.0f, [image size].width, [image size].height + 12);
+    buttonRect                      = CGRectMake( 0.0f, 0.0f, [image size].width, [image size].height );
     popOutButton                    = [UIButton buttonWithImage: image highlighted: highlighted origin: CGPointZero];
     if ( nil == popOutButton )
     {
@@ -224,7 +277,7 @@
     [popOutButton                   addTarget: self action: @selector( _PopOutAction: ) forControlEvents: UIControlEventTouchUpInside];
     
     [self                           addSubview: popOutButton];
-    [self                           setBackgroundColor: [UIColor orangeColor]];
+//    [self                           setBackgroundColor: [UIColor orangeColor]];
     return YES;
 }
 
@@ -369,14 +422,14 @@
     }
     
     offset.x                        -= positionOffset.x;    //  reset special offset from superview & superview's supverview's.
-    actionsMenuRect                 = CGRectMake( offset.x, offset.y, baseSize.width, baseSize.height - 12 );
+    actionsMenuRect                 = CGRectMake( offset.x, offset.y, baseSize.width, baseSize.height );
     actionsMenu                     = [[UIScrollView alloc] initWithFrame: actionsMenuRect];
     if ( nil == actionsMenu )
     {
         return NO;
     }
     
-    [actionsMenu                    setBackgroundColor: [UIColor yellowColor]];
+//    [actionsMenu                    setBackgroundColor: [UIColor yellowColor]];
     [self                           addSubview: actionsMenu];
     return YES;
 }
@@ -406,12 +459,11 @@
     }
     
     buttonRect.size                 = [actionButton bounds].size;
-    buttonRect.origin.x             = ( [[actionsMenu subviews] count] * ( buttonRect.size.width + 2.0f ) );
+    buttonRect.origin               = [self _CalculateNewActionItemOrigin];
+    contentSize                     = [self _CalculateActionsMenuContentSize: buttonRect.size];
     
     [actionButton                   setFrame: buttonRect];
     [actionsMenu                    addSubview: actionButton];
-    
-    contentSize.width               = ( [[actionsMenu subviews] count] * ( buttonRect.size.width + 2.0f ) );
     [actionsMenu                    setContentSize: contentSize];
     
     //  reset menu's frame.
