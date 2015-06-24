@@ -26,6 +26,7 @@
     TDBasePopMenuPosition           popMenuPosition;
     CGPoint                         positionOffset;
     
+    UIImageView                   * blurImageView;
     UIButton                      * popOutButton;
     UIButton                      * unPopOutButton;
     
@@ -73,6 +74,24 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create object.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a blur image by core graphic method.
+ *  create a blur image by core graphic method.
+ *
+ *  @return object|nil              a blur image object or ni.
+ */
+- ( UIImage * ) _CreateBlurImage;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a blur image.
+ *  create a blur image.
+ *
+ *  @return YES|NO                  method success or failure
+ */
+- ( BOOL ) _CreateBlurImageView;
+
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreatePopOutView:(UIImage *)image highlighted:(UIImage *)highlighted;
 
 //  ------------------------------------------------------------------------------------------------
@@ -109,6 +128,7 @@
 {
     positionOffset                  = CGPointZero;
     
+    blurImageView                   = nil;
     popOutButton                    = nil;
     unPopOutButton                  = nil;
 
@@ -168,7 +188,12 @@
     frame.origin.x                  += positionOffset.x;
     frame.origin.y                  += positionOffset.y;
     [self                           setFrame: frame];
-    
+    if ( nil != blurImageView )
+    {
+        frame.origin                = CGPointMake( -( frame.size.width / 2.0f ), 0.0f );
+        frame.size.width            = ( frame.size.width * 2.0f );
+        [blurImageView              setFrame: frame];
+    }
     [self                           _SetPopOutFrame];
 }
 
@@ -259,6 +284,56 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create object.
 //  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) _CreateBlurImage
+{
+    CGRect                          mainRect;
+    UIImage                       * image;
+    CGContextRef                    context;
+    
+    image                           = nil;
+    mainRect                        = [[UIScreen mainScreen] bounds];
+    
+    UIGraphicsBeginImageContext( mainRect.size );
+    context                         = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor( context, [[[UIColor darkGrayColor] colorWithAlphaComponent: 0.66f] CGColor] );
+    CGContextFillRect( context, mainRect );
+    CGContextStrokePath( context );
+    
+    image                           = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateBlurImageView
+{
+    if ( nil != blurImageView )
+    {
+        return YES;
+    }
+    
+    UIImage                       * blurImage;
+    
+    blurImage                       = [self _CreateBlurImage];
+    if ( nil == blurImage )
+    {
+        return NO;
+    }
+    
+    blurImageView                   = [[UIImageView alloc] initWithImage: blurImage];
+    if ( nil == blurImage )
+    {
+        return NO;
+    }
+    
+    [blurImageView                  setAlpha: 0.0f];
+    [self                           addSubview: blurImageView];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreatePopOutView:(UIImage *)image highlighted:(UIImage *)highlighted
 {
     NSParameterAssert( nil != image );
@@ -308,6 +383,10 @@
     [UIView                         animateWithDuration: 0.33f animations: ^
     {
         [self                       setCenter: transformCenter];
+        if ( nil != blurImageView )
+        {
+            [blurImageView          setAlpha: 1.0f];
+        }
         
     } completion: ^ ( BOOL finished )
     {
@@ -374,6 +453,10 @@
     [UIView                         animateWithDuration: 0.33f animations: ^
     {
         [self                       setCenter: transformCenter];
+        if ( nil != blurImageView )
+        {
+            [blurImageView          setAlpha: 0.0f];
+        }
         
     } completion: ^ ( BOOL finished )
     {
@@ -384,8 +467,6 @@
         }
         transformBeforeCenter       = CGPointZero;
     }];
-
-    
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -539,6 +620,7 @@
     popMenuPosition                 = menuPosition;
     positionOffset                  = offset;
     
+    [self                           _CreateBlurImageView];
     [self                           _CreatePopOutView: image highlighted: highlighted];
     [self                           _CreateActionsMenu];
     
