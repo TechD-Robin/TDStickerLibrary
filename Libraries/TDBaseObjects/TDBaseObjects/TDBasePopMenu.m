@@ -446,12 +446,14 @@
     CGRect                          buttonRect;
     CGRect                          menuRect;
     CGSize                          contentSize;
+    CGFloat                         screenWidth;
     UIButton                      * actionButton;
     
     scrollOffset                    = CGPointZero;
     buttonRect                      = CGRectZero;
     menuRect                        = [actionsMenu frame];
     contentSize                     = [actionsMenu bounds].size;
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     actionButton                    = [UIButton buttonWithImage: image highlighted: highlighted origin: CGPointZero];
     if ( nil == actionButton )
     {
@@ -468,9 +470,9 @@
     
     //  reset menu's frame.
     menuRect.size.width             = contentSize.width;
-    if ( ( ( 320.0f / 2.0f ) - [popOutButton bounds].size.width ) < contentSize.width )
+    if ( ( ( screenWidth / 2.0f ) - [popOutButton bounds].size.width ) < contentSize.width )
     {
-        menuRect.size.width         = ( ( 320.0f / 2.0f ) - [popOutButton bounds].size.width );
+        menuRect.size.width         = ( ( screenWidth / 2.0f ) - [popOutButton bounds].size.width );
     }
     
     switch ( popMenuPosition )
