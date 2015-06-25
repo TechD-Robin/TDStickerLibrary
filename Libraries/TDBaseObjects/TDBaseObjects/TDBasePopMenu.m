@@ -23,17 +23,46 @@
 //  ------------------------------------------------------------------------------------------------
 @interface TDBasePopMenu ()
 {
+    /**
+     *  enumeration of position.
+     */
     TDBasePopMenuPosition           popMenuPosition;
+    
+    /**
+     *  position offset between pop out's item and actions contents.
+     */
     CGPoint                         positionOffset;
     
+    /**
+     *  a blur image view.
+     */
     UIImageView                   * blurImageView;
+    
+    /**
+     *  a pop out button.
+     */
     UIButton                      * popOutButton;
+    
+    /**
+     *  a un-pop out button.
+     */
     UIButton                      * unPopOutButton;
     
+    /**
+     *  action's menu;  content of action's item.
+     */
     UIScrollView                  * actionsMenu;
     
-    
+    /**
+     *  the object center before transform.
+     */
     CGPoint                         transformBeforeCenter;
+    
+    /**
+     *  set a status when this object is popped out or un-pop out. 
+     *  ( just use the property when unPopOutButton is nil. )
+     */
+    BOOL                            isPoppedOut;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -60,15 +89,40 @@
  */
 - ( void ) _InitAttributes;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set this object's frame.
+ *  set this object's frame.
+ */
 - ( void ) _SetFrame;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set the pop out's & un-pop out's object's frame.
+ *  set the pop out's & un-pop out's object's frame.
+ */
 - ( void ) _SetPopOutFrame;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for calculate.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief calculate actions menu's content size after add a action's item.
+ *  calculate actions menu's content size after add a action's item.
+ *
+ *  @param newItemSize              a new action's item size.
+ *
+ *  @return size|ZeroSize           the result size or ZeroSize.
+ */
 - ( CGSize ) _CalculateActionsMenuContentSize:(CGSize)newItemSize;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief calculate a new action's item's origin position at actions menu.
+ *  calculate a new action's item's origin position at actions menu.
+ *
+ *  @return point|ZeroPoint         the result point or ZeroPoint.
+ */
 - ( CGPoint) _CalculateNewActionItemOrigin;
 
 //  ------------------------------------------------------------------------------------------------
@@ -92,15 +146,47 @@
 - ( BOOL ) _CreateBlurImageView;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a pop out button with image.
+ *  create a pop out button with image.
+ *
+ *  @param image                    pop out's normal image.
+ *  @param highlighted              pop out's highlighted image.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _CreatePopOutView:(UIImage *)image highlighted:(UIImage *)highlighted;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a un-pop out button with image.
+ *  create a un-pop out button with image.
+ *
+ *  @param image                    un-pop out's image.
+ *  @param highlighted              un-pop out's highlighted image.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _CreateUnPopOutView:(UIImage *)image highlighted:(UIImage *)highlighted;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a actions menu.
+ *  create a actions menu, for be added by action's item
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _CreateActionsMenu;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a action item with image.
+ *
+ *  @param image                    action item's normal image.
+ *  @param highlighted              action item's highlighted image.
+ *
+ *  @return button|nil              a action item or nil.
+ */
 - ( UIButton * ) _CreateActionItem:(UIImage *)image highlighted:(UIImage *)highlighted;
 
 //  ------------------------------------------------------------------------------------------------
@@ -135,6 +221,7 @@
     actionsMenu                     = nil;
     
     transformBeforeCenter           = CGPointZero;
+    isPoppedOut                     = NO;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -236,6 +323,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for calculate.
 //  ------------------------------------------------------------------------------------------------
 - ( CGSize ) _CalculateActionsMenuContentSize:(CGSize)newItemSize
 {
@@ -278,7 +366,6 @@
     newOrigin.x                     = ( [idObject frame].origin.x + [idObject frame].size.width + 2.0f );
     return newOrigin;
 }
-
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -359,6 +446,14 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _PopOutAction:(id) sender
 {
+    //  when un-pop out button is nil.
+    if ( ( nil == unPopOutButton ) && ( YES == isPoppedOut ) )
+    {
+        //  change this touch action.
+        [self                       _UnPopOutAction: sender];
+        return;
+    }
+    
     CGPoint                         transformCenter;
 
     transformBeforeCenter           = [self center];
@@ -394,6 +489,10 @@
         {
             [popOutButton           setHidden: YES];
             [unPopOutButton         setHidden: NO];
+        }
+        else
+        {
+            isPoppedOut             = YES;
         }
     }];
     
@@ -466,6 +565,7 @@
             [unPopOutButton         setHidden: YES];
         }
         transformBeforeCenter       = CGPointZero;
+        isPoppedOut                 = NO;
     }];
 }
 
