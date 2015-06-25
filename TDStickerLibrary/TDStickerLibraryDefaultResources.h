@@ -163,6 +163,14 @@ static  NSString  * const kTDStickerLibraryDefaultImagesInDirectory     = @"Imag
 
 - ( UIImage * ) popMenuUnPopOutImageHightlighted;
 
+- ( UIImage * ) popItemActionWebsiteImage;
+
+- ( UIImage * ) popItemActionWebsiteImageHightlighted;
+
+- ( UIImage * ) popItemActionEMailImage;
+
+- ( UIImage * ) popItemActionEMailImageHightlighted;
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

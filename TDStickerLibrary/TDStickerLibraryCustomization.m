@@ -882,6 +882,47 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popItemActionWebsiteImage
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources popItemActionWebsiteImage];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popItemActionWebsiteImageHightlighted
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources popItemActionWebsiteImageHightlighted];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popItemActionEMailImage
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources popItemActionEMailImage];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popItemActionEMailImageHightlighted
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources popItemActionEMailImageHightlighted];
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 @end

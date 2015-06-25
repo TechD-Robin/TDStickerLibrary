@@ -331,7 +331,69 @@
     return [image imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popItemActionWebsiteImage
+{
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_public_black_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [self sysStyleTintedColor] colorAlpha: [self sysStyleTintedColorAlpha]];    
+}
 
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popItemActionWebsiteImageHightlighted
+{
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_public_black_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    
+    image                           = [image imageWithTintedColor: [UIColor whiteColor]];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popItemActionEMailImage
+{
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_email_black_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [self sysStyleTintedColor] colorAlpha: [self sysStyleTintedColorAlpha]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popItemActionEMailImageHightlighted
+{
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_email_black_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    
+    image                           = [image imageWithTintedColor: [UIColor whiteColor]];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

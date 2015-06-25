@@ -567,6 +567,14 @@
 - ( UIImage * ) popMenuUnPopOutImage;
 
 - ( UIImage * ) popMenuUnPopOutImageHightlighted;
+
+- ( UIImage * ) popItemActionWebsiteImage;
+
+- ( UIImage * ) popItemActionWebsiteImageHightlighted;
+
+- ( UIImage * ) popItemActionEMailImage;
+
+- ( UIImage * ) popItemActionEMailImageHightlighted;
 //  ------------------------------------------------------------------------------------------------
 
 
