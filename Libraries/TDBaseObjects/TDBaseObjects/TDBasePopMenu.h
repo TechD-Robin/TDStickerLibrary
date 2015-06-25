@@ -89,7 +89,19 @@ typedef NS_ENUM( NSInteger, TDBasePopMenuPosition ){
               target:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a inter item spacing of actions contents.
+ *  set a inter item spacing of actions contents.
+ *
+ *  @param interitemSpacing         inter item spacing.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) setInteritemSpacing:(CGFloat)interitemSpacing;
 
+
+//  ------------------------------------------------------------------------------------------------
 
 
 @end

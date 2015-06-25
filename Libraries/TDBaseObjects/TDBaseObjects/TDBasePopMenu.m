@@ -54,6 +54,11 @@
     UIScrollView                  * actionsMenu;
     
     /**
+     *  actions menu's inter item spacing.
+     */
+    CGFloat                         actionsMenuInteritemSpacing;
+    
+    /**
      *  the object center before transform.
      */
     CGPoint                         transformBeforeCenter;
@@ -102,6 +107,13 @@
  *  set the pop out's & un-pop out's object's frame.
  */
 - ( void ) _SetPopOutFrame;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set the actions menu object's frame.
+ *  set the actions menu object's frame.
+ */
+- ( void ) _SetActionsMenuFrame;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for calculate.
@@ -219,6 +231,7 @@
     unPopOutButton                  = nil;
 
     actionsMenu                     = nil;
+    actionsMenuInteritemSpacing     = 0.0f;
     
     transformBeforeCenter           = CGPointZero;
     isPoppedOut                     = NO;
@@ -261,8 +274,8 @@
             }
             if ( nil != actionsMenu )
             {
-                frame.size.width            += [actionsMenu bounds].size.width;
-                frame.size.width            -= positionOffset.x;
+                frame.size.width    += [actionsMenu bounds].size.width;
+                frame.size.width    -= positionOffset.x;
             }
             
             break;
@@ -323,6 +336,70 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( void ) _SetActionsMenuFrame
+{
+    if ( ( nil == actionsMenu ) || ( [[actionsMenu subviews] count] <= 1 ) )
+    {
+        return;
+    }
+    
+    CGSize                          contentSize;
+    CGRect                          menuRect;
+    CGRect                          objectRect;
+    CGPoint                         nextObjectPoint;
+    CGPoint                         scrollOffset;
+    CGFloat                         screenWidth;
+    
+    objectRect                      = CGRectZero;
+    nextObjectPoint                 = CGPointZero;
+    scrollOffset                    = CGPointZero;
+    contentSize                     = [actionsMenu contentSize];
+    menuRect                        = [actionsMenu frame];
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    for ( id idObject in [actionsMenu subviews] )
+    {
+        if ( ( nil == idObject ) || ( [idObject isKindOfClass: [UIButton class]] == NO ) )
+        {
+            continue;
+        }
+        
+        objectRect                  = [idObject frame];
+        objectRect.origin.x         = nextObjectPoint.x;
+        [idObject                   setFrame: objectRect];
+//        [idObject                   setBackgroundColor: [UIColor orangeColor]];
+        
+        nextObjectPoint.x           += ( [idObject bounds].size.width + actionsMenuInteritemSpacing );
+    }
+    contentSize.width               = ( nextObjectPoint.x - actionsMenuInteritemSpacing );
+    
+    menuRect.size.width             = contentSize.width;
+    if ( ( ( screenWidth / 2.0f ) - [popOutButton bounds].size.width ) < contentSize.width )
+    {
+        menuRect.size.width         = ( ( screenWidth / 2.0f ) - [popOutButton bounds].size.width );
+    }
+    
+    switch ( popMenuPosition )
+    {
+        case TDBasePopMenuPositionLeftTop:
+        {
+            menuRect.origin.x       = 0;
+            scrollOffset.x          = ( ( contentSize.width > menuRect.size.width ) ? ( contentSize.width - menuRect.size.width ) : 0.0f );
+            break;
+        }
+        case TDBasePopMenuPositionRightTop:
+        {
+            break;
+        }
+        default:
+            break;
+    }
+    
+    [actionsMenu                    setFrame: menuRect];
+    [actionsMenu                    setContentSize: contentSize];
+    [actionsMenu                    setContentOffset: scrollOffset];
+}
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark method for calculate.
 //  ------------------------------------------------------------------------------------------------
 - ( CGSize ) _CalculateActionsMenuContentSize:(CGSize)newItemSize
@@ -340,7 +417,7 @@
     CGSize                          contentSize;
     
     contentSize                     = [actionsMenu contentSize];
-    contentSize.width               += ( newItemSize.width + 2.0f );
+    contentSize.width               += ( newItemSize.width + actionsMenuInteritemSpacing );
     contentSize.height              = MAX( contentSize.height, newItemSize.height );
     return contentSize;
 }
@@ -363,7 +440,7 @@
         return CGPointZero;
     }
     
-    newOrigin.x                     = ( [idObject frame].origin.x + [idObject frame].size.width + 2.0f );
+    newOrigin.x                     = ( [idObject frame].origin.x + [idObject frame].size.width + actionsMenuInteritemSpacing );
     return newOrigin;
 }
 
@@ -437,9 +514,9 @@
     
     [popOutButton                   setFrame: buttonRect];
     [popOutButton                   addTarget: self action: @selector( _PopOutAction: ) forControlEvents: UIControlEventTouchUpInside];
+//    [popOutButton                   setBackgroundColor: [UIColor greenColor]];
     
     [self                           addSubview: popOutButton];
-//    [self                           setBackgroundColor: [UIColor orangeColor]];
     return YES;
 }
 
@@ -525,6 +602,7 @@
     [unPopOutButton                 setFrame: buttonRect];
     [unPopOutButton                 addTarget: self action: @selector( _UnPopOutAction: ) forControlEvents: UIControlEventTouchUpInside];
     [unPopOutButton                 setHidden: YES];
+//    [unPopOutButton                 setBackgroundColor: [UIColor greenColor]];
     
     [self                           addSubview: unPopOutButton];
     return YES;
@@ -649,32 +727,8 @@
     [actionsMenu                    addSubview: actionButton];
     [actionsMenu                    setContentSize: contentSize];
     
-    //  reset menu's frame.
-    menuRect.size.width             = contentSize.width;
-    if ( ( ( screenWidth / 2.0f ) - [popOutButton bounds].size.width ) < contentSize.width )
-    {
-        menuRect.size.width         = ( ( screenWidth / 2.0f ) - [popOutButton bounds].size.width );
-    }
-    
-    switch ( popMenuPosition )
-    {
-        case TDBasePopMenuPositionLeftTop:
-        {
-            menuRect.origin.x       = 0;
-            scrollOffset.x          = ( ( contentSize.width > menuRect.size.width ) ? ( contentSize.width - menuRect.size.width ) : 0.0f );
-            break;
-        }
-        case TDBasePopMenuPositionRightTop:
-        {
-            break;
-        }
-        default:
-            break;
-    }
-    
-    
-    [actionsMenu                    setFrame: menuRect];
-    [actionsMenu                    setContentOffset: scrollOffset];
+    //  reset actions menu's frame.
+    [self                           _SetActionsMenuFrame];
     [self                           _SetFrame];
     return actionButton;
 }
@@ -725,6 +779,7 @@
     [self                           _CreateActionsMenu];
     
     [self                           _SetFrame];
+//    [self                           setBackgroundColor: [UIColor purpleColor]];
     return self;
 }
 
@@ -758,6 +813,18 @@
         return YES;
     }
     [actionButton                   addTarget: target action: action forControlEvents: controlEvents];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) setInteritemSpacing:(CGFloat)interitemSpacing
+{
+    actionsMenuInteritemSpacing     = interitemSpacing;
+    
+    //  re-calculate object's frame.
+    [self                           _SetActionsMenuFrame];
+    [self                           _SetFrame];
     return YES;
 }
 
