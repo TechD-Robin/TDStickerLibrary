@@ -255,7 +255,7 @@
 @property( nonatomic, assign ) CGSize                       tableCommonHeaderReferenceSize;
 
 /**
- *  common minimum interitem spacing of table's section.
+ *  common minimum inter item spacing of table's section.
  */
 @property( nonatomic, assign ) CGFloat                      tableMinimumInteritemSpacing;
 
@@ -290,6 +290,13 @@
  *  line spacing of introView's contents.
  */
 @property( nonatomic, assign ) CGFloat                      introViewContentsLineSpacing;
+
+
+//  for pop menu.
+/**
+ *  pop menu's inter item spacing.
+ */
+@property( nonatomic, assign ) CGFloat                      popMenuInteritemSpacing;
 
 
 //  for Sticker Solo View.

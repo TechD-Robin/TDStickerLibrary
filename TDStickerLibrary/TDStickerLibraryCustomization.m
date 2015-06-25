@@ -275,6 +275,9 @@
     [self                           setIntroViewDescriptionFontSize: 12.0f];
     [self                           setIntroViewContentsLineSpacing: 4.0f];
 
+    //  for pop menu.
+    [self                           setPopMenuInteritemSpacing: 2.0f];
+
     
     //  for Sticker Solo View.
     //stateFlags.stickerSoloViewEnabled       = YES;
@@ -544,6 +547,9 @@
 @synthesize introViewIllustratorFontSize    = _introViewIllustratorFontSize;
 @synthesize introViewDescriptionFontSize    = _introViewDescriptionFontSize;
 @synthesize introViewContentsLineSpacing    = _introViewContentsLineSpacing;
+
+//  for pop menu.
+@synthesize popMenuInteritemSpacing         = _popMenuInteritemSpacing;
 
 //  for StickeSolo View.
 

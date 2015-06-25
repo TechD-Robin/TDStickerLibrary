@@ -64,6 +64,9 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
      */
     UIView                        * introView;
     
+    /**
+     *  a stamp view of intro.
+     */
     UIImageView                   * introStampView;
     
     /**
@@ -589,7 +592,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     
     
-    [introView                      setBackgroundColor: [UIColor brownColor]];
+//    [introView                      setBackgroundColor: [UIColor brownColor]];
     
     return YES;
 }
@@ -629,7 +632,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     [introView                      addSubview: introStampView];
 
-    [introStampView                 setBackgroundColor: [UIColor orangeColor]];
+//    [introStampView                 setBackgroundColor: [UIColor orangeColor]];
 
     if ( [pageConfigure dataMode: &mode atIndex: kTDStickerLibraryConfigureIndexAfterSwap] == NO )
     {
@@ -814,7 +817,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
                 [illustratorLabel   setAttributedText: attributedString];
                 [introView          addSubview: illustratorLabel];
                 
-                [illustratorLabel   setBackgroundColor: [UIColor cyanColor]];
+//                [illustratorLabel   setBackgroundColor: [UIColor cyanColor]];
             }
         }
     }
@@ -848,7 +851,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
                 
                 [introView          addSubview: descriptionLabel];
                 
-                [descriptionLabel   setBackgroundColor: [UIColor purpleColor]];
+//                [descriptionLabel   setBackgroundColor: [UIColor purpleColor]];
             }
         }
     }
@@ -1160,7 +1163,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     unPopOutMenuImage               = [customization popMenuUnPopOutImage];
     unPopOutMenuImageHighlighted    = [customization popMenuUnPopOutImageHightlighted];
     [popMenu                        setUnPopOut: unPopOutMenuImage highlighted: unPopOutMenuImageHighlighted];
-    
+    //[popMenu                        setInteritemSpacing: [customization popMenuInteritemSpacing]];
     [[self                          view] addSubview: popMenu];
     
     //  add pop menu actions item.
@@ -1178,6 +1181,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
                                        target: self action: @selector( _WriteEMailAction: ) forControlEvents: UIControlEventTouchUpInside];
     }
     
+    [popMenu                        setInteritemSpacing: [customization popMenuInteritemSpacing]];
     return YES;
 }
 
