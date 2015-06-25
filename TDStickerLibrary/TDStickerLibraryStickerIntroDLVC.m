@@ -251,7 +251,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @briefcreate a page for sticker into this object.
+ *  @brief create a page for sticker into this object.
  *  create a page for sticker into this object.
  *
  *  @return YES|NO                  method success or failure.
@@ -260,6 +260,12 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a pop menu for extension action.
+ *  create a pop menu for extension action; like send email or open hyperlink.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _createPopMenu;
 
 
@@ -295,11 +301,22 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 - ( BOOL ) _IsHaveIntroInformation;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check the configure have website hyperlink information or not.
+ *  check the configure have website hyperlink or not.
+ *
+ *  @return YES|NO                  have information or not.
+ */
 - ( BOOL ) _IsHaveWebSiteInformation;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check the configure have email address information or not.
+ *  check the configure have email address information or not.
+ *
+ *  @return YES|NO                  have information or not.
+ */
 - ( BOOL ) _IsHaveEMailInformation;
-
 
 //  ------------------------------------------------------------------------------------------------
 /**

@@ -560,21 +560,77 @@
 - ( UIImage * ) sectionHeaderArrowUpImageDisabled;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the pop menu's pop out image.
+ *  get the pop menu's pop out image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
 - ( UIImage * ) popMenuPopOutImage;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the pop menu's pop out highlighted image.
+ *  get the pop menu's pop out highlighted image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
 - ( UIImage * ) popMenuPopOutImageHightlighted;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the pop menu's un-pop out image.
+ *  get the pop menu's un-pop out image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
 - ( UIImage * ) popMenuUnPopOutImage;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the pop menu's un-pop out highlighted image.
+ *  get the pop menu's un-pop out highlighted image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
 - ( UIImage * ) popMenuUnPopOutImageHightlighted;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the pop items's website action's image.
+ *  get the pop items's website action's image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
 - ( UIImage * ) popItemActionWebsiteImage;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the pop items's website action's highlighted image.
+ *  get the pop items's website action's highlighted image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
 - ( UIImage * ) popItemActionWebsiteImageHightlighted;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the pop items's email action's image.
+ *  get the pop items's email action's image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
 - ( UIImage * ) popItemActionEMailImage;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the pop items's email action's highlighted image.
+ *  get the pop items's email action's highlighted image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
 - ( UIImage * ) popItemActionEMailImageHightlighted;
+
 //  ------------------------------------------------------------------------------------------------
 
 
