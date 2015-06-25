@@ -1152,29 +1152,64 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         
         [popMenu                    AddAction: [customization popItemActionWebsiteImage]
                                   highlighted: [customization popItemActionWebsiteImageHightlighted]
-                                       target: self action: @selector( _ActionTest: ) forControlEvents: UIControlEventTouchUpInside];
+                                       target: self action: @selector( _GotoWebsiteAction: ) forControlEvents: UIControlEventTouchUpInside];
     }
     if ( [self _IsHaveEMailInformation] == YES )
     {
         [popMenu                    AddAction: [customization popItemActionEMailImage]
                                   highlighted: [customization popItemActionEMailImageHightlighted]
-                                       target: self action: @selector( _ActionTestb: ) forControlEvents: UIControlEventTouchUpInside];
+                                       target: self action: @selector( _WriteEMailAction: ) forControlEvents: UIControlEventTouchUpInside];
     }
     
     return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) _ActionTest: (id) sender
+- ( void ) _GotoWebsiteAction: (id) sender
 {
-    NSLog( @"test : %@", sender );
+    if ( [self _IsHaveWebSiteInformation] == NO )
+    {
+        return;
+    }
     
+    NSInteger                       index;
+    NSString                      * website;
+    NSURL                         * websiteURL;
+    
+    index                           = kTDStickerLibraryConfigureIndexAfterSwap;
+    website                         = [pageConfigure illustratorWebsiteAtIndex: index];
+    website                         = [@"http://" stringByAppendingString: website];
+    websiteURL                      = [NSURL URLWithString: website];
+    if ( nil == websiteURL )
+    {
+        return;
+    }
+    
+    [[UIApplication                 sharedApplication] openURL: websiteURL];
 }
 
-- ( void ) _ActionTestb: (id) sender
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _WriteEMailAction: (id) sender
 {
-    NSLog( @"test b: %@", sender );
+    if ( [self _IsHaveEMailInformation] == NO )
+    {
+        return;
+    }
     
+    NSInteger                       index;
+    NSString                      * email;
+    NSURL                         * emailURL;
+    
+    index                           = kTDStickerLibraryConfigureIndexAfterSwap;
+    email                           = [pageConfigure illustratorEMailAtIndex: index];
+    email                           = [@"mailto:" stringByAppendingString: email];
+    emailURL                        = [NSURL URLWithString: email];
+    if ( nil == emailURL )
+    {
+        return;
+    }
+    
+    [[UIApplication                 sharedApplication] openURL: emailURL];
 }
 
 //  ------------------------------------------------------------------------------------------------
