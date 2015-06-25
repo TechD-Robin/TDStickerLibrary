@@ -295,6 +295,13 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 - ( BOOL ) _IsHaveIntroInformation;
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _IsHaveWebSiteInformation;
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _IsHaveEMailInformation;
+
+
+//  ------------------------------------------------------------------------------------------------
 /**
  *  @brief check the configure have download information or not.
  *  check the configure have download information or not.
@@ -1109,6 +1116,12 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _createPopMenu
 {
+    //  cannot find configure, skip create the pop menu.
+    if ( ( [self _IsHaveWebSiteInformation] == NO ) && ( [self _IsHaveEMailInformation] == NO ) )
+    {
+        return NO;
+    }
+    
     CGFloat                         statusBarHeight;
     UIImage                       * popOutMenuImage;
     UIImage                       * popOutMenuImageHighlighted;
@@ -1132,7 +1145,36 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     [popMenu                        setUnPopOut: unPopOutMenuImage highlighted: unPopOutMenuImageHighlighted];
     
     [[self                          view] addSubview: popMenu];
+    
+    //  add pop menu actions item.
+    if ( [self _IsHaveWebSiteInformation] == YES )
+    {
+        
+        [popMenu                    AddAction: [customization popItemActionWebsiteImage]
+                                  highlighted: [customization popItemActionWebsiteImageHightlighted]
+                                       target: self action: @selector( _ActionTest: ) forControlEvents: UIControlEventTouchUpInside];
+    }
+    if ( [self _IsHaveEMailInformation] == YES )
+    {
+        [popMenu                    AddAction: [customization popItemActionEMailImage]
+                                  highlighted: [customization popItemActionEMailImageHightlighted]
+                                       target: self action: @selector( _ActionTestb: ) forControlEvents: UIControlEventTouchUpInside];
+    }
+    
     return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _ActionTest: (id) sender
+{
+    NSLog( @"test : %@", sender );
+    
+}
+
+- ( void ) _ActionTestb: (id) sender
+{
+    NSLog( @"test b: %@", sender );
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -1199,13 +1241,13 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     NSParameterAssert( [pageConfigure infoDataCount] == 1 );
 
     NSInteger                       index;
-    NSInteger                       introImageIndex;
+//    NSInteger                       introImageIndex;
     NSString                      * illustrator;
     NSString                      * email;
     NSString                      * website;
 //    BOOL                            result;
     
-    introImageIndex                 = 0;
+//    introImageIndex                 = 0;
     index                           = kTDStickerLibraryConfigureIndexAfterSwap;
     illustrator                     = [pageConfigure illustratorAtIndex: index];
     email                           = [pageConfigure illustratorEMailAtIndex: index];
@@ -1229,6 +1271,40 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         return YES;
     }
     return NO;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _IsHaveWebSiteInformation
+{
+    NSParameterAssert( [pageConfigure infoDataCount] == 1 );
+    
+    NSInteger                       index;
+    NSString                      * website;
+    
+    index                           = kTDStickerLibraryConfigureIndexAfterSwap;
+    website                         = [pageConfigure illustratorWebsiteAtIndex: index];
+    if ( ( nil == website ) || ( [website length] == 0 ) )
+    {
+        return NO;
+    }
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _IsHaveEMailInformation
+{
+    NSParameterAssert( [pageConfigure infoDataCount] == 1 );
+    
+    NSInteger                       index;
+    NSString                      * email;
+    
+    index                           = kTDStickerLibraryConfigureIndexAfterSwap;
+    email                           = [pageConfigure illustratorEMailAtIndex: index];
+    if ( ( nil == email ) || ( [email length] == 0 ) )
+    {
+        return NO;
+    }
+    return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------

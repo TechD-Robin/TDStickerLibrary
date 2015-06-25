@@ -118,7 +118,7 @@
  *  @brief create a blur image by core graphic method.
  *  create a blur image by core graphic method.
  *
- *  @return object|nil              a blur image object or ni.
+ *  @return object|nil              a blur image object or nil.
  */
 - ( UIImage * ) _CreateBlurImage;
 
