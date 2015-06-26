@@ -89,6 +89,7 @@ typedef NS_ENUM( NSInteger, TDBasePopMenuPosition ){
               target:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for get properties of object.
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief set a inter item spacing of actions contents.
@@ -100,6 +101,24 @@ typedef NS_ENUM( NSInteger, TDBasePopMenuPosition ){
  */
 - ( BOOL ) setInteritemSpacing:(CGFloat)interitemSpacing;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a duration of animation of pop out and un-pop out.
+ *  set a duration of animation of pop out and un-pop out.
+ *
+ *  @param duration                 animate duration.(sec.)
+ */
+- ( void ) setPopOutAnimateDuration:(CGFloat)duration;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a blur layer's properties.
+ *  set a blur layer's properties.
+ *
+ *  @param layerColor               blur layer's color.
+ *  @param widthScale               blur layer's width; scale from this object's width. ( 1.0f is equal object's width; 0.0f is equal unuse blur layer )
+ */
+- ( void ) setBlurLayer:(UIColor *)layerColor scale:(CGFloat)widthScale;
 
 //  ------------------------------------------------------------------------------------------------
 

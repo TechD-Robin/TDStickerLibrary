@@ -39,6 +39,16 @@
     UIImageView                   * blurImageView;
     
     /**
+     *  blur color of blur image. ( blur image's background color. )
+     */
+    UIColor                       * blurLayerColor;
+    
+    /**
+     *  blur layer's width scale from the object's width.
+     */
+    CGFloat                         blurLayerWidthScale;
+    
+    /**
      *  a pop out button.
      */
     UIButton                      * popOutButton;
@@ -57,6 +67,11 @@
      *  actions menu's inter item spacing.
      */
     CGFloat                         actionsMenuInteritemSpacing;
+    
+    /**
+     *  the object's pop out & un-pop out animate duration.
+     */
+    CGFloat                         transformPopOutDuration;
     
     /**
      *  the object center before transform.
@@ -144,9 +159,11 @@
  *  @brief create a blur image by core graphic method.
  *  create a blur image by core graphic method.
  *
+ *  @param blurColor                a blur's color.
+ *
  *  @return object|nil              a blur image object or ni.
  */
-- ( UIImage * ) _CreateBlurImage;
+- ( UIImage * ) _CreateBlurImage:(UIColor *)blurColor;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -227,12 +244,15 @@
     positionOffset                  = CGPointZero;
     
     blurImageView                   = nil;
+    blurLayerColor                  = nil;
+    blurLayerWidthScale             = 2.0f;
     popOutButton                    = nil;
     unPopOutButton                  = nil;
 
     actionsMenu                     = nil;
     actionsMenuInteritemSpacing     = 0.0f;
     
+    transformPopOutDuration         = 0.33f;
     transformBeforeCenter           = CGPointZero;
     isPoppedOut                     = NO;
 }
@@ -290,8 +310,9 @@
     [self                           setFrame: frame];
     if ( nil != blurImageView )
     {
-        frame.origin                = CGPointMake( -( frame.size.width / 2.0f ), 0.0f );
-        frame.size.width            = ( frame.size.width * 2.0f );
+        frame.size.width            = ( frame.size.width * blurLayerWidthScale );
+        frame.origin                = CGPointMake( -( ( frame.size.width - [self frame].size.width ) / 2.0f ), 0.0f );
+        
         [blurImageView              setFrame: frame];
     }
     [self                           _SetPopOutFrame];
@@ -448,8 +469,13 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create object.
 //  ------------------------------------------------------------------------------------------------
-- ( UIImage * ) _CreateBlurImage
+- ( UIImage * ) _CreateBlurImage:(UIColor *)blurColor
 {
+    if ( nil == blurColor )
+    {
+        return nil;
+    }
+    
     CGRect                          mainRect;
     UIImage                       * image;
     CGContextRef                    context;
@@ -460,7 +486,7 @@
     UIGraphicsBeginImageContext( mainRect.size );
     context                         = UIGraphicsGetCurrentContext();
     
-    CGContextSetFillColorWithColor( context, [[[UIColor darkGrayColor] colorWithAlphaComponent: 0.66f] CGColor] );
+    CGContextSetFillColorWithColor( context, [blurLayerColor CGColor] );
     CGContextFillRect( context, mainRect );
     CGContextStrokePath( context );
     
@@ -478,22 +504,29 @@
         return YES;
     }
     
-    UIImage                       * blurImage;
+//    UIImage                       * blurImage;
+//    
+//    blurImage                       = [self _CreateBlurImage: blurLayerColor];
+//    if ( nil == blurImage )
+//    {
+//        return NO;
+//    }
+//    blurImageView                   = [[UIImageView alloc] initWithImage: blurImage];
     
-    blurImage                       = [self _CreateBlurImage];
-    if ( nil == blurImage )
+    blurImageView                   = [[UIImageView alloc] init];
+    if ( nil == blurImageView )
     {
         return NO;
     }
     
-    blurImageView                   = [[UIImageView alloc] initWithImage: blurImage];
-    if ( nil == blurImage )
+    if ( nil != blurLayerColor )
     {
-        return NO;
+        [blurImageView              setBackgroundColor: blurLayerColor];
     }
     
     [blurImageView                  setAlpha: 0.0f];
     [self                           addSubview: blurImageView];
+    [self                           sendSubviewToBack: blurImageView];
     return YES;
 }
 
@@ -552,7 +585,7 @@
             break;
     }
     
-    [UIView                         animateWithDuration: 0.33f animations: ^
+    [UIView                         animateWithDuration: transformPopOutDuration animations: ^
     {
         [self                       setCenter: transformCenter];
         if ( nil != blurImageView )
@@ -627,7 +660,7 @@
         default:
             break;
     }
-    [UIView                         animateWithDuration: 0.33f animations: ^
+    [UIView                         animateWithDuration: transformPopOutDuration animations: ^
     {
         [self                       setCenter: transformCenter];
         if ( nil != blurImageView )
@@ -817,6 +850,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get properties of object.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) setInteritemSpacing:(CGFloat)interitemSpacing
 {
@@ -826,6 +860,36 @@
     [self                           _SetActionsMenuFrame];
     [self                           _SetFrame];
     return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setPopOutAnimateDuration:(CGFloat)duration
+{
+    duration                        = ( ( 0.1f > duration  ) ? 0.1f : duration );
+    transformPopOutDuration         = duration;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setBlurLayer:(UIColor *)layerColor scale:(CGFloat)widthScale
+{
+    if ( nil == layerColor )
+    {
+        layerColor                  = [UIColor clearColor];
+    }
+    blurLayerColor                  = layerColor;
+    
+    if ( 0 > widthScale )
+    {
+        widthScale                  = 0;
+    }
+    blurLayerWidthScale             = widthScale;
+
+    if ( nil == blurImageView )
+    {
+        [self                       _CreateBlurImageView];
+    }
+    [blurImageView                  setBackgroundColor: layerColor];
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
