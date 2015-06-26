@@ -298,6 +298,22 @@
  */
 @property( nonatomic, assign ) CGFloat                      popMenuInteritemSpacing;
 
+/**
+ *  duration of animate when pop menu pop out.
+ */
+@property( nonatomic, assign ) CGFloat                      popMenuPopOutAnimateDuration;
+
+/**
+ *  pop menu's blur layer's color.
+ */
+@property( nonatomic, copy )   UIColor                    * popMenuBlurLayerColor;
+
+/**
+ *  pop menu's blur layer width scale. ( 1.0f is equal pop menu's width; 0.0f is equal unuse blur layer )
+ */
+@property( nonatomic, assign ) CGFloat                      popMenuBlayLayerWidthScale;
+
+
 
 //  for Sticker Solo View.
 /**

@@ -277,6 +277,9 @@
 
     //  for pop menu.
     [self                           setPopMenuInteritemSpacing: 2.0f];
+    [self                           setPopMenuPopOutAnimateDuration: 0.33f];
+    [self                           setPopMenuBlurLayerColor: [[UIColor darkGrayColor] colorWithAlphaComponent: 0.66f]];
+    [self                           setPopMenuBlayLayerWidthScale: 2.0f];
 
     
     //  for Sticker Solo View.
@@ -550,6 +553,9 @@
 
 //  for pop menu.
 @synthesize popMenuInteritemSpacing         = _popMenuInteritemSpacing;
+@synthesize popMenuPopOutAnimateDuration    = _popMenuPopOutAnimateDuration;
+@synthesize popMenuBlurLayerColor           = _popMenuBlurLayerColor;
+@synthesize popMenuBlayLayerWidthScale      = _popMenuBlayLayerWidthScale;
 
 //  for StickeSolo View.
 

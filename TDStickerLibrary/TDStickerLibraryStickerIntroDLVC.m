@@ -1164,6 +1164,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     unPopOutMenuImageHighlighted    = [customization popMenuUnPopOutImageHightlighted];
     [popMenu                        setUnPopOut: unPopOutMenuImage highlighted: unPopOutMenuImageHighlighted];
     //[popMenu                        setInteritemSpacing: [customization popMenuInteritemSpacing]];
+    [popMenu                        setPopOutAnimateDuration: [customization popMenuPopOutAnimateDuration]];
+    [popMenu                        setBlurLayer: [customization popMenuBlurLayerColor] scale: [customization popMenuBlayLayerWidthScale]];
     [[self                          view] addSubview: popMenu];
     
     //  add pop menu actions item.
