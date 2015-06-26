@@ -480,7 +480,7 @@
         
         //  when mode not equal normal.
         sectionMode                 = 0;
-        if ( ( [pageConfigure dataMode: &sectionMode atIndex: i] == NO ) || ( 0 == sectionMode ) )
+        if ( ( [pageConfigure dataMode: &sectionMode atIndex: i] == NO ) || ( TDStickerLibraryPageSectionModeNormal == sectionMode ) )
         {
             continue;
         }
@@ -627,7 +627,7 @@
     imageTotal                      = [sectionStates numberOfTotalImagesInSection: section];
 
     //  when image count less then row's capacity, equal no more content.
-    if ( 0 == sectionMode )
+    if ( TDStickerLibraryPageSectionModeNormal == sectionMode )
     {
         *moreContent                = ( ( imageTotal > rowCapacity ) ? YES : NO );
         return YES;
@@ -854,7 +854,7 @@
             return;
         }
         
-        if ( 0 == sectionMode )
+        if ( TDStickerLibraryPageSectionModeNormal == sectionMode )
         {
             [self                   _CollectionView: self didSelectNormalModeHeaderInSection: section];
         }
@@ -1280,7 +1280,7 @@
         return nil;
     }
     
-    if ( 0 == sectionMode )
+    if ( TDStickerLibraryPageSectionModeNormal == sectionMode )
     {
         cell                        = [collectionView dequeueReusableCellWithReuseIdentifier: NSStringFromClass( [UICollectionViewCell class] ) forIndexPath: indexPath];
         stickerView                 = [self _CreateCommonSticker: indexPath];
@@ -1370,7 +1370,7 @@
     NSInteger                       sectionMode;
     
     sectionMode                     = 0;
-    if ( ( [pageConfigure dataMode: &sectionMode atIndex: indexPath.section] == NO ) || ( 0 == sectionMode ) )
+    if ( ( [pageConfigure dataMode: &sectionMode atIndex: indexPath.section] == NO ) || ( TDStickerLibraryPageSectionModeNormal == sectionMode ) )
     {
         return [customization tableCommonItemSize];
     }
@@ -1496,7 +1496,7 @@
     NSInteger                       sectionMode;
     
     sectionMode                     = 0;
-    if ( ( [pageConfigure dataMode: &sectionMode atIndex: section] == YES ) && ( 0 != sectionMode ) )
+    if ( ( [pageConfigure dataMode: &sectionMode atIndex: section] == YES ) && ( TDStickerLibraryPageSectionModeNormal != sectionMode ) )
     {
         [self _CollectionView: collectionView didSelectPreviewModeHeaderInSection: section];
         return;

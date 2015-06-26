@@ -14,6 +14,31 @@
 #import "TDStickerLibraryUnzip.h"
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare enumeration.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  enumeration for Sticker Library's Page Section data mode.
+ */
+typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionDataMode ){
+    /**
+     *  data mode is normal.
+     */
+    TDStickerLibraryPageSectionModeNormal           = 0,
+    /**
+     *  data mode is preview. ( preview image is high quality. )
+     */
+    TDStickerLibraryPageSectionModePreview          = 1,
+    /**
+     *  data mode is preview & must download.
+     */
+    TDStickerLibraryPageSectionModePreviewDownload  = 2,
+};
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 /**
  *  a data object for unzip a zipped file of Sticker Library Tab Page Info.

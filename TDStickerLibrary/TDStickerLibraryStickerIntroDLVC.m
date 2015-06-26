@@ -639,7 +639,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         return YES;
     }
     
-    if ( 0 == mode )
+    if ( TDStickerLibraryPageSectionModeNormal == mode )
     {
         stampImage                  = [self _IntroStampImageWithNormalMode];
         if ( nil == stampImage )
