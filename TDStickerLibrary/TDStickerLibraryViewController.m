@@ -352,7 +352,7 @@
     
     button                          = [UIButton buttonWithImage: [customization sysStyleBackToMenuImage]
                                                     highlighted: [customization sysStyleBackToMenuImageHighlighted]
-                                                         origin: CGPointMake( 6.0f, 0.0f )];
+                                                         origin: CGPointMake( [customization edgeActionObjectInsets].left, [customization edgeActionObjectInsets].top )];
     [topView                        addSubview: button];
     [button                         addTarget: self action: @selector( _BackToMenuAction: ) forControlEvents: UIControlEventTouchUpInside];
     

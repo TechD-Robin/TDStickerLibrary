@@ -211,7 +211,8 @@
     {
         return;
     }
-    offset                          = CGPointMake( ( [self bounds].size.width - [image size].width - 8.0f ), 0.0f );
+    offset.x                        = ( [self bounds].size.width - [image size].width - [[self customization] edgeActionObjectInsets].right );
+    offset.y                        = 0.0f;
     
     [downloadView                   setFrame: CGRectMake( offset.x, offset.y, [image size].width, [image size].height )];
     [downloadView                   setImage: image forState: UIControlStateNormal];
@@ -238,7 +239,9 @@
     {
         return;
     }
-    offset                          = CGPointMake( ( 10.0f + ( [informationView bounds].size.width / 6.0f ) ) , [informationView frame].origin.y );
+    
+    offset.x                        = ( 2.0f + [[self customization] edgeActionObjectInsets].left + ( [informationView bounds].size.width / 6.0f ) );
+    offset.y                        = [informationView frame].origin.y;
     
     [informationView                setFrame: CGRectMake( offset.x, offset.y, [informationView frame].size.width, [informationView frame].size.height )];
     [informationView                setImage: image forState: UIControlStateNormal];
@@ -271,7 +274,7 @@
         return;
     }
     
-    offset                          = CGPointMake( 8.0f, [inforArrowDownView frame].origin.y );
+    offset                          = CGPointMake( [[self customization] edgeActionObjectInsets].left, [inforArrowDownView frame].origin.y );
     arrowsRect.origin               = offset;
     arrowsRect.size                 = [arrowDownImage size];
     

@@ -165,7 +165,7 @@
  */
 //  ------------------------------------------------------------------------------------------------
 + ( UIColor * ) _TabMenuColor;
-+ ( UIColor * ) _SoloViewBlurLayerColor;
+//+ ( UIColor * ) _SoloViewBlurLayerColor;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -255,6 +255,7 @@
     
     //  for UIView.
     [self                           setNavigationBarHeight: 36.0f];
+    [self                           setEdgeActionObjectInsets: UIEdgeInsetsMake( 0.0f, 6.0f, 0.0f, 6.0f)];
     [self                           setBannerHeight: 48.0f];
     [self                           setTabMenuHeight: 50.0f];
     
@@ -293,7 +294,7 @@
     [self                           setSoloViewBlurLayerInsetSize: CGSizeMake( -12.0f, -12.0f )];
     [self                           setSoloViewBlurLayerInsetSizeOnTop: CGSizeMake( -24.0f, -24.0f )];
     [self                           setSoloViewBlurLayerAlphaOnTop: 0.9f];
-    [self                           setSoloViewBlurLayerColor: [[self class] _SoloViewBlurLayerColor] ];
+    [self                           setSoloViewBlurLayerColor: [[UIColor darkGrayColor] colorWithAlphaComponent: 0.9f]];
     [self                           setSoloViewShowAnimateDuration: 0.25f];
     [self                           setSoloViewHideAnimateDuration: 0.25f];
     
@@ -446,11 +447,11 @@
     return [UIColor colorWithRed: 0.5f green: ( 200 / 255.0f ) blue: ( 200 / 255.0f ) alpha: 1.0f ];
 }
 
-//  ------------------------------------------------------------------------------------------------
-+ ( UIColor * ) _SoloViewBlurLayerColor
-{
-    return [[UIColor darkGrayColor] colorWithAlphaComponent: 0.9f];
-}
+////  ------------------------------------------------------------------------------------------------
+//+ ( UIColor * ) _SoloViewBlurLayerColor
+//{
+//    return [[UIColor darkGrayColor] colorWithAlphaComponent: 0.9f];
+//}
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -530,6 +531,7 @@
 
 //  for UIView.
 @synthesize navigationBarHeight     = _navigationBarHeight;
+@synthesize edgeActionObjectInsets  = _edgeActionObjectInsets;
 @synthesize bannerHeight            = _bannerHeight;
 @synthesize tabMenuHeight           = _tabMenuHeight;
 

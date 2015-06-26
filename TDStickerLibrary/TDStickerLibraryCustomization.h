@@ -28,6 +28,7 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
 //  ------------------------------------------------------------------------------------------------
+#pragma mark system style.
 //  sys style.
 /**
  *  system style's assets bundle name.
@@ -151,6 +152,7 @@
 
 
 #pragma mark -
+#pragma mark system configure default.
 //  for system configure default.
 /**
  *  default's subpath of system configure.
@@ -200,6 +202,7 @@
 @property( nonatomic, assign ) NSString                   * systemConfigureTabUpdateInZippedPrefix;
 
 
+#pragma mark sticker download.
 //  for sticker download.
 /**
  *  subpath of sticker's download.
@@ -211,12 +214,18 @@
  */
 @property( nonatomic, assign ) TDGetPathDirectory           stickerDownloadDirectory;
 
-
+#pragma mark Sticker Libaray View Controller's view
 //  for UIView(Sticker Libaray View Controller's view).
 /**
  *  height of navigation bar.
  */
 @property( nonatomic, assign ) CGFloat                      navigationBarHeight;
+
+/**
+ *  edge insets of edge's action object.
+ */
+@property( nonatomic, assign ) UIEdgeInsets                 edgeActionObjectInsets;
+
 
 /**
  *  height of banner; when value is eaual 0, skip create banner view.
@@ -264,7 +273,7 @@
  */
 @property( nonatomic, assign ) CGFloat                      tableMinimumLineSpacing;
 
-
+#pragma mark Sticker Intro DLVC.
 //  for Sticker Intro DLVC.
 /**
  *  insets of introView for subview's.
@@ -291,7 +300,7 @@
  */
 @property( nonatomic, assign ) CGFloat                      introViewContentsLineSpacing;
 
-
+#pragma mark pop menu.
 //  for pop menu.
 /**
  *  pop menu's inter item spacing.
@@ -314,7 +323,7 @@
 @property( nonatomic, assign ) CGFloat                      popMenuBlayLayerWidthScale;
 
 
-
+#pragma mark Sticker Solo View.
 //  for Sticker Solo View.
 /**
  *  set the flag to use sticker solo view.

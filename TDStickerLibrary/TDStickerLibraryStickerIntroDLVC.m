@@ -507,7 +507,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     backButton                      = [UIButton buttonWithImage: [customization sysStyleBackImage]
                                                     highlighted: [customization sysStyleBackImageHighlighted]
                                                        disabled: [customization sysStyleBackImageDisabled]
-                                                       selected: nil origin: CGPointMake( 6.0f, 0.0f )];
+                                                       selected: nil origin: CGPointMake( [customization edgeActionObjectInsets].left, [customization edgeActionObjectInsets].top )];
     
     [topView                        addSubview: backButton];
     [backButton                     addTarget: self action: @selector( _BackAction: ) forControlEvents: UIControlEventTouchUpInside];
@@ -1154,7 +1154,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     popOutMenuImageHighlighted      = [customization popMenuPopOutImageHightlighted];
     popMenu                         = [TDBasePopMenu popMenu: TDBasePopMenuPositionRightTop
                                                       popOut: popOutMenuImage highlighted: popOutMenuImageHighlighted
-                                                      origin: CGPointMake( -6.0f, statusBarHeight )];
+                                                      origin: CGPointMake( -( [customization edgeActionObjectInsets].right ), statusBarHeight )];
     if ( nil == popMenu )
     {
         return NO;
