@@ -498,7 +498,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         return NO;
     }
     
-    [topView                        setBackgroundColor: [UIColor clearColor]];
+    [topView                        setBackgroundColor: [customization sysStyleNavigationBGC]];
     [[self                          view] addSubview: topView];
     
     //  width stretchy when device Orientation is changed.
@@ -578,7 +578,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     subviewHeight                   = [customization introViewHeight];
 //    subviewTop                      += 40.0f;
 //    buttonHeight                    = 36.0f;
-    introRect                       = CGRectMake( 0.0f, 0.0f, screenWidth, subviewHeight );
+    introRect                       = CGRectMake( 0.0f, 1.0f, screenWidth, subviewHeight );
     introView                       = [[UIView alloc] initWithFrame: introRect];
     if ( nil == introView )
     {
@@ -591,9 +591,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     }
     
     
-    
-//    [introView                      setBackgroundColor: [UIColor brownColor]];
-    
+    [introView                      setBackgroundColor: [customization introViewBGC]];
     return YES;
 }
 
@@ -815,6 +813,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
             if ( nil != illustratorLabel )
             {
                 [illustratorLabel   setAttributedText: attributedString];
+                [illustratorLabel   setTextColor: [customization sysStyleTitleTextColor]];
                 [introView          addSubview: illustratorLabel];
                 
 //                [illustratorLabel   setBackgroundColor: [UIColor cyanColor]];
@@ -848,7 +847,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
                 [descriptionLabel   setNumberOfLines: 0];
                 [descriptionLabel   setAttributedText: attributedString];
                 [descriptionLabel   sizeToFit];     //  don't code above UIFont setting.
-                
+                [descriptionLabel   setTextColor: [customization introViewContentsTextColor]];
                 [introView          addSubview: descriptionLabel];
                 
 //                [descriptionLabel   setBackgroundColor: [UIColor purpleColor]];
@@ -1583,8 +1582,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     [self                           _createPopMenu];
     
-    [[self                          view] setBackgroundColor: [UIColor darkGrayColor]];
-    
+    [[self                          view] setBackgroundColor: [customization sysStyleMasterVisionBGC]];
 }
 
 //  ------------------------------------------------------------------------------------------------

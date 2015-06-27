@@ -230,6 +230,8 @@
     [self                           setSysStyleHighlightedAlertTintedColorAlpha: 0.0f];
     
     [self                           setSysStyleTitleTextColor: nil];
+    [self                           setSysStyleMasterVisionBGC: [UIColor clearColor]];
+    [self                           setSysStyleNavigationBGC: [[UIColor grayColor] colorWithAlphaComponent: 0.33f]];
     
     
     //  for system configure default.
@@ -268,6 +270,11 @@
     [self                           setTableCommonHeaderReferenceSize: CGSizeMake( 0.0f, 36.0f )];
     [self                           setTableMinimumInteritemSpacing: 10.0f];
     [self                           setTableMinimumLineSpacing: 10.0f];
+    [self                           setTableHeaderBGC: [[UIColor grayColor] colorWithAlphaComponent: 0.25f]];
+    
+    [self                           setBannerBGC: [UIColor grayColor]];
+    [self                           setTabMenuBGC: [[UIColor grayColor] colorWithAlphaComponent: 0.33f]];
+    
 
     //  for Sticker Intro DLVC.
     [self                           setIntroViewSubViewInsets: UIEdgeInsetsMake( 8.0f, 8.0f, 8.0f, 8.0f)];
@@ -275,6 +282,8 @@
     [self                           setIntroViewIllustratorFontSize: 16.0f];
     [self                           setIntroViewDescriptionFontSize: 12.0f];
     [self                           setIntroViewContentsLineSpacing: 4.0f];
+    [self                           setIntroViewBGC: [[UIColor grayColor] colorWithAlphaComponent: 0.27f]];
+    [self                           setIntroViewContentsTextColor: [UIColor lightGrayColor]];
 
     //  for pop menu.
     [self                           setPopMenuInteritemSpacing: 2.0f];
@@ -300,8 +309,6 @@
     
     //  for UIBackgroundColor
     [self                           setNavigationBGC: [UIColor purpleColor]];
-    [self                           setBannerBGC: [UIColor grayColor]];
-    [self                           setTabMenuBGC: [[self class] _TabMenuColor]];
     
     
 }
@@ -507,6 +514,8 @@
 @synthesize sysStyleHighlightedAlertTintedColorAlpha= _sysStyleHighlightedAlertTintedColorAlpha;
 
 @synthesize sysStyleTitleTextColor                  = _sysStyleTitleTextColor;
+@synthesize sysStyleMasterVisionBGC                 = _sysStyleMasterVisionBGC;
+@synthesize sysStyleNavigationBGC                   = _sysStyleNavigationBGC;
 
 //  for system configure default.
 @synthesize systemConfigureDefaultSubpath           = _systemConfigureDefaultSubpath;
@@ -544,7 +553,10 @@
 @synthesize tableCommonHeaderReferenceSize  = _tableCommonHeaderReferenceSize;
 @synthesize tableMinimumInteritemSpacing    = _tableMinimumInteritemSpacing;
 @synthesize tableMinimumLineSpacing         = _tableMinimumLineSpacing;
+@synthesize tableHeaderBGC                  = _tableHeaderBGC;
 
+@synthesize bannerBGC                       = _bannerBGC;
+@synthesize tabMenuBGC                      = _tabMenuBGC;
 
 //  for Sticker Intro DLVC.
 @synthesize introViewSubViewInsets          = _introViewSubViewInsets;
@@ -552,6 +564,8 @@
 @synthesize introViewIllustratorFontSize    = _introViewIllustratorFontSize;
 @synthesize introViewDescriptionFontSize    = _introViewDescriptionFontSize;
 @synthesize introViewContentsLineSpacing    = _introViewContentsLineSpacing;
+@synthesize introViewBGC                    = _introViewBGC;
+@synthesize introViewContentsTextColor      = _introViewContentsTextColor;
 
 //  for pop menu.
 @synthesize popMenuInteritemSpacing         = _popMenuInteritemSpacing;
@@ -571,8 +585,6 @@
 
 //  for UIBackgroundColor
 @synthesize navigationBGC           = _navigationBGC;
-@synthesize bannerBGC               = _bannerBGC;
-@synthesize tabMenuBGC              = _tabMenuBGC;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

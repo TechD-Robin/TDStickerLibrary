@@ -151,6 +151,11 @@
 @property( nonatomic, assign ) UIColor                    * sysStyleTitleTextColor;
 
 
+@property( nonatomic, copy )   UIColor                    * sysStyleMasterVisionBGC;
+
+@property( nonatomic, copy )   UIColor                    * sysStyleNavigationBGC;
+
+
 #pragma mark -
 #pragma mark system configure default.
 //  for system configure default.
@@ -273,6 +278,23 @@
  */
 @property( nonatomic, assign ) CGFloat                      tableMinimumLineSpacing;
 
+/**
+ *  background color of table's header.
+ */
+@property( nonatomic, copy )   UIColor                    * tableHeaderBGC;
+
+/**
+ *  background color of banner (of Sticker Libaray View Controller's view).
+ */
+@property( nonatomic, assign ) UIColor                    * bannerBGC;
+
+/**
+ *  background color of tab menu (of Sticker Libaray View Controller's view).
+ */
+@property( nonatomic, assign ) UIColor                    * tabMenuBGC;
+
+
+
 #pragma mark Sticker Intro DLVC.
 //  for Sticker Intro DLVC.
 /**
@@ -299,6 +321,17 @@
  *  line spacing of introView's contents.
  */
 @property( nonatomic, assign ) CGFloat                      introViewContentsLineSpacing;
+
+/**
+ *  background color of introView.
+ */
+@property( nonatomic, copy )   UIColor                    * introViewBGC;
+
+/**
+ *  text color of introView's contents.
+ */
+@property( nonatomic, copy )   UIColor                    * introViewContentsTextColor;
+
 
 #pragma mark pop menu.
 //  for pop menu.
@@ -387,17 +420,6 @@
  *  some effect at navigation bar. (錯覺嗎?, 本來應該要沒效果的)
  */
 @property( nonatomic, assign ) UIColor                    * navigationBGC;
-
-/**
- *  background color of banner (of Sticker Libaray View Controller's view).
- */
-@property( nonatomic, assign ) UIColor                    * bannerBGC;
-
-/**
- *  background color of tab menu (of Sticker Libaray View Controller's view).
- */
-@property( nonatomic, assign ) UIColor                    * tabMenuBGC;
-
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for get system style's image
 //  ------------------------------------------------------------------------------------------------

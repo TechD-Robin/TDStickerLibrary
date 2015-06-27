@@ -1198,6 +1198,7 @@
     
     [self                           _InitAttributes];
     [self                           _RegisterClasses];
+    [self                           setBackgroundColor: [UIColor clearColor]];
     customization                   = custom;
     return self;
 }

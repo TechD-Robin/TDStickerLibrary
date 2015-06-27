@@ -385,7 +385,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[self view] setBackgroundColor: [UIColor grayColor]];
+//    [[self view] setBackgroundColor: [UIColor grayColor]];
+    [[self                           view] setBackgroundColor: [UIColor clearColor]];
 
     
     [self                           _InitSystemCustomization];

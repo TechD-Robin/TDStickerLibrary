@@ -189,8 +189,6 @@
     
     [self                           setCustomization: nil];
     
-    
-    [self                           setBackgroundColor: [UIColor grayColor]];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -593,6 +591,12 @@
     
     [self                           _AssignCorrectPropertiesInformationView];
     [self                           _AssignCorrectPropertiesInforArrowsView];
+    
+    if ( nil != titleLabel )
+    {
+        [titleLabel                 setTextColor: [[self customization] sysStyleTitleTextColor]];
+    }
+    [self                           setBackgroundColor: [[self customization] tableHeaderBGC]];
 }
 
 //  ------------------------------------------------------------------------------------------------

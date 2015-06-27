@@ -340,7 +340,7 @@
         return NO;
     }
     
-    [topView                        setBackgroundColor: [UIColor clearColor]];
+    [topView                        setBackgroundColor: [customization sysStyleNavigationBGC]];
     [[self                          view] addSubview: topView];
     
     //  width stretchy when device Orientation is changed.
@@ -362,6 +362,7 @@
     topTitle                        = [[UILabel alloc] init];
     [topTitle                       setText: @"Sticker Libraries"];
     [topTitle                       setTextAlignment: NSTextAlignmentCenter];
+    [topTitle                       setTextColor: [customization sysStyleTitleTextColor]];
     [topTitle                       setFrame: CGRectMake( 0.0f, 0.0f, screenWidth, topViewHight)];
     [topView                        addSubview: topTitle];
     
@@ -586,18 +587,17 @@
         }
     }
     
-    
-    //  just to make out for test.
-    switch ( index )
-    {
-        case 0: [view setBackgroundColor: [UIColor redColor]];      break;
-        case 1: [view setBackgroundColor: [UIColor greenColor]];    break;
-        case 2: [view setBackgroundColor: [UIColor blueColor]];     break;
-        case 3: [view setBackgroundColor: [UIColor purpleColor]];   break;
-        case 4: [view setBackgroundColor: [UIColor yellowColor]];   break;
-        case 5: [view setBackgroundColor: [UIColor orangeColor]];   break;
-        default:                                                    break;
-    }
+//    //  just to make out for test.
+//    switch ( index )
+//    {
+//        case 0: [view setBackgroundColor: [UIColor redColor]];      break;
+//        case 1: [view setBackgroundColor: [UIColor greenColor]];    break;
+//        case 2: [view setBackgroundColor: [UIColor blueColor]];     break;
+//        case 3: [view setBackgroundColor: [UIColor purpleColor]];   break;
+//        case 4: [view setBackgroundColor: [UIColor yellowColor]];   break;
+//        case 5: [view setBackgroundColor: [UIColor orangeColor]];   break;
+//        default:                                                    break;
+//    }
 
     return view;
 }
@@ -680,7 +680,7 @@
     }
     if ( nil != tabMenu )
     {
-        subviewTop                  += [tabMenu bounds].size.height;
+        subviewTop                  += ( [tabMenu bounds].size.height + 1 );
     }
     
     return subviewTop;
@@ -740,9 +740,7 @@
     
     [self                           _CreateStartTabPage];
     
-    [[self view] setBackgroundColor: [UIColor darkGrayColor]];
-    NSLog( @"%s",  [NSStringFromCGRect( [[self view] bounds] ) UTF8String] );
-    
+    [[self                          view] setBackgroundColor: [customization sysStyleMasterVisionBGC]];    
 }
 
 ////  ------------------------------------------------------------------------------------------------
