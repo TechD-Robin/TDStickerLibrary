@@ -158,7 +158,15 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderInforImage
 {
-    return [self defaultImage: @"flaticon_info-sign_3716"];
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"flaticon_info-sign_3716"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    //return [image imageWithTintedColor: [UIColor grayColor] colorAlpha: 0.42f];
+    return [image imageWithTintedColor: [self sysStyleTintedColor] colorAlpha: [self sysStyleTintedColorAlpha]];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -171,8 +179,13 @@
     {
         return nil;
     }
-    return [image imageWithTintedColor: [UIColor whiteColor] colorAlpha: 0.33f];
-    
+    image                           = [image imageWithTintedColor: [UIColor whiteColor]];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    //return [image imageWithTintedColor: [UIColor grayColor] colorAlpha: 0.12f];
+    return [image imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -185,18 +198,21 @@
     {
         return nil;
     }
-    image                           = [image imageWithTintedColor: [UIColor whiteColor]];
-    if ( nil == image )
-    {
-        return nil;
-    }
-    return [image imageWithTintedColor: [UIColor darkGrayColor] colorAlpha: 0.12f];
+    return [image imageWithTintedColor: [UIColor darkGrayColor] colorAlpha: 0.42f];
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowDownImage
 {
-    return [self defaultImage: @"ic_arrow_drop_down_black_36dp"];
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_arrow_drop_down_black_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [UIColor grayColor] colorAlpha: 0.42f];
+
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -209,7 +225,12 @@
     {
         return nil;
     }
-    return [image imageWithTintedColor: [UIColor whiteColor] colorAlpha: 0.33f];
+    image                           = [image imageWithTintedColor: [UIColor whiteColor]];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [UIColor grayColor] colorAlpha: 0.12f];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -222,18 +243,20 @@
     {
         return nil;
     }
-    image                           = [image imageWithTintedColor: [UIColor whiteColor]];
-    if ( nil == image )
-    {
-        return nil;
-    }
-    return [image imageWithTintedColor: [UIColor darkGrayColor] colorAlpha: 0.12f];
+    return [image imageWithTintedColor: [UIColor darkGrayColor] colorAlpha: 0.42f];
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) sectionHeaderArrowUpImage
 {
-    return [self defaultImage: @"ic_arrow_drop_up_black_36dp"];
+    UIImage                       * image;
+    
+    image                           = [self defaultImage: @"ic_arrow_drop_up_black_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [UIColor grayColor] colorAlpha: 0.42f];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -246,7 +269,12 @@
     {
         return nil;
     }
-    return [image imageWithTintedColor: [UIColor whiteColor] colorAlpha: 0.33f];
+    image                           = [image imageWithTintedColor: [UIColor whiteColor]];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    return [image imageWithTintedColor: [UIColor grayColor] colorAlpha: 0.12f];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -259,12 +287,7 @@
     {
         return nil;
     }
-    image                           = [image imageWithTintedColor: [UIColor whiteColor]];
-    if ( nil == image )
-    {
-        return nil;
-    }
-    return [image imageWithTintedColor: [UIColor darkGrayColor] colorAlpha: 0.12f];
+    return [image imageWithTintedColor: [UIColor darkGrayColor] colorAlpha: 0.42f];
 }
 
 //  ------------------------------------------------------------------------------------------------
