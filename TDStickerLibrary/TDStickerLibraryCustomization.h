@@ -686,7 +686,44 @@
 - ( UIImage * ) popItemActionEMailImageHightlighted;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for get localized stirng.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get this library's title string from localized setting.
+ *  get this library's title string from localized setting.
+ *
+ *  @return string|nil              the string or nil.
+ */
+- ( NSString * ) libraryTitleString;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the download string from localized setting.
+ *  get the download string from localized setting.
+ *
+ *  @return string|nil              the string or nil.
+ */
+- ( NSString * ) downloadString;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the download highlighted string from localized setting.
+ *  get the download highlighted string from localized setting.
+ *
+ *  @return string|nil              the string or nil.
+ */
+- ( NSString * ) downloadStringHightlighted;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the delete string from localized setting.
+ *  get the delete string from localized setting.
+ *
+ *  @return string|nil              the string or nil.
+ */
+- ( NSString * ) deleteString;
+
+//  ------------------------------------------------------------------------------------------------
 
 
 //  ------------------------------------------------------------------------------------------------

@@ -320,6 +320,8 @@
                                                                                            with: [self class]
                                                                                     onSingleton: NO];
     NSParameterAssert( nil != defaultResources );
+    
+    [defaultResources               setLocalizedStringTable: kTDStickerLibraryDefaultLocalizedStringTable];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -947,6 +949,47 @@
     return [defaultResources popItemActionEMailImageHightlighted];
 }
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for get localized stirng.
+//  ------------------------------------------------------------------------------------------------
+- ( NSString *) libraryTitleString
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources localizedStringForKey: @"library title"];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) downloadString
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources localizedStringForKey: @"download"];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) downloadStringHightlighted
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources localizedStringForKey: @"download already"];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) deleteString
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources localizedStringForKey: @"delete"];
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

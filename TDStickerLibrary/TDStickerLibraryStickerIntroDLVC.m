@@ -887,8 +887,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     [downloadButton                 setFrame: buttonRect];
     [downloadButton                 setBackgroundColor: [UIColor darkGrayColor]];
-    [downloadButton                 setTitle: @" Download "      forState: UIControlStateNormal];
-    [downloadButton                 setTitle: @" Is Downloaded " forState: UIControlStateDisabled];
+    [downloadButton                 setTitle: [customization downloadString] forState: UIControlStateNormal];
+    [downloadButton                 setTitle: [customization downloadStringHightlighted] forState: UIControlStateDisabled];
     //[[self                          view] addSubview: downloadButton];
     if ( nil != scrollView )
     {
@@ -995,7 +995,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     [deleteButton                   setFrame: buttonRect];
     [deleteButton                   setBackgroundColor: [UIColor darkGrayColor]];
-    [deleteButton                   setTitle: @" Delete "      forState: UIControlStateNormal];
+    [deleteButton                   setTitle: [customization deleteString] forState: UIControlStateNormal];
     //[[self                          view] addSubview: deleteButton];
     if ( nil != scrollView )
     {

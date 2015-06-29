@@ -360,7 +360,7 @@
     
 
     topTitle                        = [[UILabel alloc] init];
-    [topTitle                       setText: @"Sticker Libraries"];
+    [topTitle                       setText: [customization libraryTitleString]];
     [topTitle                       setTextAlignment: NSTextAlignmentCenter];
     [topTitle                       setTextColor: [customization sysStyleTitleTextColor]];
     [topTitle                       setFrame: CGRectMake( 0.0f, 0.0f, screenWidth, topViewHight)];

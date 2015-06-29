@@ -18,6 +18,7 @@
 //  ------------------------------------------------------------------------------------------------
 static  NSString  * const kTDStickerLibraryDefaultResourcesBundle       = @"StickerLibraryDefault.bundle";
 static  NSString  * const kTDStickerLibraryDefaultImagesInDirectory     = @"Images";
+static  NSString  * const kTDStickerLibraryDefaultLocalizedStringTable  = @"StickerLibrary";
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
