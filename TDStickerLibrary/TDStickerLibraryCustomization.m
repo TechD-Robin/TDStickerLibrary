@@ -329,9 +329,9 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) _ImageFromSysStyleBundle:(NSString *)imageName
 {
-    if ( nil == sysStyleBundleManager )
+    if ( ( nil == sysStyleBundleManager ) || ( nil == imageName ) )
     {
-        return nil;
+        return [self defaultNoImage];
     }
     
     UIImage                       * image;
@@ -351,10 +351,9 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) _ImageFromSysStyleBundleWithTintedColor:(NSString *)imageName
 {
-    NSParameterAssert( [self sysStyleTintedColor] != nil );
-    if ( nil == sysStyleBundleManager )
+    if ( ( nil == sysStyleBundleManager ) || ( nil == imageName ) )
     {
-        return nil;
+        return [self defaultNoImage];
     }
     
     UIImage                       * image;
@@ -365,16 +364,20 @@
     {
         return [self defaultNoImage];
     }
+    if ( [self sysStyleTintedColor] == nil )
+    {
+        return image;
+    }
+    
     return [image imageWithTintedColor: [self sysStyleTintedColor] colorAlpha: [self sysStyleTintedColorAlpha]];
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) _ImageFromSysStyleBundleWithHighlightTintedColor:(NSString *)imageName
 {
-    NSParameterAssert( [self sysStyleHighlightedITintedColor] != nil );
-    if ( nil == sysStyleBundleManager )
+    if ( ( nil == sysStyleBundleManager ) || ( nil == imageName ) )
     {
-        return nil;
+        return [self defaultNoImage];
     }
     
     UIImage                       * image;
@@ -384,6 +387,10 @@
     if ( nil == image )
     {
         return [self defaultNoImage];
+    }
+    if ( [self sysStyleHighlightedITintedColor] == nil )
+    {
+        return image;
     }
     return [image imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
 }
@@ -391,10 +398,9 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) _ImageFromSysStyleBundleWithDisbledTintedColor:(NSString *)imageName
 {
-    NSParameterAssert( [self sysStyleDisabledTintedColor] != nil );
-    if ( nil == sysStyleBundleManager )
+    if ( ( nil == sysStyleBundleManager ) || ( nil == imageName ) )
     {
-        return nil;
+        return [self defaultNoImage];
     }
     
     UIImage                       * image;
@@ -404,6 +410,10 @@
     if ( nil == image )
     {
         return [self defaultNoImage];
+    }
+    if ( [self sysStyleDisabledTintedColor] == nil )
+    {
+        return image;
     }
     return [image imageWithTintedColor: [self sysStyleDisabledTintedColor] colorAlpha: [self sysStyleDisabledTintedColorAlpha]];
 }
@@ -411,10 +421,9 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) _ImageFromSysStyleBundleWithAlertTintedColor:(NSString *)imageName
 {
-    NSParameterAssert( [self sysStyleAlertTintedColor] != nil );
-    if ( nil == sysStyleBundleManager )
+    if ( ( nil == sysStyleBundleManager ) || ( nil == imageName ) )
     {
-        return nil;
+        return [self defaultNoImage];
     }
     
     UIImage                       * image;
@@ -424,6 +433,10 @@
     if ( nil == image )
     {
         return [self defaultNoImage];
+    }
+    if ( [self sysStyleAlertTintedColor] == nil )
+    {
+        return image;
     }
     return [image imageWithTintedColor: [self sysStyleAlertTintedColor] colorAlpha: [self sysStyleAlertTintedColorAlpha]];
 }
@@ -431,10 +444,9 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) _ImageFromSysStyleBundleWithHighlightedAlertTintedColor:(NSString *)imageName
 {
-    NSParameterAssert( [self sysStyleHighlightedAlertTintedColor] != nil );
-    if ( nil == sysStyleBundleManager )
+    if ( ( nil == sysStyleBundleManager ) || ( nil == imageName ) )
     {
-        return nil;
+        return [self defaultNoImage];
     }
     
     UIImage                       * image;
@@ -444,6 +456,10 @@
     if ( nil == image )
     {
         return [self defaultNoImage];
+    }
+    if ( [self sysStyleHighlightedAlertTintedColor] == nil )
+    {
+        return image;
     }
     return [image imageWithTintedColor: [self sysStyleHighlightedAlertTintedColor] colorAlpha: [self sysStyleHighlightedAlertTintedColorAlpha]];
 }
