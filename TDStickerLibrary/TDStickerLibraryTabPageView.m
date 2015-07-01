@@ -1220,9 +1220,11 @@
     stickerImage                    = [resourceManager image: imageName ofType: nil inDirectory: configure];
     if ( nil == stickerImage )
     {
+        resourceManager             = nil;
         return NO;
     }
     
+    resourceManager                 = nil;
     return [self _StickerLibraryCallbackWithImage: stickerImage];
 }
 
@@ -1710,12 +1712,12 @@
     
     
     //  execute callback.
-    if ( TDStickerLibraryPageSectionModePreviewDownload == sectionMode )
+    if ( ( TDStickerLibraryPageSectionModePreviewDownload == sectionMode ) && ( NO == modeFlags.isIntroduction ) )
     {
         if ( [self _StickerLibraryCallbackWithImageName: spriteName forSectionAtIndex: indexPath.section] == YES )
         {
             //  close this object's controller.( superview's )
-            
+            [self                   _StickerLibraryActionCompletion];
             return;
         }
     }
