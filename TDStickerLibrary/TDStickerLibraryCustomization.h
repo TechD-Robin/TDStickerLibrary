@@ -197,6 +197,11 @@
 @property( nonatomic, assign ) TDGetPathDirectory           systemConfigureUpdateDirectory;
 
 /**
+ *  update's with string.
+ */
+@property( nonatomic, assign ) NSString                   * systemConfigureTabPageUpdateZpwiaopsrpsded;
+
+/**
  *  update's file name of tab's configure.
  */
 @property( nonatomic, assign ) NSString                   * systemConfigureTabUpdateFilename;
@@ -205,6 +210,11 @@
  *  update's prefix path name in zipped file.
  */
 @property( nonatomic, assign ) NSString                   * systemConfigureTabUpdateInZippedPrefix;
+
+/**
+ *  update's with string.
+ */
+@property( nonatomic, assign ) NSString                   * systemConfigureTabUpdateZpwiaopsrpsded;
 
 
 #pragma mark sticker download.
@@ -218,6 +228,12 @@
  *  directory of sticker's download.
  */
 @property( nonatomic, assign ) TDGetPathDirectory           stickerDownloadDirectory;
+
+/**
+ *  sticker download's with string.
+ */
+@property( nonatomic, assign ) NSString                   * stickerDownloadZpwiaopsrpsded;
+
 
 #pragma mark Sticker Libaray View Controller's view
 //  for UIView(Sticker Libaray View Controller's view).

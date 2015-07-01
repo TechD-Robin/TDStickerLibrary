@@ -235,25 +235,28 @@
     
     
     //  for system configure default.
-    [self                           setSystemConfigureDefaultSubpath:           @"Configure"];
-    [self                           setSystemConfigureDefaultDirectory:         TDResourcesDirectory];
+    [self                           setSystemConfigureDefaultSubpath:               @"Configure"];
+    [self                           setSystemConfigureDefaultDirectory:             TDResourcesDirectory];
     
-    [self                           setSystemConfigureTabDefaultFilename:       @"StickerLibraryTabDefault" ];
-    [self                           setSystemConfigureTabDefaultInZippedPrefix: @"StickerLibraryTabDefault"];
+    [self                           setSystemConfigureTabDefaultFilename:           @"StickerLibraryTabDefault" ];
+    [self                           setSystemConfigureTabDefaultInZippedPrefix:     @"StickerLibraryTabDefault"];
     
 
     //  for system configure update.
-    [self                           setSystemConfigureUpdateFilename:           @"SystemUpdate.json"];
-    [self                           setSystemConfigureUpdateSubpath:            @"Download/Configure"];
-    [self                           setSystemConfigureUpdateDirectory:          TDCachesDirectory];
+    [self                           setSystemConfigureUpdateFilename:               @"SystemUpdate.json"];
+    [self                           setSystemConfigureUpdateSubpath:                @"Download/Configure"];
+    [self                           setSystemConfigureUpdateDirectory:              TDCachesDirectory];
+    [self                           setSystemConfigureTabPageUpdateZpwiaopsrpsded:  nil];
     
-    [self                           setSystemConfigureTabUpdateFilename:        @"StickerLibraryTabUpdate"];
-    [self                           setSystemConfigureTabUpdateInZippedPrefix:  @"StickerLibraryTabUpdate"];
+    [self                           setSystemConfigureTabUpdateFilename:            @"StickerLibraryTabUpdate"];
+    [self                           setSystemConfigureTabUpdateInZippedPrefix:      @"StickerLibraryTabUpdate"];
+    [self                           setSystemConfigureTabUpdateZpwiaopsrpsded:      nil];
     
     
     //  for sticker download.
-    [self                           setStickerDownloadSubpath:                  @"Sticker"];
-    [self                           setStickerDownloadDirectory:                TDCachesDirectory];
+    [self                           setStickerDownloadSubpath:                      @"Sticker"];
+    [self                           setStickerDownloadDirectory:                    TDCachesDirectory];
+    [self                           setStickerDownloadZpwiaopsrpsded:               nil];
     
     //  for UIView.
     [self                           setNavigationBarHeight: 36.0f];
@@ -544,17 +547,20 @@
 
 
 //  for system configure update.
-@synthesize systemConfigureUpdateFilename           = _systemConfigureUpdateFilename;
-@synthesize systemConfigureUpdateSubpath            = _systemConfigureUpdateSubpath;
-@synthesize systemConfigureUpdateDirectory          = _systemConfigureUpdateDirectory;
+@synthesize systemConfigureUpdateFilename               = _systemConfigureUpdateFilename;
+@synthesize systemConfigureUpdateSubpath                = _systemConfigureUpdateSubpath;
+@synthesize systemConfigureUpdateDirectory              = _systemConfigureUpdateDirectory;
+@synthesize systemConfigureTabPageUpdateZpwiaopsrpsded  = _systemConfigureTabPageUpdateZpwiaopsrpsded;
 
 @synthesize systemConfigureTabUpdateFilename        = _systemConfigureTabUpdateFilename;
 @synthesize systemConfigureTabUpdateInZippedPrefix  = _systemConfigureTabUpdateInZippedPrefix;
+@synthesize systemConfigureTabUpdateZpwiaopsrpsded  = _systemConfigureTabUpdateZpwiaopsrpsded;
 
 
 //  for sticker download.
 @synthesize stickerDownloadSubpath                  = _stickerDownloadSubpath;
 @synthesize stickerDownloadDirectory                = _stickerDownloadDirectory;
+@synthesize stickerDownloadZpwiaopsrpsded           = _stickerDownloadZpwiaopsrpsded;
 
 //  for UIView.
 @synthesize navigationBarHeight     = _navigationBarHeight;

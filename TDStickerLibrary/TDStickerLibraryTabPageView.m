@@ -423,7 +423,7 @@
     
     filename                        = ( ( YES == isUpdate ) ? ( [configure stringByAppendingPathExtension: timestamp] ) : configure );
     subpath                         = ( ( YES == isUpdate ) ? [customization systemConfigureUpdateSubpath] : [customization systemConfigureDefaultSubpath] );
-    passwd                          = ( ( YES == isUpdate ) ? @"StickerLibrary" : nil );
+    passwd                          = ( ( YES == isUpdate ) ? [customization systemConfigureTabPageUpdateZpwiaopsrpsded] : nil );
     directory                       = ( ( YES == isUpdate ) ? [customization systemConfigureUpdateDirectory] : [customization systemConfigureDefaultDirectory] );
     
     pageConfigure                   = [TDStickerLibraryTabPageInfo loadDataFromZip: filename forDirectories: directory inDirectory: subpath inZippedPath: configure  with: passwd configure: aKey];
@@ -1211,7 +1211,8 @@
     UIImage                       * stickerImage;
     
     stickerImage                    = nil;
-    resourceManager                 = [TDResourceManager zippedFileEnvironment: filePath with: @"StickerLibrary" onSingleton: NO];
+    resourceManager                 = [TDResourceManager zippedFileEnvironment: filePath with: [customization stickerDownloadZpwiaopsrpsded]
+                                                                   onSingleton: NO];
     if ( nil == resourceManager )
     {
         return NO;

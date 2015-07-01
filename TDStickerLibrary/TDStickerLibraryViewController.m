@@ -273,7 +273,7 @@
     [tabConfigure                   updateDataFromZip: [customization systemConfigureTabUpdateFilename]
                                        forDirectories: TDDocumentDirectory inDirectory: subPath
                                          inZippedPath: [customization systemConfigureTabUpdateInZippedPrefix]
-                                                 with: @"StickerLibrary"];
+                                                 with: [customization systemConfigureTabUpdateZpwiaopsrpsded]];
     
 }
 

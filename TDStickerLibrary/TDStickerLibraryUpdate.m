@@ -193,7 +193,7 @@
         prefix                      = [fileSeparated objectAtIndex: 0];
     }
     
-    return [TDStickerLibraryTabInfo loadDataFromzip: fullPath inZippedPath: prefix with: @"StickerLibrary"];
+    return [TDStickerLibraryTabInfo loadDataFromzip: fullPath inZippedPath: prefix with: [customization systemConfigureTabUpdateZpwiaopsrpsded]];
 }
 
 //  ------------------------------------------------------------------------------------------------
