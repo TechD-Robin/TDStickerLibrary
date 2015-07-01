@@ -15,6 +15,10 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+{
+    UIImageView                   * callbackImageView;
+    
+}
 
 
 - (void) _CreateButton;
@@ -105,60 +109,14 @@
     sysCustomization->styleDeleteDisabledImageName          = @"ic_delete_white_36dp";
 
     
-//    manager                         = [TDResourceManager assetsBundleEnvironment: @"SystemCustomization.bundle"
-//                                                                            with: [self class] onSingleton: YES];
-//    NSParameterAssert( nil != manager );
-//    
-//    
-//    //  image menu.
-//    sysCustomization->backToMenuImage               = [self _Image: @"ic_menu_grey600_36dp" from: manager];
-//    sysCustomization->backToMenuImageHighlighted    = [self _Image: @"ic_menu_white_36dp" from: manager];
-//        
-//    //  image download.
-//    sysCustomization->downloadImage                 = [self _Image: @"ic_get_app_grey600_36dp" from: manager];
-//    sysCustomization->downloadImageHighlighted      = [self _Image: @"ic_get_app_white_36dp" from: manager];
-    
-    
-    
-    
-    
-//    UIImage                       * image;
-//    
-//    image                           = [resourceManager image: @"ic_menu_grey600_36dp" ofType: @"png" inDirectory: @"Images"];
-//    NSParameterAssert( nil != image );
-//    imageView                       = [self _CreateTestImageView: image position: CGPointMake( 160 , 160)];
-//    NSParameterAssert( nil != imageView );
-//    
-//
-//    image                           = [resourceManager image: @"ic_menu_white_36dp" ofType: nil inDirectory: @"Images"];
-//    NSParameterAssert( nil != image );
-//    image                           = [image imageWithTintedColor: [UIColor cyanColor]];
-//    NSParameterAssert( nil != image );
-//    imageView                       = [self _CreateTestImageView: image position: CGPointMake( 160 , 200)];
-//    NSParameterAssert( nil != imageView );
-//    
-//    
-//    image                           = [resourceManager image: @"star-test-image" ofType: @"png" inDirectory: @"Images"];
-////    image                           = [resourceManager image: @"ic_perm_device_info_other_36dp" ofType: @"png" inDirectory: @"Images"];
-//    
-//    NSParameterAssert( nil != image );
-//    image                           = [image imageWithTintedColor: [UIColor orangeColor] colorAlpha: 0.8f];
-//    
-//    
-//    
-//    NSParameterAssert( nil != image );
-//    
-//    imageView                       = [self _CreateTestImageView: image position: CGPointMake( 160 , 240)];
-//    NSParameterAssert( nil != imageView );
-////    [imageView                      setImageTintColor: [UIColor cyanColor]];
-    
 }
 
 - ( UIImageView * ) _CreateTestImageView:(UIImage *)image position:(CGPoint)center;
 {
-    if ( nil == image )
+    if ( nil != callbackImageView )
     {
-        return nil;
+        [callbackImageView          removeFromSuperview];
+        callbackImageView           = nil;
     }
     
     UIImageView                   * imageView;
@@ -171,6 +129,7 @@
     
     [[self                          view] addSubview: imageView];
     [imageView                      setCenter: center];
+    callbackImageView               = imageView;
     return imageView;
 }
 
@@ -293,6 +252,7 @@
     [controller                     setFinishedStickerLibraryCallbackBlock: ^(UIImage * stickerImage)
     {
         NSLog( @"sticker image : %@", stickerImage );
+        [self                       _CreateTestImageView: stickerImage position: CGPointMake( 160, 320)];
     }];
     
     
@@ -392,7 +352,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 //    [[self view] setBackgroundColor: [UIColor grayColor]];
-    [[self                           view] setBackgroundColor: [UIColor clearColor]];
+    callbackImageView               = nil;
+    [[self                          view] setBackgroundColor: [UIColor clearColor]];
 
     
     [self                           _InitSystemCustomization];
