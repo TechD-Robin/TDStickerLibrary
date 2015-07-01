@@ -237,7 +237,11 @@
     [customization                  setSysStyleHighlightedAlertTintedColorAlpha:    sysCustomization->styleHighlightedAlertTintedColorAlpha];
     
     
-    [customization                  setSysStyleTitleTextColor:                  sysCustomization->styleTitleTextColor];
+    [customization                  setSysStyleTitleTextColor:                      sysCustomization->styleTitleTextColor];
+    
+    [customization                  setSystemConfigureTabPageUpdateZpwiaopsrpsded:  @"StickerLibrary"];
+    [customization                  setSystemConfigureTabUpdateZpwiaopsrpsded:      @"StickerLibrary"];
+    [customization                  setStickerDownloadZpwiaopsrpsded:               @"StickerLibrary"];
     
     
     //controller                      = [TDStickerLibraryViewController stickerLibaray];
@@ -321,6 +325,8 @@
     
     [customization                  setSystemConfigureUpdateFilename: @"SystemConfigureUpdate.json"];
     [customization                  setSystemConfigureUpdateDirectory: TDDocumentDirectory];
+    [customization                  setSystemConfigureTabUpdateZpwiaopsrpsded: @"StickerLibrary"];
+
     updateProcedure                 = [TDStickerLibraryUpdate stickerLibraryUpdateWithCustomization: customization];
     NSParameterAssert( nil != updateProcedure );
     
