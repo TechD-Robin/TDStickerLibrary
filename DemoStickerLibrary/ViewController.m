@@ -289,6 +289,12 @@
     }
     
     
+    //[controller                     setFinishedStickerLibraryCallbackBlock: nil];
+    [controller                     setFinishedStickerLibraryCallbackBlock: ^(UIImage * stickerImage)
+    {
+        NSLog( @"sticker image : %@", stickerImage );
+    }];
+    
     
     [self                           presentViewController: controller animated: YES completion: nil];
     

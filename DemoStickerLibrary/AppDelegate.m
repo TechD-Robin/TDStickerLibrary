@@ -26,6 +26,11 @@
     [[self                          window] setRootViewController: [[ViewController alloc] init]];
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled: YES];
+    
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *languages = [defaults objectForKey:@"AppleLanguages"];
+    NSLog(@"%@", languages);
     return YES;
 }
 

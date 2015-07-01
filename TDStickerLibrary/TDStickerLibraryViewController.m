@@ -69,6 +69,11 @@
      *  the pointer for tab information, i/o the configure from this object.
      */
     TDStickerLibraryTabInfo       * tabConfigure;
+
+    /**
+     *  assign a block's pointer for be executed when get a current image by user touch action.
+     */
+    FinishedStickerLibraryCallbackBlock finishedCallbackBlock;
     
 }
 //  ------------------------------------------------------------------------------------------------
@@ -226,6 +231,9 @@
     customization                   = nil;
     
     tabConfigure                    = nil;
+    
+    //  callback.
+    finishedCallbackBlock           = nil;
 }
 
 
@@ -855,6 +863,30 @@
 + ( instancetype ) stickerLibarayWithCustomization:(TDStickerLibraryCustomization *)custom
 {
     return [[[self class] alloc] initWithCustomization: custom];
+}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for base methos of procedure
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setFinishedStickerLibraryCallbackBlock:(FinishedStickerLibraryCallbackBlock)callbackBlock
+{
+    if ( nil == callbackBlock )
+    {
+        return;
+    }
+    finishedCallbackBlock           = callbackBlock;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- (FinishedStickerLibraryCallbackBlock)finishedStickerLibraryCallbackBlock
+{
+    return finishedCallbackBlock;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) actionCompletion
+{
+    [self                           _BackAction: nil];
 }
 
 //  ------------------------------------------------------------------------------------------------

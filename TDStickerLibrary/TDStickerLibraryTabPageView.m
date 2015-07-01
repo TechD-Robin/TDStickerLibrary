@@ -311,6 +311,42 @@
 - ( BOOL ) _ShowStickerSoloView:(UIImage *)stickerImage original:(CGSize)stickerSize onScreen:(CGRect)nowFrame;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for Sticker Library callback
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the selected image by Sticker Library VC's callback mechanism.
+ *  get the selected image by Sticker Library VC's callback mechanism.
+ *
+ *  @param image                    the selected image.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _StickerLibraryCallbackWithImage:(UIImage *)image;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the selected image by Sticker Library VC's callback mechanism.
+ *  get the selected image by Sticker Library VC's callback mechanism; first, get the image by image name.
+ *
+ *  @param imageName                the image's name (in resource or update).
+ *  @param section                  section index.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _StickerLibraryCallbackWithImageName:(NSString *)imageName forSectionAtIndex:(NSInteger)section;
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for Sticker Library action
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief execute this method when Sticker Library VC's action is completion.
+ *  execute this method when Sticker Library VC's action is completion; get a current image by user touch action.
+ *  system will close the Sticker Library VC.
+ */
+- ( void ) _StickerLibraryActionCompletion;
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
@@ -1113,6 +1149,103 @@
     return YES;
 }
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for Sticker Library callback
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _StickerLibraryCallbackWithImage:(UIImage *)image
+{
+    if ( ( [self superview] == nil ) || ( [[self superview] viewController] == nil ) )
+    {
+        return NO;
+    }
+    
+    id                                  idViewController;
+    FinishedStickerLibraryCallbackBlock callbackBlock;
+    
+    callbackBlock                   = nil;
+    idViewController                = [[self superview] viewController];
+    if ( [idViewController isKindOfClass: [TDStickerLibraryViewController class]] == NO )
+    {
+        return NO;
+    }
+    
+    callbackBlock                 = [idViewController finishedStickerLibraryCallbackBlock];
+    if ( nil == callbackBlock )
+    {
+        return NO;
+    }
+
+    callbackBlock( image );
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _StickerLibraryCallbackWithImageName:(NSString *)imageName forSectionAtIndex:(NSInteger)section
+{
+    NSParameterAssert( nil != pageConfigure );
+    NSParameterAssert( [pageConfigure infoDataCount] > section );
+
+    NSString                      * configure;
+    NSString                      * timestamp;
+    NSString                      * filePath;
+    
+    configure                       = [pageConfigure configureNameAtIndex: section];
+    timestamp                       = [pageConfigure timestampAtIndex: section];
+    if ( ( nil == configure ) || ( nil == timestamp ) )
+    {
+        return NO;
+    }
+    
+    filePath                        = TDGetPathForDirectoriesWithTimestamp( [customization stickerDownloadDirectory],
+                                                                           configure,
+                                                                           timestamp,
+                                                                           nil,
+                                                                           [customization stickerDownloadSubpath], YES );
+    if ( nil == filePath )
+    {
+        return NO;
+    }
+    
+    //  get the data frm zipped.
+    TDResourceManager             * resourceManager;
+    UIImage                       * stickerImage;
+    
+    stickerImage                    = nil;
+    resourceManager                 = [TDResourceManager zippedFileEnvironment: filePath with: @"StickerLibrary" onSingleton: NO];
+    if ( nil == resourceManager )
+    {
+        return NO;
+    }
+    
+    stickerImage                    = [resourceManager image: imageName ofType: nil inDirectory: configure];
+    if ( nil == stickerImage )
+    {
+        return NO;
+    }
+    
+    return [self _StickerLibraryCallbackWithImage: stickerImage];
+}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for Sticker Library action
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _StickerLibraryActionCompletion
+{
+    if ( ( [self superview] == nil ) || ( [[self superview] viewController] == nil ) )
+    {
+        return;
+    }
+    
+    id                                  idViewController;
+    
+    idViewController                = [[self superview] viewController];
+    if ( [idViewController isKindOfClass: [TDStickerLibraryViewController class]] == NO )
+    {
+        return;
+    }
+
+    [idViewController               actionCompletion];
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -1462,6 +1595,14 @@
     {
         return;
     }
+    
+    if ( [self _StickerLibraryCallbackWithImage: stickerImage] == YES )
+    {
+        //  close this object's controller.( superview's )
+        [self                       _StickerLibraryActionCompletion];
+        return;
+    }
+    
 
     if ( [customization isStickerSoloViewEnabled] == NO )
     {
@@ -1536,6 +1677,7 @@
     //  precheck for download state.
     NSIndexPath                   * indexPath;
     BOOL                            isDownloaded;
+    NSInteger                       sectionMode;
     
     indexPath                       = [collectionView indexPathForCell: cell];
     if ( nil == indexPath )
@@ -1555,6 +1697,25 @@
         if ( NO == modeFlags.isIntroduction )
         {
             [self                   _CreateIntroductionForSection: indexPath.section];
+            return;
+        }
+    }
+    
+    sectionMode                     = 0;
+    if ( [pageConfigure dataMode: &sectionMode atIndex: indexPath.section] == NO )
+    {
+        NSLog( @"cannot get the section data mode!");
+        return;
+    }
+    
+    
+    //  execute callback.
+    if ( TDStickerLibraryPageSectionModePreviewDownload == sectionMode )
+    {
+        if ( [self _StickerLibraryCallbackWithImageName: spriteName forSectionAtIndex: indexPath.section] == YES )
+        {
+            //  close this object's controller.( superview's )
+            
             return;
         }
     }
@@ -1585,6 +1746,17 @@
     if ( nil == stickerImage )
     {
         return;
+    }
+    
+    //  execute callback.
+    if ( TDStickerLibraryPageSectionModePreview == sectionMode )
+    {
+        if ( [self _StickerLibraryCallbackWithImage: stickerImage] == YES )
+        {
+            //  close this object's controller.( superview's )
+            [self                   _StickerLibraryActionCompletion];
+            return;
+        }
     }
     
     if ( [customization isStickerSoloViewEnabled] == NO )
