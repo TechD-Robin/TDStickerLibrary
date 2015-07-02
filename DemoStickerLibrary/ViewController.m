@@ -331,7 +331,7 @@
     NSParameterAssert( nil != updateProcedure );
     
     searchKeys                      = [NSArray arrayWithObjects: @"UpdateTab", nil];
-    urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXMnJWUzhvS3ZuN1k&export=download";
+    urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXX0JqNEdqcEZSTU0&export=download";
     [updateProcedure                startUpdateSystemConfigure: urlString forSearch: searchKeys];
     
     __weak __typeof(updateProcedure)    weakUpdateProcedure;
