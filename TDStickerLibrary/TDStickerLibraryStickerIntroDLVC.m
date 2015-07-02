@@ -1200,7 +1200,11 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     index                           = kTDStickerLibraryConfigureIndexAfterSwap;
     website                         = [pageConfigure illustratorWebsiteAtIndex: index];
-    website                         = [@"http://" stringByAppendingString: website];
+    if ( [website hasPrefix: @"http"] == NO )
+    {
+        website                     = [@"http://" stringByAppendingString: website];
+    }
+    
     websiteURL                      = [NSURL URLWithString: website];
     if ( nil == websiteURL )
     {

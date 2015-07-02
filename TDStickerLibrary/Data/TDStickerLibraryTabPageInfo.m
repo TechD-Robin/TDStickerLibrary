@@ -126,11 +126,19 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 {
 //    aKey                            = TDGetImageNameForScreenScale( aKey, (NSInteger)[[UIScreen mainScreen] scaleMultiple] );
 //    aKey                            = TDGetPNGImageFilenameWithAssetScale( aKey, (NSInteger)[[UIScreen mainScreen] scaleMultiple] );
-    if ( nil == aKey )
+//    if ( nil == aKey )
+//    {
+//        return nil;
+//    }
+//    return [self unzipDataForKey: aKey];
+    UIImage                       * imageBuffer;
+    
+    imageBuffer                     = [self image: aKey ofType: nil inDirectory: nil];
+    if ( nil == imageBuffer )
     {
         return nil;
     }
-    return [self unzipDataForKey: aKey];
+    return [NSData dataWithData: UIImagePNGRepresentation( imageBuffer )];
 }
 
 //  ------------------------------------------------------------------------------------------------

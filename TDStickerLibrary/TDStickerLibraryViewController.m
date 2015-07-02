@@ -254,7 +254,9 @@
     TDGetPathDirectory              configureDirectory;
     NSString                      * subPath;
     NSString                      * updateKey;
+    NSString                      * updateFile;
     
+    updateFile                      = nil;
     subPath                         = @"Download/Configure";
     updateKey                       = @"UpdateTab";
     configureDirectory              = TDDocumentDirectory;
@@ -266,9 +268,11 @@
         return;
     }
     
-    
-    [customization                  setSystemConfigureTabUpdateFilename: [jsonInfo updateConfigureFilenameForKey: updateKey]];
-    
+    updateFile                      = [jsonInfo updateConfigureFilenameForKey: updateKey];
+    if ( nil != updateFile )
+    {
+        [customization              setSystemConfigureTabUpdateFilename: updateFile];
+    }
     
     [tabConfigure                   updateDataFromZip: [customization systemConfigureTabUpdateFilename]
                                        forDirectories: TDDocumentDirectory inDirectory: subPath
