@@ -8,6 +8,7 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
+#import "TDMath.h"
 #import "UIKit+TechD.h"
 
 #ifndef __ARCMacros_H__
@@ -605,6 +606,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     CGFloat                         screenWidth;
     CGFloat                         introViewHeight;
+    CGFloat                         imageRatio;
     UIEdgeInsets                    subViewInsets;
     CGRect                          stampRect;
     CGSize                          baseSize;
@@ -614,6 +616,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     mode                            = 0;
     stampImage                      = nil;
+    imageRatio                      = 1.0f;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     introViewHeight                 = [customization introViewHeight];
     subViewInsets                   = [customization introViewSubViewInsets];
@@ -644,6 +647,12 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         {
             return NO;
         }
+        
+        //  set size of Proportional.
+        baseSize                    = [stampImage size];
+        imageRatio                  = ( baseSize.height / baseSize.width );
+        stampRect.size              = calculateProportionalMaxSizeWithLimit( imageRatio, baseSize, stampRect.size );
+        [introStampView             setFrame: stampRect];
         [introStampView             setImage: stampImage];
         return YES;
     }
