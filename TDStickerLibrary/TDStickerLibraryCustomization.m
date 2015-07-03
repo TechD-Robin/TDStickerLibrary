@@ -49,6 +49,8 @@
      *  a state flags for customization.
      */
     struct {
+        unsigned int    tableItemSizeUsingImageOriginalProportion:1;
+        
         unsigned int    stickerSoloViewEnabled:1;
         unsigned int    stickerSoloViewUseBlurLayer:1;
         
@@ -268,6 +270,8 @@
     [self                           setTabMenuItemSizeInset: CGSizeMake( 3.0f, 3.0f )];
     
     //  for UICollectionView.
+    [self                           setTableItemSizeUsingImageOriginalProportion: NO];
+    
     [self                           setTableCommonItemSize: CGSizeMake( 64.0f, 64.0f )];
     [self                           setTableCommonSectionInset: UIEdgeInsetsMake( 12.0f, 12.0f, 12.0f, 12.0f )];
     [self                           setTableCommonHeaderReferenceSize: CGSizeMake( 0.0f, 36.0f )];
@@ -654,6 +658,18 @@
     {
         sysStyleBundleManager       = [TDResourceManager assetsBundleEnvironment: bundleName with: [self class] onSingleton: NO];
     }
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) isTableItemSizeUsingImageOriginalProportion
+{
+    return stateFlags.tableItemSizeUsingImageOriginalProportion;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setTableItemSizeUsingImageOriginalProportion:(BOOL)usingImageOriginalProportion
+{
+    stateFlags.tableItemSizeUsingImageOriginalProportion    = usingImageOriginalProportion;
 }
 
 //  ------------------------------------------------------------------------------------------------

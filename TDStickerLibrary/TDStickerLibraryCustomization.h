@@ -270,6 +270,13 @@
 
 //  for UICollectionView(Sticker Libaray Tab Page View's layout).
 /**
+ *  set the flag to use image size's original proportion of table item.
+ *  when flag value is Yes, use size of image original proportion, otherwise use table common item size.
+ *  default is No.
+ */
+@property( nonatomic, getter=isTableItemSizeUsingImageOriginalProportion ) BOOL   tableItemSizeUsingImageOriginalProportion;
+
+/**
  *  common size of table's item.
  */
 @property( nonatomic, assign ) CGSize                       tableCommonItemSize;

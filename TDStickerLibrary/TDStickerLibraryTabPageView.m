@@ -957,6 +957,11 @@
         return CGSizeZero;
     }
     
+    if ( [customization isTableItemSizeUsingImageOriginalProportion] == NO )
+    {
+        return [customization tableCommonItemSize];
+    }
+    
     UIImage                       * stickerImage;
     CGSize                          stickerSize;
     CGFloat                         stickerRatio;
