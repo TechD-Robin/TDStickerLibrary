@@ -302,7 +302,7 @@
     [self                           setStickerSoloViewUseBlurLayer: YES];
     
     
-    [self                           setSoloViewInsetSize: CGSizeMake( -6.0f, -6.0f )];
+    [self                           setSoloViewInsetSize: CGSizeMake( 6.0f, 6.0f )];
     [self                           setSoloViewBlurLayerInsetSize: CGSizeMake( -12.0f, -12.0f )];
     [self                           setSoloViewBlurLayerInsetSizeOnTop: CGSizeMake( -24.0f, -24.0f )];
     [self                           setSoloViewBlurLayerAlphaOnTop: 0.9f];

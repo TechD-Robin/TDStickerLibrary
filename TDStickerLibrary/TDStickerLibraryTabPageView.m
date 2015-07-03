@@ -13,6 +13,7 @@
     #import "ARCMacros.h"
 #endif  //  End of __ARCMacros_H__.
 
+#import "TDMath.h"
 #import "UIKit+TechD.h"
 
 #import "TDStickerLibraryTabPageView.h"
@@ -247,6 +248,17 @@
  *  @return value| -1               calculated value for capacity or -1.
  */
 - ( NSInteger ) _CalculatePerRowCapacityWithCustomization;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief calculate normal mode image size of proportional of the collection view at index path.
+ *  calculate normal mode image size of proportional of the collection view at index path.
+ *
+ *  @param indexPath                indexPath object of table(collectionView).
+ *
+ *  @return size|ZeroSize           the result size or ZeroSize.
+ */
+- ( CGSize ) _CalculateCommonImageProportionalSizeAtIndexPath:(NSIndexPath *)indexPath;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -776,7 +788,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImageView * ) _CreateCommonSticker:(NSIndexPath *)indexPath
 {
-        UIImage                       * stickerImage;
+    UIImage                       * stickerImage;
     UIImageView                   * stickerView;
     
     stickerImage                    = nil;
@@ -935,6 +947,31 @@
     }
     
     return perRowItem;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( CGSize ) _CalculateCommonImageProportionalSizeAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ( ( nil == pageConfigure ) || ( nil == customization ) )
+    {
+        return CGSizeZero;
+    }
+    
+    UIImage                       * stickerImage;
+    CGSize                          stickerSize;
+    CGFloat                         stickerRatio;
+    
+    stickerRatio                    = 1.0f;
+    stickerImage                    = [pageConfigure imageAtIndex: indexPath.section inArray: indexPath.row];
+    if ( nil == stickerImage )
+    {
+        return [customization tableCommonItemSize];
+    }
+    
+    stickerSize                     = [stickerImage size];
+    stickerRatio                    = ( stickerSize.height / stickerSize.width );
+    stickerSize                     = calculateProportionalMaxSizeWithLimit( stickerRatio, stickerSize, [customization tableCommonItemSize] );
+    return stickerSize;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -1488,7 +1525,7 @@
     sectionMode                     = 0;
     if ( ( [pageConfigure dataMode: &sectionMode atIndex: indexPath.section] == NO ) || ( TDStickerLibraryPageSectionModeNormal == sectionMode ) )
     {
-        return [customization tableCommonItemSize];
+        return [self _CalculateCommonImageProportionalSizeAtIndexPath: indexPath];
     }
     return [sectionStates nowSizeOfPreviewImageInSection: indexPath.section];
 }
