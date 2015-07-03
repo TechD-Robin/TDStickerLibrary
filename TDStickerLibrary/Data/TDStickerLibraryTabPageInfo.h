@@ -220,15 +220,14 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionDataMode ){
 
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief get the image's data of introducation of the information data at index.
- *  get the image's data of introducation of the information data at index.
+ *  @brief get the image of introducation of the information data at index.
+ *  get the image of introducation of the information data at index.
  *
  *  @param index                    index of information data.
  *
- *  @return data|nil                the image data or nil.
+ *  @return image|nil                the image or nil.
  */
-- ( NSData * ) introImageDataAtIndex:(NSInteger)index;
-
+- ( UIImage * ) introImageAtIndex:(NSInteger)index;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -304,27 +303,27 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionDataMode ){
 #pragma mark declare for get data in Zipped file.
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief get a image data in zipped file at information data index and for zipped file key.
- *  get a image data in zipped file at information data index and for zipped file key. (for preview image)
+ *  @brief get a image in zipped file at information data index and for zipped file key.
+ *  get a image in zipped file at information data index and for zipped file key. (for preview image)
  *
  *  @param index                    index of information data.
- *  @param aKey                     a key of image data for zipped file.
+ *  @param aKey                     a key of image for zipped file.
  *
- *  @return data|nil                the image data or nil.
+ *  @return image|nil                the image or nil.
  */
-- ( NSData * ) imageDataAtIndex:(NSInteger)index forKey:(NSString *)aKey;
+- ( UIImage * ) imageAtIndex:(NSInteger)index forKey:(NSString *)aKey;
 
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief get a image data in zipped file at information data index and at image name's container index.
- *  get a image data in zipped file at information data index and at image name's container index.
+ *  @brief get a image in zipped file at information data index and at image name's container index.
+ *  get a image in zipped file at information data index and at image name's container index.
  *
  *  @param index                    index of information data.
  *  @param inArrayIndex             index of image name's container.
  *
- *  @return data|nil                the image data or nil.
+ *  @return image|nil                the image or nil.
  */
-- ( NSData * ) imageDataAtIndex:(NSInteger)index inArray:(NSInteger)inArrayIndex;
+- ( UIImage * ) imageAtIndex:(NSInteger)index inArray:(NSInteger)inArrayIndex;
 
 //  ------------------------------------------------------------------------------------------------
 /**

@@ -660,32 +660,17 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 //  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) _IntroStampImageWithNormalMode
 {
-    NSData                        * stampData;
     UIImage                       * stampImage;
     
     //  first, use configure data to get image.
-    stampImage                      = nil;
-    stampData                       = [pageConfigure introImageDataAtIndex: kTDStickerLibraryConfigureIndexAfterSwap];
-    if ( nil != stampData )
-    {
-        stampImage                  = [UIImage imageWithData: stampData];
-    }
+    stampImage                      = [pageConfigure introImageAtIndex: kTDStickerLibraryConfigureIndexAfterSwap];
     if ( nil != stampImage )
     {
         return stampImage;
     }
     
-    //  second, use preview page data to get image.
-    stampData                       = [pageConfigure imageDataAtIndex: kTDStickerLibraryConfigureIndexAfterSwap
-                                                              inArray: kTDStickerLibraryIntroImageDefaultIndex];
-
-    if ( nil == stampData )
-    {
-        return nil;
-    }
-    
-    stampImage                      = [UIImage imageWithData: stampData];
-    return stampImage;
+    //  second, user preview image(brower now).
+    return [pageConfigure imageAtIndex: kTDStickerLibraryConfigureIndexAfterSwap inArray: kTDStickerLibraryIntroImageDefaultIndex];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -715,7 +700,6 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     //  get preview image from configure data.
     NSString                      * previewImageName;
-    NSData                        * previewImageData;
     UIImage                       * previewImage;
     
     NSString                      * stampImageName;
@@ -726,7 +710,6 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     stampData                       = nil;
     stampImage                      = nil;
     stampImageName                  = nil;
-    previewImageData                = nil;
     previewImage                    = nil;
     previewImageName                = nil;
     clippingRect                    = CGRectZero;
@@ -754,13 +737,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         return nil;
     }
     
-    previewImageData                = [pageConfigure imageDataAtIndex: kTDStickerLibraryConfigureIndexAfterSwap forKey: previewImageName];
-    if ( nil == previewImageData )
-    {
-        return nil;
-    }
-    
-    previewImage                    = [UIImage imageWithData: previewImageData];
+    previewImage                    = [pageConfigure imageAtIndex: kTDStickerLibraryConfigureIndexAfterSwap forKey: previewImageName];
     if ( nil == previewImage )
     {
         return nil;

@@ -82,20 +82,6 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
-#pragma mark declare for get data in Zipped file.
-//  ------------------------------------------------------------------------------------------------
-/**
- *  @brief get a image data in zipped file for key.
- *  get a image data in zipped file for key.
- *
- *  @param aKey                     a key of data.
- *
- *  @return data|nil                the image data for key or nil.
- */
-- ( NSData * ) _GetImageDataForKey:(NSString *)aKey;
-
-
-//  ------------------------------------------------------------------------------------------------
 
 @end
 
@@ -117,28 +103,6 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 - ( void ) _InitAttributes
 {
     swapSource                      = nil;
-}
-
-//  ------------------------------------------------------------------------------------------------
-#pragma mark method for get data in Zipped file.
-//  ------------------------------------------------------------------------------------------------
-- ( NSData * ) _GetImageDataForKey:(NSString *)aKey
-{
-//    aKey                            = TDGetImageNameForScreenScale( aKey, (NSInteger)[[UIScreen mainScreen] scaleMultiple] );
-//    aKey                            = TDGetPNGImageFilenameWithAssetScale( aKey, (NSInteger)[[UIScreen mainScreen] scaleMultiple] );
-//    if ( nil == aKey )
-//    {
-//        return nil;
-//    }
-//    return [self unzipDataForKey: aKey];
-    UIImage                       * imageBuffer;
-    
-    imageBuffer                     = [self image: aKey ofType: nil inDirectory: nil];
-    if ( nil == imageBuffer )
-    {
-        return nil;
-    }
-    return [NSData dataWithData: UIImagePNGRepresentation( imageBuffer )];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -317,7 +281,7 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( NSData * ) introImageDataAtIndex:(NSInteger)index
+- ( UIImage * ) introImageAtIndex:(NSInteger)index
 {
     NSString                      * introImageName;
     
@@ -326,7 +290,7 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
     {
         return nil;
     }
-    return [self imageDataAtIndex: index forKey: introImageName];
+    return [self imageAtIndex: index forKey: introImageName];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -356,10 +320,8 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
     NSDictionary                  * infoData;
     NSArray                       * images;
     NSString                      * subDir;
-    NSString                      * imageName;
     
     images                          = nil;
-    imageName                       = nil;
     subDir                          = [self infoDataAtIndex:index stringValueForKey: kTDPageInfoKeySubDir];
     infoData                        = [self infoDataAtIndex: index];
     if ( nil == infoData )
@@ -373,21 +335,8 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
         return nil;
     }
     
-    imageName                       = [images objectAtIndex: inArrayIndex];
-    if ( nil == imageName )
-    {
-        return nil;
-    }
-    
-    if ( nil == subDir )
-    {
-        return imageName;
-    }
-    
-    imageName                       = [subDir stringByAppendingPathComponent: imageName];
-    return imageName;
+    return [images objectAtIndex: inArrayIndex];
 }
-
 
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) isActive:(BOOL *)data atIndex:(NSInteger)index
@@ -496,39 +445,30 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for get data in Zipped file.
 //  ------------------------------------------------------------------------------------------------
-- ( NSData * ) imageDataAtIndex:(NSInteger)index forKey:(NSString *)aKey;
+- ( UIImage * ) imageAtIndex:(NSInteger)index forKey:(NSString *)aKey
 {
-//    aKey                            = TDGetImageNameForScreenScale( aKey, (NSInteger)[[UIScreen mainScreen] scaleMultiple] );
     if ( nil == aKey )
     {
         return nil;
     }
     
     NSString                      * subDir;
-    NSString                      * imageName;
     
-    imageName                       = nil;
     subDir                          = [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeySubDir];
-    if ( nil == subDir )
-    {
-        return [self _GetImageDataForKey: aKey];
-    }
     
-    imageName                       = [subDir stringByAppendingPathComponent: aKey];
-    return [self _GetImageDataForKey: imageName];
+    return [self image: aKey ofType: nil inDirectory: subDir];
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( NSData * ) imageDataAtIndex:(NSInteger)index inArray:(NSInteger)inArrayIndex
+- ( UIImage * ) imageAtIndex:(NSInteger)index inArray:(NSInteger)inArrayIndex
 {
     NSString                      * imageName;
-
+    NSString                      * subDir;
+    
+    subDir                          = [self infoDataAtIndex:index stringValueForKey: kTDPageInfoKeySubDir];
     imageName                       = [self imageNameAtIndex: index inArray: inArrayIndex];
-    if ( nil == imageName )
-    {
-        return nil;
-    }
-    return [self _GetImageDataForKey: imageName];
+    
+    return [self image: imageName ofType: nil inDirectory: subDir];
 }
 
 //  ------------------------------------------------------------------------------------------------

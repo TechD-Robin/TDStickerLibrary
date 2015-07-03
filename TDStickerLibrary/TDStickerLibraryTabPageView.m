@@ -776,27 +776,20 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImageView * ) _CreateCommonSticker:(NSIndexPath *)indexPath
 {
-    
-    NSData                        * imageData;
-    UIImage                       * stickerImage;
+        UIImage                       * stickerImage;
     UIImageView                   * stickerView;
     
     stickerImage                    = nil;
     stickerView                     = nil;
-    imageData                       = [pageConfigure imageDataAtIndex: indexPath.section inArray: indexPath.row];
-    if ( nil == imageData )
-    {
-        return nil;
-    }
-    
-    stickerImage                    = [UIImage imageWithData: imageData];
+    stickerImage                    = [pageConfigure imageAtIndex: indexPath.section inArray: indexPath.row];
     if ( nil == stickerImage )
     {
         return nil;
     }
     
     //stickerView                     = [[UIImageView alloc] initWithImage: stickerImage];
-    stickerView                     = [UIImageView proportionalImageView: stickerImage reference: [customization tableCommonItemSize] originWith: [customization tableCommonItemSize]];
+    stickerView                     = [UIImageView proportionalImageView: stickerImage reference: [customization tableCommonItemSize]
+                                                              originWith: [customization tableCommonItemSize]];
     if ( nil == stickerView )
     {
         SAFE_ARC_RELEASE( stickerImage );
@@ -811,7 +804,6 @@
 //  ------------------------------------------------------------------------------------------------
 - ( UIImageView * ) _CreatePreviewSticker:(NSIndexPath *)indexPath
 {
-    NSData                        * imageData;
     UIImage                       * stickerImage;
     UIImageView                   * stickerView;
     CGSize                          previewSize;
@@ -819,13 +811,7 @@
     stickerImage                    = nil;
     stickerView                     = nil;
     previewSize                     = [sectionStates normalSizeOfPreviewImageInSection: indexPath.section];
-    imageData                       = [pageConfigure imageDataAtIndex: indexPath.section inArray: indexPath.row];
-    if ( nil == imageData )
-    {
-        return nil;
-    }
-    
-    stickerImage                    = [UIImage imageWithData: imageData];
+    stickerImage                    = [pageConfigure imageAtIndex: indexPath.section inArray: indexPath.row];
     if ( nil == stickerImage )
     {
         return nil;
@@ -961,21 +947,14 @@
     
     CGFloat                         ratio;
     CGSize                          newSize;
-    NSData                        * imageData;
     UIImage                       * previewImage;
     UIEdgeInsets                    sectionInset;
     
     ratio                           = 1.0f;
     previewImage                    = nil;
     newSize                         = CGSizeZero;
-    imageData                       = [pageConfigure imageDataAtIndex: section inArray: 0];
     sectionInset                    = [customization tableCommonSectionInset];
-    if ( nil == imageData )
-    {
-        return CGSizeZero;
-    }
-    
-    previewImage                    = [UIImage imageWithData: imageData];
+    previewImage                    = [pageConfigure imageAtIndex: section inArray: 0];
     if ( nil == previewImage )
     {
         return CGSizeZero;
@@ -1567,23 +1546,21 @@
     //  for normal mode.
     CGSize                              stickerSize;
     CGRect                              onScreenFrame;
-    NSData                            * imageData;
     UIImage                           * stickerImage;
     UICollectionViewLayoutAttributes  * layoutAttributes;
     
     stickerSize                     = CGSizeZero;
     onScreenFrame                   = CGRectZero;
     stickerImage                    = nil;
-    imageData                       = [pageConfigure imageDataAtIndex: indexPath.section inArray: indexPath.row];
     layoutAttributes                = [collectionView layoutAttributesForItemAtIndexPath: indexPath];
-    if ( ( nil == imageData ) || ( nil == layoutAttributes ) )
+    if ( nil == layoutAttributes )
     {
         return;
     }
     
     onScreenFrame.size              = [layoutAttributes size];
     onScreenFrame.origin            = [self convertPoint: [layoutAttributes frame].origin toView: nil];
-    stickerImage                    = [UIImage imageWithData: imageData];
+    stickerImage                    = [pageConfigure imageAtIndex: indexPath.section inArray: indexPath.row];
     if ( nil == stickerImage )
     {
         return;
@@ -1725,21 +1702,12 @@
     
     
     //  for use preview name.
-    NSData                        * imageData;
     UIImage                       * image;
     UIImage                       * stickerImage;
     
-    imageData                       = nil;
-    
     image                           = nil;
     stickerImage                    = nil;
-    imageData                       = [pageConfigure imageDataAtIndex: indexPath.section forKey: imageName];
-    if ( nil == imageName )
-    {
-        return;
-    }
-    
-    image                           = [UIImage imageWithData: imageData];
+    image                           = [pageConfigure imageAtIndex: indexPath.section forKey: imageName];
     if ( nil == image )
     {
         return;
