@@ -203,6 +203,7 @@
     //  system style.
     [customization                  setSysStyleBundleName: @"SystemCustomization.bundle"];
     [customization                  setSysStyleImageSubpathInBundle: @"Images"];
+    [customization                  setTableItemSizeUsingImageOriginalProportion: YES];
     
     
     [customization                  setSysStyleBackToMenuImageName:             sysCustomization->styleBackToMenuImageName];
