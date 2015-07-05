@@ -204,7 +204,8 @@
     [customization                  setSysStyleBundleName: @"SystemCustomization.bundle"];
     [customization                  setSysStyleImageSubpathInBundle: @"Images"];
     [customization                  setTableItemSizeUsingImageOriginalProportion: YES];
-    
+    [customization                  setTabPageTableSectionSorting: TDStickerLibraryPageSectionSortingIDDescending];
+
     
     [customization                  setSysStyleBackToMenuImageName:             sysCustomization->styleBackToMenuImageName];
     [customization                  setSysStyleBackToMenuHighlightedImageName:  sysCustomization->styleBackToMenuHighlightedImageName];
