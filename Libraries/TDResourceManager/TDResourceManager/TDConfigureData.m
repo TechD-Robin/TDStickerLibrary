@@ -358,7 +358,7 @@
         }
     }
     
-    //  remove from contaner on here.
+    //  remove from container on here.
     if ( nil != removeObject )
     {
         for ( int i = 0; i < [removeObject count]; ++i )
@@ -729,6 +729,48 @@
 - ( void ) setConfigureData:(NSMutableArray *)container
 {
     configureData                   = container;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) sortConfigureData:(NSString *)sortKey orderAscending:(BOOL)isAscending
+{
+    if ( nil == configureData )
+    {
+        return NO;
+    }
+    
+    NSMutableArray                * sortArray;
+    
+    sortArray                       = configureData;
+    sortArray                       = (NSMutableArray *)[sortArray sortedArrayUsingComparator: ^NSComparisonResult( id obj1, id obj2 )
+    {
+        id                          data1;
+        id                          data2;
+
+        data1                       = [obj1 objectForKey: sortKey];
+        data2                       = [obj2 objectForKey: sortKey];
+        if ( ( nil == data1 ) && ( nil == data2 ) )
+        {
+            return NSOrderedSame;
+        }
+        if ( nil == data1 )
+        {
+            return ( ( YES == isAscending ) ? NSOrderedAscending : NSOrderedDescending );
+        }
+        if ( nil == data2 )
+        {
+            return ( ( YES == isAscending ) ? NSOrderedDescending : NSOrderedAscending );
+        }
+
+        if ( [data2 isKindOfClass: [NSString class]] == YES )
+        {
+            return ( ( YES == isAscending ) ? ( [data1 compare: data2] ) : ( [data2 compare: data1] ) );
+        }
+        return NSOrderedSame;
+    }];
+
+    configureData                   = sortArray;    
+    return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------

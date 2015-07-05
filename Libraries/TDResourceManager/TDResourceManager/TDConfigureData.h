@@ -240,6 +240,18 @@ typedef NS_ENUM( NSInteger, TDConfigureDataSourceFileType ){
 - ( void ) setConfigureData:(NSMutableArray *)container;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief sort the configure data by sort key.
+ *  sort the configure data by sort key.
+ *
+ *  @param sortKey                  a sort key.( a configure data's property or field. )
+ *  @param isAscending              sorting use ascending or descending; Yes is ascending, No is descending.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) sortConfigureData:(NSString *)sortKey orderAscending:(BOOL)isAscending;
+
+//  ------------------------------------------------------------------------------------------------
 
 
 
