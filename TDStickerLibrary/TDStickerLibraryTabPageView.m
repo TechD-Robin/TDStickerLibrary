@@ -433,16 +433,32 @@
     NSString                      * passwd;
     TDGetPathDirectory              directory;
     
-    filename                        = ( ( YES == isUpdate ) ? ( [configure stringByAppendingPathExtension: timestamp] ) : configure );
-    subpath                         = ( ( YES == isUpdate ) ? [customization systemConfigureUpdateSubpath] : [customization systemConfigureDefaultSubpath] );
-    passwd                          = ( ( YES == isUpdate ) ? [customization systemConfigureTabPageUpdateZpwiaopsrpsded] : nil );
-    directory                       = ( ( YES == isUpdate ) ? [customization systemConfigureUpdateDirectory] : [customization systemConfigureDefaultDirectory] );
-    
-    pageConfigure                   = [TDStickerLibraryTabPageInfo loadDataFromZip: filename forDirectories: directory inDirectory: subpath inZippedPath: configure  with: passwd configure: aKey];
+
+    //  first, load default.
+    filename                        = configure;
+    subpath                         = [customization systemConfigureDefaultSubpath];
+    passwd                          = nil;
+    directory                       = [customization systemConfigureDefaultDirectory];
+    pageConfigure                   = [TDStickerLibraryTabPageInfo loadDataFromZip: filename forDirectories: directory inDirectory: subpath
+                                                                      inZippedPath: configure  with: passwd configure: aKey];
     if ( nil == pageConfigure )
     {
         return;
     }
+    
+    if ( NO == isUpdate )
+    {
+        [self                           _InitSectionStates];
+        return;
+    }
+    
+    //  second, load update.
+    filename                        = [configure stringByAppendingPathExtension: timestamp];
+    subpath                         = [customization systemConfigureUpdateSubpath];
+    passwd                          = [customization systemConfigureTabPageUpdateZpwiaopsrpsded];
+    directory                       = [customization systemConfigureUpdateDirectory];
+    [pageConfigure                  updateDataFromZip: filename forDirectories: directory inDirectory: subpath
+                                         inZippedPath: configure with: passwd configure: aKey];
     
     [self                           _InitSectionStates];
 }
