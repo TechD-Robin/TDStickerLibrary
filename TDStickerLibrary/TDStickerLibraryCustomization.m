@@ -271,6 +271,7 @@
     
     //  for UICollectionView.
     [self                           setTableItemSizeUsingImageOriginalProportion: NO];
+    [self                           setTabPageTableSectionSorting: TDStickerLibraryPageSectionSortingNone];
     
     [self                           setTableCommonItemSize: CGSizeMake( 64.0f, 64.0f )];
     [self                           setTableCommonSectionInset: UIEdgeInsetsMake( 12.0f, 12.0f, 12.0f, 12.0f )];
@@ -576,6 +577,7 @@
 @synthesize tabMenuItemSizeInset    = _tabMenuItemSizeInset;
 
 //  for UICollectionView.
+@synthesize tabPageTableSectionSorting      = _tabPageTableSectionSorting;
 @synthesize tableCommonItemSize             = _tableCommonItemSize;
 @synthesize tableCommonSectionInset         = _tableCommonSectionInset;
 @synthesize tableCommonHeaderReferenceSize  = _tableCommonHeaderReferenceSize;

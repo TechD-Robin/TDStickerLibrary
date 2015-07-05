@@ -15,7 +15,39 @@
 #import "TDUtilities.h"
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare enumeration.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  enumeration for Sticker Library's Page Section data sorting.
+ */
+typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
+    /**
+     *  sorting is none.
+     */
+    TDStickerLibraryPageSectionSortingNone          = 0,
+    /**
+     *  sorting is use ID key and ascending.
+     */
+    TDStickerLibraryPageSectionSortingIDAscending,
+    /**
+     *  sorting is use ID key and descending.
+     */
+    TDStickerLibraryPageSectionSortingIDDescending,
+    /**
+     *  sorting is use Title key and ascending.
+     */
+    TDStickerLibraryPageSectionSortingTitleAscending,
+    /**
+     *  sorting is use Title key and descending.
+     */
+    TDStickerLibraryPageSectionSortingTitleDescending,
+};
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+
+
+//
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -150,9 +182,14 @@
  */
 @property( nonatomic, assign ) UIColor                    * sysStyleTitleTextColor;
 
-
+/**
+ *  system style's master vision background color.
+ */
 @property( nonatomic, copy )   UIColor                    * sysStyleMasterVisionBGC;
 
+/**
+ *  system style's navigation bar's background color.
+ */
 @property( nonatomic, copy )   UIColor                    * sysStyleNavigationBGC;
 
 
@@ -268,13 +305,18 @@
  */
 @property( nonatomic, assign ) CGSize                       tabMenuItemSizeInset;
 
+/**
+ *  sorting of section data of page's table.
+ */
+@property( nonatomic, assign ) TDStickerLibraryPageSectionSorting                   tabPageTableSectionSorting;
+
 //  for UICollectionView(Sticker Libaray Tab Page View's layout).
 /**
  *  set the flag to use image size's original proportion of table item.
  *  when flag value is Yes, use size of image original proportion, otherwise use table common item size.
  *  default is No.
  */
-@property( nonatomic, getter=isTableItemSizeUsingImageOriginalProportion ) BOOL   tableItemSizeUsingImageOriginalProportion;
+@property( nonatomic, getter=isTableItemSizeUsingImageOriginalProportion ) BOOL     tableItemSizeUsingImageOriginalProportion;
 
 /**
  *  common size of table's item.

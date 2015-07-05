@@ -117,14 +117,36 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionDataMode ){
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for get information data.
+////  ------------------------------------------------------------------------------------------------
+///**
+// *  @brief sort these information data.
+// *  sort these information data
+// *
+// *  @return YES|NO                  method success or failure.
+// */
+//- ( BOOL ) sortInfoData;
+
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief sort these information data.
- *  sort these information data
+ *  @brief sort the information data by ID.
+ *  sort the information data by ID.
+ *
+ *  @param isAscending              sorting use ascending or descending; Yes is ascending, No is descending.
  *
  *  @return YES|NO                  method success or failure.
  */
-- ( BOOL ) sortInfoData;
+- ( BOOL ) sortInfoDataByDataID:(BOOL)isAscending;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief sort the information data by Title.
+ *  sort the information data by Title.
+ *
+ *  @param isAscending              sorting use ascending or descending; Yes is ascending, No is descending.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) sortInfoDataByDataTitle:(BOOL)isAscending;
 
 //  ------------------------------------------------------------------------------------------------
 /**

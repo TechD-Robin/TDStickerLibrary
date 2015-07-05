@@ -121,6 +121,13 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief execute the method to sort the configure data.
+ *  execute the method to sort the configure data.
+ */
+- ( void ) _SortSystemConfigureData;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief initial section states of collection view.
  *  initial section states of collection view.
  */
@@ -448,9 +455,10 @@
     
     if ( NO == isUpdate )
     {
-        [pageConfigure                  sortInfoData];
+        [self                       _SortSystemConfigureData];
         
-        [self                           _InitSectionStates];
+        
+        [self                       _InitSectionStates];
         return;
     }
     
@@ -463,9 +471,44 @@
                                          inZippedPath: configure with: passwd configure: aKey];
     
     //  sort data after data update.
-    [pageConfigure                  sortInfoData];
+    [self                           _SortSystemConfigureData];
     
     [self                           _InitSectionStates];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _SortSystemConfigureData
+{
+    if ( ( nil == pageConfigure ) || ( nil == customization ) )
+    {
+        return;
+    }
+
+    switch ( [customization tabPageTableSectionSorting] )
+    {
+        case TDStickerLibraryPageSectionSortingNone:
+            return;
+        case TDStickerLibraryPageSectionSortingIDAscending:
+        {
+            [pageConfigure          sortInfoDataByDataID: YES];
+            break;
+        }
+        case TDStickerLibraryPageSectionSortingIDDescending:
+        {
+            [pageConfigure          sortInfoDataByDataID: NO];
+            break;
+        }
+        case TDStickerLibraryPageSectionSortingTitleAscending:
+        {
+            [pageConfigure          sortInfoDataByDataTitle: YES];
+            break;
+        }
+        case TDStickerLibraryPageSectionSortingTitleDescending:
+        {
+            [pageConfigure          sortInfoDataByDataTitle: NO];
+            break;
+        }
+    }
 }
 
 //  ------------------------------------------------------------------------------------------------
