@@ -119,6 +119,15 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionDataMode ){
 #pragma mark declare for get information data.
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief sort these information data.
+ *  sort these information data
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) sortInfoData;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief get the ID of the information data at index.
  *  get the ID of the information data at index.
  *

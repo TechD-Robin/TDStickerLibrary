@@ -205,6 +205,12 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for get information data.
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) sortInfoData
+{
+    return [self sortConfigureData: kTDPageInfoKeyID orderAscending: NO];
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( NSString * ) dataIDAtIndex:(NSInteger)index
 {
     return [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyID];

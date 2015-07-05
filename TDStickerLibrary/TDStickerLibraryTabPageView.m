@@ -448,6 +448,8 @@
     
     if ( NO == isUpdate )
     {
+        [pageConfigure                  sortInfoData];
+        
         [self                           _InitSectionStates];
         return;
     }
@@ -459,6 +461,9 @@
     directory                       = [customization systemConfigureUpdateDirectory];
     [pageConfigure                  updateDataFromZip: filename forDirectories: directory inDirectory: subpath
                                          inZippedPath: configure with: passwd configure: aKey];
+    
+    //  sort data after data update.
+    [pageConfigure                  sortInfoData];
     
     [self                           _InitSectionStates];
 }

@@ -166,6 +166,12 @@ static  NSString  * const kTDTabInfoKeyDataLink                     = @"DataLink
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for get information data.
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) sortInfoData
+{
+    return [self sortConfigureData: kTDTabInfoKeyConfigure orderAscending: YES];
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) isInfoDataEnabledAtIndex:(NSInteger)index
 {
     NSDictionary                  * infoData;

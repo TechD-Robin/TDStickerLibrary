@@ -265,6 +265,7 @@
     jsonInfo                        = [TDPreUpdateJSONInfo loadData: @"SystemConfigureUpdate.json" forDirectories: configureDirectory inDirectory: subPath encoding: NSUTF8StringEncoding];
     if ( nil == jsonInfo )
     {
+        [tabConfigure               sortInfoData];
         return;
     }
     
@@ -279,6 +280,8 @@
                                          inZippedPath: [customization systemConfigureTabUpdateInZippedPrefix]
                                                  with: [customization systemConfigureTabUpdateZpwiaopsrpsded]];
     
+    //  sort data after data update.
+    [tabConfigure                   sortInfoData];
 }
 
 

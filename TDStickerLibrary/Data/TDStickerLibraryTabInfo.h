@@ -92,6 +92,15 @@
 #pragma mark declare for get information data.
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief sort these information data.
+ *  sort these information data
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) sortInfoData;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief check the information data is enabled or not.
  *  check the information data(tab information) is enabled or not.
  *
