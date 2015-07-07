@@ -450,13 +450,32 @@
                                                                       inZippedPath: configure  with: passwd configure: aKey];
     if ( nil == pageConfigure )
     {
+        //  when the tab configure just create form update.( not configure in default. )
+        if ( NO == isUpdate )
+        {
+            return;
+        }
+        
+        filename                    = [filename stringByAppendingPathExtension: timestamp];
+        subpath                     = [customization systemConfigureUpdateSubpath];
+        passwd                      = [customization systemConfigureTabPageUpdateZpwiaopsrpsded];
+        directory                   = [customization systemConfigureUpdateDirectory];
+        pageConfigure               = [TDStickerLibraryTabPageInfo loadDataFromZip: filename forDirectories: directory inDirectory: subpath
+                                                                      inZippedPath: configure  with: passwd configure: aKey];
+        if ( nil == pageConfigure )
+        {
+            return;
+        }
+        
+        [self                       _SortSystemConfigureData];
+        
+        [self                       _InitSectionStates];
         return;
     }
     
     if ( NO == isUpdate )
     {
         [self                       _SortSystemConfigureData];
-        
         
         [self                       _InitSectionStates];
         return;
