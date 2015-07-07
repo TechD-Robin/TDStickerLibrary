@@ -27,11 +27,11 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionDataMode ){
     /**
      *  data mode is preview. ( preview image is high quality. )
      */
-    TDStickerLibraryPageSectionModePreview          = 1,
+    TDStickerLibraryPageSectionModePreview          = 2,
     /**
      *  data mode is preview & must download.
      */
-    TDStickerLibraryPageSectionModePreviewDownload  = 2,
+    TDStickerLibraryPageSectionModePreviewDownload  = 3,
 };
 
 //  ------------------------------------------------------------------------------------------------
