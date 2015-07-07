@@ -39,6 +39,11 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
 @interface TDStickerLibrarySectionStates ()
 {
     /**
+     *  a key of this states object.
+     */
+    NSString                      * statesName;
+    
+    /**
      *  the container of section's states.
      */
     NSMutableArray                * sectionStates;
@@ -87,7 +92,17 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
  *  @return data|nil                the state data or nil.
  */
 - ( NSDictionary * ) _GetStateInfoAtIndex:(NSInteger)index;
+
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief save container of section's states into NSUserDefaults object.
+ *  save container of section's states into NSUserDefaults object.
+ */
+- ( void ) _SaveStates;
+
+//  ------------------------------------------------------------------------------------------------
+
 
 @end
 
@@ -108,6 +123,8 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _InitAttributes
 {
+    statesName                      = nil;
+    
     sectionStates                   = nil;
     
     currentState                    = nil;
@@ -127,6 +144,26 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
     return [sectionStates objectAtIndex: index];
 }
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _SaveStates
+{
+    if ( ( nil == statesName ) || ( nil == sectionStates ) || ( [sectionStates count] == 0 ) )
+    {
+        return;
+    }
+    
+    NSUserDefaults                * userDefaults;
+    
+    userDefaults                    = [NSUserDefaults standardUserDefaults];
+    if ( nil == userDefaults )
+    {
+        return;
+    }
+    
+    [userDefaults                   setObject: sectionStates forKey: statesName];
+    [userDefaults                   synchronize];
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -150,21 +187,41 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 #pragma mark overwrite implementation of NSObject
+////  ------------------------------------------------------------------------------------------------
+//- ( instancetype ) init
+//{
+//    self                            = [super init];
+//    if ( nil == self )
+//    {
+//        return nil;
+//    }
+//    [self                           _InitAttributes];
+//    return self;
+//}
+
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) init
+- ( instancetype ) initWithName:(NSString *)name
 {
     self                            = [super init];
     if ( nil == self )
     {
         return nil;
     }
+    
     [self                           _InitAttributes];
-    return self;
+    statesName                      = name;
+    return self;    
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
+    if ( nil != statesName )
+    {
+        //SAFE_ARC_RELEASE( statesName );
+        statesName                  = nil;
+    }
+    
     if ( nil != sectionStates )
     {
         for ( id idObject in sectionStates )
@@ -198,9 +255,9 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
-+ ( instancetype ) sectionStates
++ ( instancetype ) sectionStates:(NSString *)name
 {
-    return [[[self class] alloc] init];
+    return [[[self class] alloc] initWithName: name];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -246,8 +303,8 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
     {
         return NO;
     }
-    [currentState                   setValue: [NSValue valueWithCGSize: size] forKey: kTDSectionStateKeyPreviewImageSize];
-    [currentState                   setValue: [NSValue valueWithCGSize: miniSize] forKey: kTDSectionStateKeyNowPreviewImageSize];
+    [currentState                   setValue: NSStringFromCGSize( size ) forKey: kTDSectionStateKeyPreviewImageSize];
+    [currentState                   setValue: NSStringFromCGSize( miniSize ) forKey: kTDSectionStateKeyNowPreviewImageSize];
     return YES;
 }
 
@@ -334,6 +391,7 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
     }
     
     [stateInfo                      setValue: [NSNumber numberWithBool: miniState] forKey: kTDSectionStateKeyMiniState];
+    [self                           _SaveStates];
     return YES;
 }
 
@@ -392,7 +450,7 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
     {
         return CGSizeZero;
     }
-    return [[stateInfo objectForKey: kTDSectionStateKeyPreviewImageSize] CGSizeValue];
+    return CGSizeFromString( [stateInfo objectForKey: kTDSectionStateKeyPreviewImageSize] );
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -406,7 +464,7 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
         return NO;
     }
     
-    [stateInfo                      setValue: [NSValue valueWithCGSize: size] forKey: kTDSectionStateKeyNowPreviewImageSize];
+    [stateInfo                      setValue: NSStringFromCGSize( size ) forKey: kTDSectionStateKeyNowPreviewImageSize];
     return YES;
 }
 
@@ -420,7 +478,7 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
     {
         return CGSizeZero;
     }
-    return [[stateInfo objectForKey: kTDSectionStateKeyNowPreviewImageSize] CGSizeValue];
+    return CGSizeFromString( [stateInfo objectForKey: kTDSectionStateKeyNowPreviewImageSize] );
 }
 
 //  ------------------------------------------------------------------------------------------------

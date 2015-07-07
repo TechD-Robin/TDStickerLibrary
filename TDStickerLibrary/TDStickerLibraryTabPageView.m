@@ -130,8 +130,10 @@
 /**
  *  @brief initial section states of collection view.
  *  initial section states of collection view.
+ *
+ *  @param aKey                     a key for collection view.
  */
-- ( void ) _InitSectionStates;
+- ( void ) _InitSectionStates:(NSString *)aKey;
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -422,7 +424,7 @@
     }
     
     pageConfigure                   = pageInfo;
-    [self                           _InitSectionStates];
+    [self                           _InitSectionStates: nil];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -469,7 +471,7 @@
         
         [self                       _SortSystemConfigureData];
         
-        [self                       _InitSectionStates];
+        [self                       _InitSectionStates: aKey];
         return;
     }
     
@@ -477,7 +479,7 @@
     {
         [self                       _SortSystemConfigureData];
         
-        [self                       _InitSectionStates];
+        [self                       _InitSectionStates: aKey];
         return;
     }
     
@@ -492,7 +494,7 @@
     //  sort data after data update.
     [self                           _SortSystemConfigureData];
     
-    [self                           _InitSectionStates];
+    [self                       _InitSectionStates: aKey];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -531,14 +533,14 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) _InitSectionStates
+- ( void ) _InitSectionStates:(NSString *)aKey
 {
     if ( ( nil == pageConfigure ) || ( [pageConfigure infoDataCount] == 0 ) )
     {
         return;
     }
     
-    sectionStates                   = [TDStickerLibrarySectionStates sectionStates];
+    sectionStates                   = [TDStickerLibrarySectionStates sectionStates: aKey];
     if ( nil == sectionStates )
     {
         return;

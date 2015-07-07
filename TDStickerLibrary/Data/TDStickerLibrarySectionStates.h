@@ -27,13 +27,18 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create the object.
 //  ------------------------------------------------------------------------------------------------
+- (instancetype)init NS_UNAVAILABLE;
+
+//  ------------------------------------------------------------------------------------------------
 /**
  *  @brief create a section states's data object.
  *  create a section states's data object.
  *
+ *  @param name                     a key for this object.
+ *
  *  @return object|nil              the data object or nil.
  */
-+ ( instancetype ) sectionStates;
++ ( instancetype ) sectionStates:(NSString *)name;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for i/o a state data.
