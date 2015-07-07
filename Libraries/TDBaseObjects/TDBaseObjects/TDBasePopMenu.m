@@ -8,6 +8,10 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
+#ifndef __ARCMacros_H__
+    #import "ARCMacros.h"
+#endif  //  End of __ARCMacros_H__.
+
 #import "UIKit+TechD.h"
 #import "TDBasePopMenu.h"
 
@@ -181,10 +185,11 @@
  *
  *  @param image                    pop out's normal image.
  *  @param highlighted              pop out's highlighted image.
+ *  @param disabled                 pop out's disabled image.
  *
  *  @return YES|NO                  method success or failure.
  */
-- ( BOOL ) _CreatePopOutView:(UIImage *)image highlighted:(UIImage *)highlighted;
+- ( BOOL ) _CreatePopOutView:(UIImage *)image highlighted:(UIImage *)highlighted disabled:(UIImage *)disabled;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -193,10 +198,11 @@
  *
  *  @param image                    un-pop out's image.
  *  @param highlighted              un-pop out's highlighted image.
+ *  @param disabled                 un-pop out's disabled image.
  *
  *  @return YES|NO                  method success or failure.
  */
-- ( BOOL ) _CreateUnPopOutView:(UIImage *)image highlighted:(UIImage *)highlighted;
+- ( BOOL ) _CreateUnPopOutView:(UIImage *)image highlighted:(UIImage *)highlighted disabled:(UIImage *)disabled;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -213,10 +219,11 @@
  *
  *  @param image                    action item's normal image.
  *  @param highlighted              action item's highlighted image.
+ *  @param disabled                 action item's disabled image.
  *
  *  @return button|nil              a action item or nil.
  */
-- ( UIButton * ) _CreateActionItem:(UIImage *)image highlighted:(UIImage *)highlighted;
+- ( UIButton * ) _CreateActionItem:(UIImage *)image highlighted:(UIImage *)highlighted disabled:(UIImage *)disabled;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -531,7 +538,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _CreatePopOutView:(UIImage *)image highlighted:(UIImage *)highlighted
+- ( BOOL ) _CreatePopOutView:(UIImage *)image highlighted:(UIImage *)highlighted disabled:(UIImage *)disabled
 {
     NSParameterAssert( nil != image );
     NSParameterAssert( nil != highlighted );
@@ -539,7 +546,7 @@
     CGRect                          buttonRect;
     
     buttonRect                      = CGRectMake( 0.0f, 0.0f, [image size].width, [image size].height );
-    popOutButton                    = [UIButton buttonWithImage: image highlighted: highlighted origin: CGPointZero];
+    popOutButton                    = [UIButton buttonWithImage: image highlighted: highlighted disabled: disabled selected: nil origin: CGPointZero];
     if ( nil == popOutButton )
     {
         return NO;
@@ -610,7 +617,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _CreateUnPopOutView:(UIImage *)image highlighted:(UIImage *)highlighted
+- ( BOOL ) _CreateUnPopOutView:(UIImage *)image highlighted:(UIImage *)highlighted disabled:(UIImage *)disabled;
 {
     NSParameterAssert( nil != image );
     NSParameterAssert( nil != highlighted );
@@ -626,7 +633,7 @@
         buttonRect                  = CGRectMake( 0.0f, 0.0f, [image size].width, [image size].height );
     }
     
-    unPopOutButton                  = [UIButton buttonWithImage: image highlighted: highlighted origin: CGPointZero];
+    unPopOutButton                  = [UIButton buttonWithImage: image highlighted: highlighted disabled: disabled selected: nil origin: CGPointZero];
     if ( nil == unPopOutButton )
     {
         return NO;
@@ -727,7 +734,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( UIButton * ) _CreateActionItem:(UIImage *)image highlighted:(UIImage *)highlighted
+- ( UIButton * ) _CreateActionItem:(UIImage *)image highlighted:(UIImage *)highlighted disabled:(UIImage *)disabled
 {
     if ( ( nil == image ) || ( nil == highlighted ) || ( nil == actionsMenu ) )
     {
@@ -746,7 +753,7 @@
     menuRect                        = [actionsMenu frame];
     contentSize                     = [actionsMenu bounds].size;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
-    actionButton                    = [UIButton buttonWithImage: image highlighted: highlighted origin: CGPointZero];
+    actionButton                    = [UIButton buttonWithImage: image highlighted: highlighted disabled: disabled selected: nil origin: CGPointZero];
     if ( nil == actionButton )
     {
         return nil;
@@ -787,14 +794,38 @@
 #pragma mark overwrite implementation of NSObject.
 
 ////  ------------------------------------------------------------------------------------------------
-//- ( void ) dealloc
-//{
-//}
+- ( void ) dealloc
+{
+    if ( nil != blurImageView )
+    {
+        SAFE_ARC_RELEASE( blurImageView );
+        blurImageView               = nil;
+    }
+    
+    if ( nil != popOutButton )
+    {
+        SAFE_ARC_RELEASE( popOutButton );
+        popOutButton                = nil;
+    }
+    
+    if ( nil != unPopOutButton )
+    {
+        SAFE_ARC_RELEASE( unPopOutButton );
+        unPopOutButton              = nil;
+    }
+    
+    if ( nil != actionsMenu )
+    {
+        SAFE_ARC_RELEASE( actionsMenu );
+        actionsMenu                 = nil;
+    }
+}
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create the object.
 //  ------------------------------------------------------------------------------------------------
-- (instancetype ) initWithPosition:(TDBasePopMenuPosition)menuPosition popOut:(UIImage *)image highlighted:(UIImage *)highlighted origin:(CGPoint)offset
+- (instancetype ) initWithPosition:(TDBasePopMenuPosition)menuPosition
+                            popOut:(UIImage *)image highlighted:(UIImage *)highlighted disabled:(UIImage *)disabled origin:(CGPoint)offset
 {
     self                            = [super init];
     if ( nil == self )
@@ -808,7 +839,7 @@
     positionOffset                  = offset;
     
     [self                           _CreateBlurImageView];
-    [self                           _CreatePopOutView: image highlighted: highlighted];
+    [self                           _CreatePopOutView: image highlighted: highlighted disabled: disabled];
     [self                           _CreateActionsMenu];
     
     [self                           _SetFrame];
@@ -817,25 +848,26 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( instancetype ) popMenu:(TDBasePopMenuPosition)menuPosition popOut:(UIImage *)image highlighted:(UIImage *)highlighted origin:(CGPoint)offset
++ ( instancetype ) popMenu:(TDBasePopMenuPosition)menuPosition
+                    popOut:(UIImage *)image highlighted:(UIImage *)highlighted disabled:(UIImage *)disabled origin:(CGPoint)offset
 {
-    return [[[self class] alloc] initWithPosition: menuPosition popOut: image highlighted: highlighted origin: offset];
+    return [[[self class] alloc] initWithPosition: menuPosition popOut: image highlighted: highlighted disabled: disabled origin: offset];
 }
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) setUnPopOut:(UIImage *)image highlighted:(UIImage *)highlighted
+- ( BOOL ) setUnPopOut:(UIImage *)image highlighted:(UIImage *)highlighted disabled:(UIImage *)disabled
 {
-    return [self _CreateUnPopOutView: image highlighted: highlighted];
+    return [self _CreateUnPopOutView: image highlighted: highlighted disabled: disabled];
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) AddAction:(UIImage *)image highlighted:(UIImage *)highlighted
+- ( BOOL ) AddAction:(UIImage *)image highlighted:(UIImage *)highlighted disabled:(UIImage *)disabled
               target:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents
 {
     UIButton                      * actionButton;
     
-    actionButton                    = [self _CreateActionItem: image highlighted: highlighted];
+    actionButton                    = [self _CreateActionItem: image highlighted: highlighted disabled: disabled];
     if ( nil == actionButton )
     {
         return NO;
@@ -890,6 +922,32 @@
     }
     [blurImageView                  setBackgroundColor: layerColor];
     
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setEnabled:(BOOL)enabled
+{
+    if ( nil != popOutButton )
+    {
+        [popOutButton               setEnabled: enabled];
+    }
+    
+    if ( nil != unPopOutButton )
+    {
+        [unPopOutButton             setEnabled: enabled];
+    }
+    
+    if ( ( nil != actionsMenu ) && ( [[actionsMenu subviews] count] > 0 ) )
+    {
+        for ( id idObject in [actionsMenu subviews] )
+        {
+            if ( ( nil == idObject ) || ( [idObject isKindOfClass: [UIButton class]] == NO ) )
+            {
+                continue;
+            }
+            [idObject               setEnabled: enabled];
+        }
+    }
 }
 
 //  ------------------------------------------------------------------------------------------------

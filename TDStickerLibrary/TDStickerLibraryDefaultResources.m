@@ -83,8 +83,11 @@
     [self                           setSysStyleTintedColor: nil];
     [self                           setSysStyleTintedColorAlpha: 0.0f];
     
-    [self                           setSysStyleHighlightedITintedColor: nil];
-    [self                           setSysStyleHighlightedITintedColorAlpha: 0.0f];
+    [self                           setSysStyleHighlightedTintedColor: nil];
+    [self                           setSysStyleHighlightedTintedColorAlpha: 0.0f];
+    
+    [self                           setSysStyleDisabledTintedColor: nil];
+    [self                           setSysStyleDisabledTintedColorAlpha: 0.0f];
 }
 
 
@@ -110,8 +113,11 @@
 @synthesize sysStyleTintedColor                     = _sysStyleTintedColor;
 @synthesize sysStyleTintedColorAlpha                = _sysStyleTintedColorAlpha;
 
-@synthesize sysStyleHighlightedITintedColor         = _sysStyleHighlightedITintedColor;
-@synthesize sysStyleHighlightedITintedColorAlpha    = _sysStyleHighlightedITintedColorAlpha;
+@synthesize sysStyleHighlightedTintedColor          = _sysStyleHighlightedTintedColor;
+@synthesize sysStyleHighlightedTintedColorAlpha     = _sysStyleHighlightedTintedColorAlpha;
+
+@synthesize sysStyleDisabledTintedColor             = _sysStyleDisabledTintedColor;
+@synthesize sysStyleDisabledTintedColorAlpha        = _sysStyleDisabledTintedColorAlpha;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -191,11 +197,11 @@
         return image;
     }
     //return [image imageWithTintedColor: [UIColor grayColor] colorAlpha: 0.12f];
-    if ( [self sysStyleHighlightedITintedColor] == nil )
+    if ( [self sysStyleHighlightedTintedColor] == nil )
     {
         return tintedImage;
     }
-    return [tintedImage imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
+    return [tintedImage imageWithTintedColor: [self sysStyleHighlightedTintedColor] colorAlpha: [self sysStyleHighlightedTintedColorAlpha]];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -339,11 +345,36 @@
     {
         return image;
     }
-    if ( [self sysStyleHighlightedITintedColor] == nil )
+    if ( [self sysStyleHighlightedTintedColor] == nil )
     {
         return tintedImage;
     }
-    return [tintedImage imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
+    return [tintedImage imageWithTintedColor: [self sysStyleHighlightedTintedColor] colorAlpha: [self sysStyleHighlightedTintedColorAlpha]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popMenuPopOutImageDisabled
+{
+    UIImage                       * image;
+    UIImage                       * tintedImage;
+    
+    tintedImage                     = nil;
+    image                           = [self defaultImage: @"ic_format_indent_decrease_36"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    
+    tintedImage                     = [image imageWithTintedColor: [UIColor whiteColor]];
+    if ( nil == tintedImage )
+    {
+        return image;
+    }
+    if ( [self sysStyleDisabledTintedColor] == nil )
+    {
+        return tintedImage;
+    }
+    return [tintedImage imageWithTintedColor: [self sysStyleDisabledTintedColor] colorAlpha: [self sysStyleDisabledTintedColorAlpha]];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -381,11 +412,36 @@
     {
         return image;
     }
-    if ( [self sysStyleHighlightedITintedColor] == nil )
+    if ( [self sysStyleHighlightedTintedColor] == nil )
     {
         return tintedImage;
     }
-    return [tintedImage imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
+    return [tintedImage imageWithTintedColor: [self sysStyleHighlightedTintedColor] colorAlpha: [self sysStyleHighlightedTintedColorAlpha]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popMenuUnPopOutImageDisabled
+{
+    UIImage                       * image;
+    UIImage                       * tintedImage;
+    
+    tintedImage                     = nil;
+    image                           = [self defaultImage: @"ic_format_indent_increase_36"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    
+    tintedImage                     = [image imageWithTintedColor: [UIColor whiteColor]];
+    if ( nil == tintedImage )
+    {
+        return image;
+    }
+    if ( [self sysStyleDisabledTintedColor] == nil )
+    {
+        return tintedImage;
+    }
+    return [tintedImage imageWithTintedColor: [self sysStyleDisabledTintedColor] colorAlpha: [self sysStyleDisabledTintedColorAlpha]];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -423,11 +479,36 @@
     {
         return image;
     }
-    if ( [self sysStyleHighlightedITintedColor] == nil )
+    if ( [self sysStyleHighlightedTintedColor] == nil )
     {
         return tintedImage;
     }
-    return [tintedImage imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
+    return [tintedImage imageWithTintedColor: [self sysStyleHighlightedTintedColor] colorAlpha: [self sysStyleHighlightedTintedColorAlpha]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popItemActionWebsiteImageDisabled
+{
+    UIImage                       * image;
+    UIImage                       * tintedImage;
+    
+    tintedImage                     = nil;
+    image                           = [self defaultImage: @"ic_public_black_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    
+    tintedImage                     = [image imageWithTintedColor: [UIColor whiteColor]];
+    if ( nil == tintedImage )
+    {
+        return image;
+    }
+    if ( [self sysStyleDisabledTintedColor] == nil )
+    {
+        return tintedImage;
+    }
+    return [tintedImage imageWithTintedColor: [self sysStyleDisabledTintedColor] colorAlpha: [self sysStyleDisabledTintedColorAlpha]];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -465,11 +546,36 @@
     {
         return image;
     }
-    if ( [self sysStyleHighlightedITintedColor] == nil )
+    if ( [self sysStyleHighlightedTintedColor] == nil )
     {
         return tintedImage;
     }
-    return [tintedImage imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
+    return [tintedImage imageWithTintedColor: [self sysStyleHighlightedTintedColor] colorAlpha: [self sysStyleHighlightedTintedColorAlpha]];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popItemActionEMailImageDisabled
+{
+    UIImage                       * image;
+    UIImage                       * tintedImage;
+    
+    tintedImage                     = nil;
+    image                           = [self defaultImage: @"ic_email_black_36dp"];
+    if ( nil == image )
+    {
+        return nil;
+    }
+    
+    tintedImage                     = [image imageWithTintedColor: [UIColor whiteColor]];
+    if ( nil == tintedImage )
+    {
+        return image;
+    }
+    if ( [self sysStyleDisabledTintedColor] == nil )
+    {
+        return tintedImage;
+    }
+    return [tintedImage imageWithTintedColor: [self sysStyleDisabledTintedColor] colorAlpha: [self sysStyleDisabledTintedColorAlpha]];
 }
 
 //  ------------------------------------------------------------------------------------------------

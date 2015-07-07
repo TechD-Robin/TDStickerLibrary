@@ -219,8 +219,8 @@
     [self                           setSysStyleTintedColor: nil];
     [self                           setSysStyleTintedColorAlpha: 0.0f];
     
-    [self                           setSysStyleHighlightedITintedColor: nil];
-    [self                           setSysStyleHighlightedITintedColorAlpha: 0.0f];
+    [self                           setSysStyleHighlightedTintedColor: nil];
+    [self                           setSysStyleHighlightedTintedColorAlpha: 0.0f];
     
     [self                           setSysStyleDisabledTintedColor: nil];
     [self                           setSysStyleDisabledTintedColorAlpha: 0.0f];
@@ -396,11 +396,11 @@
     {
         return [self defaultNoImage];
     }
-    if ( [self sysStyleHighlightedITintedColor] == nil )
+    if ( [self sysStyleHighlightedTintedColor] == nil )
     {
         return image;
     }
-    return [image imageWithTintedColor: [self sysStyleHighlightedITintedColor] colorAlpha: [self sysStyleHighlightedITintedColorAlpha]];
+    return [image imageWithTintedColor: [self sysStyleHighlightedTintedColor] colorAlpha: [self sysStyleHighlightedTintedColorAlpha]];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -527,8 +527,8 @@
 @synthesize sysStyleTintedColor                     = _sysStyleTintedColor;
 @synthesize sysStyleTintedColorAlpha                = _sysStyleTintedColorAlpha;
 
-@synthesize sysStyleHighlightedITintedColor         = _sysStyleHighlightedITintedColor;
-@synthesize sysStyleHighlightedITintedColorAlpha    = _sysStyleHighlightedITintedColorAlpha;
+@synthesize sysStyleHighlightedTintedColor          = _sysStyleHighlightedTintedColor;
+@synthesize sysStyleHighlightedTintedColorAlpha     = _sysStyleHighlightedTintedColorAlpha;
 
 @synthesize sysStyleDisabledTintedColor             = _sysStyleDisabledTintedColor;
 @synthesize sysStyleDisabledTintedColorAlpha        = _sysStyleDisabledTintedColorAlpha;
@@ -719,22 +719,42 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) setSysStyleHighlightedITintedColor:(UIColor *)sysStyleHighlightedITintedColor
+- ( void ) setSysStyleHighlightedTintedColor:(UIColor *)sysStyleHighlightedTintedColor
 {
-    _sysStyleHighlightedITintedColor    = sysStyleHighlightedITintedColor;
+    _sysStyleHighlightedTintedColor     = sysStyleHighlightedTintedColor;
     if ( nil != defaultResources )
     {
-        [defaultResources               setSysStyleHighlightedITintedColor: sysStyleHighlightedITintedColor];
+        [defaultResources               setSysStyleHighlightedTintedColor: sysStyleHighlightedTintedColor];
     }
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) setSysStyleHighlightedITintedColorAlpha:(CGFloat)sysStyleHighlightedITintedColorAlpha
+- ( void ) setSysStyleHighlightedTintedColorAlpha:(CGFloat)sysStyleHighlightedTintedColorAlpha
 {
-    _sysStyleHighlightedITintedColorAlpha   = sysStyleHighlightedITintedColorAlpha;
+    _sysStyleHighlightedTintedColorAlpha= sysStyleHighlightedTintedColorAlpha;
     if ( nil != defaultResources )
     {
-        [defaultResources               setSysStyleHighlightedITintedColorAlpha: sysStyleHighlightedITintedColorAlpha];
+        [defaultResources               setSysStyleHighlightedTintedColorAlpha: sysStyleHighlightedTintedColorAlpha];
+    }
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setSysStyleDisabledTintedColor:(UIColor *)sysStyleDisabledTintedColor
+{
+    _sysStyleDisabledTintedColor        = sysStyleDisabledTintedColor;
+    if ( nil != defaultResources )
+    {
+        [defaultResources               setSysStyleDisabledTintedColor: sysStyleDisabledTintedColor];
+    }
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setSysStyleDisabledTintedColorAlpha:(CGFloat)sysStyleDisabledTintedColorAlpha
+{
+    _sysStyleDisabledTintedColorAlpha   = sysStyleDisabledTintedColorAlpha;
+    if ( nil != defaultResources )
+    {
+        [defaultResources               setSysStyleDisabledTintedColorAlpha: sysStyleDisabledTintedColorAlpha];
     }
 }
 
@@ -930,6 +950,16 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popMenuPopOutImageDisabled
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources popMenuPopOutImageDisabled];
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) popMenuUnPopOutImage
 {
     if ( nil == defaultResources )
@@ -947,6 +977,16 @@
         return nil;
     }
     return [defaultResources popMenuUnPopOutImageHightlighted];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popMenuUnPopOutImageDisabled
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources popMenuUnPopOutImageDisabled];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -970,6 +1010,16 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popItemActionWebsiteImageDisabled
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources popItemActionWebsiteImageDisabled];
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( UIImage * ) popItemActionEMailImage
 {
     if ( nil == defaultResources )
@@ -987,6 +1037,16 @@
         return nil;
     }
     return [defaultResources popItemActionEMailImageHightlighted];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( UIImage * ) popItemActionEMailImageDisabled
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources popItemActionEMailImageDisabled];
 }
 
 //  ------------------------------------------------------------------------------------------------

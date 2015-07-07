@@ -84,6 +84,11 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
      *  a view for sticker preview.
      */
     TDStickerLibraryTabPageView   * stickerPageView;
+
+    /**
+     *  a pop out menu.
+     */
+    TDBasePopMenu                 * popMenu;
     
     
     //  configure.
@@ -390,6 +395,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     
     stickerPageView                 = nil;
+    
+    popMenu                         = nil;
     
     //  configure.
     customization                   = nil;
@@ -929,7 +936,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
                                         into: [customization stickerDownloadSubpath] of: [customization stickerDownloadDirectory]
                                updateCheckBy: timestamp completed: ^(NSError * error, NSString * fullPath, BOOL finished)
     {
-        [backButton                     setEnabled: YES];
+        [backButton                 setEnabled: YES];
+        [popMenu                    setEnabled: YES];
         
          NSLog( @"result %d, %@", finished, error );
          NSLog( @"file full path : %@", fullPath );
@@ -942,7 +950,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     //  when downloading, button must disable; ** when system is downloading, touch the back button, system will crash. **
     [backButton                     setEnabled: NO];
-    
+    [popMenu                        setEnabled: NO];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -1130,15 +1138,17 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     CGFloat                         statusBarHeight;
     UIImage                       * popOutMenuImage;
     UIImage                       * popOutMenuImageHighlighted;
+    UIImage                       * popOutMenuImageDisabled;
     UIImage                       * unPopOutMenuImage;
     UIImage                       * unPopOutMenuImageHighlighted;
-    TDBasePopMenu                 * popMenu;
+    UIImage                       * unPopOutMenuImageDisabled;
     
     statusBarHeight                 = [[UIScreen mainScreen] getStatusBarHeight];
     popOutMenuImage                 = [customization popMenuPopOutImage];
     popOutMenuImageHighlighted      = [customization popMenuPopOutImageHightlighted];
+    popOutMenuImageDisabled         = [customization popMenuPopOutImageDisabled];
     popMenu                         = [TDBasePopMenu popMenu: TDBasePopMenuPositionRightTop
-                                                      popOut: popOutMenuImage highlighted: popOutMenuImageHighlighted
+                                                      popOut: popOutMenuImage highlighted: popOutMenuImageHighlighted disabled: popOutMenuImageDisabled
                                                       origin: CGPointMake( -( [customization edgeActionObjectInsets].right ), statusBarHeight )];
     if ( nil == popMenu )
     {
@@ -1147,7 +1157,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     unPopOutMenuImage               = [customization popMenuUnPopOutImage];
     unPopOutMenuImageHighlighted    = [customization popMenuUnPopOutImageHightlighted];
-    [popMenu                        setUnPopOut: unPopOutMenuImage highlighted: unPopOutMenuImageHighlighted];
+    unPopOutMenuImageDisabled       = [customization popMenuUnPopOutImageDisabled];
+    [popMenu                        setUnPopOut: unPopOutMenuImage highlighted: unPopOutMenuImageHighlighted disabled: unPopOutMenuImageDisabled];
     //[popMenu                        setInteritemSpacing: [customization popMenuInteritemSpacing]];
     [popMenu                        setPopOutAnimateDuration: [customization popMenuPopOutAnimateDuration]];
     [popMenu                        setBlurLayer: [customization popMenuBlurLayerColor] scale: [customization popMenuBlayLayerWidthScale]];
@@ -1159,12 +1170,14 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         
         [popMenu                    AddAction: [customization popItemActionWebsiteImage]
                                   highlighted: [customization popItemActionWebsiteImageHightlighted]
+                                     disabled: [customization popItemActionWebsiteImageDisabled]
                                        target: self action: @selector( _GotoWebsiteAction: ) forControlEvents: UIControlEventTouchUpInside];
     }
     if ( [self _IsHaveEMailInformation] == YES )
     {
         [popMenu                    AddAction: [customization popItemActionEMailImage]
                                   highlighted: [customization popItemActionEMailImageHightlighted]
+                                     disabled: [customization popItemActionEMailImageDisabled] 
                                        target: self action: @selector( _WriteEMailAction: ) forControlEvents: UIControlEventTouchUpInside];
     }
     
@@ -1524,6 +1537,12 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     {
         SAFE_ARC_RELEASE( stickerPageView );
         stickerPageView             = nil;
+    }
+    
+    if ( nil != popMenu )
+    {
+        SAFE_ARC_RELEASE( popMenu );
+        popMenu                     = nil;
     }
     
     //  just only assign these pointer to nil, because this object has not creator.

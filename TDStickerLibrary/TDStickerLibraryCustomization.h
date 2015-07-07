@@ -140,12 +140,12 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
 /**
  *  system style's highlighted tinted color.
  */
-@property( nonatomic, assign ) UIColor                    * sysStyleHighlightedITintedColor;
+@property( nonatomic, assign ) UIColor                    * sysStyleHighlightedTintedColor;
 
 /**
  *  system style's highlighted tinted color alpha.
  */
-@property( nonatomic, assign ) CGFloat                      sysStyleHighlightedITintedColorAlpha;
+@property( nonatomic, assign ) CGFloat                      sysStyleHighlightedTintedColorAlpha;
 
 /**
  *  system style's disabled tinted color.
@@ -698,6 +698,15 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief get the pop menu's pop out disabled image.
+ *  get the pop menu's pop out disabled image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) popMenuPopOutImageDisabled;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief get the pop menu's un-pop out image.
  *  get the pop menu's un-pop out image.
  *
@@ -713,6 +722,15 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
  *  @return image|nil               the image object or nil.
  */
 - ( UIImage * ) popMenuUnPopOutImageHightlighted;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the pop menu's un-pop out disabled image.
+ *  get the pop menu's un-pop out disabled image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) popMenuUnPopOutImageDisabled;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -734,6 +752,15 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief get the pop items's website action's disabled image.
+ *  get the pop items's website action's disabled image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) popItemActionWebsiteImageDisabled;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief get the pop items's email action's image.
  *  get the pop items's email action's image.
  *
@@ -749,6 +776,15 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
  *  @return image|nil               the image object or nil.
  */
 - ( UIImage * ) popItemActionEMailImageHightlighted;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the pop items's email action's disabled image.
+ *  get the pop items's email action's disabled image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) popItemActionEMailImageDisabled;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for get localized stirng.

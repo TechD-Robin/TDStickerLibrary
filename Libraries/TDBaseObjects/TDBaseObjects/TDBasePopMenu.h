@@ -54,11 +54,13 @@ typedef NS_ENUM( NSInteger, TDBasePopMenuPosition ){
  *  @param menuPosition             enumeration of position.
  *  @param image                    pop out's normal image.
  *  @param highlighted              pop out's highlighted image.
+ *  @param disabled                 pop out's disabled image.
  *  @param offset                   position offset between pop out's item and actions contents.
  *
  *  @return object|nil              the base pop menu object or nil.
  */
-+ ( instancetype ) popMenu:(TDBasePopMenuPosition)menuPosition popOut:(UIImage *)image highlighted:(UIImage *)highlighted origin:(CGPoint)offset;
++ ( instancetype ) popMenu:(TDBasePopMenuPosition)menuPosition
+                    popOut:(UIImage *)image highlighted:(UIImage *)highlighted disabled:(UIImage *)disabled origin:(CGPoint)offset;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -67,10 +69,11 @@ typedef NS_ENUM( NSInteger, TDBasePopMenuPosition ){
  *
  *  @param image                    un-pop out's image.
  *  @param highlighted              un-pop out's highlighted image.
+ *  @param disabled                 un-pop out's disabled image.
  *
  *  @return YES|NO                  method success or failure.
  */
-- ( BOOL ) setUnPopOut:(UIImage *)image highlighted:(UIImage *)highlighted;
+- ( BOOL ) setUnPopOut:(UIImage *)image highlighted:(UIImage *)highlighted disabled:(UIImage *)disabled;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -79,13 +82,14 @@ typedef NS_ENUM( NSInteger, TDBasePopMenuPosition ){
  *
  *  @param image                    action's normal image.
  *  @param highlighted              action's highlighted image.
+ *  @param disabled                 action's disabled image.
  *  @param target                   action's target object.
  *  @param action                   action's SEL object( method of target).
  *  @param controlEvents            action's control event (trigger event).
  *
  *  @return YES|NO                  method success or failure.
  */
-- ( BOOL ) AddAction:(UIImage *)image highlighted:(UIImage *)highlighted
+- ( BOOL ) AddAction:(UIImage *)image highlighted:(UIImage *)highlighted disabled:(UIImage *)disabled 
               target:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
 
 //  ------------------------------------------------------------------------------------------------
@@ -121,7 +125,15 @@ typedef NS_ENUM( NSInteger, TDBasePopMenuPosition ){
 - ( void ) setBlurLayer:(UIColor *)layerColor scale:(CGFloat)widthScale;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set the pop menu enabled or not.
+ *  set the pop menu enabled or not.
+ *
+ *  @param enabled                  set to enabled or disabled.
+ */
+- ( void ) setEnabled:(BOOL)enabled;
 
+//  ------------------------------------------------------------------------------------------------
 
 @end
 

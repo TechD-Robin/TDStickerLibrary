@@ -55,12 +55,22 @@ static  NSString  * const kTDStickerLibraryDefaultLocalizedStringTable  = @"Stic
 /**
  *  system style's highlighted tinted color.
  */
-@property( nonatomic, assign ) UIColor                    * sysStyleHighlightedITintedColor;
+@property( nonatomic, assign ) UIColor                    * sysStyleHighlightedTintedColor;
 
 /**
  *  system style's highlighted tinted color alpha.
  */
-@property( nonatomic, assign ) CGFloat                      sysStyleHighlightedITintedColorAlpha;
+@property( nonatomic, assign ) CGFloat                      sysStyleHighlightedTintedColorAlpha;
+
+/**
+ *  system style's disabled tinted color.
+ */
+@property( nonatomic, assign ) UIColor                    * sysStyleDisabledTintedColor;
+
+/**
+ *  system style's disabled tinted color alpha.
+ */
+@property( nonatomic, assign ) CGFloat                      sysStyleDisabledTintedColorAlpha;
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -175,6 +185,15 @@ static  NSString  * const kTDStickerLibraryDefaultLocalizedStringTable  = @"Stic
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief get the pop menu's pop out disabled image.
+ *  get the pop menu's pop out disabled image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) popMenuPopOutImageDisabled;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief get the pop menu's un-pop out image.
  *  get the pop menu's un-pop out image.
  *
@@ -190,6 +209,15 @@ static  NSString  * const kTDStickerLibraryDefaultLocalizedStringTable  = @"Stic
  *  @return image|nil               the image object or nil.
  */
 - ( UIImage * ) popMenuUnPopOutImageHightlighted;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the pop menu's un-pop out disabled image.
+ *  get the pop menu's un-pop out disabled image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) popMenuUnPopOutImageDisabled;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -211,6 +239,15 @@ static  NSString  * const kTDStickerLibraryDefaultLocalizedStringTable  = @"Stic
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief get the pop items's website action's disabled image.
+ *  get the pop items's website action's disabled image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) popItemActionWebsiteImageDisabled;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief get the pop items's email action's image.
  *  get the pop items's email action's image.
  *
@@ -226,6 +263,15 @@ static  NSString  * const kTDStickerLibraryDefaultLocalizedStringTable  = @"Stic
  *  @return image|nil               the image object or nil.
  */
 - ( UIImage * ) popItemActionEMailImageHightlighted;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the pop items's email action's disabled image.
+ *  get the pop items's email action's disabled image.
+ *
+ *  @return image|nil               the image object or nil.
+ */
+- ( UIImage * ) popItemActionEMailImageDisabled;
 
 //  ------------------------------------------------------------------------------------------------
 

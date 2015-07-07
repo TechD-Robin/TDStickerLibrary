@@ -226,8 +226,8 @@
     [customization                  setSysStyleTintedColor:                     sysCustomization->styleTintedColor];
     [customization                  setSysStyleTintedColorAlpha:                sysCustomization->styleTintedColorAlpha];
     
-    [customization                  setSysStyleHighlightedITintedColor:         sysCustomization->styleHighlightedTintedColor];
-    [customization                  setSysStyleHighlightedITintedColorAlpha:    sysCustomization->styleHighlightedTintedColorAlpha];
+    [customization                  setSysStyleHighlightedTintedColor:          sysCustomization->styleHighlightedTintedColor];
+    [customization                  setSysStyleHighlightedTintedColorAlpha:     sysCustomization->styleHighlightedTintedColorAlpha];
     
     [customization                  setSysStyleDisabledTintedColor:             sysCustomization->styleDisabledTintedColor];
     [customization                  setSysStyleDisabledTintedColorAlpha:        sysCustomization->styleDisabledTintedColorAlpha];
