@@ -337,10 +337,8 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 {
     NSDictionary                  * infoData;
     NSArray                       * images;
-    NSString                      * subDir;
     
     images                          = nil;
-    subDir                          = [self infoDataAtIndex:index stringValueForKey: kTDPageInfoKeySubDir];
     infoData                        = [self infoDataAtIndex: index];
     if ( nil == infoData )
     {

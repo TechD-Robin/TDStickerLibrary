@@ -302,7 +302,6 @@
     
     
     //  run animation.
-    __weak id                       blockSelf;
     __weak id                       blockSticker;
     __weak id                       blockBlur;
     
@@ -311,7 +310,6 @@
         [blurImageView              setAlpha: 0.0f];
     }
     
-    blockSelf                       = self;
     blockSticker                    = stickerImageView;
     blockBlur                       = blurImageView;
 

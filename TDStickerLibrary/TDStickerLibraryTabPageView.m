@@ -1160,12 +1160,12 @@
     
     BOOL                            miniState;
     CGSize                          miniSize;
-    CGSize                          nowSize;
+    //CGSize                          nowSize;
     CGSize                          previewSize;
     
     miniState                       = NO;
     miniSize                        = [self _CalculatePreviewImageMiniSizeForSectionAtIndex: section];
-    nowSize                         = [sectionStates nowSizeOfPreviewImageInSection: section];
+    //nowSize                         = [sectionStates nowSizeOfPreviewImageInSection: section];
     previewSize                     = [sectionStates normalSizeOfPreviewImageInSection: section];
     if ( ( [sectionStates miniState: &miniState inSection: section] == YES ) && ( nil != cell ) )
     {
@@ -1203,7 +1203,7 @@
     
     BOOL                            miniState;
     NSInteger                       rowCapacity;
-    NSInteger                       imageNowCount;
+    //NSInteger                       imageNowCount;
     NSInteger                       imageTotal;
     TDStickerLibraryTabPageLayout * layout;
     
@@ -1211,7 +1211,7 @@
     layout                          = (TDStickerLibraryTabPageLayout *)[collectionView collectionViewLayout];
     rowCapacity                     = [layout calculateFirstRowCapacityForSectionAtIndex: section];
     imageTotal                      = [sectionStates numberOfTotalImagesInSection: section];
-    imageNowCount                   = [sectionStates numberOfImagesInSection: section];
+    //imageNowCount                   = [sectionStates numberOfImagesInSection: section];
     //  when image count less then row's capacity, skip change.
     if ( imageTotal <= rowCapacity )
     {

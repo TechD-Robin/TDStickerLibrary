@@ -333,10 +333,8 @@
         return;
     }
     
-    CGPoint                         centerOffset;
     CGRect                          offsetRect;
     
-    centerOffset                    = CGPointZero;
     offsetRect                      = [popOutButton frame];
     switch ( popMenuPosition )
     {
@@ -741,18 +739,12 @@
         return nil;
     }
     
-    CGPoint                         scrollOffset;
     CGRect                          buttonRect;
-    CGRect                          menuRect;
     CGSize                          contentSize;
-    CGFloat                         screenWidth;
     UIButton                      * actionButton;
     
-    scrollOffset                    = CGPointZero;
     buttonRect                      = CGRectZero;
-    menuRect                        = [actionsMenu frame];
     contentSize                     = [actionsMenu bounds].size;
-    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     actionButton                    = [UIButton buttonWithImage: image highlighted: highlighted disabled: disabled selected: nil origin: CGPointZero];
     if ( nil == actionButton )
     {
