@@ -563,6 +563,7 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
         return NO;
     }
     
+    //  maybe is error data, remove it.
     if ( [saveStates count] != [sectionStates count] )
     {
         [userDefaults               removeObjectForKey: statesName];

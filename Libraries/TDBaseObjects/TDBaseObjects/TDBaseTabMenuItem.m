@@ -145,6 +145,13 @@
             [[subview               relationView] setHidden: YES];
         }
     }
+    
+    //  extension delegate's action.
+    if ( [[self idDelegate] respondsToSelector: @selector( menuItem: didSelected: )] == NO )
+    {
+        return;
+    }
+    [[self                          idDelegate] menuItem: self didSelected: [self tag]];
 }
 
 

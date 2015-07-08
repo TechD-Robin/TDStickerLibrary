@@ -12,6 +12,34 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+@class TDBaseTabMenuItem;
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare protocol for TDBaseTabMenuItemDelegate.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  delegate of item of base tab menu. (option)
+ */
+@protocol TDBaseTabMenuItemDelegate <NSObject>
+@optional
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief when the menu item is tap, call the delegate method.
+ *  when the menu item is tap, call the delegate method. ( for extension design )
+ *
+ *  @param menuItem                 the menu item.
+ *  @param tag                      item's tag.
+ */
+- ( void ) menuItem:(TDBaseTabMenuItem *)menuItem didSelected:(NSInteger)tag;
+
+//  ------------------------------------------------------------------------------------------------
+
+@end
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 /**
  *  @brief define type of block method pointer for relation object need to be created.
  *
@@ -38,6 +66,14 @@ typedef   void(^CreateRelationBlock)(NSInteger tag);
  *  assign a view pointer for a relation view.
  */
 @property ( nonatomic, SAFE_ARC_PROP_RETAIN ) UIView                      * relationView;
+
+/**
+ *  delegate for TDBaseTabMenuItemDelegate.
+ */
+@property ( nonatomic, SAFE_ARC_PROP_RETAIN ) id<TDBaseTabMenuItemDelegate> idDelegate;
+
+//  ------------------------------------------------------------------------------------------------
+
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create the object.

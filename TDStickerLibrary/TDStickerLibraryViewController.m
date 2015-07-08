@@ -34,7 +34,7 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare private category ()
 //  ------------------------------------------------------------------------------------------------
-@interface TDStickerLibraryViewController ()
+@interface TDStickerLibraryViewController () <TDBaseTabMenuItemDelegate>
 {
     //  sub view.
     /**
@@ -186,6 +186,25 @@
  *  @return object|nil              the tab menu item or nil.
  */
 - ( id ) _CreateTabMenuItem:(NSArray *)imagesName index:(NSInteger)index;
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get a name of current tab tag for stored container.
+ *  get a name(key) of current tab tag for stored container
+ *
+ *  @return name|nil                a name(key) or nil.
+ */
+- ( NSString * ) _NameForStoredCurrentTabTag;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the current tab tag from stored container.
+ *  get the current tab tag from stored container ( NSUserDefaults object ).
+ *
+ *  @return tag| 1                  a tab tag or 1.
+ */
+- ( NSInteger ) _GetCurrentTabTag;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for calculate object's properties.
@@ -510,9 +529,11 @@
 {
     //  if have save to configure, load it.
     NSInteger                       loadIndex;
+    NSInteger                       currentTabTag;
     UIView                        * relationView;
     
-    loadIndex                       = [tabConfigure indexOfInfoDataEnabledAtOrder: 1];  //  tag index to array index.
+    currentTabTag                   = [self _GetCurrentTabTag];
+    loadIndex                       = [tabConfigure indexOfInfoDataEnabledAtOrder: currentTabTag];  //  tag index to array index.
     if (  -1 == loadIndex )
     {
         return NO;
@@ -668,9 +689,61 @@
         [tabMenu                    addSubview: baseItem];
     }
     
+    [baseItem                       setIdDelegate: self];
     return baseItem;
 }
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) _NameForStoredCurrentTabTag
+{
+    NSString                      * bundleIdentifier;
+    NSString                      * aKey;
+    
+    aKey                            = @"CurrentTabTag";
+    bundleIdentifier                = [[NSBundle mainBundle] bundleIdentifier];
+    if ( nil == bundleIdentifier )
+    {
+        return aKey;
+    }
+    
+    aKey                            = [bundleIdentifier stringByAppendingPathExtension: aKey];
+    return aKey;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSInteger ) _GetCurrentTabTag
+{
+    NSString                      * aKey;
+    NSString                      * currentTabTag;
+    NSUserDefaults                * userDefaults;
+    
+    currentTabTag                   = nil;
+    aKey                            = [self _NameForStoredCurrentTabTag];
+    userDefaults                    = [NSUserDefaults standardUserDefaults];
+    if ( ( nil == aKey ) || ( nil == userDefaults ) )
+    {
+        return 1;
+    }
+    
+    currentTabTag                   = [userDefaults objectForKey: aKey];
+    if ( nil == currentTabTag )
+    {
+        return 1;
+    }
+    
+    if ( nil != tabConfigure )
+    {
+        //  maybe is error data, remove it.
+        if ( [tabConfigure infoDataCount] < [currentTabTag integerValue] )
+        {
+            [userDefaults           removeObjectForKey: aKey];
+            return 1;
+        }
+    }
+    
+    return [currentTabTag integerValue];
+}
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for calculate object's properties.
@@ -894,6 +967,27 @@
 - ( void ) actionCompletion
 {
     [self                           _BackAction: nil];
+}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark protocol optional for TDBaseTabMenuItemDelegate.
+//  ------------------------------------------------------------------------------------------------
+- ( void ) menuItem:(TDBaseTabMenuItem *)menuItem didSelected:(NSInteger)tag
+{
+
+    //  store item's tag into user defaultes.
+    NSString                      * aKey;
+    NSUserDefaults                * userDefaults;
+    
+    aKey                            = [self _NameForStoredCurrentTabTag];
+    userDefaults                    = [NSUserDefaults standardUserDefaults];
+    if ( ( nil == aKey ) || ( nil == userDefaults ) )
+    {
+        return;
+    }
+    
+    [userDefaults                   setObject: @(tag) forKey: aKey];
+    [userDefaults                   synchronize];
 }
 
 //  ------------------------------------------------------------------------------------------------
