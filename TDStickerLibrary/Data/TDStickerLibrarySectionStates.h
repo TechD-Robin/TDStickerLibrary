@@ -244,6 +244,16 @@
 - ( BOOL ) updateDownloadState:(BOOL)downloadState  inSection:(NSInteger)section;
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief refresh this object's current state data from stored.
+ *  refresh this object's current state data from stored.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) refreshFromStored;
+
+//  ------------------------------------------------------------------------------------------------
 
 @end
 

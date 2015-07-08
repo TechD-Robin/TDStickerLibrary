@@ -540,6 +540,16 @@
         return;
     }
     
+    
+    NSString                      * bundleIdentifier;
+    
+    bundleIdentifier                = [[NSBundle mainBundle] bundleIdentifier];
+    aKey                            = [@"TabPage" stringByAppendingPathExtension: aKey];
+    if ( nil != bundleIdentifier )
+    {
+        aKey                        = [bundleIdentifier stringByAppendingPathExtension: aKey];
+    }
+    
     sectionStates                   = [TDStickerLibrarySectionStates sectionStates: aKey];
     if ( nil == sectionStates )
     {
@@ -601,14 +611,14 @@
         
         if ( NO == modeFlags.isIntroduction )
         {
-            [sectionStates              updateImagesCountOfStateData: imageCount with: imageMiniCount];             //  start at mini state.
-            //[sectionStates              updateImagesCountOfStateData: imageCount with: imageCount];                 //  start at normal state.
-            [sectionStates              updateMiniStateOfStateData: YES];
+            [sectionStates          updateImagesCountOfStateData: imageCount with: imageMiniCount];             //  start at mini state.
+            //[sectionStates          updateImagesCountOfStateData: imageCount with: imageCount];                 //  start at normal state.
+            [sectionStates          updateMiniStateOfStateData: YES];
         }
         else
         {
-            [sectionStates              updateImagesCountOfStateData: imageCount with: imageCount];                 //  start at normal state.
-            [sectionStates              updateMiniStateOfStateData: NO];
+            [sectionStates          updateImagesCountOfStateData: imageCount with: imageCount];                 //  start at normal state.
+            [sectionStates          updateMiniStateOfStateData: NO];
         }
         
         //  when mode not equal normal.
@@ -622,24 +632,26 @@
         previewMiniSize             = [self _CalculatePreviewImageMiniSizeForSectionAtIndex: i];
         if ( NO == modeFlags.isIntroduction )
         {
-            [sectionStates              updatePreviewImageSizeOfStateData: previewSize with: previewMiniSize];      //  start at mini state.
-            //[sectionStates              updatePreviewImageSizeOfStateData: previewSize with: previewSize];          //  start at normal state.
-            [sectionStates              updateMiniStateOfStateData: YES];
+            [sectionStates          updatePreviewImageSizeOfStateData: previewSize with: previewMiniSize];      //  start at mini state.
+            //[sectionStates          updatePreviewImageSizeOfStateData: previewSize with: previewSize];          //  start at normal state.
+            [sectionStates          updateMiniStateOfStateData: YES];
         }
         else
         {
-            [sectionStates              updatePreviewImageSizeOfStateData: previewSize with: previewSize];          //  start at normal state.
-            [sectionStates              updateMiniStateOfStateData: NO];
+            [sectionStates          updatePreviewImageSizeOfStateData: previewSize with: previewSize];          //  start at normal state.
+            [sectionStates          updateMiniStateOfStateData: NO];
         }
         
     }
     
     //  remove expire information from container.
-    if ( ( nil == expireData ) || ( [expireData count] == 0 ) )
+    if ( ( nil != expireData ) && ( [expireData count] > 0 ) )
     {
-        return;
+        [pageConfigure              removeInfoData: expireData];
     }
-    [pageConfigure                  removeInfoData: expireData];
+    
+    //  refresh data.
+    [sectionStates                  refreshFromStored];    
 }
 
 //  ------------------------------------------------------------------------------------------------

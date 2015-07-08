@@ -530,6 +530,149 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
     return YES;
 }
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) refreshFromStored
+{
+    if ( ( nil == statesName ) || ( nil == sectionStates ) || ( [sectionStates count] == 0 ) )
+    {
+        return NO;
+    }
+    
+    NSUserDefaults                * userDefaults;
+    NSArray                       * saveStates;
+    
+    saveStates                      = nil;
+    userDefaults                    = [NSUserDefaults standardUserDefaults];
+    if ( nil == userDefaults )
+    {
+        return NO;
+    }
+    
+    saveStates                      = [userDefaults objectForKey: statesName];
+    if ( nil == saveStates )
+    {
+        return NO;
+    }
+    
+    if ( [saveStates count] != [sectionStates count] )
+    {
+//        if ( [saveStates count] > [sectionStates count] )
+//        {
+//            return NO;
+//        }
+        
+        
+        return NO;
+    }
+    
+
+    NSDictionary                  * sectionInfo;
+    NSDictionary                  * saveInfo;
+    
+    NSString                      * sectionInfoID;
+    NSString                      * sectionInfoTotalImagesCount;
+    NSString                      * sectionInfoPreviewImageSize;
+    
+    NSString                      * saveInfoID;
+    NSString                      * saveInfoMiniState;
+    NSString                      * saveInfoTotalImagesCount;
+    NSString                      * saveInfoShowImagesCount;
+    NSString                      * saveInfoPreviewImageSize;
+    
+    
+    sectionInfo                     = nil;
+    saveInfo                        = nil;
+    
+    sectionInfoID                   = nil;
+    sectionInfoTotalImagesCount     = nil;
+    sectionInfoPreviewImageSize     = nil;
+    
+    saveInfoID                      = nil;
+    saveInfoMiniState               = nil;
+    saveInfoTotalImagesCount        = nil;
+    saveInfoShowImagesCount         = nil;
+    saveInfoPreviewImageSize        = nil;
+    for ( int i = 0; i < [sectionStates count]; ++i )
+    {
+        sectionInfo                 = [sectionStates objectAtIndex: i];
+        if ( nil == sectionInfo )
+        {
+            continue;
+        }
+        
+        sectionInfoID               = [sectionInfo objectForKey: kTDSectionStateKeyID];
+        if ( nil == sectionInfoID )
+        {
+            continue;
+        }
+        
+        sectionInfoTotalImagesCount = [sectionInfo objectForKey: kTDSectionStateKeyTotalImagesCount];
+        sectionInfoPreviewImageSize = [sectionInfo objectForKey: kTDSectionStateKeyPreviewImageSize];
+        for ( int j = 0; j < [saveStates count]; ++j )
+        {
+            saveInfo                = [saveStates objectAtIndex: j];
+            if ( nil == saveInfo )
+            {
+                continue;
+            }
+            
+            saveInfoID              = [saveInfo objectForKey: kTDSectionStateKeyID];
+            
+            if ( ( nil == saveInfoID ) || ( [sectionInfoID isEqualToString: saveInfoID] == NO ) )
+            {
+                continue;
+            }
+            
+            //  when save mini state is mini, skip.
+            saveInfoMiniState       = [saveInfo objectForKey: kTDSectionStateKeyMiniState];
+            if ( ( nil == saveInfoMiniState ) || ( YES == [saveInfoMiniState boolValue] ) )
+            {
+                continue;
+            }
+            
+            //  sub check for preview mode.
+            saveInfoPreviewImageSize= [saveInfo objectForKey: kTDSectionStateKeyPreviewImageSize];
+            if ( ( nil != sectionInfoPreviewImageSize ) && ( nil != saveInfoPreviewImageSize ) )
+            {
+                if ( [sectionInfoPreviewImageSize isEqualToString: saveInfoPreviewImageSize] == NO )
+                {
+                    continue;
+                }
+                
+                //  update save data to current section state.
+                [sectionInfo        setValue: [NSNumber numberWithBool: [saveInfoMiniState boolValue]] forKey: kTDSectionStateKeyMiniState];
+                
+                //  assign current preview size to now preview size.
+                [sectionInfo        setValue: sectionInfoPreviewImageSize forKey: kTDSectionStateKeyNowPreviewImageSize];
+                continue;
+            }
+            
+
+            //  sub check for normal mode.
+            saveInfoTotalImagesCount= [saveInfo objectForKey: kTDSectionStateKeyTotalImagesCount];
+            saveInfoShowImagesCount = [saveInfo objectForKey: kTDSectionStateKeyShowImagesCount];
+            if ( ( nil == sectionInfoTotalImagesCount ) || ( nil == saveInfoTotalImagesCount ) )
+            {
+                continue;
+            }
+            if ( [sectionInfoTotalImagesCount integerValue] != [saveInfoTotalImagesCount integerValue] )
+            {
+                continue;
+            }
+            
+            //  update save data to current section state.
+            [sectionInfo            setValue: [NSNumber numberWithBool: [saveInfoMiniState boolValue]] forKey: kTDSectionStateKeyMiniState];
+            if ( nil != saveInfoShowImagesCount )
+            {
+                [sectionInfo        setValue: [NSNumber numberWithInteger: [saveInfoShowImagesCount integerValue]]
+                                      forKey: kTDSectionStateKeyShowImagesCount];
+            }
+        }   //  End of for ( int j = 0; j < [saveStates count]; ++j ).
+    }
+    
+    return YES;
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
