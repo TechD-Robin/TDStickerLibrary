@@ -49,6 +49,8 @@
      *  a state flags for customization.
      */
     struct {
+        unsigned int    saveTabMenuCurrentTabTag: 1;
+        
         unsigned int    tableItemSizeUsingImageOriginalProportion: 1;
         unsigned int    saveTableSectionMiniStateChange: 1;
         
@@ -269,6 +271,7 @@
     
     [self                           setTabMenuItemSize: CGSizeMake( 48.0f, 48.0f )];
     [self                           setTabMenuItemSizeInset: CGSizeMake( 3.0f, 3.0f )];
+    [self                           setSaveTabMenuCurrentTabTag: YES];
     
     //  for UICollectionView.
     [self                           setTableItemSizeUsingImageOriginalProportion: NO];
@@ -662,6 +665,18 @@
     {
         sysStyleBundleManager       = [TDResourceManager assetsBundleEnvironment: bundleName with: [self class] onSingleton: NO];
     }
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) isSaveTabMenuCurrentTabTag
+{
+    return stateFlags.saveTabMenuCurrentTabTag;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setSaveTabMenuCurrentTabTag:(BOOL)saveTabMenuCurrentTabTag
+{
+    stateFlags.saveTabMenuCurrentTabTag                     = saveTabMenuCurrentTabTag;
 }
 
 //  ------------------------------------------------------------------------------------------------

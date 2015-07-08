@@ -306,6 +306,13 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
 @property( nonatomic, assign ) CGSize                       tabMenuItemSizeInset;
 
 /**
+ *  set the flag to decide save the tab menu's current tab tag, the tag number is express the menu's item.
+ *  when flag value is Yes, save current tab tag to NSUserDefaults object, otherwise skip the save action.
+ *  default is Yes.
+ */
+@property( nonatomic, getter=isSaveTabMenuCurrentTabTag ) BOOL                      saveTabMenuCurrentTabTag;
+
+/**
  *  sorting of section data of page's table.
  */
 @property( nonatomic, assign ) TDStickerLibraryPageSectionSorting                   tabPageTableSectionSorting;

@@ -714,6 +714,11 @@
 //  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) _GetCurrentTabTag
 {
+    if ( ( nil != customization ) && ( [customization isSaveTabMenuCurrentTabTag] == NO ) )
+    {
+        return 1;
+    }
+    
     NSString                      * aKey;
     NSString                      * currentTabTag;
     NSUserDefaults                * userDefaults;
@@ -974,6 +979,10 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) menuItem:(TDBaseTabMenuItem *)menuItem didSelected:(NSInteger)tag
 {
+    if ( ( nil != customization ) && ( [customization isSaveTabMenuCurrentTabTag] == NO ) )
+    {
+        return;
+    }
 
     //  store item's tag into user defaultes.
     NSString                      * aKey;
