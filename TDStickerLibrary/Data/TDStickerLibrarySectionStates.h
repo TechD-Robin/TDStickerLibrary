@@ -35,10 +35,11 @@
  *  create a section states's data object.
  *
  *  @param name                     a key for this object.
+ *  @param saveState                save state ( decide to save these section states or not).
  *
  *  @return object|nil              the data object or nil.
  */
-+ ( instancetype ) sectionStates:(NSString *)name;
++ ( instancetype ) sectionStates:(NSString *)name saveState:(BOOL)saveState;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for i/o a state data.

@@ -550,7 +550,7 @@
         aKey                        = [bundleIdentifier stringByAppendingPathExtension: aKey];
     }
     
-    sectionStates                   = [TDStickerLibrarySectionStates sectionStates: aKey];
+    sectionStates                   = [TDStickerLibrarySectionStates sectionStates: aKey saveState: [customization isSaveTableSectionMiniStateChange]];
     if ( nil == sectionStates )
     {
         return;

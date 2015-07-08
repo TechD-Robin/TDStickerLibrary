@@ -319,6 +319,13 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
 @property( nonatomic, getter=isTableItemSizeUsingImageOriginalProportion ) BOOL     tableItemSizeUsingImageOriginalProportion;
 
 /**
+ *  set the flag to decide save the table section's mini states change or not.
+ *  when flage value is Yes, save states to NSUserDefaults object, otherwise skip the save action.
+ *  default is Yes.
+ */
+@property( nonatomic, getter=isSaveTableSectionMiniStateChange ) BOOL               saveTableSectionMiniStateChange;
+
+/**
  *  common size of table's item.
  */
 @property( nonatomic, assign ) CGSize                       tableCommonItemSize;

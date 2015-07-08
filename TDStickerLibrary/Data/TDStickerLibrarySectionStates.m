@@ -44,6 +44,11 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
     NSString                      * statesName;
     
     /**
+     *  set the flag to decide save the section's states or not.
+     */
+    BOOL                            saveSectionStates;
+    
+    /**
      *  the container of section's states.
      */
     NSMutableArray                * sectionStates;
@@ -125,6 +130,8 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
 {
     statesName                      = nil;
     
+    saveSectionStates               = NO;
+    
     sectionStates                   = nil;
     
     currentState                    = nil;
@@ -148,7 +155,7 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _SaveStates
 {
-    if ( ( nil == statesName ) || ( nil == sectionStates ) || ( [sectionStates count] == 0 ) )
+    if ( ( nil == statesName ) || ( NO == saveSectionStates ) || ( nil == sectionStates ) || ( [sectionStates count] == 0 ) )
     {
         return;
     }
@@ -200,20 +207,6 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
 //}
 
 //  ------------------------------------------------------------------------------------------------
-- ( instancetype ) initWithName:(NSString *)name
-{
-    self                            = [super init];
-    if ( nil == self )
-    {
-        return nil;
-    }
-    
-    [self                           _InitAttributes];
-    statesName                      = name;
-    return self;    
-}
-
-//  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
     if ( nil != statesName )
@@ -255,9 +248,24 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
-+ ( instancetype ) sectionStates:(NSString *)name
+- ( instancetype ) initWithName:(NSString *)name saveState:(BOOL)saveState
 {
-    return [[[self class] alloc] initWithName: name];
+    self                            = [super init];
+    if ( nil == self )
+    {
+        return nil;
+    }
+    
+    [self                           _InitAttributes];
+    statesName                      = name;
+    saveSectionStates               = saveState;
+    return self;
+}
+
+//  ------------------------------------------------------------------------------------------------
++ ( instancetype ) sectionStates:(NSString *)name saveState:(BOOL)saveState
+{
+    return [[[self class] alloc] initWithName: name saveState: saveState];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -534,7 +542,7 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) refreshFromStored
 {
-    if ( ( nil == statesName ) || ( nil == sectionStates ) || ( [sectionStates count] == 0 ) )
+    if ( ( nil == statesName ) || ( NO == saveSectionStates ) || ( nil == sectionStates ) || ( [sectionStates count] == 0 ) )
     {
         return NO;
     }
@@ -557,12 +565,7 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
     
     if ( [saveStates count] != [sectionStates count] )
     {
-//        if ( [saveStates count] > [sectionStates count] )
-//        {
-//            return NO;
-//        }
-        
-        
+        [userDefaults               removeObjectForKey: statesName];
         return NO;
     }
     

@@ -49,10 +49,11 @@
      *  a state flags for customization.
      */
     struct {
-        unsigned int    tableItemSizeUsingImageOriginalProportion:1;
+        unsigned int    tableItemSizeUsingImageOriginalProportion: 1;
+        unsigned int    saveTableSectionMiniStateChange: 1;
         
-        unsigned int    stickerSoloViewEnabled:1;
-        unsigned int    stickerSoloViewUseBlurLayer:1;
+        unsigned int    stickerSoloViewEnabled: 1;
+        unsigned int    stickerSoloViewUseBlurLayer: 1;
         
     } stateFlags;
     
@@ -271,6 +272,7 @@
     
     //  for UICollectionView.
     [self                           setTableItemSizeUsingImageOriginalProportion: NO];
+    [self                           setSaveTableSectionMiniStateChange: YES];
     [self                           setTabPageTableSectionSorting: TDStickerLibraryPageSectionSortingNone];
     
     [self                           setTableCommonItemSize: CGSizeMake( 64.0f, 64.0f )];
@@ -672,6 +674,18 @@
 - ( void ) setTableItemSizeUsingImageOriginalProportion:(BOOL)usingImageOriginalProportion
 {
     stateFlags.tableItemSizeUsingImageOriginalProportion    = usingImageOriginalProportion;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) isSaveTableSectionMiniStateChange
+{
+    return stateFlags.saveTableSectionMiniStateChange;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setSaveTableSectionMiniStateChange:(BOOL)saveTableSectionMiniStateChange
+{
+    stateFlags.saveTableSectionMiniStateChange              = saveTableSectionMiniStateChange;
 }
 
 //  ------------------------------------------------------------------------------------------------
