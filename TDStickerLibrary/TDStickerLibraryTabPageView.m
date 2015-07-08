@@ -544,10 +544,13 @@
     NSString                      * bundleIdentifier;
     
     bundleIdentifier                = [[NSBundle mainBundle] bundleIdentifier];
-    aKey                            = [@"TabPage" stringByAppendingPathExtension: aKey];
-    if ( nil != bundleIdentifier )
+    if ( nil != aKey )
     {
-        aKey                        = [bundleIdentifier stringByAppendingPathExtension: aKey];
+        aKey                        = [@"TabPage" stringByAppendingPathExtension: aKey];
+        if ( nil != bundleIdentifier )
+        {
+            aKey                    = [bundleIdentifier stringByAppendingPathExtension: aKey];
+        }
     }
     
     sectionStates                   = [TDStickerLibrarySectionStates sectionStates: aKey saveState: [customization isSaveTableSectionMiniStateChange]];
