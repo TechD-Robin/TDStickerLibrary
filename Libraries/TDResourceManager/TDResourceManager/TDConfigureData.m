@@ -739,10 +739,10 @@
         return NO;
     }
     
-    NSMutableArray                * sortArray;
+    NSArray                       * sortArray;
     
     sortArray                       = configureData;
-    sortArray                       = (NSMutableArray *)[sortArray sortedArrayUsingComparator: ^NSComparisonResult( id obj1, id obj2 )
+    sortArray                       = [sortArray sortedArrayUsingComparator: ^NSComparisonResult( id obj1, id obj2 )
     {
         id                          data1;
         id                          data2;
@@ -769,7 +769,7 @@
         return NSOrderedSame;
     }];
 
-    configureData                   = sortArray;    
+    configureData                   = [sortArray mutableCopy];
     return YES;
 }
 
