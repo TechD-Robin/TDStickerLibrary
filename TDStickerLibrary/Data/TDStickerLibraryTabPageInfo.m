@@ -383,6 +383,10 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
     valid                           = nil;
     expire                          = nil;
     intervalExpireInDay             = ( ( 24 * 60 * 60 ) - 1 );
+    if ( nil == dateValid )
+    {
+        dateValid                   = @"2011-01-01";
+    }
     valid                           = [NSDate GMTDateWithTimeString: dateValid locale: nil format: @"yyyy-MM-dd"];
     
     //expire                          = [NSDate GMTDateWithTimeString: dateExpire locale: nil format: @"yyyy-MM-dd"];
