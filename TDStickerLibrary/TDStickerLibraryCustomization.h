@@ -392,6 +392,11 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
 @property( nonatomic, assign ) CGFloat                      introViewIllustratorFontSize;
 
 /**
+ *  text color of introView's illustrator.
+ */
+@property( nonatomic,assign )   UIColor                   * introViewIllustratorTextColor;
+
+/**
  *  font size of introView's description.
  */
 @property( nonatomic, assign ) CGFloat                      introViewDescriptionFontSize;
@@ -411,6 +416,26 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
  */
 @property( nonatomic, copy )   UIColor                    * introViewContentsTextColor;
 
+/**
+ *  font size of introView's expire date.
+ */
+@property( nonatomic, assign ) CGFloat                      introViewExpireDateFontSize;
+
+/**
+ *  text color of introView's expire date.
+ */
+@property( nonatomic, copy )   UIColor                    * introViewExpireDateTextColor;
+
+/**
+ *  alert's text color of introView's expire date when expiring.
+ */
+@property( nonatomic, copy)    UIColor                    * introViewExpireDateExpiringTextColor;
+
+/**
+ *  alert days for introView's expire date when expiring. ( 0 is mean on the expire date )
+ *  default is 2; ( 2 + 1 ).
+ */
+@property( nonatomic, assign ) NSUInteger                   introViewExpireDateExpiringAlertDays;
 
 #pragma mark pop menu.
 //  for pop menu.
@@ -839,7 +864,13 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
 - ( NSString * ) deleteString;
 
 //  ------------------------------------------------------------------------------------------------
-
+/**
+ *  @brief get the expire date string from localized setting.
+ *  get the expire date string from localized setting.
+ *
+ *  @return string|nil              the string or nil.
+ */
+- ( NSString * ) expireDateString;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

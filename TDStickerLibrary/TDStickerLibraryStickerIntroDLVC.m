@@ -600,6 +600,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     
     [introView                      setBackgroundColor: [customization introViewBGC]];
+//    [introView                      setBackgroundColor: [UIColor darkGrayColor]];
+    
     return YES;
 }
 
@@ -768,19 +770,29 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     CGFloat                         screenWidth;
     CGFloat                         introViewHeight;
     CGFloat                         fontSize;
+    CGFloat                         lineSpacing;
     UIEdgeInsets                    subViewInsets;
     NSString                      * illustrator;
     NSString                      * description;
+    NSString                      * expireDate;
     UILabel                       * illustratorLabel;
     UILabel                       * descriptionLabel;
+    UILabel                       * expireDateLabel;
     CGRect                          illustratorRect;
     CGRect                          descriptionRect;
+    CGRect                          expireDateRect;
+    
+    NSMutableAttributedString     * attributedString;
+    NSRange                         attributedRange;
+    
     
     description                     = nil;
     illustratorLabel                = nil;
     descriptionLabel                = nil;
+    lineSpacing                     = 0.0f;
     illustratorRect                 = CGRectZero;
     descriptionRect                 = CGRectZero;
+    expireDateRect                  = CGRectZero;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     introViewHeight                 = [customization introViewHeight];
     fontSize                        = [customization introViewIllustratorFontSize];
@@ -788,10 +800,6 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     illustrator                     = [pageConfigure illustratorAtIndex: kTDStickerLibraryConfigureIndexAfterSwap];
     if ( nil != illustrator )
     {
-        NSMutableAttributedString * attributedString;
-        NSRange                     attributedRange;
-        
-        
         attributedRange             = NSMakeRange( 0,  [illustrator length] );
         attributedString            = [[NSMutableAttributedString alloc] initWithString: illustrator];
         if ( nil != attributedString )
@@ -806,21 +814,19 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
             if ( nil != illustratorLabel )
             {
                 [illustratorLabel   setAttributedText: attributedString];
-                [illustratorLabel   setTextColor: [customization sysStyleTitleTextColor]];
+                [illustratorLabel   setTextColor: [customization introViewIllustratorTextColor]];
                 [introView          addSubview: illustratorLabel];
                 
 //                [illustratorLabel   setBackgroundColor: [UIColor cyanColor]];
             }
         }
-    }
+    }   //  End of if ( nil != illustrator ).
     
+    attributedString                = nil;
+    attributedRange                 = NSMakeRange( 0, 0 );
     description                     = [pageConfigure descriptionAtIndex: kTDStickerLibraryConfigureIndexAfterSwap];
     if ( nil != description )
     {
-        NSMutableAttributedString * attributedString;
-        NSRange                     attributedRange;
-        CGFloat                     lineSpacing;
-        
         fontSize                    = [customization introViewDescriptionFontSize];
         lineSpacing                 = [customization introViewContentsLineSpacing];
         attributedRange             = NSMakeRange( 0,  [description length] );
@@ -846,7 +852,70 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 //                [descriptionLabel   setBackgroundColor: [UIColor purpleColor]];
             }
         }
-    }
+    }   //  End of if ( nil != description ).
+    
+    attributedString                = nil;
+    attributedRange                 = NSMakeRange( 0, 0 );
+    expireDate                      = [pageConfigure expireDateAtIndex: kTDStickerLibraryConfigureIndexAfterSwap];
+    if ( nil != expireDate )
+    {
+        if ( [customization expireDateString] != nil )
+        {
+            expireDate              = [[customization expireDateString] stringByAppendingString: expireDate];
+        }
+        
+        fontSize                    = [customization introViewExpireDateFontSize];
+        lineSpacing                 = [customization introViewContentsLineSpacing];
+        attributedRange             = NSMakeRange( 0,  [expireDate length] );
+        attributedString            = [[NSMutableAttributedString alloc] initWithString: expireDate];
+        if ( nil != attributedString )
+        {
+            [attributedString       addAttribute: NSFontAttributeName value: [UIFont boldSystemFontOfSize: fontSize] range: attributedRange];
+            
+            expireDateRect.size.width       = ( screenWidth / 2.0f ) - ( ( subViewInsets.left / 2.0f ) + subViewInsets.right );
+            expireDateRect.size.height      = ( fontSize + 2.0f );
+            expireDateRect.origin.x         = ( screenWidth / 2.0f ) + ( subViewInsets.left / 2.0f );
+            expireDateRect.origin.y         = ( [introView frame].origin.y + [introView frame].size.height );
+            expireDateRect.origin.y         -= ( expireDateRect.size.height + subViewInsets.bottom );
+            
+            expireDateLabel         = [[UILabel alloc] initWithFrame: expireDateRect];
+            if ( nil != expireDateLabel )
+            {
+                BOOL                dateExpiring;
+                UIColor           * expireDateColor;
+                NSUInteger          nearDays;
+                
+                dateExpiring        = NO;
+                nearDays            = [customization introViewExpireDateExpiringAlertDays];
+                expireDateColor     = [customization introViewExpireDateTextColor];
+                if ( [pageConfigure isExpireDateExpiring: &dateExpiring nearDay: nearDays atIndex: kTDStickerLibraryConfigureIndexAfterSwap] == YES )
+                {
+                    NSLog( @"is expiring : %d", dateExpiring );
+                    if ( YES == dateExpiring )
+                    {
+                        expireDateColor     = [customization introViewExpireDateExpiringTextColor];
+                    }
+                }
+                
+                [expireDateLabel    setAttributedText: attributedString];
+                [expireDateLabel    setTextColor: expireDateColor];
+                [introView          addSubview: expireDateLabel];
+                
+//                [expireDateLabel    setBackgroundColor: [UIColor orangeColor]];
+                
+            }
+            
+            //  reset description frame on here.
+            //if ( nil != descriptionLabel )
+            //{
+            //    descriptionRect.size.height -= ( expireDateRect.size.height + lineSpacing );
+            //    [descriptionLabel           setFrame: descriptionRect];
+            //    [descriptionLabel           sizeToFit];
+            //
+            //}
+        }
+    }   //  End of if ( nil != expireDate ).
+    
     
     return YES;
 }

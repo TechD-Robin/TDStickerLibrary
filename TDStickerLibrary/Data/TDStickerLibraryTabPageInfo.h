@@ -283,6 +283,16 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionDataMode ){
  */
 - ( NSString * ) imageNameAtIndex:(NSInteger)index inArray:(NSInteger)inArrayIndex;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the expire date of the information data ta index.
+ *  get the expire date of the information data ta index.
+ *
+ *  @param index                    index of information data.
+ *
+ *  @return expire|nil              the expire date string or nil.
+ */
+- ( NSString *) expireDateAtIndex:(NSInteger)index;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -296,6 +306,18 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionDataMode ){
  */
 - ( BOOL ) isActive:(BOOL *)data atIndex:(NSInteger)index;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check the date at informatin data index, that is expiring or not.
+ *  check the date at informatin data index, that is expiring or not.
+ *
+ *  @param expiring                 pointer of the result of method, to express the date is expiring or not.
+ *  @param limit                    near days. ( 0 is mean on the expire date )
+ *  @param index                    index of information data.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) isExpireDateExpiring:(BOOL *)expiring nearDay:(NSUInteger)limit atIndex:(NSInteger)index;;
 
 //  ------------------------------------------------------------------------------------------------
 /**

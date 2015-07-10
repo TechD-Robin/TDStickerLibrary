@@ -355,6 +355,12 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( NSString *) expireDateAtIndex:(NSInteger)index
+{
+    return [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyExpireDate];
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) isActive:(BOOL *)data atIndex:(NSInteger)index
 {
     if ( NULL == data )
@@ -401,6 +407,46 @@ static  NSString  * const kTDPageInfoKeyExpireDate                  = @"ExpireDa
     NSParameterAssert( nil != now );
 
     *data                           = [now isEffectivePeriod: valid and: expire];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) isExpireDateExpiring:(BOOL *)expiring nearDay:(NSUInteger)limit atIndex:(NSInteger)index;
+{
+    if ( NULL == expiring )
+    {
+        return NO;
+    }
+    
+    NSString                      * dateExpire;
+    
+    dateExpire                      = [self infoDataAtIndex: index stringValueForKey: kTDPageInfoKeyExpireDate];
+    if ( nil == dateExpire )
+    {
+        *expiring                   = NO;
+        return YES;
+    }
+    
+    NSDate                        * now;
+    NSDate                        * expire;
+    NSDate                        * valid;
+    NSTimeInterval                  intervalExpireInDay;
+    NSTimeInterval                  alertInterval;
+    
+    expire                          = nil;
+    intervalExpireInDay             = ( ( 86400 ) - 1 );            //  86400 = 24 * 60 * 60;
+    alertInterval                   = ( ( 86400 * ( limit + 1 ) ) - 1 );
+    
+    expire                          = [NSDate dateWithTimeString: dateExpire locale: nil format: @"yyyy-MM-dd"];
+    expire                          = [NSDate dateWithTimeInterval: intervalExpireInDay sinceDate: expire];
+    expire                          = [expire GMTDate];
+    now                             = [NSDate GMT];
+    NSParameterAssert( nil != now );
+    
+    //  let valid to express expiring date on here.
+    valid                           = [NSDate dateWithTimeInterval: -alertInterval sinceDate: expire];
+    
+    *expiring                       = [now isEffectivePeriod: valid and: expire];
     return YES;
 }
 

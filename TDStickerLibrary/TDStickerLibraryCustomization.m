@@ -293,10 +293,15 @@
     [self                           setIntroViewSubViewInsets: UIEdgeInsetsMake( 8.0f, 8.0f, 8.0f, 8.0f)];
     [self                           setIntroViewHeight: 128.0f];
     [self                           setIntroViewIllustratorFontSize: 16.0f];
+    [self                           setIntroViewIllustratorTextColor: [UIColor lightGrayColor]];
     [self                           setIntroViewDescriptionFontSize: 12.0f];
     [self                           setIntroViewContentsLineSpacing: 4.0f];
     [self                           setIntroViewBGC: [[UIColor grayColor] colorWithAlphaComponent: 0.27f]];
     [self                           setIntroViewContentsTextColor: [UIColor lightGrayColor]];
+    [self                           setIntroViewExpireDateFontSize: 12.0f];
+    [self                           setIntroViewExpireDateTextColor: [UIColor whiteColor]];
+    [self                           setIntroViewExpireDateExpiringTextColor: [UIColor yellowColor]];
+    [self                           setIntroViewExpireDateExpiringAlertDays: 2];    //  the days is 2 + 1(on the day).
 
     //  for pop menu.
     [self                           setPopMenuInteritemSpacing: 2.0f];
@@ -597,10 +602,15 @@
 @synthesize introViewSubViewInsets          = _introViewSubViewInsets;
 @synthesize introViewHeight                 = _introViewHeight;
 @synthesize introViewIllustratorFontSize    = _introViewIllustratorFontSize;
+@synthesize introViewIllustratorTextColor   = _introViewIllustratorTextColor;
 @synthesize introViewDescriptionFontSize    = _introViewDescriptionFontSize;
 @synthesize introViewContentsLineSpacing    = _introViewContentsLineSpacing;
 @synthesize introViewBGC                    = _introViewBGC;
 @synthesize introViewContentsTextColor      = _introViewContentsTextColor;
+@synthesize introViewExpireDateFontSize             = _introViewExpireDateFontSize;
+@synthesize introViewExpireDateTextColor            = _introViewExpireDateTextColor;
+@synthesize introViewExpireDateExpiringTextColor    = _introViewExpireDateExpiringTextColor;
+@synthesize introViewExpireDateExpiringAlertDays    = _introViewExpireDateExpiringAlertDays;
 
 //  for pop menu.
 @synthesize popMenuInteritemSpacing         = _popMenuInteritemSpacing;
@@ -1118,6 +1128,16 @@
         return nil;
     }
     return [defaultResources localizedStringForKey: @"delete"];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) expireDateString
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources localizedStringForKey: @"expire date"];    
 }
 
 //  ------------------------------------------------------------------------------------------------
