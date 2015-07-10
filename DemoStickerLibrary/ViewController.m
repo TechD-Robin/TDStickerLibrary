@@ -7,6 +7,8 @@
 //
 
 #import "UIKit+TechD.h"
+#import "TDMath.h"
+
 #import "TDStickerLibrary.h"
 #import "TDResourceManager.h"
 #import "TDPreUpdateProcedure.h"
@@ -111,6 +113,7 @@
     
 }
 
+//  ------------------------------------------------------------------------------------------------
 - ( UIImageView * ) _CreateTestImageView:(UIImage *)image position:(CGPoint)center;
 {
     if ( nil != callbackImageView )
@@ -119,20 +122,30 @@
         callbackImageView           = nil;
     }
     
+    CGSize                          mainScreenSize;
+    CGRect                          imageRect;
+    CGFloat                         imageRatio;
     UIImageView                   * imageView;
     
+    imageRatio                      = ( [image size].height / [image size].width );
+    mainScreenSize                  = [[UIScreen mainScreen] bounds].size;
     imageView                       = [[UIImageView alloc] initWithImage: image];
     if ( nil == imageView )
     {
         return nil;
     }
     
+    imageRect.origin                = CGPointMake( 0.0f, ( mainScreenSize.height / 2.0f ) );
+    imageRect.size                  = CGSizeMake( mainScreenSize.width, ( mainScreenSize.height / 2.0f ) );
+    imageRect.size                  = calculateProportionalMaxSizeWithLimit( imageRatio, [image size], imageRect.size );
+    imageRect.origin.x              = ( ( mainScreenSize.width - imageRect.size.width ) / 2.0f );
+    
     [[self                          view] addSubview: imageView];
-    [imageView                      setCenter: center];
+    [imageView                      setFrame: imageRect];
+    [imageView                      setBackgroundColor: [[UIColor darkGrayColor] colorWithAlphaComponent: 0.44f]];
     callbackImageView               = imageView;
     return imageView;
 }
-
 
 //  ------------------------------------------------------------------------------------------------
 //  --------------------------------
