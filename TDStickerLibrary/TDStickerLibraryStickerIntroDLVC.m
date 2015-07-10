@@ -890,7 +890,6 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
                 expireDateColor     = [customization introViewExpireDateTextColor];
                 if ( [pageConfigure isExpireDateExpiring: &dateExpiring nearDay: nearDays atIndex: kTDStickerLibraryConfigureIndexAfterSwap] == YES )
                 {
-                    NSLog( @"is expiring : %d", dateExpiring );
                     if ( YES == dateExpiring )
                     {
                         expireDateColor     = [customization introViewExpireDateExpiringTextColor];

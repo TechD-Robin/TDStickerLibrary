@@ -398,6 +398,27 @@
     // Dispose of any resources that can be recreated.
 }
 
+//  ------------------------------------------------------------------------------------------------
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection
+              withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super                          willTransitionToTraitCollection: newCollection withTransitionCoordinator: coordinator];
+    [coordinator                    animateAlongsideTransition: ^(id <UIViewControllerTransitionCoordinatorContext> context)
+    {
+        if ( [newCollection verticalSizeClass] == UIUserInterfaceSizeClassCompact )
+        {
+            //To Do: modify something for compact vertical size
+            NSLog( @"1" );
+            
+        } else
+        {
+            //To Do: modify something for other vertical size
+            NSLog( @"2" );
+        }
+        
+        [[self                      view] setNeedsLayout];
+    } completion: nil];
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
