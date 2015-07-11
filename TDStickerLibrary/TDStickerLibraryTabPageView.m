@@ -1512,6 +1512,79 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for device rotation.
+//  ------------------------------------------------------------------------------------------------
+- ( void ) reloadSectionData
+{
+    if ( ( nil == sectionStates ) || ( [sectionStates numberOfSections] == 0 ) )
+    {
+        return;
+    }
+    
+    BOOL                            miniState;
+    NSInteger                       sectionMode;
+    NSInteger                       perRowCapacity;
+    NSInteger                       numberOfShowImages;
+    CGSize                          previewSize;
+    CGSize                          previewMiniSize;
+    
+    miniState                       = NO;
+    numberOfShowImages              = 0;
+    sectionMode                     = 0;
+    previewSize                     = CGSizeZero;
+    previewMiniSize                 = CGSizeZero;
+    perRowCapacity                  = [self _CalculatePerRowCapacityWithCustomization];
+    
+    for ( int i = 0; i < [pageConfigure infoDataCount]; ++i )
+    {
+        //  when mode not equal normal.
+        sectionMode                 = 0;
+        if ( [pageConfigure dataMode: &sectionMode atIndex: i] == NO )
+        {
+            continue;
+        }
+        if ( [sectionStates miniState: &miniState inSection: i] == NO )
+        {
+            continue;
+        }
+        
+        
+        //  when normal mode
+        if ( TDStickerLibraryPageSectionModeNormal == sectionMode )
+        {
+            if ( NO == miniState )
+            {
+                continue;
+            }
+            numberOfShowImages      = [sectionStates numberOfImagesInSection: i];
+            if ( ( 0 == numberOfShowImages ) || ( 1 == numberOfShowImages ) || ( numberOfShowImages == perRowCapacity ) )
+            {
+                continue;
+            }
+            
+            //  restore new amount into state container.
+            [sectionStates          updateNumberOfImages: perRowCapacity inSection: i];
+            continue;
+        }
+        
+        //  preview mode.
+        [sectionStates              setStateDataIntoSection: i];
+        previewSize                 = [self _CalculatePreviewImageProportionalSizeForSectionAtIndex: i];
+        previewMiniSize             = [self _CalculatePreviewImageMiniSizeForSectionAtIndex: i];
+        //  restore new size into state container.
+        if ( NO == miniState )
+        {
+            [sectionStates          updatePreviewImageSizeOfStateData: previewSize with: previewSize];
+        }
+        else
+        {
+            [sectionStates          updatePreviewImageSizeOfStateData: previewSize with: previewMiniSize];
+        }
+    }
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark protocol required for UICollectionViewDataSource.
 //  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section

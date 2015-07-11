@@ -291,7 +291,6 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateTitle
 {
-    
     titleLabel                      = [[UILabel alloc] initWithFrame: CGRectMake( 0.0f, 0.0f, [self frame].size.width, [self frame].size.height )];
     if ( nil == titleLabel )
     {
@@ -305,6 +304,7 @@
 
     [titleLabel                     setTextAlignment: NSTextAlignmentCenter];
     [self                           addSubview: titleLabel];
+    [NSLayoutConstraint             constraintForWidthStretchy: titleLabel top: 1.0f height: [self frame].size.height in: self];
     
     return YES;
 }

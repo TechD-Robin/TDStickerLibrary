@@ -101,6 +101,17 @@
  */
 - ( BOOL ) updateStickerDownloadState:(BOOL)mustDownload with:(BOOL)isDownloaded;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set the state data's current pointer in section.
+ *  set the state data's current pointer in section; for update states data at the current record.
+ *
+ *  @param section                  index of section.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) setStateDataIntoSection:(NSInteger)section;
+
 
 //  ------------------------------------------------------------------------------------------------
 /**

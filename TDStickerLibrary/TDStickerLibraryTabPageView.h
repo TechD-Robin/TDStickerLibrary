@@ -63,7 +63,18 @@
 + ( instancetype ) introductionPageWithFrame:(CGRect)frame customization:(TDStickerLibraryCustomization *)custom
                                    configure:(TDStickerLibraryTabPageInfo *)pageInfo forSection:(NSInteger)index;
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for device rotation.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief when UI layout is need change, reload the section data.
+ *  when UI layout is need change, reload the section data.
+ *  the method will update frame of table's objects.
+ */
+- ( void ) reloadSectionData;
 
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 

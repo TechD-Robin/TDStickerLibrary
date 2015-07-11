@@ -341,6 +341,20 @@ static  NSString  * const kTDSectionStateKeyIsDownloaded            = @"IsDownlo
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) setStateDataIntoSection:(NSInteger)section
+{
+    NSMutableDictionary          * stateInfo;
+    
+    stateInfo                       = (NSMutableDictionary *)[self _GetStateInfoAtIndex: section];
+    if ( nil == stateInfo )
+    {
+        return NO;
+    }
+    currentState                    = stateInfo;
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( NSInteger ) numberOfSections
 {
     if ( nil == sectionStates )

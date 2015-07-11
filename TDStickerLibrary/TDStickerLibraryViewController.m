@@ -218,6 +218,15 @@
 - ( CGFloat ) _GetNewSubviewTopPosition;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for update layout.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief when device is rotated, execute this method to update new layout.
+ *  when device is rotated, execute this method to update new layout.
+ */
+- ( void ) _DeviceOrientationIsRotation;
+
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
@@ -433,7 +442,7 @@
     
     [bannerView                     setBackgroundColor: [customization bannerBGC]];
     [[self                          view] addSubview: bannerView];
-    NSLog( @" sub view top %f", subviewTop );
+//    NSLog( @" sub view top %f", subviewTop );
     
     //  width stretchy when device Orientation is changed.
     [NSLayoutConstraint             constraintForWidthStretchy: bannerView top: ( subviewTop + 1.0f ) height: bannerHeight in: [self view]];
@@ -605,8 +614,6 @@
     [view                           setHidden: NO];
     [[self                          view] addSubview: view];
     
-    NSLog( @"%@", configure );
-    
     
     //  link relation tab item.
     for ( id idObject in [tabMenu subviews] )
@@ -757,8 +764,8 @@
 {
     CGFloat                         subviewTop;
     
-    subviewTop                      = 0.0f;
-    subviewTop                      = [[UIScreen mainScreen] getStatusBarHeight];
+    subviewTop                      = 20.0f;
+//.    subviewTop                      = [[UIScreen mainScreen] getStatusBarHeight];
     if ( nil != navigationBar )
     {
         subviewTop                  += [navigationBar bounds].size.height;
@@ -777,6 +784,54 @@
     }
     
     return subviewTop;
+}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for update layout.
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _DeviceOrientationIsRotation
+{
+    if ( ( nil == tabMenu ) || ( [[tabMenu subviews] count] == 0 ) )
+    {
+        return;
+    }
+    
+    CGFloat                         screenWidth;
+    CGFloat                         subviewTop;
+    CGFloat                         viewHeight;
+    CGRect                          viewRect;
+    
+    TDStickerLibraryTabPageView   * collectionView;
+    TDStickerLibraryTabPageLayout * layout;
+    
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    subviewTop                      = [self _GetNewSubviewTopPosition];
+    viewHeight                      = ( [[UIScreen mainScreen] bounds].size.height - subviewTop );
+    viewRect                        = CGRectMake( 0.0f, subviewTop, screenWidth, viewHeight );
+    for ( id idObject in [tabMenu subviews] )
+    {
+        if ( ( nil == idObject ) || ( [idObject isKindOfClass: [TDBaseTabMenuItem class] ] == NO ) )
+        {
+            continue;
+        }
+        
+        if ( [idObject relationView] == nil )
+        {
+            continue;
+        }
+        
+        collectionView              = (TDStickerLibraryTabPageView *)[idObject relationView];
+        layout                      = (TDStickerLibraryTabPageLayout *)[collectionView collectionViewLayout];
+        if ( nil == layout )
+        {
+            continue;
+        }
+        
+        [collectionView             setFrame: viewRect];
+        [collectionView             reloadSectionData];     //  must above layout's needUpdateLayoutAttributes.
+        [layout                     needUpdateLayoutAttributes: YES];
+        [collectionView             reloadData];
+    }
 }
 
 
@@ -856,7 +911,29 @@
 //    return NO;
 //}
 
+//  --------------------------------
 //  ------------------------------------------------------------------------------------------------
+#pragma mark overwrite implementation of protocol of UIContentContainer.
+//  ------------------------------------------------------------------------------------------------
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection
+              withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super                          willTransitionToTraitCollection: newCollection withTransitionCoordinator: coordinator];
+    
+    //NSLog( @"trans : %f", [coordinator transitionDuration] );
+    [coordinator                    animateAlongsideTransition: ^(id <UIViewControllerTransitionCoordinatorContext> context)
+    {
+        [self                       _DeviceOrientationIsRotation];
+     
+    }
+    completion: ^(id <UIViewControllerTransitionCoordinatorContext> context)
+    {
+//        [self                       _DeviceOrientationIsRotation];
+    }];
+}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark release object.
 //  ------------------------------------------------------------------------------------------------
 //  release object that's created by self.
 - ( void ) releaseCreatedObject
