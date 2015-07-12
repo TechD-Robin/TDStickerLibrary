@@ -766,6 +766,12 @@
     
     subviewTop                      = 0.0f;
     subviewTop                      = [[UIScreen mainScreen] getStatusBarHeight];
+    //  加保險的概念
+    //  add a check condition like insurance concept.
+    if ( ( 0.0f != subviewTop ) && ( [self prefersStatusBarHidden] == YES ) )
+    {
+        subviewTop                  = 0.0f;
+    }
     if ( nil != navigationBar )
     {
         subviewTop                  += [navigationBar bounds].size.height;
