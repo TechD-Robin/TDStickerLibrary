@@ -299,6 +299,19 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 - ( CGFloat ) _GetScrollViewNewSubviewTopPosition;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for update layout.
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _RefreshScrollContentSize;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief when device is rotated, execute this method to update new layout.
+ *  when device is rotated, execute this method to update new layout.
+ */
+- ( void ) _DeviceOrientationIsRotation;
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark declare for check object's properties.
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -537,8 +550,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     [topTitle                       setFrame: CGRectMake( 0.0f, 0.0f, screenWidth, topViewHight)];
     [topView                        addSubview: topTitle];
     
+    //  width stretchy when device Orientation is changed.
     [NSLayoutConstraint             constraintForWidthStretchy: topTitle top: 0.0f height: topViewHight in: topView];
-    
     return YES;
 }
 
@@ -576,7 +589,6 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     }
     
     CGFloat                         screenWidth;
-//    CGFloat                         subviewTop;
     CGFloat                         subviewHeight;
     CGRect                          introRect;
     
@@ -584,8 +596,6 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 //    subviewTop                      = [self _GetScrollViewNewSubviewTopPosition];
 
     subviewHeight                   = [customization introViewHeight];
-//    subviewTop                      += 40.0f;
-//    buttonHeight                    = 36.0f;
     introRect                       = CGRectMake( 0.0f, 1.0f, screenWidth, subviewHeight );
     introView                       = [[UIView alloc] initWithFrame: introRect];
     if ( nil == introView )
@@ -602,6 +612,19 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     [introView                      setBackgroundColor: [customization introViewBGC]];
 //    [introView                      setBackgroundColor: [UIColor darkGrayColor]];
     
+    
+    //  width stretchy when device Orientation is changed.
+    NSLayoutConstraint            * layoutWidth;
+    
+    [NSLayoutConstraint             constraintForWidthStretchy: introView top: ( 0.0f + 1.0f ) height: subviewHeight in: scrollView];
+    layoutWidth                     = [NSLayoutConstraint constraintWithItem: introView attribute: NSLayoutAttributeWidth
+                                                                   relatedBy: NSLayoutRelationEqual
+                                                                      toItem: scrollView attribute: NSLayoutAttributeWidth
+                                                                  multiplier: 1.0f constant: 0.0f ];
+    if ( nil != layoutWidth )
+    {
+        [scrollView                 addConstraint: layoutWidth];
+    }
     return YES;
 }
 
@@ -959,8 +982,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     [downloadButton                 addTarget: self action: @selector( _TapDownloadButtonAction: ) forControlEvents: UIControlEventTouchUpInside];
     
-    ////  width stretchy when device Orientation is changed.
-    //[NSLayoutConstraint             constraintForWidthStretchy: downloadButton top: ( subviewTop + 1.0f ) height: buttonHeight in: [self view]];
+    //  width stretchy when device Orientation is changed.
+    [NSLayoutConstraint             constraintForWidthStretchy: downloadButton top: ( subviewTop + 1.0f ) height: buttonHeight in: scrollView];
 
     if ( [self _IsDownloaded: &isDownloaded] == YES )
     {
@@ -1064,8 +1087,9 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         [scrollView                 addSubview: deleteButton];
     }
     
-    ////  width stretchy when device Orientation is changed.
-    //[NSLayoutConstraint             constraintForWidthStretchy: deleteButton top: ( subviewTop + 1.0f ) height: buttonHeight in: [self view]];
+    //  width stretchy when device Orientation is changed.
+    subviewTop                      = ( ( nil != downloadButton ) ? [downloadButton frame].origin.y : ( subviewTop + 1.0f ) );
+    [NSLayoutConstraint             constraintForWidthStretchy: deleteButton top: ( subviewTop + 0.0f ) height: buttonHeight in: scrollView];
     
     
     if ( [self _IsDownloaded: &isDownloaded] == YES )
@@ -1162,9 +1186,6 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetScrollViewNewSubviewTopPosition];
-    
-//    subviewTop                      +=80;
-    
     viewHeight                      = ( [[UIScreen mainScreen] bounds].size.height - subviewTop );
     
     UIView                        * view;
@@ -1179,18 +1200,14 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     }
 
     [view                           setHidden: NO];
-    //[[self                          view] addSubview: view];
     if ( nil != scrollView )
     {
         [scrollView                 addSubview: view];
     }
     stickerPageView                 = (TDStickerLibraryTabPageView *)view;
     
-    
-    
 //    [view setBackgroundColor: [UIColor orangeColor]];
-    
-    
+
     return YES;
 }
 
@@ -1324,15 +1341,10 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         subviewTop                  += [topView bounds].size.height;
     }
     
-//    if ( nil != downloadButton )
+//    if ( nil != stickerPageView )
 //    {
-//        subviewTop                  += [downloadButton bounds].size.height;
+//        subviewTop                  += [stickerPageView bounds].size.height;
 //    }
-    
-    if ( nil != stickerPageView )
-    {
-        subviewTop                  += [stickerPageView bounds].size.height;
-    }
     
     return subviewTop;
 }
@@ -1360,6 +1372,132 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     return subviewTop;
 }
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for update layout.
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _RefreshScrollContentSize
+{
+    if ( nil == scrollView )
+    {
+        return NO;
+    }
+    
+    NSLog( @"show scroll view content size : %@", NSStringFromCGSize( [scrollView contentSize] ) );
+    
+    CGRect                          viewRect;
+    CGSize                          correctContentSize;
+    
+    viewRect                        = CGRectZero;
+    
+    
+    if ( nil != stickerPageView )
+    {
+        viewRect                    = [stickerPageView frame];
+        correctContentSize          = viewRect.size;
+        correctContentSize.width    += viewRect.origin.x;
+        correctContentSize.height   += viewRect.origin.y;
+        
+        [scrollView                 setContentSize: correctContentSize];
+        return YES;
+    }
+    
+    
+    return YES;
+}
+
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _DeviceOrientationIsRotation
+{
+    if ( ( nil == scrollView ) || ( nil == stickerPageView ) )
+    {
+        return;
+    }
+    
+    [[self                          view] setNeedsLayout];
+    [[self                          view] layoutIfNeeded];
+    
+    CGFloat                         screenWidth;
+    CGFloat                         subviewTop;
+    CGFloat                         viewHeight;
+    CGRect                          viewRect;
+    CGSize                          correctContentSize;
+    
+    screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
+    subviewTop                      = [self _GetNewSubviewTopPosition];
+    viewHeight                      = ( [[UIScreen mainScreen] bounds].size.height - subviewTop );
+    viewRect                        = CGRectMake( 0.0f, subviewTop, screenWidth, viewHeight );
+    
+    [scrollView                     setFrame: viewRect];
+    correctContentSize              = [scrollView contentSize];
+    correctContentSize.width        = screenWidth;
+    [scrollView                     setContentSize: correctContentSize];
+
+    TDStickerLibraryTabPageLayout * layout;
+    
+    if ( nil != stickerPageView )
+    {
+        layout                      = (TDStickerLibraryTabPageLayout *)[stickerPageView collectionViewLayout];
+        viewRect                    = [stickerPageView frame];
+        viewRect.size.width         = screenWidth;
+        if ( nil != layout )
+        {
+            [stickerPageView        setFrame: viewRect];
+            [stickerPageView        reloadSectionData];
+            [layout                 needUpdateLayoutAttributes: YES];
+            [stickerPageView        reloadData];
+            
+
+            [scrollView                     setNeedsLayout];
+            [scrollView                     layoutIfNeeded];
+            
+            correctContentSize      = [layout collectionViewContentSize];
+            
+            //  re update sticker page view frame by current content size.
+            viewRect.size           = correctContentSize;
+            [stickerPageView        setFrame: viewRect];
+            
+            //  re update scroll view's content size.
+            correctContentSize.height   += viewRect.origin.y;
+            
+            [scrollView             setContentSize: correctContentSize];
+        }
+    }
+    
+    //  intro view's sub object.
+    UIEdgeInsets                    subViewInsets;
+    
+    subViewInsets                   = [customization introViewSubViewInsets];
+    
+    if ( nil != introStampView )
+    {
+        viewRect                    = [introStampView frame];
+        viewRect.origin             = CGPointMake( ( ( screenWidth / 2.0f ) - viewRect.size.width ), subViewInsets.top );
+        [introStampView             setFrame: viewRect];
+    }
+    
+    if ( nil != introView )
+    {
+        for ( id idObject in [introView subviews] )
+        {
+            if ( ( nil == idObject ) || ( [idObject isKindOfClass: [UILabel class]] == NO ) )
+            {
+                continue;
+            }
+            
+            viewRect                = [idObject frame];
+            viewRect.origin.x       = ( ( screenWidth / 2.0f ) + ( subViewInsets.left / 2.0f ) );
+            viewRect.size.width     = ( ( screenWidth / 2.0f ) - ( ( subViewInsets.left / 2.0f ) + subViewInsets.right ) );
+            [idObject               setFrame: viewRect];
+        }
+    }
+    
+    //  pop menu.
+    if ( nil != popMenu )
+    {
+        [popMenu                    whenDeviceRotateUpdatePosition];
+    }
+}
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for check object's properties.
@@ -1703,6 +1841,24 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark overwrite implementation of protocol of UIContentContainer.
+//  ------------------------------------------------------------------------------------------------
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection
+              withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super                          willTransitionToTraitCollection: newCollection withTransitionCoordinator: coordinator];
+    
+    [coordinator                    animateAlongsideTransition: ^(id <UIViewControllerTransitionCoordinatorContext> context)
+    {
+        [self                       _DeviceOrientationIsRotation];
+    }
+                                                completion: ^(id <UIViewControllerTransitionCoordinatorContext> context)
+    {
+//        [self                       _DeviceOrientationIsRotation];
+    }];
 }
 
 //  ------------------------------------------------------------------------------------------------
