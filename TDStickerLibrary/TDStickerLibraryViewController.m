@@ -764,8 +764,8 @@
 {
     CGFloat                         subviewTop;
     
-    subviewTop                      = 20.0f;
-//.    subviewTop                      = [[UIScreen mainScreen] getStatusBarHeight];
+    subviewTop                      = 0.0f;
+    subviewTop                      = [[UIScreen mainScreen] getStatusBarHeight];
     if ( nil != navigationBar )
     {
         subviewTop                  += [navigationBar bounds].size.height;
@@ -906,10 +906,24 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-//- (BOOL)prefersStatusBarHidden
-//{
-//    return NO;
-//}
+- (BOOL)prefersStatusBarHidden
+{
+    if ( nil == customization )
+    {
+        return NO;
+    }
+    return [customization isStatusBarHidden];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    if ( nil == customization )
+    {
+        return UIStatusBarStyleDefault;
+    }
+    return [customization statusBarStyle];
+}
 
 //  --------------------------------
 //  ------------------------------------------------------------------------------------------------

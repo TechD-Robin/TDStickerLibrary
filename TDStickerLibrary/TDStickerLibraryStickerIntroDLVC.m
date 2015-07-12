@@ -1844,6 +1844,26 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 }
 
 //  ------------------------------------------------------------------------------------------------
+- (BOOL)prefersStatusBarHidden
+{
+    if ( nil == customization )
+    {
+        return NO;
+    }
+    return [customization isStatusBarHidden];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    if ( nil == customization )
+    {
+        return UIStatusBarStyleDefault;
+    }
+    return [customization statusBarStyle];
+}
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark overwrite implementation of protocol of UIContentContainer.
 //  ------------------------------------------------------------------------------------------------
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection

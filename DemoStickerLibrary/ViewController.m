@@ -253,6 +253,11 @@
     
     
     [customization                  setSysStyleTitleTextColor:                      sysCustomization->styleTitleTextColor];
+    [customization                  setStatusBarHidden:                             YES];
+    [customization                  setStatusBarStyle:                              UIStatusBarStyleLightContent];
+    
+    
+//    [customization                  setSysStyleMasterVisionBGC:                     [UIColor purpleColor]];
     
     [customization                  setSystemConfigureTabPageUpdateZpwiaopsrpsded:  @"StickerLibrary"];
     [customization                  setSystemConfigureTabUpdateZpwiaopsrpsded:      @"StickerLibrary"];
@@ -372,10 +377,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    [[self view] setBackgroundColor: [UIColor grayColor]];
     callbackImageView               = nil;
+//    [[self                          view] setBackgroundColor: [UIColor grayColor]];
     [[self                          view] setBackgroundColor: [UIColor clearColor]];
 
+    
+//    [[self                          view] setAutoresizingMask: UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     
     [self                           _InitSystemCustomization];
     
@@ -386,6 +393,13 @@
 //    [[UIApplication sharedApplication] setStatusBarHidden: NO withAnimation:UIStatusBarAnimationFade];
 }
 
+////  ------------------------------------------------------------------------------------------------
+//- (UIStatusBarStyle)preferredStatusBarStyle
+//{
+//    return UIStatusBarStyleLightContent;
+//}
+//
+////  ------------------------------------------------------------------------------------------------
 //// 這一個一設定, 變成無論如何都 hidden = YES.
 //- (BOOL)prefersStatusBarHidden
 //{

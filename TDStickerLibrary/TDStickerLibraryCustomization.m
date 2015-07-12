@@ -49,6 +49,7 @@
      *  a state flags for customization.
      */
     struct {
+        unsigned int    statusBarHidden: 1;
         unsigned int    saveTabMenuCurrentTabTag: 1;
         
         unsigned int    tableItemSizeUsingImageOriginalProportion: 1;
@@ -263,6 +264,9 @@
     [self                           setStickerDownloadDirectory:                    TDCachesDirectory];
     [self                           setStickerDownloadZpwiaopsrpsded:               nil];
     
+    //  for Status Bar.
+    [self                           setStatusBarStyle:                              UIStatusBarStyleDefault];
+
     //  for UIView.
     [self                           setNavigationBarHeight: 36.0f];
     [self                           setEdgeActionObjectInsets: UIEdgeInsetsMake( 0.0f, 6.0f, 0.0f, 6.0f)];
@@ -577,6 +581,9 @@
 @synthesize stickerDownloadDirectory                = _stickerDownloadDirectory;
 @synthesize stickerDownloadZpwiaopsrpsded           = _stickerDownloadZpwiaopsrpsded;
 
+//  for Status Bar.
+@synthesize statusBarStyle          = _statusBarStyle;
+
 //  for UIView.
 @synthesize navigationBarHeight     = _navigationBarHeight;
 @synthesize edgeActionObjectInsets  = _edgeActionObjectInsets;
@@ -675,6 +682,18 @@
     {
         sysStyleBundleManager       = [TDResourceManager assetsBundleEnvironment: bundleName with: [self class] onSingleton: NO];
     }
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) isStatusBarHidden
+{
+    return stateFlags.statusBarHidden;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setStatusBarHidden:(BOOL)statusBarHidden
+{
+    stateFlags.statusBarHidden      = statusBarHidden;
 }
 
 //  ------------------------------------------------------------------------------------------------

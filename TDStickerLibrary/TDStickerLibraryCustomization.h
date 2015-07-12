@@ -273,6 +273,21 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
 
 
 #pragma mark Sticker Libaray View Controller's view
+//  for Status Bar.
+/**
+ *  set the flag to decide the system status bar is hidden, otherwise is show.
+ *  when flag value is Yes, the system status bar is hidden;
+ *  default is No.
+ */
+@property( nonatomic, getter=isStatusBarHidden ) BOOL       statusBarHidden;
+
+/**
+ *  the style of the system status bar.
+ *  when statusBarHidden is No then the configure has effect.
+ *  default is UIStatusBarStyleDefault.
+ */
+@property( nonatomic, assign ) UIStatusBarStyle             statusBarStyle;
+
 //  for UIView(Sticker Libaray View Controller's view).
 /**
  *  height of navigation bar.
