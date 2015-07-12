@@ -955,9 +955,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetScrollViewNewSubviewTopPosition];
     
-//    subviewTop                      += 40.0f;
     buttonHeight                    = 36.0f;
-    
     buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );    
     downloadButton                  = [UIButton buttonWithImage: [customization sysStyleDownloadImage]
                                                     highlighted: [customization sysStyleDownloadImageHighlighted] 
@@ -1053,16 +1051,12 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     CGFloat                         subviewTop;
     CGFloat                         buttonHeight;
     CGRect                          buttonRect;
-    UITapGestureRecognizer        * tap;
     
-    tap                             = nil;
     isDownloaded                    = NO;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetScrollViewNewSubviewTopPosition];
     
-//    subviewTop                      += 40.0f;
     buttonHeight                    = 36.0f;
-    
     buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );
     if ( nil != downloadButton )
     {
@@ -1096,17 +1090,9 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     {
         [deleteButton               setHidden: !isDownloaded];
     }
+
     
-    tap                             = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector( _TapDeleteButtonAction: )];
-    if ( nil == tap )
-    {
-        return YES;
-    }
-    [deleteButton                   addGestureRecognizer: tap];
-    
-    SAFE_ARC_RELEASE( tap );
-    tap                             = nil;
-    
+    [deleteButton                 addTarget: self action: @selector( _TapDeleteButtonAction: ) forControlEvents: UIControlEventTouchUpInside];
     return YES;
 }
 
