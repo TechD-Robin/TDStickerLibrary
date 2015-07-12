@@ -134,6 +134,14 @@ typedef NS_ENUM( NSInteger, TDBasePopMenuPosition ){
 - ( void ) setEnabled:(BOOL)enabled;
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief update the pop menu's position when device is rotated.
+ *  update the pop menu's position when device is rotated.
+ */
+- ( void ) whenDeviceRotateUpdatePosition;
+
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
