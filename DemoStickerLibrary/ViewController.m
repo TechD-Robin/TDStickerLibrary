@@ -390,6 +390,8 @@
     [self                           _CreatePreUpdateButton];
     
     
+    NSLog( @"main screen : %@", NSStringFromCGRect( [[UIScreen mainScreen] bounds] ) );
+    
 //    [[UIApplication sharedApplication] setStatusBarHidden: NO withAnimation:UIStatusBarAnimationFade];
 }
 

@@ -177,6 +177,7 @@
 		2ACD99A31B39336A007B5FDA /* TDBasePopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD99A21B39336A007B5FDA /* TDBasePopMenu.m */; };
 		2ACD99A41B39336A007B5FDA /* TDBasePopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD99A21B39336A007B5FDA /* TDBasePopMenu.m */; };
 		2AD9D5591AE4374700B2634F /* UIView+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD9D5581AE4374700B2634F /* UIView+TechD.m */; };
+		2ADD90C11B528BBA0097E963 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ADD90C01B528BBA0097E963 /* Launch Screen.xib */; };
 		2AF2FE8C1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2FE8B1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m */; };
 		2AFDFAD71A838B8D00A82E55 /* TDStickerLibrarySectionStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AFDFAD61A838B8D00A82E55 /* TDStickerLibrarySectionStates.m */; };
 /* End PBXBuildFile section */
@@ -380,6 +381,7 @@
 		2ACD99A21B39336A007B5FDA /* TDBasePopMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBasePopMenu.m; path = Libraries/TDBaseObjects/TDBaseObjects/TDBasePopMenu.m; sourceTree = "<group>"; };
 		2AD9D5571AE4374700B2634F /* UIView+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TechD.h"; sourceTree = "<group>"; };
 		2AD9D5581AE4374700B2634F /* UIView+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TechD.m"; sourceTree = "<group>"; };
+		2ADD90C01B528BBA0097E963 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		2AF2FE8A1A7A7E9400793CD2 /* TDTexturePackerXMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTexturePackerXMLReader.h; path = Libraries/TDFoundation/TDFoundation/TDTexturePackerXMLReader.h; sourceTree = "<group>"; };
 		2AF2FE8B1A7A7E9400793CD2 /* TDTexturePackerXMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTexturePackerXMLReader.m; path = Libraries/TDFoundation/TDFoundation/TDTexturePackerXMLReader.m; sourceTree = "<group>"; };
 		2AF2FE8D1A7A9E9200793CD2 /* TDFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDFoundation.h; path = Libraries/TDFoundation/TDFoundation/TDFoundation.h; sourceTree = "<group>"; };
@@ -710,6 +712,7 @@
 				2AAB793E1AEE9F0C00DA71A8 /* AppDelegate.m */,
 				2AAB79401AEE9F0C00DA71A8 /* ViewController.h */,
 				2AAB79411AEE9F0C00DA71A8 /* ViewController.m */,
+				2ADD90C01B528BBA0097E963 /* Launch Screen.xib */,
 				2AAB79461AEE9F0C00DA71A8 /* Images.xcassets */,
 				2AAB79391AEE9F0C00DA71A8 /* Supporting Files */,
 			);
@@ -999,6 +1002,7 @@
 				2AAB79471AEE9F0C00DA71A8 /* Images.xcassets in Resources */,
 				2AAB79601AEEA19400DA71A8 /* Configure in Resources */,
 				2A87E7071B1737310066FC59 /* StickerLibraryDefault.bundle in Resources */,
+				2ADD90C11B528BBA0097E963 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
