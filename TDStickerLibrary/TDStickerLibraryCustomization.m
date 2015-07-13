@@ -306,6 +306,8 @@
     [self                           setIntroViewExpireDateTextColor: [UIColor whiteColor]];
     [self                           setIntroViewExpireDateExpiringTextColor: [UIColor yellowColor]];
     [self                           setIntroViewExpireDateExpiringAlertDays: 2];    //  the days is 2 + 1(on the day).
+    [self                           setIntroViewSerialButtonHeight: 36.0f];
+    [self                           setIntroViewSerialButtonColor: [[UIColor darkGrayColor] colorWithAlphaComponent: 0.33f]];
 
     //  for pop menu.
     [self                           setPopMenuInteritemSpacing: 2.0f];
@@ -618,6 +620,8 @@
 @synthesize introViewExpireDateTextColor            = _introViewExpireDateTextColor;
 @synthesize introViewExpireDateExpiringTextColor    = _introViewExpireDateExpiringTextColor;
 @synthesize introViewExpireDateExpiringAlertDays    = _introViewExpireDateExpiringAlertDays;
+@synthesize introViewSerialButtonHeight             = _introViewSerialButtonHeight;
+@synthesize introViewSerialButtonColor              = _introViewSerialButtonColor;
 
 //  for pop menu.
 @synthesize popMenuInteritemSpacing         = _popMenuInteritemSpacing;

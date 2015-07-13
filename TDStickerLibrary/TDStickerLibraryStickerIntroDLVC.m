@@ -440,7 +440,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 }
 
 //  ------------------------------------------------------------------------------------------------
-#pragma mark declare for create object.
+#pragma mark method for create object.
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CreateNavigationBar;
 {
@@ -955,8 +955,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetScrollViewNewSubviewTopPosition];
     
-    buttonHeight                    = 36.0f;
-    buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );    
+    buttonHeight                    = [customization introViewSerialButtonHeight];
+    buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );
     downloadButton                  = [UIButton buttonWithImage: [customization sysStyleDownloadImage]
                                                     highlighted: [customization sysStyleDownloadImageHighlighted] 
                                                        disabled: [customization sysStyleDownloadImageDisabled]
@@ -968,10 +968,9 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     }
     
     [downloadButton                 setFrame: buttonRect];
-    [downloadButton                 setBackgroundColor: [UIColor darkGrayColor]];
+    [downloadButton                 setBackgroundColor: [customization introViewSerialButtonColor]];
     [downloadButton                 setTitle: [customization downloadString] forState: UIControlStateNormal];
     [downloadButton                 setTitle: [customization downloadStringHightlighted] forState: UIControlStateDisabled];
-    //[[self                          view] addSubview: downloadButton];
     if ( nil != scrollView )
     {
         [scrollView                 addSubview: downloadButton];
@@ -1056,7 +1055,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetScrollViewNewSubviewTopPosition];
     
-    buttonHeight                    = 36.0f;
+    buttonHeight                    = [customization introViewSerialButtonHeight];
     buttonRect                      = CGRectMake( 0, ( subviewTop + 1.0f ) , screenWidth, buttonHeight );
     if ( nil != downloadButton )
     {
@@ -1073,13 +1072,17 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     }
     
     [deleteButton                   setFrame: buttonRect];
-    [deleteButton                   setBackgroundColor: [UIColor darkGrayColor]];
-    [deleteButton                   setTitle: [customization deleteString] forState: UIControlStateNormal];
-    //[[self                          view] addSubview: deleteButton];
+    [deleteButton                   setBackgroundColor: [customization introViewSerialButtonColor]];
+    //[deleteButton                   setTitle: [customization deleteString] forState: UIControlStateNormal];
     if ( nil != scrollView )
     {
         [scrollView                 addSubview: deleteButton];
     }
+    
+
+    //[deleteButton                   changeImageToTitleRightSide: 0];
+    [deleteButton                   enforceMoveImageHorizontalAlignment: UIControlContentHorizontalAlignmentRight
+                                                                 offset: -( [customization edgeActionObjectInsets].right )];
     
     //  width stretchy when device Orientation is changed.
     subviewTop                      = ( ( nil != downloadButton ) ? [downloadButton frame].origin.y : ( subviewTop + 1.0f ) );
@@ -1090,7 +1093,6 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     {
         [deleteButton               setHidden: !isDownloaded];
     }
-
     
     [deleteButton                 addTarget: self action: @selector( _TapDeleteButtonAction: ) forControlEvents: UIControlEventTouchUpInside];
     return YES;
@@ -1483,6 +1485,13 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
             [idObject               setFrame: viewRect];
         }
     }
+    
+    if ( nil != deleteButton )
+    {
+        [deleteButton               enforceMoveImageHorizontalAlignment: UIControlContentHorizontalAlignmentRight
+                                                                 offset: -( [customization edgeActionObjectInsets].right )];
+    }
+    
     
     //  pop menu.
     if ( nil != popMenu )

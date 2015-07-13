@@ -444,13 +444,25 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
 /**
  *  alert's text color of introView's expire date when expiring.
  */
-@property( nonatomic, copy)    UIColor                    * introViewExpireDateExpiringTextColor;
+@property( nonatomic, copy )   UIColor                    * introViewExpireDateExpiringTextColor;
 
 /**
  *  alert days for introView's expire date when expiring. ( 0 is mean on the expire date )
  *  default is 2; ( 2 + 1 ).
  */
 @property( nonatomic, assign ) NSUInteger                   introViewExpireDateExpiringAlertDays;
+
+/**
+ *  button height of DLVC's serial buttons.
+ */
+@property( nonatomic, assign ) CGFloat                      introViewSerialButtonHeight;
+
+/**
+ *  button color of DLVC's serial buttons.
+ */
+@property( nonatomic, copy )    UIColor                   * introViewSerialButtonColor;
+
+
 
 #pragma mark pop menu.
 //  for pop menu.
