@@ -1740,6 +1740,7 @@
 {
     //  precheck for download state.
     BOOL                            isDownloaded;
+    NSInteger                       sectionMode;
     
     isDownloaded                    = NO;
     if ( [sectionStates downloadState: &isDownloaded inSection: indexPath.section] == NO )
@@ -1757,6 +1758,18 @@
         }
     }
     
+    sectionMode                     = 0;
+    if ( [pageConfigure dataMode: &sectionMode atIndex: indexPath.section] == NO )
+    {
+        NSLog( @"cannot get the section data mode!");
+        return;
+    }
+
+    //  let preview mode's touched  skip this action.
+    if ( sectionMode != TDStickerLibraryPageSectionModeNormal )
+    {
+        return;
+    }
     
     //  for normal mode.
     CGSize                              stickerSize;
