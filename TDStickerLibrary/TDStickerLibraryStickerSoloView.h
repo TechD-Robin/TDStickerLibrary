@@ -54,7 +54,23 @@ typedef     void (^FinishedCallbackBlock)(BOOL finished);
                               with:(UIWindow *)window customization:(TDStickerLibraryCustomization *)custom;
 
 //  ------------------------------------------------------------------------------------------------
-#pragma mark declare for show/hide the object.
+/**
+ *  @brief create a sticker image view and use to express progressing's state.
+ *  create a sticker image view and use to express progressing's state.
+ *
+ *  @param stickerImage             a sticker image.
+ *  @param nowFrame                 the sticker now frame on screen.
+ *  @param window                   a current window object's pointer.
+ *  @param custom                   the customization object for the Sticker Library.
+ *
+ *  @return object|nil              the sticker's progress view or nil.
+ */
++ ( instancetype ) stickerProgressView:(UIImage *)stickerImage onScreen:(CGRect)nowFrame
+                                  with:(UIWindow *)window customization:(TDStickerLibraryCustomization *)custom;
+
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for show/hide the solo object.
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief show the sticker image on window.
@@ -65,6 +81,22 @@ typedef     void (^FinishedCallbackBlock)(BOOL finished);
  */
 - ( void ) showSoloView:(void (^)(void))showView completion:(FinishedCallbackBlock)completion;
 
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for show/dismiss the progress object.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief show the sticker progress view on window.
+ *  call the method when want to show the sticker progress view on window(device screen).
+ */
+- ( void ) showProgress;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief dismiss the sticker progress view on window.
+ *  call the method when want to dismiss the sticker progress view from window.
+ */
+- ( void ) dismissProgress;
 
 //  ------------------------------------------------------------------------------------------------
 

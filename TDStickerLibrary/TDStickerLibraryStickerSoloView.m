@@ -58,11 +58,28 @@
      */
     UIImageView                   * blurImageView;
     
-    
     /**
      *  assign the block method point than call the block method when the view show action is finish.(change to hidden)
      */
     FinishedCallbackBlock           finishCallbackBlock;
+
+    
+    //  for progress function.
+    /**
+     *  set the flag when progress's state is running or state is stop.
+     */
+    BOOL                            isProgressing;
+    
+    /**
+     *  a container of progress message.
+     */
+    NSArray                       * progressingMessages;
+    
+    /**
+     *  a progress message.
+     */
+    UILabel                       * progressMessage;
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -89,6 +106,13 @@
  *  initial the attributes of class.
  */
 - ( void ) _InitAttributes;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief initial the progress message string.
+ *  initial the progress message string.
+ */
+- ( void ) _InitProgressingMessages;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create object.
@@ -132,6 +156,15 @@
 - ( BOOL ) _CreateBlurImageView;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a progress message object.
+ *  create a progress message object (is UILabel).
+ *
+ *  @return YES|NO                  method success or failure
+ */
+- ( BOOL ) _CreateProgressMessage;
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark declare for show or hide the object.
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -150,6 +183,24 @@
  *  @return YES|NO                  method success or failure
  */
 - ( BOOL ) _SendTheViewToBack;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief show the sticker progress view on window.
+ *  show the sticker progress view on window.
+ *
+ *  @return YES|NO                  method success or failure
+ */
+- ( BOOL ) _SimulateProgressBringTheViewToFront;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief hide the sticker progress view.
+ *  hide the sticker progress view; transation to position on screen for DLVC's intro view's stamp.
+ *
+ *  @return YES|NO                  method success or failure
+ */
+- ( BOOL ) _SimulateProgressSendTheViewToBack;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -182,14 +233,37 @@
     
     finishCallbackBlock             = nil;
     
+    isProgressing                   = NO;
+    progressingMessages             = nil;
+    
     //  background. ( clear view )
     [self                           setBackgroundColor: [UIColor clearColor]];
     [self                           setUserInteractionEnabled: YES];
     [self                           setHidden: YES];
-    [self                           _CreateTapAction];
+//    [self                           _CreateTapAction];
 
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _InitProgressingMessages
+{
+    if ( nil == customization )
+    {
+        return;
+    }
+    
+    //  init string.
+    NSString                      * message1;
+    NSString                      * message2;
+    NSString                      * message3;
+    
+    
+    message1                        = [@" Downloading " stringByAppendingString: @". " ];
+    message2                        = [@" Downloading " stringByAppendingString: @".. " ];
+    message3                        = [@" Downloading " stringByAppendingString: @"... " ];
+    
+    progressingMessages             = [NSArray arrayWithObjects: message1, message2, message3, nil];
+}
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create object.
@@ -285,6 +359,44 @@
     return YES;
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreateProgressMessage
+{
+    if ( ( nil == blurImageView ) || ( nil == progressingMessages ) || ( [progressingMessages count] == 0 )  )
+    {
+        return NO;
+    }
+    
+    
+    NSString                      * message;
+    CGRect                          viewRect;
+    
+    viewRect                        = CGRectZero;
+    progressMessage                 = [[UILabel alloc] init];
+    message                         = [progressingMessages objectAtIndex: 0];
+    if ( ( nil == progressMessage ) || ( nil == message ) )
+    {
+        return NO;
+    }
+    
+    [progressMessage                setTextColor: [UIColor whiteColor]];
+//    [progressMessage                setBackgroundColor: [UIColor orangeColor]];
+    
+    [progressMessage                setText: message];
+    [progressMessage                sizeToFit];
+    
+    
+    viewRect                        = [blurImageView bounds];
+    viewRect.origin.x               = ( ( viewRect.size.width - [progressMessage bounds].size.width ) / 2.0f );
+    viewRect.origin.y               = ( viewRect.size.height - [progressMessage bounds].size.height - 6.0f );
+    viewRect.size                   = [progressMessage bounds].size;
+    
+    [progressMessage                setFrame: viewRect];
+    [progressMessage                setAlpha: 0.0f];
+    [blurImageView                  addSubview: progressMessage];
+    
+    return YES;
+}
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for show or hide the object.
@@ -381,6 +493,168 @@
     return YES;
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _SimulateProgressBringTheViewToFront
+{
+    CGSize                          mainSize;
+    CGFloat                         stickerRatio;
+    CGRect                          stickerMaxFrame;
+    
+    mainSize                        = [[UIScreen mainScreen] bounds].size;
+    stickerRatio                    = ( stickerOriginalSize.height / stickerOriginalSize.width );
+    stickerMaxFrame.size            = calculateProportionalMaxSizeWithLimit( stickerRatio, stickerOriginalSize, mainSize );
+    stickerMaxFrame.origin          = CGPointMake( ( ( mainSize.width - stickerMaxFrame.size.width ) / 2.0f ) , ( ( mainSize.height - stickerMaxFrame.size.height ) / 2.0f ) );
+    
+    
+    //  run animation.
+    if ( nil != blurImageView )
+    {
+        [blurImageView              setAlpha: 0.0f];
+    }
+    
+    [self                           setHidden: NO];
+    [UIView animateWithDuration: 0.25f animations: ^
+    {
+        CGRect                      newFrame;
+
+        newFrame                    = CGRectInset( stickerMaxFrame, [customization soloViewInsetSize].width, [customization soloViewInsetSize].height );
+        [stickerImageView           setFrame: newFrame];
+
+        if ( nil != blurImageView )
+        {
+            CGFloat                 newPosition;
+             
+            newFrame                = [[UIScreen mainScreen] bounds];
+            newPosition             = fabsf( ( ( newFrame.size.width - newFrame.size.height ) / 2.0f ) );
+            if ( newFrame.size.width < newFrame.size.height )
+            {
+                newFrame.origin.x   = 0.0f;
+                newFrame.origin.y   = newPosition;
+                newFrame.size.height= newFrame.size.width;
+            }
+            else
+            {
+                newFrame.origin.x   = newPosition;
+                newFrame.origin.y   = 0.0f;
+                newFrame.size.width = newFrame.size.height;
+            }
+            
+            [blurImageView          setFrame: newFrame];
+            [blurImageView          setAlpha: [customization soloViewBlurLayerAlphaOnTop]];
+        }
+        
+        if ( nil != progressMessage )
+        {
+            newFrame.origin.x       = ( ( newFrame.size.width - [progressMessage bounds].size.width ) / 2.0f );
+            newFrame.origin.y       = ( newFrame.size.height - [progressMessage bounds].size.height - 12.0f );
+            newFrame.size           = [progressMessage bounds].size;
+            
+            [progressMessage        setFrame: newFrame];
+            [progressMessage        setAlpha: 1.0f];
+        }
+    }
+    completion: ^ ( BOOL finished )
+    {
+        //  use tag to count.
+        [self                       setTag: 1];
+        [self                       performSelector: @selector( _AnimateProgressMessage ) withObject: nil afterDelay: 0.5f];
+         
+    }];
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _AnimateProgressMessage
+{
+    if ( ( nil == progressMessage ) || ( nil == progressingMessages ) || ( [progressingMessages count] == 0 ) )
+    {
+        return;
+    }
+    
+    //  when state not progressing.
+    if ( NO == isProgressing )
+    {
+        return;
+    }
+    
+    NSString                      * message;
+    
+    message                         = [progressingMessages objectAtIndex: ( [self tag] % 3 )];
+    if ( nil != message )
+    {
+        [progressMessage            setText: message];
+        [progressMessage            sizeToFit];
+    }
+    
+    [self                           setTag: ( [self tag] + 1 )];
+    [self                           performSelector: @selector( _AnimateProgressMessage ) withObject: nil afterDelay: 0.5f];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _SimulateProgressSendTheViewToBack
+{
+    __weak id                       blockSelf;
+    __weak id                       blockSticker;
+    __weak id                       blockBlur;
+    __weak id                       blockMessage;
+    
+    blockSelf                       = self;
+    blockSticker                    = stickerImageView;
+    blockBlur                       = blurImageView;
+    blockMessage                    = progressMessage;
+    [UIView animateWithDuration: [customization soloViewHideAnimateDuration] animations: ^
+    {
+        [blockSticker               setFrame: stickerOnScreenFrame];
+        if ( nil != blockBlur )
+        {
+            [blockBlur              setFrame: stickerOnScreenFrame];
+            [blockBlur              setAlpha: 0.0f];
+        }
+
+        if ( nil != blockMessage )
+        {
+            CGRect                  viewRect;
+
+            viewRect                = stickerOnScreenFrame;
+            viewRect.origin.x       = 0.0f;
+            viewRect.origin.y       = ( viewRect.size.height - [blockMessage bounds].size.height );
+            viewRect.size           = [blockMessage bounds].size;
+
+            [blockMessage           setFrame: viewRect];
+            [blockMessage           setAlpha: 0.0f];
+        }
+    }
+    completion: ^ ( BOOL finished )
+    {
+        [blockSelf                  setHidden: YES];
+        [blockSelf                  removeFromSuperview];
+        if ( nil != blockBlur )
+        {
+            [blockBlur              setHidden: YES];
+            [blockBlur              removeFromSuperview];
+        }
+        if ( nil != blockMessage )
+        {
+            [blockMessage           setHidden: YES];
+            [blockMessage           removeFromSuperview];
+        }
+
+        if ( nil != finishCallbackBlock )
+        {
+            finishCallbackBlock( finished );
+        }
+    }];
+    
+    SAFE_ARC_RELEASE( stickerImageView );
+    SAFE_ARC_RELEASE( blurImageView );
+    SAFE_ARC_RELEASE( progressMessage );
+    
+    SAFE_ARC_ASSIGN_POINTER_NIL( stickerImageView );
+    SAFE_ARC_ASSIGN_POINTER_NIL( blurImageView );
+    SAFE_ARC_ASSIGN_POINTER_NIL( progressMessage );
+    return YES;
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -443,6 +717,7 @@
     }
     
     [self                           _InitAttributes];
+    [self                           _CreateTapAction];
     
     //  sticker image view.
     stickerOriginalSize             = stickerSize;
@@ -465,15 +740,55 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( instancetype ) initWithProgressView:(UIImage *)stickerImage onScreen:(CGRect)nowFrame
+                                   with:(UIWindow *)window customization:(TDStickerLibraryCustomization *)custom
+{
+    if ( nil == stickerImage )
+    {
+        return nil;
+    }
+    
+    self                            = [super initWithFrame: [[UIScreen mainScreen] bounds]];
+    if ( nil == self )
+    {
+        return nil;
+    }
+    
+    [self                           _InitAttributes];
+
+    //  sticker image view.
+    stickerOriginalSize             = [stickerImage size];
+    stickerOnScreenFrame            = nowFrame;
+    
+    customization                   = custom;
+    [self                           _InitProgressingMessages];
+    [self                           _CreateStickerImageView: stickerImage];
+    [self                           _CreateBlurImageView];
+    [self                           _CreateProgressMessage];
+    
+    if ( nil != window )
+    {
+        [window                     addSubview: self];
+    }
+    return self;
+}
+
+//  ------------------------------------------------------------------------------------------------
 + ( instancetype ) stickerSoloView:(UIImage *)stickerImage original:(CGSize)stickerSize onScreen:(CGRect)nowFrame
                               with:(UIWindow *)window customization:(TDStickerLibraryCustomization *)custom
 {
     return [[[self class] alloc] initWithStickerSoloView: stickerImage original: stickerSize onScreen: nowFrame with: window customization: custom];
 }
 
+//  ------------------------------------------------------------------------------------------------
++ ( instancetype ) stickerProgressView:(UIImage *)stickerImage onScreen:(CGRect)nowFrame
+                                  with:(UIWindow *)window customization:(TDStickerLibraryCustomization *)custom
+{
+    return [[[self class] alloc] initWithProgressView: stickerImage onScreen: nowFrame with: window customization: custom];
+}
 
 //  ------------------------------------------------------------------------------------------------
-#pragma mark method for show/hide the object.
+#pragma mark method for show/hide the solo object.
 //  ------------------------------------------------------------------------------------------------
 - ( void ) showSoloView:(void (^)(void))showView completion:(FinishedCallbackBlock)completion
 {
@@ -492,6 +807,24 @@
     }
 }
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for show/dismiss the progress object.
+//  ------------------------------------------------------------------------------------------------
+- ( void ) showProgress
+{
+    isProgressing                   = YES;
+    [self                           _SimulateProgressBringTheViewToFront];
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( void ) dismissProgress
+{
+    isProgressing                   = NO;
+    [self                           _SimulateProgressSendTheViewToBack];
+}
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 

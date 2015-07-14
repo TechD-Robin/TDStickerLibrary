@@ -19,6 +19,7 @@
 #import "TDStickerLibraryStickerIntroDLVC.h"
 #import "TDStickerLibraryTabPageView.h"
 #import "TDStickerLibrarySectionPreviewCell.h"
+#import "TDStickerLibraryStickerSoloView.h"
 #import "TDDownloadManager.h"
 
 
@@ -971,6 +972,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     [downloadButton                 setBackgroundColor: [customization introViewSerialButtonColor]];
     [downloadButton                 setTitle: [customization downloadString] forState: UIControlStateNormal];
     [downloadButton                 setTitle: [customization downloadStringHightlighted] forState: UIControlStateDisabled];
+    [downloadButton                 setTitle: @"Downloading ..." forState: UIControlStateSelected];
     if ( nil != scrollView )
     {
         [scrollView                 addSubview: downloadButton];
@@ -1019,13 +1021,39 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         return;
     }
     
+    //  simulate progress, use intro stamp to solo view.
+    CGRect                              onScreenRect;
+    TDStickerLibraryStickerSoloView   * progressView;
+    
+    if ( nil != introStampView )
+    {
+        onScreenRect                = [introStampView frame];
+        onScreenRect.origin         = [scrollView convertPoint: onScreenRect.origin toView: nil];
+
+        
+        progressView                = [TDStickerLibraryStickerSoloView stickerProgressView: [introStampView image]
+                                                                                  onScreen: onScreenRect with: [[self view] window]
+                                                                             customization: customization];
+    }
+    
+    
+    
     //  call download method.
     [TDDownloadManager              download: configure from: dataLink
                                         into: [customization stickerDownloadSubpath] of: [customization stickerDownloadDirectory]
                                updateCheckBy: timestamp completed: ^(NSError * error, NSString * fullPath, BOOL finished)
     {
+        [downloadButton             setUserInteractionEnabled: YES];
+        [downloadButton             setSelected: NO];
         [backButton                 setEnabled: YES];
         [popMenu                    setEnabled: YES];
+        
+        //  hide progress.
+        if ( nil != progressView )
+        {
+            [progressView           dismissProgress];
+        }
+        
         
          NSLog( @"result %d, %@", finished, error );
          NSLog( @"file full path : %@", fullPath );
@@ -1037,8 +1065,18 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     }];
     
     //  when downloading, button must disable; ** when system is downloading, touch the back button, system will crash. **
+    [downloadButton                 setUserInteractionEnabled: NO];
+    [downloadButton                 setSelected: YES];
     [backButton                     setEnabled: NO];
     [popMenu                        setEnabled: NO];
+    
+    
+    //  show progress.
+    if ( nil != progressView )
+    {
+        [progressView               showProgress];
+    }
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
