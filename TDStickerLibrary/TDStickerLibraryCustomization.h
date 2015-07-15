@@ -463,6 +463,55 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
 @property( nonatomic, copy )    UIColor                   * introViewSerialButtonColor;
 
 
+//  for Sticker Intro DLVC's progress.
+/**
+ *  set the flag to use intro progress, and use the stamp image on the progress.
+ *  when flag is Yes, is enable to use, otherwise is disabled.
+ *  default is Yes.
+ */
+@property( nonatomic, getter=isIntroProgressEnabled ) BOOL  introProgressEnabled;
+
+/**
+ *  color of intro progress's message text.
+ */
+@property( nonatomic, copy )   UIColor                    * introProgressMessageTextColor;
+
+/**
+ *  inset of intro progress's intro image.
+ */
+@property( nonatomic, assign ) CGSize                       introProgressImageInsetSize;
+
+/**
+ *  color of intro progress's blur layer.
+ */
+@property( nonatomic, copy )   UIColor                    * introProgressBlurLayerColor;
+
+/**
+ *  inset of blur layer when the intro progress is show on top.
+ */
+@property( nonatomic, assign ) CGSize                       introProgressBlurLayerInsetSizeOnTop;
+
+/**
+ *  alpha of blur layer when the intro progress is show on top.
+ *  value : 0.0f ~ 1.0f.
+ */
+@property( nonatomic, assign ) CGFloat                      introProgressBlurLayerAlphaOnTop;
+
+/**
+ *  bottom edge of progress message when the intro progress is show on top.
+ */
+@property( nonatomic, assign ) CGFloat                      introProgressMessageBottomEdgeOnTop;
+
+/**
+ *  duration of animate when intro progress is show.
+ */
+@property( nonatomic, assign ) CGFloat                      introProgressShowAnimateDuration;
+
+/**
+ *  duration of animate when intro progress is dismiss.
+ */
+@property( nonatomic, assign ) CGFloat                      introProgressDismissAnimateDuration;
+
 
 #pragma mark pop menu.
 //  for pop menu.
@@ -871,6 +920,15 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
  *  @return string|nil              the string or nil.
  */
 - ( NSString * ) downloadString;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the downloading string from localized setting.
+ *  get the downloading string from localized setting.
+ *
+ *  @return string|nil              the string or nil.
+ */
+- ( NSString * ) downloadingString;
 
 //  ------------------------------------------------------------------------------------------------
 /**

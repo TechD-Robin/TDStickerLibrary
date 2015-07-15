@@ -54,6 +54,8 @@
         
         unsigned int    tableItemSizeUsingImageOriginalProportion: 1;
         unsigned int    saveTableSectionMiniStateChange: 1;
+
+        unsigned int    introProgressEnabled: 1;
         
         unsigned int    stickerSoloViewEnabled: 1;
         unsigned int    stickerSoloViewUseBlurLayer: 1;
@@ -309,6 +311,19 @@
     [self                           setIntroViewSerialButtonHeight: 36.0f];
     [self                           setIntroViewSerialButtonColor: [[UIColor darkGrayColor] colorWithAlphaComponent: 0.33f]];
 
+    //  for Sticker Intro DLVC's progress.
+    [self                           setIntroProgressEnabled: YES];
+    [self                           setIntroProgressMessageTextColor: [UIColor whiteColor]];
+    [self                           setIntroProgressImageInsetSize: CGSizeMake( 12.0f , 12.0f )];
+    [self                           setIntroProgressBlurLayerColor: [[UIColor grayColor] colorWithAlphaComponent: 0.88f]];
+    [self                           setIntroProgressBlurLayerInsetSizeOnTop: CGSizeMake( 6.0f, 6.0f )];
+    [self                           setIntroProgressBlurLayerAlphaOnTop: 0.92f];
+    [self                           setIntroProgressMessageBottomEdgeOnTop: 8.0f];
+    [self                           setIntroProgressShowAnimateDuration: 0.33f];
+    [self                           setIntroProgressDismissAnimateDuration: 0.33f];
+    
+    
+    
     //  for pop menu.
     [self                           setPopMenuInteritemSpacing: 2.0f];
     [self                           setPopMenuPopOutAnimateDuration: 0.33f];
@@ -623,6 +638,20 @@
 @synthesize introViewSerialButtonHeight             = _introViewSerialButtonHeight;
 @synthesize introViewSerialButtonColor              = _introViewSerialButtonColor;
 
+//  for Sticker Intro DLVC's progress.
+@synthesize introProgressMessageTextColor           = _introProgressMessageTextColor;
+
+@synthesize introProgressImageInsetSize             = _introProgressImageInsetSize;
+
+@synthesize introProgressBlurLayerColor             = _introProgressBlurLayerColor;
+@synthesize introProgressBlurLayerInsetSizeOnTop    = _introProgressBlurLayerInsetSizeOnTop;
+@synthesize introProgressBlurLayerAlphaOnTop        = _introProgressBlurLayerAlphaOnTop;
+@synthesize introProgressMessageBottomEdgeOnTop     = _introProgressMessageBottomEdgeOnTop;
+@synthesize introProgressShowAnimateDuration        = _introProgressShowAnimateDuration;
+@synthesize introProgressDismissAnimateDuration     = _introProgressDismissAnimateDuration;
+
+
+
 //  for pop menu.
 @synthesize popMenuInteritemSpacing         = _popMenuInteritemSpacing;
 @synthesize popMenuPopOutAnimateDuration    = _popMenuPopOutAnimateDuration;
@@ -734,6 +763,18 @@
 - ( void ) setSaveTableSectionMiniStateChange:(BOOL)saveTableSectionMiniStateChange
 {
     stateFlags.saveTableSectionMiniStateChange              = saveTableSectionMiniStateChange;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) isIntroProgressEnabled
+{
+    return stateFlags.introProgressEnabled;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setIntroProgressEnabled:(BOOL)introProgressEnabled
+{
+    stateFlags.introProgressEnabled     = introProgressEnabled;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -1132,6 +1173,17 @@
     }
     return [defaultResources localizedStringForKey: @"download"];
 }
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) downloadingString
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources localizedStringForKey: @"downloading"];
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 - ( NSString * ) downloadStringHightlighted

@@ -142,18 +142,22 @@
  *  @brief create a blur image by core graphic method.
  *  create a blur image by core graphic method.
  *
+ *  @param layerColor               a blur layer's color.
+ *
  *  @return object|nil              a blur image object or nil.
  */
-- ( UIImage * ) _CreateBlurImage;
+- ( UIImage * ) _CreateBlurImage:(UIColor *)layerColor;
 
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief create a blur image.
  *  create a blur image.
  *
+ *  @param layerColor               a blur layer's color.
+ *
  *  @return YES|NO                  method success or failure
  */
-- ( BOOL ) _CreateBlurImageView;
+- ( BOOL ) _CreateBlurImageView:(UIColor *)layerColor;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -253,14 +257,17 @@
     }
     
     //  init string.
+    
+    NSString                      * message;
     NSString                      * message1;
     NSString                      * message2;
     NSString                      * message3;
     
-    
-    message1                        = [@" Downloading " stringByAppendingString: @". " ];
-    message2                        = [@" Downloading " stringByAppendingString: @".. " ];
-    message3                        = [@" Downloading " stringByAppendingString: @"... " ];
+    message                         = [customization downloadingString];
+    message                         = ( ( nil == message ) ? @" Downloading " : message );
+    message1                        = [message stringByAppendingString: @". " ];
+    message2                        = [message stringByAppendingString: @".. " ];
+    message3                        = [message stringByAppendingString: @"... " ];
     
     progressingMessages             = [NSArray arrayWithObjects: message1, message2, message3, nil];
 }
@@ -299,11 +306,16 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( UIImage * ) _CreateBlurImage
+- ( UIImage * ) _CreateBlurImage:(UIColor *)layerColor
 {
     if ( CGRectEqualToRect( stickerOnScreenFrame, CGRectZero ) == true  )
     {
         return nil;
+    }
+    
+    if ( nil == layerColor )
+    {
+        layerColor                  = [UIColor clearColor];
     }
     
     CGRect                          mainRect;
@@ -321,7 +333,7 @@
     //  ※ 這個地方很奇怪, 就算用了之前解決 tabMenuBGC 的 static method 方式, 一樣無法解決,
     //    一定要在 property 的地方, 把 assign 換成 copy 才能完全排除掉可能透過各種方式產生 UIColor 物件, 造成後面這行 CGColor 程式會 crash 調的問題.
     //CGContextSetFillColorWithColor( context, [[[customization soloViewBlurLayerColor] copy] CGColor] );
-    CGContextSetFillColorWithColor( context, [[customization soloViewBlurLayerColor] CGColor] );
+    CGContextSetFillColorWithColor( context, [layerColor CGColor] );
     CGContextFillRect( context, mainRect );
     CGContextStrokePath( context );
     
@@ -332,7 +344,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _CreateBlurImageView
+- ( BOOL ) _CreateBlurImageView:(UIColor *)layerColor;
 {
     CGRect                          layerFrame;
 
@@ -340,7 +352,7 @@
 
     UIImage                       * blurImage;
     
-    blurImage                       = [self _CreateBlurImage];
+    blurImage                       = [self _CreateBlurImage: layerColor];
     if ( nil == blurImage )
     {
         return NO;
@@ -379,7 +391,7 @@
         return NO;
     }
     
-    [progressMessage                setTextColor: [UIColor whiteColor]];
+    [progressMessage                setTextColor: [customization introProgressMessageTextColor]];
 //    [progressMessage                setBackgroundColor: [UIColor orangeColor]];
     
     [progressMessage                setText: message];
@@ -388,7 +400,7 @@
     
     viewRect                        = [blurImageView bounds];
     viewRect.origin.x               = ( ( viewRect.size.width - [progressMessage bounds].size.width ) / 2.0f );
-    viewRect.origin.y               = ( viewRect.size.height - [progressMessage bounds].size.height - 6.0f );
+    viewRect.origin.y               = ( viewRect.size.height - [progressMessage bounds].size.height - ( [customization introProgressMessageBottomEdgeOnTop] / 2.0f ) );
     viewRect.size                   = [progressMessage bounds].size;
     
     [progressMessage                setFrame: viewRect];
@@ -513,11 +525,15 @@
     }
     
     [self                           setHidden: NO];
-    [UIView animateWithDuration: 0.25f animations: ^
+    [UIView animateWithDuration: [customization introProgressShowAnimateDuration] animations: ^
     {
         CGRect                      newFrame;
 
-        newFrame                    = CGRectInset( stickerMaxFrame, [customization soloViewInsetSize].width, [customization soloViewInsetSize].height );
+        newFrame                    = CGRectInset( stickerMaxFrame, [customization introProgressImageInsetSize].width, [customization introProgressImageInsetSize].height );
+        if ( nil != progressMessage )
+        {
+            newFrame.origin.y       -= ( ( [progressMessage bounds].size.height * 2.0f ) / 3.0f );
+        }
         [stickerImageView           setFrame: newFrame];
 
         if ( nil != blurImageView )
@@ -539,14 +555,15 @@
                 newFrame.size.width = newFrame.size.height;
             }
             
+            newFrame                = CGRectInset( newFrame, [customization introProgressBlurLayerInsetSizeOnTop].width, [customization introProgressBlurLayerInsetSizeOnTop].height );
             [blurImageView          setFrame: newFrame];
-            [blurImageView          setAlpha: [customization soloViewBlurLayerAlphaOnTop]];
+            [blurImageView          setAlpha: [customization introProgressBlurLayerAlphaOnTop]];
         }
         
         if ( nil != progressMessage )
         {
             newFrame.origin.x       = ( ( newFrame.size.width - [progressMessage bounds].size.width ) / 2.0f );
-            newFrame.origin.y       = ( newFrame.size.height - [progressMessage bounds].size.height - 12.0f );
+            newFrame.origin.y       = ( newFrame.size.height - [progressMessage bounds].size.height - [customization introProgressMessageBottomEdgeOnTop] );
             newFrame.size           = [progressMessage bounds].size;
             
             [progressMessage        setFrame: newFrame];
@@ -580,7 +597,7 @@
     
     NSString                      * message;
     
-    message                         = [progressingMessages objectAtIndex: ( [self tag] % 3 )];
+    message                         = [progressingMessages objectAtIndex: ( [self tag] % [progressingMessages count] )];
     if ( nil != message )
     {
         [progressMessage            setText: message];
@@ -603,7 +620,7 @@
     blockSticker                    = stickerImageView;
     blockBlur                       = blurImageView;
     blockMessage                    = progressMessage;
-    [UIView animateWithDuration: [customization soloViewHideAnimateDuration] animations: ^
+    [UIView animateWithDuration: [customization introProgressDismissAnimateDuration] animations: ^
     {
         [blockSticker               setFrame: stickerOnScreenFrame];
         if ( nil != blockBlur )
@@ -727,7 +744,7 @@
     
     if ( [customization isStickerSoloViewUseBlurLayer] == YES )
     {
-        [self                       _CreateBlurImageView];
+        [self                       _CreateBlurImageView: [customization soloViewBlurLayerColor]];
     }
     
     
@@ -763,7 +780,7 @@
     customization                   = custom;
     [self                           _InitProgressingMessages];
     [self                           _CreateStickerImageView: stickerImage];
-    [self                           _CreateBlurImageView];
+    [self                           _CreateBlurImageView: [customization introProgressBlurLayerColor]];
     [self                           _CreateProgressMessage];
     
     if ( nil != window )

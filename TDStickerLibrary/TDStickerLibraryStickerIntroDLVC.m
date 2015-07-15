@@ -972,7 +972,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     [downloadButton                 setBackgroundColor: [customization introViewSerialButtonColor]];
     [downloadButton                 setTitle: [customization downloadString] forState: UIControlStateNormal];
     [downloadButton                 setTitle: [customization downloadStringHightlighted] forState: UIControlStateDisabled];
-    [downloadButton                 setTitle: @"Downloading ..." forState: UIControlStateSelected];
+    [downloadButton                 setTitle: [customization downloadingString] forState: UIControlStateSelected];
     if ( nil != scrollView )
     {
         [scrollView                 addSubview: downloadButton];
@@ -1025,7 +1025,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     CGRect                              onScreenRect;
     TDStickerLibraryStickerSoloView   * progressView;
     
-    if ( nil != introStampView )
+    if ( ( nil != introStampView ) && ( [customization isIntroProgressEnabled] == YES ) )
     {
         onScreenRect                = [introStampView frame];
         onScreenRect.origin         = [scrollView convertPoint: onScreenRect.origin toView: nil];
