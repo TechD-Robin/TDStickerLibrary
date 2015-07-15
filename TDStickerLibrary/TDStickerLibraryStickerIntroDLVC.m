@@ -87,6 +87,11 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     TDStickerLibraryTabPageView   * stickerPageView;
 
     /**
+     *  a progress view by intro's stamp.
+     */
+    TDStickerLibraryStickerSoloView   * progressView;
+
+    /**
      *  a pop out menu.
      */
     TDBasePopMenu                 * popMenu;
@@ -268,6 +273,14 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
  */
 - ( BOOL ) _CreatePageView;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a progress by intro view's stamp image.
+ *  create a progress by intro view's stamp image.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _CreateIntroProgress;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -276,8 +289,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
  *
  *  @return YES|NO                  method success or failure.
  */
-- ( BOOL ) _createPopMenu;
-
+- ( BOOL ) _CreatePopMenu;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for calculate object's properties.
@@ -373,6 +385,17 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 - ( BOOL ) _SetDataDownloadState:(BOOL)checkFileExist;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set state of the progress object is show or dismiss. 
+ *  set state of the progress object is show or dismiss.
+ *
+ *  @param visiable                 set the state is show or dismiss.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _SetProgressVisiable:(BOOL)visiable;
+
+//  ------------------------------------------------------------------------------------------------
 
 
 @end
@@ -409,6 +432,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     
     stickerPageView                 = nil;
+    
+    progressView                    = nil;
     
     popMenu                         = nil;
     
@@ -1021,24 +1046,12 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     {
         return;
     }
-    
-    //  simulate progress, use intro stamp to solo view.
-    CGRect                              onScreenRect;
-    TDDownloadManager                 * downloadManager;
-    TDStickerLibraryStickerSoloView   * progressView;
-    
-    if ( ( nil != introStampView ) && ( [customization isIntroProgressEnabled] == YES ) )
-    {
-        onScreenRect                = [introStampView frame];
-        onScreenRect.origin         = [scrollView convertPoint: onScreenRect.origin toView: nil];
 
-        
-        progressView                = [TDStickerLibraryStickerSoloView stickerProgressView: [introStampView image]
-                                                                                  onScreen: onScreenRect with: [[self view] window]
-                                                                             customization: customization];
-    }
+    //  simulate progress, use intro stamp to solo view.
+    [self                           _CreateIntroProgress];
     
     
+    TDDownloadManager                 * downloadManager;
     
     //  call download method.
     downloadManager                 = [TDDownloadManager download: configure from: dataLink
@@ -1050,17 +1063,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         [backButton                 setEnabled: YES];
         [popMenu                    setEnabled: YES];
         
-        //  hide progress.
-        if ( nil != progressView )
-        {
-            [progressView           dismissProgress];
-        }
-        
-        //  for extension delegate's object dismiss.
-        if ( ( [self idExtensionDelegate] != nil ) && ( [[self idExtensionDelegate] respondsToSelector: @selector( showExtensionProgress )] == YES ) )
-        {
-            [[self                  idExtensionDelegate] dismissExtensionProgress];
-        }
+        //  dismiss progress.
+        [self                       _SetProgressVisiable: NO];
         
         
          NSLog( @"result %d, %@", finished, error );
@@ -1091,23 +1095,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     [backButton                     setEnabled: NO];
     [popMenu                        setEnabled: NO];
     
-    
     //  show progress.
-    if ( nil != progressView )
-    {
-        [progressView               showProgress];
-    }
-    
-    //  for extension delegate's object show.
-    if ( [self idExtensionDelegate] == nil )
-    {
-        return;
-    }
-    if ( [[self idExtensionDelegate] respondsToSelector: @selector( showExtensionProgress )] == NO )
-    {
-        return;
-    }
-    [[self                          idExtensionDelegate] showExtensionProgress];
+    [self                           _SetProgressVisiable: YES];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -1269,7 +1258,32 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _createPopMenu
+- ( BOOL ) _CreateIntroProgress
+{
+    if ( ( nil == introStampView ) || ( nil == scrollView ) || ( [customization isIntroProgressEnabled] == NO ) )
+    {
+        return NO;
+    }
+    
+    //  simulate progress, use intro stamp to solo view.
+    CGRect                              onScreenRect;
+    
+    onScreenRect                = [introStampView frame];
+    onScreenRect.origin         = [scrollView convertPoint: onScreenRect.origin toView: nil];
+
+
+    progressView                = [TDStickerLibraryStickerSoloView stickerProgressView: [introStampView image]
+                                                                              onScreen: onScreenRect with: [[self view] window]
+                                                                         customization: customization];
+    if ( nil == progressView )
+    {
+        return NO;
+    }
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _CreatePopMenu
 {
     //  cannot find configure, skip create the pop menu.
     if ( ( [self _IsHaveWebSiteInformation] == NO ) && ( [self _IsHaveEMailInformation] == NO ) )
@@ -1555,6 +1569,10 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         }
     }
     
+    //  intro's view's progress.
+    
+    
+    
     if ( nil != deleteButton )
     {
         [deleteButton               enforceMoveImageHorizontalAlignment: UIControlContentHorizontalAlignmentRight
@@ -1741,6 +1759,44 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _SetProgressVisiable:(BOOL)visiable
+{
+    if ( nil == progressView )
+    {
+        return NO;
+    }
+
+    //  visiable intro progress.
+    if ( [customization isIntroProgressEnabled] == YES )
+    {
+        ( ( YES == visiable ) ? [progressView showProgress] : [progressView dismissProgress] );
+    }
+    
+    //  visiable extension delegate's object show.
+    if ( [self idExtensionDelegate] == nil )
+    {
+        return YES;
+    }
+    
+    if ( YES == visiable )
+    {
+        if ( [[self idExtensionDelegate] respondsToSelector: @selector( showExtensionProgress )] == NO )
+        {
+            return YES;
+        }
+        [[self                      idExtensionDelegate] showExtensionProgress];
+        return YES;
+    }
+    
+    if ( [[self idExtensionDelegate] respondsToSelector: @selector( showExtensionProgress )] == NO )
+    {
+        return YES;
+    }
+    [[self                          idExtensionDelegate] dismissExtensionProgress];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 @end
@@ -1865,7 +1921,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     [self                           _CreateIntroStampView];
     [self                           _CreateIntroDescriptionContent];
     
-    [self                           _createPopMenu];
+    [self                           _CreatePopMenu];
     
     [[self                          view] setBackgroundColor: [customization sysStyleMasterVisionBGC]];
 }
