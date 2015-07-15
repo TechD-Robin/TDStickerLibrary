@@ -588,7 +588,7 @@
     viewHeight                      = ( [[UIScreen mainScreen] bounds].size.height - subviewTop );
     
 
-    UIView                        * view;
+    TDStickerLibraryTabPageView   * view;
     CGRect                          viewRect;
     NSString                      * configure;
     NSString                      * configureKey;
@@ -612,6 +612,7 @@
         return nil;
     }
     [view                           setHidden: NO];
+    [view                           setIdExtensionDelegate: [self idExtensionDelegate]];
     [[self                          view] addSubview: view];
     
     

@@ -277,13 +277,36 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+//  TODO: FURTURE, to implement  download percent.
 - ( BOOL ) _UpdateProcedure:(NSString *)name from:(NSString *)dataLink updateCheckBy:(NSString *)timestamp completed:(TDDownloadCompletedCallbackBlock)completed
 {
     NSParameterAssert( nil != name );
     NSParameterAssert( nil != dataLink );
     
     [NSThread                       sleepForTimeInterval: 0.1f];
-    [TDDownloadManager              download: name from: dataLink into: [customization systemConfigureUpdateSubpath] of: [customization systemConfigureUpdateDirectory] updateCheckBy: timestamp completed: completed];
+    
+    TDDownloadManager             * downloadManager;
+    
+    downloadManager                 = [TDDownloadManager download: name from: dataLink
+                                                             into: [customization systemConfigureUpdateSubpath]
+                                                               of: [customization systemConfigureUpdateDirectory]
+                                                    updateCheckBy: timestamp completed: completed];
+    
+    if ( nil == downloadManager )
+    {
+        return NO;
+    }
+    
+    [downloadManager                setDownloadTaskDidWriteDataBlock: ^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite)
+    {
+        //NSLog( @" %ld, %ld, %ld", (long)bytesWritten, (long)totalBytesWritten, (long)totalBytesExpectedToWrite );
+        if ( ( [self idExtensionDelegate] != nil ) && ( [[self idExtensionDelegate] respondsToSelector: @selector( extensionProgressProgressing: )] == YES ) )
+        {
+         //  TODO: FURTURE, to implement  download percent.
+         [[self              idExtensionDelegate] extensionProgressProgressing: -1.0f];
+        }
+    }];
+    
     
     return YES;
 }
@@ -404,6 +427,17 @@
     }];
     
     
+    //  for extension delegate's object show.
+    if ( [self idExtensionDelegate] == nil )
+    {
+        return;
+    }
+    if ( [[self idExtensionDelegate] respondsToSelector: @selector( showExtensionProgress )] == NO )
+    {
+        return;
+    }
+    [[self                          idExtensionDelegate] showExtensionProgress];
+    
     return;
 }
 
@@ -436,6 +470,14 @@
     }
     
     downloadCounter                 = 0;
+    
+    //  for extension delegate's object dismiss.
+    if ( ( [self idExtensionDelegate] != nil ) && ( [[self idExtensionDelegate] respondsToSelector: @selector( showExtensionProgress )] == YES ) )
+    {
+        [[self                  idExtensionDelegate] dismissExtensionProgress];
+    }
+    
+    
 }
 
 //  ------------------------------------------------------------------------------------------------

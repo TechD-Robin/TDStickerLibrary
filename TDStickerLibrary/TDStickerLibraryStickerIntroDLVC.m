@@ -302,8 +302,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for update layout.
 
-//  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _RefreshScrollContentSize;
+////  ------------------------------------------------------------------------------------------------
+//- ( BOOL ) _RefreshScrollContentSize;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -993,6 +993,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 }
 
 //  ------------------------------------------------------------------------------------------------
+//  TODO: FURTURE, to implement  download percent.
 - ( void ) _TapDownloadButtonAction:(id)sender
 {
     NSParameterAssert( [pageConfigure infoDataCount] == 1 );
@@ -1023,6 +1024,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     //  simulate progress, use intro stamp to solo view.
     CGRect                              onScreenRect;
+    TDDownloadManager                 * downloadManager;
     TDStickerLibraryStickerSoloView   * progressView;
     
     if ( ( nil != introStampView ) && ( [customization isIntroProgressEnabled] == YES ) )
@@ -1039,9 +1041,9 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     
     
     //  call download method.
-    [TDDownloadManager              download: configure from: dataLink
-                                        into: [customization stickerDownloadSubpath] of: [customization stickerDownloadDirectory]
-                               updateCheckBy: timestamp completed: ^(NSError * error, NSString * fullPath, BOOL finished)
+    downloadManager                 = [TDDownloadManager download: configure from: dataLink
+                                                             into: [customization stickerDownloadSubpath] of: [customization stickerDownloadDirectory]
+                                                    updateCheckBy: timestamp completed: ^(NSError * error, NSString * fullPath, BOOL finished)
     {
         [downloadButton             setUserInteractionEnabled: YES];
         [downloadButton             setSelected: NO];
@@ -1054,6 +1056,12 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
             [progressView           dismissProgress];
         }
         
+        //  for extension delegate's object dismiss.
+        if ( ( [self idExtensionDelegate] != nil ) && ( [[self idExtensionDelegate] respondsToSelector: @selector( showExtensionProgress )] == YES ) )
+        {
+            [[self                  idExtensionDelegate] dismissExtensionProgress];
+        }
+        
         
          NSLog( @"result %d, %@", finished, error );
          NSLog( @"file full path : %@", fullPath );
@@ -1063,6 +1071,19 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         }
         [self                       _SetDataDownloadState: YES];
     }];
+    
+    if ( nil != downloadManager )
+    {
+        [downloadManager            setDownloadTaskDidWriteDataBlock: ^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite)
+        {
+            //NSLog( @" %ld, %ld, %ld", (long)bytesWritten, (long)totalBytesWritten, (long)totalBytesExpectedToWrite );
+            if ( ( [self idExtensionDelegate] != nil ) && ( [[self idExtensionDelegate] respondsToSelector: @selector( extensionProgressProgressing: )] == YES ) )
+            {
+                //  TODO: FURTURE, to implement  download percent.
+                [[self              idExtensionDelegate] extensionProgressProgressing: -1.0f];
+            }
+        }];
+    }
     
     //  when downloading, button must disable; ** when system is downloading, touch the back button, system will crash. **
     [downloadButton                 setUserInteractionEnabled: NO];
@@ -1077,6 +1098,16 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         [progressView               showProgress];
     }
     
+    //  for extension delegate's object show.
+    if ( [self idExtensionDelegate] == nil )
+    {
+        return;
+    }
+    if ( [[self idExtensionDelegate] respondsToSelector: @selector( showExtensionProgress )] == NO )
+    {
+        return;
+    }
+    [[self                          idExtensionDelegate] showExtensionProgress];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -1406,36 +1437,36 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for update layout.
-//  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _RefreshScrollContentSize
-{
-    if ( nil == scrollView )
-    {
-        return NO;
-    }
-    
-    NSLog( @"show scroll view content size : %@", NSStringFromCGSize( [scrollView contentSize] ) );
-    
-    CGRect                          viewRect;
-    CGSize                          correctContentSize;
-    
-    viewRect                        = CGRectZero;
-    
-    
-    if ( nil != stickerPageView )
-    {
-        viewRect                    = [stickerPageView frame];
-        correctContentSize          = viewRect.size;
-        correctContentSize.width    += viewRect.origin.x;
-        correctContentSize.height   += viewRect.origin.y;
-        
-        [scrollView                 setContentSize: correctContentSize];
-        return YES;
-    }
-    
-    
-    return YES;
-}
+////  ------------------------------------------------------------------------------------------------
+//- ( BOOL ) _RefreshScrollContentSize
+//{
+//    if ( nil == scrollView )
+//    {
+//        return NO;
+//    }
+//    
+//    NSLog( @"show scroll view content size : %@", NSStringFromCGSize( [scrollView contentSize] ) );
+//    
+//    CGRect                          viewRect;
+//    CGSize                          correctContentSize;
+//    
+//    viewRect                        = CGRectZero;
+//    
+//    
+//    if ( nil != stickerPageView )
+//    {
+//        viewRect                    = [stickerPageView frame];
+//        correctContentSize          = viewRect.size;
+//        correctContentSize.width    += viewRect.origin.x;
+//        correctContentSize.height   += viewRect.origin.y;
+//        
+//        [scrollView                 setContentSize: correctContentSize];
+//        return YES;
+//    }
+//    
+//    
+//    return YES;
+//}
 
 
 //  ------------------------------------------------------------------------------------------------

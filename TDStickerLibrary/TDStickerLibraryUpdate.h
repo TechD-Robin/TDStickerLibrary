@@ -46,6 +46,11 @@ typedef     void (^UpdateCompletionBlock)(NSDictionary * updateResponses, NSErro
 //  ------------------------------------------------------------------------------------------------
 #pragma mark property of variable.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  delegate for this system's extension.
+ *  delegate's protocol please to reference header file : TDStickerLibraryExtension.h.
+ */
+@property ( nonatomic, assign ) id                              idExtensionDelegate;
 
 
 //  ------------------------------------------------------------------------------------------------

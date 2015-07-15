@@ -971,6 +971,7 @@
     }
     
     //  set callbackup.
+    [introVC                        setIdExtensionDelegate: [self idExtensionDelegate]];
     [introVC                        setFinishedIntroDLVCCallbackBlock: ^(NSString * stickerID, NSInteger sectionIndex,BOOL isDownloaded, BOOL actionFinished)
     {
         NSLog( @"finished :%d  sticker ID :%@  index : %d  isDownload : %d", actionFinished, stickerID, sectionIndex, isDownloaded );

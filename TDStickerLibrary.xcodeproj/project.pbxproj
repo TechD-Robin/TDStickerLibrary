@@ -213,6 +213,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2A07B3F01B5673FF0011E01D /* TDStickerLibraryExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryExtension.h; sourceTree = "<group>"; };
 		2A29D00F1ADAE1460096161D /* TDStickerLibraryUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUpdate.h; sourceTree = "<group>"; };
 		2A29D0101ADAE1460096161D /* TDStickerLibraryUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUpdate.m; sourceTree = "<group>"; };
 		2A41225C1B135CA3004262E2 /* TDSystemCustomization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSystemCustomization.h; path = Objects/TDSystemCustomization.h; sourceTree = "<group>"; };
@@ -785,6 +786,7 @@
 				2AB706861A6FE42F006C6845 /* Data */,
 				2AADF4BC1A69599E0026EF9D /* TDStickerLibrary.h */,
 				2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */,
+				2A07B3F01B5673FF0011E01D /* TDStickerLibraryExtension.h */,
 				2AB7068D1A700918006C6845 /* TDStickerLibraryCustomization.h */,
 				2AB7068E1A700918006C6845 /* TDStickerLibraryCustomization.m */,
 				2A87E7081B17388A0066FC59 /* TDStickerLibraryDefaultResources.h */,

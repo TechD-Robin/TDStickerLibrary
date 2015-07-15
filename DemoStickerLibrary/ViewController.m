@@ -16,7 +16,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <TDStickerLibraryExtensionDelegate>
 {
     UIImageView                   * callbackImageView;
     
@@ -271,6 +271,7 @@
         return;
     }
     
+    [controller                     setIdExtensionDelegate: self];
     
     //[controller                     setFinishedStickerLibraryCallbackBlock: nil];
     [controller                     setFinishedStickerLibraryCallbackBlock: ^(UIImage * stickerImage)
@@ -352,6 +353,7 @@
     
     searchKeys                      = [NSArray arrayWithObjects: @"UpdateTab", nil];
     urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXX0JqNEdqcEZSTU0&export=download";
+    [updateProcedure                setIdExtensionDelegate: self];
     [updateProcedure                startUpdateSystemConfigure: urlString forSearch: searchKeys];
     
     __weak __typeof(updateProcedure)    weakUpdateProcedure;
@@ -435,6 +437,30 @@
         [[self                      view] setNeedsLayout];
     } completion: nil];
 }
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark protocol required for TDStickerLibraryExtensionDelegate.
+//  ------------------------------------------------------------------------------------------------
+- ( void ) showExtensionProgress
+{
+    NSLog( @" %s", __FUNCTION__ );
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) dismissExtensionProgress
+{
+    NSLog( @" %s", __FUNCTION__ );    
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) extensionProgressProgressing:(CGFloat)percent
+{
+//    NSLog( @" %s, %f ", __FUNCTION__, percent );
+}
+
+//  ------------------------------------------------------------------------------------------------
+
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
