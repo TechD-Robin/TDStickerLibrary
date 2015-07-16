@@ -1570,7 +1570,11 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     }
     
     //  intro's view's progress.
-    
+    if ( nil != progressView )
+    {
+        [progressView               whenDeviceRotateUpdatePosition];
+        //[progressView               setTransform: CGAffineTransformRotate( [progressView transform], (M_PI_2) )]; //  test.
+    }
     
     
     if ( nil != deleteButton )

@@ -190,6 +190,13 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief update the view's & subview's frame.
+ *  update the view's & subview's frame.
+ */
+- ( void ) _UpdateTheViewFrame;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief show the sticker progress view on window.
  *  show the sticker progress view on window.
  *
@@ -205,6 +212,13 @@
  *  @return YES|NO                  method success or failure
  */
 - ( BOOL ) _SimulateProgressSendTheViewToBack;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief update the sticker progress view's & subview's frame.
+ *  update the sticker progress view's & subview's frame.
+ */
+- ( void ) _UpdateSimulateProgressFrame;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -415,41 +429,20 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _BringTheViewToFront
 {
-    CGSize                          mainSize;
-    CGFloat                         stickerRatio;
-    CGRect                          stickerMaxFrame;
-    
-    mainSize                        = [[UIScreen mainScreen] bounds].size;
-    stickerRatio                    = ( stickerOriginalSize.height / stickerOriginalSize.width );
-    stickerMaxFrame.size            = calculateProportionalMaxSizeWithLimit( stickerRatio, stickerOriginalSize, mainSize );
-    stickerMaxFrame.origin          = CGPointMake( ( ( mainSize.width - stickerMaxFrame.size.width ) / 2.0f ) , ( ( mainSize.height - stickerMaxFrame.size.height ) / 2.0f ) );
-    
     
     //  run animation.
-    __weak id                       blockSticker;
-    __weak id                       blockBlur;
-    
     if ( nil != blurImageView )
     {
         [blurImageView              setAlpha: 0.0f];
     }
     
-    blockSticker                    = stickerImageView;
-    blockBlur                       = blurImageView;
-
     [self                           setHidden: NO];
     [UIView animateWithDuration: [customization soloViewShowAnimateDuration] animations: ^
     {
-        CGRect                      newFrame;
-        
-        newFrame                    = CGRectInset( stickerMaxFrame, [customization soloViewInsetSize].width, [customization soloViewInsetSize].height );
-        [blockSticker               setFrame: newFrame];
-        
-        if ( nil != blockBlur )
+        [self                       _UpdateTheViewFrame];
+        if ( nil != blurImageView )
         {
-            newFrame                = CGRectInset( newFrame, [customization soloViewBlurLayerInsetSizeOnTop].width, [customization soloViewBlurLayerInsetSizeOnTop].height );
-            [blockBlur              setFrame: newFrame];
-            [blockBlur              setAlpha: [customization soloViewBlurLayerAlphaOnTop]];
+            [blurImageView          setAlpha: [customization soloViewBlurLayerAlphaOnTop]];
         }
     }
     completion: ^ ( BOOL finished )
@@ -506,6 +499,34 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( void ) _UpdateTheViewFrame
+{
+    CGSize                          mainSize;
+    CGFloat                         stickerRatio;
+    CGRect                          stickerMaxFrame;
+    CGRect                          newFrame;
+    
+    mainSize                        = [[UIScreen mainScreen] bounds].size;
+    stickerRatio                    = ( stickerOriginalSize.height / stickerOriginalSize.width );
+    stickerMaxFrame.size            = calculateProportionalMaxSizeWithLimit( stickerRatio, stickerOriginalSize, mainSize );
+    stickerMaxFrame.origin.x        = ( ( mainSize.width - stickerMaxFrame.size.width ) / 2.0f );
+    stickerMaxFrame.origin.y        = ( ( mainSize.height - stickerMaxFrame.size.height ) / 2.0f );
+    
+    if ( nil != stickerImageView )
+    {
+        newFrame                    = CGRectInset( stickerMaxFrame, [customization soloViewInsetSize].width, [customization soloViewInsetSize].height );
+        [stickerImageView           setFrame: newFrame];
+    }
+    
+    if ( nil != blurImageView )
+    {
+        newFrame                    = CGRectInset( newFrame, [customization soloViewBlurLayerInsetSizeOnTop].width, [customization soloViewBlurLayerInsetSizeOnTop].height );
+        [blurImageView              setFrame: newFrame];
+    }
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _SimulateProgressBringTheViewToFront
 {
     CGSize                          mainSize;
@@ -527,46 +548,14 @@
     [self                           setHidden: NO];
     [UIView animateWithDuration: [customization introProgressShowAnimateDuration] animations: ^
     {
-        CGRect                      newFrame;
-
-        newFrame                    = CGRectInset( stickerMaxFrame, [customization introProgressImageInsetSize].width, [customization introProgressImageInsetSize].height );
-        if ( nil != progressMessage )
-        {
-            newFrame.origin.y       -= ( ( [progressMessage bounds].size.height * 2.0f ) / 3.0f );
-        }
-        [stickerImageView           setFrame: newFrame];
-
+        [self                       _UpdateSimulateProgressFrame];
         if ( nil != blurImageView )
         {
-            CGFloat                 newPosition;
-             
-            newFrame                = [[UIScreen mainScreen] bounds];
-            newPosition             = fabsf( ( ( newFrame.size.width - newFrame.size.height ) / 2.0f ) );
-            if ( newFrame.size.width < newFrame.size.height )
-            {
-                newFrame.origin.x   = 0.0f;
-                newFrame.origin.y   = newPosition;
-                newFrame.size.height= newFrame.size.width;
-            }
-            else
-            {
-                newFrame.origin.x   = newPosition;
-                newFrame.origin.y   = 0.0f;
-                newFrame.size.width = newFrame.size.height;
-            }
-            
-            newFrame                = CGRectInset( newFrame, [customization introProgressBlurLayerInsetSizeOnTop].width, [customization introProgressBlurLayerInsetSizeOnTop].height );
-            [blurImageView          setFrame: newFrame];
             [blurImageView          setAlpha: [customization introProgressBlurLayerAlphaOnTop]];
         }
-        
+
         if ( nil != progressMessage )
         {
-            newFrame.origin.x       = ( ( newFrame.size.width - [progressMessage bounds].size.width ) / 2.0f );
-            newFrame.origin.y       = ( newFrame.size.height - [progressMessage bounds].size.height - [customization introProgressMessageBottomEdgeOnTop] );
-            newFrame.size           = [progressMessage bounds].size;
-            
-            [progressMessage        setFrame: newFrame];
             [progressMessage        setAlpha: 1.0f];
         }
     }
@@ -671,6 +660,65 @@
     SAFE_ARC_ASSIGN_POINTER_NIL( blurImageView );
     SAFE_ARC_ASSIGN_POINTER_NIL( progressMessage );
     return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _UpdateSimulateProgressFrame
+{
+    CGSize                          mainSize;
+    CGFloat                         stickerRatio;
+    CGRect                          stickerMaxFrame;
+    CGRect                          newFrame;
+    CGFloat                         newPosition;
+    
+    newPosition                     = 0.0f;
+    mainSize                        = [[UIScreen mainScreen] bounds].size;
+    stickerRatio                    = ( stickerOriginalSize.height / stickerOriginalSize.width );
+    stickerMaxFrame.size            = calculateProportionalMaxSizeWithLimit( stickerRatio, stickerOriginalSize, mainSize );
+    stickerMaxFrame.origin.x        = ( ( mainSize.width - stickerMaxFrame.size.width ) / 2.0f );
+    stickerMaxFrame.origin.y        = ( ( mainSize.height - stickerMaxFrame.size.height ) / 2.0f );
+    
+    
+    newFrame                        = CGRectInset( stickerMaxFrame, [customization introProgressImageInsetSize].width, [customization introProgressImageInsetSize].height );
+    if ( nil != progressMessage )
+    {
+        newFrame.origin.y       -= ( ( [progressMessage bounds].size.height * 2.0f ) / 3.0f );
+    }
+    
+    if ( nil != stickerImageView )
+    {
+        [stickerImageView           setFrame: newFrame];
+    }
+    
+    
+    newFrame                = [[UIScreen mainScreen] bounds];
+    newPosition             = fabsf( ( ( newFrame.size.width - newFrame.size.height ) / 2.0f ) );
+    if ( newFrame.size.width < newFrame.size.height )
+    {
+        newFrame.origin.x   = 0.0f;
+        newFrame.origin.y   = newPosition;
+        newFrame.size.height= newFrame.size.width;
+    }
+    else
+    {
+        newFrame.origin.x   = newPosition;
+        newFrame.origin.y   = 0.0f;
+        newFrame.size.width = newFrame.size.height;
+    }
+    
+    newFrame                        = CGRectInset( newFrame, [customization introProgressBlurLayerInsetSizeOnTop].width, [customization introProgressBlurLayerInsetSizeOnTop].height );
+    if ( nil != blurImageView )
+    {
+        [blurImageView              setFrame: newFrame];
+    }
+    if ( nil != progressMessage )
+    {
+        newFrame.origin.x       = ( ( newFrame.size.width - [progressMessage bounds].size.width ) / 2.0f );
+        newFrame.origin.y       = ( newFrame.size.height - [progressMessage bounds].size.height - [customization introProgressMessageBottomEdgeOnTop] );
+        newFrame.size           = [progressMessage bounds].size;
+        
+        [progressMessage        setFrame: newFrame];
+    }
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -802,6 +850,18 @@
                                   with:(UIWindow *)window customization:(TDStickerLibraryCustomization *)custom
 {
     return [[[self class] alloc] initWithProgressView: stickerImage onScreen: nowFrame with: window customization: custom];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) whenDeviceRotateUpdatePosition
+{
+    //  because this check flag just use in progress method.
+    if ( NO == isProgressing )
+    {
+        [self                       _UpdateTheViewFrame];
+        return;
+    }
+    [self                           _UpdateSimulateProgressFrame];
 }
 
 //  ------------------------------------------------------------------------------------------------

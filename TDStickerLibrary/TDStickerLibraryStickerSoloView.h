@@ -70,6 +70,13 @@ typedef     void (^FinishedCallbackBlock)(BOOL finished);
 
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief update the solo view's position when device is rotated.
+ *  update the solo view's position when device is rotated.
+ */
+- ( void ) whenDeviceRotateUpdatePosition;
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark declare for show/hide the solo object.
 //  ------------------------------------------------------------------------------------------------
 /**

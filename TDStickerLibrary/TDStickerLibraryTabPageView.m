@@ -64,6 +64,11 @@
         unsigned int                isIntroduction:1;       //  introduction or tab page.
         
     } modeFlags;
+
+    /**
+     *  a solo view for table's cell image.
+     */
+    TDStickerLibraryStickerSoloView   * soloView;
     
 }
 //  ------------------------------------------------------------------------------------------------
@@ -396,6 +401,7 @@
     //  mode
     modeFlags.isIntroduction        = NO;
 
+    soloView                        = nil;
     
     [self                           setDataSource: self];
     [self                           setDelegate: self];
@@ -1248,8 +1254,6 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _ShowStickerSoloView:(UIImage *)stickerImage original:(CGSize)stickerSize onScreen:(CGRect)nowFrame
 {
-    TDStickerLibraryStickerSoloView   * soloView;
-    
     soloView                        = [TDStickerLibraryStickerSoloView stickerSoloView: stickerImage original: stickerSize onScreen: nowFrame
                                                                                   with: [self window] customization: customization];
     if ( nil == soloView )
@@ -1267,6 +1271,9 @@
     completion: ^( BOOL finished )
     {
         [blockSuperview             setUserInteractionEnabled: YES];
+        [soloView                   removeFromSuperview];
+        SAFE_ARC_RELEASE( soloView );
+        soloView                    = nil;
     }];
     return YES;
 }
@@ -1417,6 +1424,12 @@
     {
         SAFE_ARC_RELEASE( sectionStates );
         sectionStates               = nil;
+    }
+    
+    if ( nil != soloView )
+    {
+        SAFE_ARC_RELEASE( soloView );
+        soloView                    = nil;
     }
     
     SAFE_ARC_SUPER_DEALLOC();
@@ -1581,6 +1594,11 @@
         {
             [sectionStates          updatePreviewImageSizeOfStateData: previewSize with: previewMiniSize];
         }
+    }
+    
+    if ( nil != soloView )
+    {
+        [soloView                   whenDeviceRotateUpdatePosition];
     }
 }
 
