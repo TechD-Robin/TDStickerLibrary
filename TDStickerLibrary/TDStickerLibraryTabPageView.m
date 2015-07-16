@@ -75,6 +75,16 @@
      */
     NSIndexPath                       * soloViewIndexPath;
     
+    /**
+     *  a solo view's on screen frame. solo view's image is clip from preview image at preview mode.
+     */
+    CGRect                              soloViewOnScreenFrame;
+    
+    /**
+     *  a preview mode's preview image's on screen frame.
+     */
+    CGRect                              soloViewPreviewOnScreenFrame;
+    
 }
 //  ------------------------------------------------------------------------------------------------
 
@@ -302,6 +312,18 @@
 - ( CGSize ) _CalculatePreviewImageMiniSizeForSectionAtIndex:(NSInteger)section;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief calculate solo view's new frame when device is rotated.
+ *  calculate solo view's new frame when device is rotated.
+ *  use old's solo's frame & preview's frame & new's preview's frame to calculate new's solo's frame. ( all frame are on screen frame on here )
+ *
+ *  @param previewImageOnScreenFrame    preview image's on screen frame after rotated.
+ *
+ *  @return rect|ZeroRect           the result rect or ZeroRect.
+ */
+- ( CGRect ) _CalculateSoloViewFrameWhenDeviceRotated:(CGRect)previewImageOnScreenFrame;
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark declare for touch action(GestureRecognizer).
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -408,6 +430,8 @@
 
     soloView                        = nil;
     soloViewIndexPath               = nil;
+    soloViewOnScreenFrame           = CGRectZero;
+    soloViewPreviewOnScreenFrame    = CGRectZero;
     
     [self                           setDataSource: self];
     [self                           setDelegate: self];
@@ -1152,6 +1176,42 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( CGRect ) _CalculateSoloViewFrameWhenDeviceRotated:(CGRect)previewImageOnScreenFrame
+{
+    if ( CGRectEqualToRect( previewImageOnScreenFrame, CGRectZero ) == true )
+    {
+        return CGRectZero;
+    }
+    if ( ( CGRectEqualToRect( soloViewOnScreenFrame, CGRectZero ) == true )
+        || ( CGRectEqualToRect( soloViewPreviewOnScreenFrame, CGRectZero ) == true ) )
+    {
+        return CGRectZero;
+    }
+    
+    CGFloat                     ratioWidth;
+    CGFloat                     ratioHeight;
+    CGRect                      newFrame;
+    
+    //  calculate width & height's ratio by preview's old & new frame.
+    newFrame                        = CGRectZero;
+    ratioWidth                      = ( previewImageOnScreenFrame.size.width / soloViewPreviewOnScreenFrame.size.width );
+    ratioHeight                     = ( previewImageOnScreenFrame.size.height / soloViewPreviewOnScreenFrame.size.height );
+    
+    //  calculate current position with ratio by old frame's distance.
+    newFrame.origin.x               = ( ( soloViewOnScreenFrame.origin.x - soloViewPreviewOnScreenFrame.origin.x ) * ratioWidth );
+    newFrame.origin.x               += previewImageOnScreenFrame.origin.x;
+    
+    newFrame.origin.y               = ( ( soloViewOnScreenFrame.origin.y - soloViewPreviewOnScreenFrame.origin.y ) * ratioHeight );
+    newFrame.origin.y               += previewImageOnScreenFrame.origin.y;
+    
+    //  calculate current size by ratio.
+    newFrame.size.width             = ( soloViewOnScreenFrame.size.width * ratioWidth );
+    newFrame.size.height            = ( soloViewOnScreenFrame.size.height * ratioHeight );
+    
+    return newFrame;
+}
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark method for touch action(GestureRecognizer).
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _CollectionView:(UICollectionView *)collectionView didSelectPreviewModeHeaderInSection:(NSInteger)section
@@ -1279,8 +1339,10 @@
         [blockSuperview             setUserInteractionEnabled: YES];
         [soloView                   removeFromSuperview];
         SAFE_ARC_RELEASE( soloView );
-        soloView                    = nil;
-        soloViewIndexPath           = nil;
+        soloView                        = nil;
+        soloViewIndexPath               = nil;
+        soloViewOnScreenFrame           = CGRectZero;
+        soloViewPreviewOnScreenFrame    = CGRectZero;
     }];
     return YES;
 }
@@ -1605,7 +1667,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) whenDeviceRotateUpdatePosition
+- ( void ) whenDeviceRotateUpdatePosition:(CGPoint)scrollOffset
 {
     if ( nil == soloView )
     {
@@ -1628,6 +1690,22 @@
     }
 
     onScreenFrame                   = [self convertRect: [layoutAttributes frame] toView: nil];
+    //  is preview mode solo data.
+    if ( ( CGRectEqualToRect( soloViewOnScreenFrame, CGRectZero ) == false )
+        && ( CGRectEqualToRect( soloViewPreviewOnScreenFrame, CGRectZero ) == false ) )
+    {
+        CGRect                      newFrame;
+
+        newFrame                    = [self _CalculateSoloViewFrameWhenDeviceRotated: onScreenFrame];
+        
+        //  刻意不把 offset 一起丟進 _CalculateSoloViewFrameWhenDeviceRotated 裏頭處理的,
+        //  除了因為這個值讓我抓了一整天的 bug 之外, 還有它本身的數值 不太屬於正常的介面增減的數值,
+        //  在追蹤問題的過程 .y 竟然會出現 60.5 的極限值, 可是 scoll view 都已經把直拉超過 60.5 或更多了 ~
+        newFrame.origin.x           += scrollOffset.x;
+        newFrame.origin.y           += scrollOffset.y;
+        onScreenFrame               = newFrame;
+    }
+    
     [soloView                       whenDeviceRotateUpdatePosition: onScreenFrame];
 }
 
@@ -1921,7 +1999,6 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark protocol required for TDSectionPreviewCellDelegate.
 //  ------------------------------------------------------------------------------------------------
-//  TODO: ON SCREEN FRAME for solo view.
 - ( void ) collectionView:(UICollectionView *)collectionView didSelectCell:(UICollectionViewCell *)cell preview:(NSString *)imageName
                   sticker:(NSString *)spriteName original:(CGRect)stickerFrame onScreen:(CGRect)nowFrame
 {
@@ -2011,6 +2088,21 @@
         return;
     }
     
+    //  get these properties's value for device is rotate.
+    CGRect                              previewFrame;
+    UICollectionViewLayoutAttributes  * layoutAttributes;
+    
+    previewFrame                        = CGRectZero;
+    layoutAttributes                    = [self layoutAttributesForItemAtIndexPath: indexPath];
+    if ( nil != layoutAttributes )
+    {
+        previewFrame                    = [layoutAttributes frame];
+        previewFrame                    = [self convertRect: previewFrame toView: nil];
+        soloViewPreviewOnScreenFrame    = previewFrame;
+    }
+    
+    soloViewOnScreenFrame           = nowFrame;
+    soloViewIndexPath               = indexPath;
     
     [self                           _ShowStickerSoloView: stickerImage original: stickerFrame.size onScreen: nowFrame];
 }

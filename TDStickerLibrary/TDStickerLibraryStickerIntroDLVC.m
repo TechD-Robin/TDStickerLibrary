@@ -1499,6 +1499,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     CGFloat                         viewHeight;
     CGRect                          viewRect;
     CGSize                          correctContentSize;
+    CGPoint                         scrollViewOffset;
     
     screenWidth                     = [[UIScreen mainScreen] bounds].size.width;
     subviewTop                      = [self _GetNewSubviewTopPosition];
@@ -1506,6 +1507,11 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     viewRect                        = CGRectMake( 0.0f, subviewTop, screenWidth, viewHeight );
     
     [scrollView                     setFrame: viewRect];
+    
+    //  this value have special comment(chinese) in PageView's whenDeviceRotateUpdatePosition: method.
+    //  get the variable on here, because contentOffset will change by setFrame: method.
+    scrollViewOffset                = [scrollView contentOffset];
+    
     correctContentSize              = [scrollView contentSize];
     correctContentSize.width        = screenWidth;
     [scrollView                     setContentSize: correctContentSize];
@@ -1523,7 +1529,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
             [stickerPageView        reloadSectionData];
             [layout                 needUpdateLayoutAttributes: YES];
             [stickerPageView        reloadData];
-            [stickerPageView        whenDeviceRotateUpdatePosition];
+            [stickerPageView        whenDeviceRotateUpdatePosition: scrollViewOffset];
             
 
             [scrollView                     setNeedsLayout];

@@ -80,13 +80,16 @@
 - ( void ) reloadSectionData;
 
 //  ------------------------------------------------------------------------------------------------
-//  now, just update solo's.
+//  when the view's superView is kind of scroll view,
+//  the scroll view's content offset will effect some object's new position when device is rotated.
 /**
  *  @brief update the view's position when device is rotated.
  *  update the view's position when device is rotated,
  *  now, just update for solo view.
+ *
+ *  @param scrollOffset             scroll view's offset of superView.
  */
-- ( void ) whenDeviceRotateUpdatePosition;
+- ( void ) whenDeviceRotateUpdatePosition:(CGPoint)scrollOffset;
 
 
 //  ------------------------------------------------------------------------------------------------

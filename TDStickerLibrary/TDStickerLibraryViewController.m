@@ -838,7 +838,7 @@
         [collectionView             reloadSectionData];     //  must above layout's needUpdateLayoutAttributes.
         [layout                     needUpdateLayoutAttributes: YES];
         [collectionView             reloadData];
-        [collectionView             whenDeviceRotateUpdatePosition];
+        [collectionView             whenDeviceRotateUpdatePosition: CGPointZero];
     }
 }
 

@@ -523,11 +523,6 @@
         newFrame                    = CGRectInset( newFrame, [customization soloViewBlurLayerInsetSizeOnTop].width, [customization soloViewBlurLayerInsetSizeOnTop].height );
         [blurImageView              setFrame: newFrame];
     }
-    
-    NSLog( @"window frame : %@ ", NSStringFromCGRect( [[self window] frame] ) );
-    NSLog( @"progress frame on screen : %@ ", NSStringFromCGRect( stickerOnScreenFrame ) );
-    
-    
 }
 
 //  ------------------------------------------------------------------------------------------------
