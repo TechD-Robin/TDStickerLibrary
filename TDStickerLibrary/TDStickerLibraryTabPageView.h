@@ -79,6 +79,15 @@
  */
 - ( void ) reloadSectionData;
 
+//  ------------------------------------------------------------------------------------------------
+//  now, just update solo's.
+/**
+ *  @brief update the view's position when device is rotated.
+ *  update the view's position when device is rotated,
+ *  now, just update for solo view.
+ */
+- ( void ) whenDeviceRotateUpdatePosition;
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

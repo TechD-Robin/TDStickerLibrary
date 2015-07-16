@@ -1523,6 +1523,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
             [stickerPageView        reloadSectionData];
             [layout                 needUpdateLayoutAttributes: YES];
             [stickerPageView        reloadData];
+            [stickerPageView        whenDeviceRotateUpdatePosition];
             
 
             [scrollView                     setNeedsLayout];
@@ -1572,7 +1573,12 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     //  intro's view's progress.
     if ( nil != progressView )
     {
-        [progressView               whenDeviceRotateUpdatePosition];
+        CGRect                      onScreenRect;
+        
+        onScreenRect                = [introStampView frame];
+        onScreenRect                = [scrollView convertRect: onScreenRect toView: nil];
+        
+        [progressView               whenDeviceRotateUpdatePosition: onScreenRect];
         //[progressView               setTransform: CGAffineTransformRotate( [progressView transform], (M_PI_2) )]; //  test.
     }
     

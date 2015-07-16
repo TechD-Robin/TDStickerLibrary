@@ -523,6 +523,11 @@
         newFrame                    = CGRectInset( newFrame, [customization soloViewBlurLayerInsetSizeOnTop].width, [customization soloViewBlurLayerInsetSizeOnTop].height );
         [blurImageView              setFrame: newFrame];
     }
+    
+    NSLog( @"window frame : %@ ", NSStringFromCGRect( [[self window] frame] ) );
+    NSLog( @"progress frame on screen : %@ ", NSStringFromCGRect( stickerOnScreenFrame ) );
+    
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -853,8 +858,21 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) whenDeviceRotateUpdatePosition
+- ( void ) whenDeviceRotateUpdatePosition:(CGRect)nowFrame
 {
+    if ( CGRectEqualToRect( nowFrame, CGRectZero ) == false )
+    {
+        stickerOnScreenFrame        = nowFrame;
+    }
+    
+    CGSize                          mainSize;
+    CGRect                          newFrame;
+    
+    newFrame                        = CGRectZero;
+    mainSize                        = [[UIScreen mainScreen] bounds].size;
+    newFrame.size                   = mainSize;
+    [self                           setFrame: newFrame];
+    
     //  because this check flag just use in progress method.
     if ( NO == isProgressing )
     {

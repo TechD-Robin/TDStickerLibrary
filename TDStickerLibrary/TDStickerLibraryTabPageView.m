@@ -70,6 +70,11 @@
      */
     TDStickerLibraryStickerSoloView   * soloView;
     
+    /**
+     *  a solo view's indexPath for get on screen frame when device rotate.
+     */
+    NSIndexPath                       * soloViewIndexPath;
+    
 }
 //  ------------------------------------------------------------------------------------------------
 
@@ -402,6 +407,7 @@
     modeFlags.isIntroduction        = NO;
 
     soloView                        = nil;
+    soloViewIndexPath               = nil;
     
     [self                           setDataSource: self];
     [self                           setDelegate: self];
@@ -1274,6 +1280,7 @@
         [soloView                   removeFromSuperview];
         SAFE_ARC_RELEASE( soloView );
         soloView                    = nil;
+        soloViewIndexPath           = nil;
     }];
     return YES;
 }
@@ -1594,14 +1601,35 @@
         {
             [sectionStates          updatePreviewImageSizeOfStateData: previewSize with: previewMiniSize];
         }
-    }
-    
-    if ( nil != soloView )
-    {
-        [soloView                   whenDeviceRotateUpdatePosition];
-    }
+    }    
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( void ) whenDeviceRotateUpdatePosition
+{
+    if ( nil == soloView )
+    {
+        return;
+    }
+    
+    if ( nil == soloViewIndexPath )
+    {
+        [soloView                   whenDeviceRotateUpdatePosition: CGRectZero];
+        return;
+    }
+
+    CGRect                              onScreenFrame;
+    UICollectionViewLayoutAttributes  * layoutAttributes;
+
+    layoutAttributes                = [self layoutAttributesForItemAtIndexPath: soloViewIndexPath];
+    if ( nil == layoutAttributes )
+    {
+        return;
+    }
+
+    onScreenFrame                   = [self convertRect: [layoutAttributes frame] toView: nil];
+    [soloView                       whenDeviceRotateUpdatePosition: onScreenFrame];
+}
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark protocol required for UICollectionViewDataSource.
@@ -1805,8 +1833,7 @@
         return;
     }
     
-    onScreenFrame.size              = [layoutAttributes size];
-    onScreenFrame.origin            = [self convertPoint: [layoutAttributes frame].origin toView: nil];
+    onScreenFrame                   = [self convertRect: [layoutAttributes frame] toView: nil];
     stickerImage                    = [pageConfigure imageAtIndex: indexPath.section inArray: indexPath.row];
     if ( nil == stickerImage )
     {
@@ -1837,6 +1864,7 @@
     }
     
     stickerSize                     = [stickerImage size];
+    soloViewIndexPath               = indexPath;
     [self                           _ShowStickerSoloView: stickerImage original: stickerSize onScreen: onScreenFrame];
 }
 
@@ -1893,6 +1921,7 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark protocol required for TDSectionPreviewCellDelegate.
 //  ------------------------------------------------------------------------------------------------
+//  TODO: ON SCREEN FRAME for solo view.
 - ( void ) collectionView:(UICollectionView *)collectionView didSelectCell:(UICollectionViewCell *)cell preview:(NSString *)imageName
                   sticker:(NSString *)spriteName original:(CGRect)stickerFrame onScreen:(CGRect)nowFrame
 {

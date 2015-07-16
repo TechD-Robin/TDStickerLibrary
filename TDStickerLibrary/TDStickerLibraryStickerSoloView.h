@@ -73,8 +73,10 @@ typedef     void (^FinishedCallbackBlock)(BOOL finished);
 /**
  *  @brief update the solo view's position when device is rotated.
  *  update the solo view's position when device is rotated.
+ *
+ *  @param nowFrame                 the sticker now frame on screen.
  */
-- ( void ) whenDeviceRotateUpdatePosition;
+- ( void ) whenDeviceRotateUpdatePosition:(CGRect)nowFrame;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for show/hide the solo object.
