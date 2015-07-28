@@ -266,6 +266,15 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief create a alert view for delete action.
+ *  create a alert view for delete action.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
+- ( BOOL ) _CreateDeleteAlertController;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief create a page for sticker into this object.
  *  create a page for sticker into this object.
  *
@@ -1148,12 +1157,47 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         [deleteButton               setHidden: !isDownloaded];
     }
     
-    [deleteButton                 addTarget: self action: @selector( _TapDeleteButtonAction: ) forControlEvents: UIControlEventTouchUpInside];
+    [deleteButton                   addTarget: self action: @selector( _CreateDeleteAlertController ) forControlEvents: UIControlEventTouchUpInside];
     return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) _TapDeleteButtonAction:(id)sender
+- ( BOOL ) _CreateDeleteAlertController
+{
+    UIAlertController             * alertController;
+    UIAlertAction                 * deleteAction;
+    UIAlertAction                 * cancelAction;
+    
+    
+    alertController                 = [UIAlertController alertControllerWithTitle: @"Delete" message: @"Are you sure ?"
+                                                                   preferredStyle: UIAlertControllerStyleAlert];
+    if ( nil == alertController )
+    {
+        return NO;
+    }
+    
+    deleteAction                    = [UIAlertAction actionWithTitle: @"Delete" style: UIAlertActionStyleDestructive handler: ^(UIAlertAction *action)
+    {
+        [self                       _TapDeleteButtonAction];
+    }];
+    
+    if ( nil != deleteAction )
+    {
+        [alertController            addAction: deleteAction];
+    }
+
+    cancelAction                    = [UIAlertAction actionWithTitle: @"Cancel" style: UIAlertActionStyleCancel handler: nil];
+    if ( nil != cancelAction )
+    {
+        [alertController            addAction: cancelAction];
+    }
+    
+    [self                           presentViewController: alertController animated: YES completion: nil];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _TapDeleteButtonAction
 {
     NSParameterAssert( [pageConfigure infoDataCount] == 1 );
     
