@@ -1206,6 +1206,36 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( NSString * ) deleteAlertMessageString
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources localizedStringForKey: @"delete alert message"];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) deleteAlertActionString
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources localizedStringForKey: @"delete alert action"];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( NSString * ) deleteAlertCancelString
+{
+    if ( nil == defaultResources )
+    {
+        return nil;
+    }
+    return [defaultResources localizedStringForKey: @"delete alert cancel"];
+}
+
+//  ------------------------------------------------------------------------------------------------
 - ( NSString * ) expireDateString
 {
     if ( nil == defaultResources )

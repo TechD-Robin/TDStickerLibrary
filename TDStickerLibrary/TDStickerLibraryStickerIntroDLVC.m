@@ -570,7 +570,7 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     NSString                      * title;
     
     topTitle                        = [[UILabel alloc] init];
-    title                           = [pageConfigure dataTitleAtIndex: 0];
+    title                           = [pageConfigure dataTitleAtIndex: kTDStickerLibraryConfigureIndexAfterSwap];
     if ( nil != title )
     {
         [topTitle                   setText: title];
@@ -1167,16 +1167,28 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     UIAlertController             * alertController;
     UIAlertAction                 * deleteAction;
     UIAlertAction                 * cancelAction;
+    NSString                      * title;
+
+    title                           = [pageConfigure dataTitleAtIndex: kTDStickerLibraryConfigureIndexAfterSwap];
+    if ( nil == title )
+    {
+        title                       = [customization deleteAlertActionString];
+    }
+    else
+    {
+        title                       = [[customization deleteAlertActionString] stringByAppendingFormat: @"%@", title];
+    }
     
-    
-    alertController                 = [UIAlertController alertControllerWithTitle: @"Delete" message: @"Are you sure ?"
+    alertController                 = [UIAlertController alertControllerWithTitle: title
+                                                                          message: [customization deleteAlertMessageString]
                                                                    preferredStyle: UIAlertControllerStyleAlert];
     if ( nil == alertController )
     {
         return NO;
     }
     
-    deleteAction                    = [UIAlertAction actionWithTitle: @"Delete" style: UIAlertActionStyleDestructive handler: ^(UIAlertAction *action)
+    deleteAction                    = [UIAlertAction actionWithTitle: [customization deleteAlertActionString]
+                                                               style: UIAlertActionStyleDestructive handler: ^(UIAlertAction *action)
     {
         [self                       _TapDeleteButtonAction];
     }];
@@ -1186,7 +1198,8 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         [alertController            addAction: deleteAction];
     }
 
-    cancelAction                    = [UIAlertAction actionWithTitle: @"Cancel" style: UIAlertActionStyleCancel handler: nil];
+    cancelAction                    = [UIAlertAction actionWithTitle: [customization deleteAlertCancelString]
+                                                               style: UIAlertActionStyleCancel handler: nil];
     if ( nil != cancelAction )
     {
         [alertController            addAction: cancelAction];

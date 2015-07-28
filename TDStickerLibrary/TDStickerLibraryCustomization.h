@@ -950,6 +950,33 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
 
 //  ------------------------------------------------------------------------------------------------
 /**
+ *  @brief get the delete alert's message string from localized setting.
+ *  get the delete alert's message string from localized setting.
+ *
+ *  @return string|nil              the string or nil.
+ */
+- ( NSString * ) deleteAlertMessageString;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the delete alert's action string from localized setting.
+ *  get the delete alert's action string from localized setting.
+ *
+ *  @return string|nil              the string or nil.
+ */
+- ( NSString * ) deleteAlertActionString;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief get the delete alert's cancel string from localized setting.
+ *  get the delete alert's cancel string from localized setting.
+ *
+ *  @return string|nil              the string or nil.
+ */
+- ( NSString * ) deleteAlertCancelString;
+
+//  ------------------------------------------------------------------------------------------------
+/**
  *  @brief get the expire date string from localized setting.
  *  get the expire date string from localized setting.
  *
