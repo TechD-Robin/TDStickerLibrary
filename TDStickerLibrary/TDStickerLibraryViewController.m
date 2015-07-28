@@ -1011,6 +1011,11 @@
         SAFE_ARC_RELEASE( tabConfigure );
         tabConfigure                = nil;
     }
+    
+    if ( nil != finishedCallbackBlock )
+    {
+        finishedCallbackBlock       = nil;
+    }
 }
 
 

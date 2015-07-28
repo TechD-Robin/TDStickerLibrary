@@ -313,10 +313,6 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for update layout.
-
-////  ------------------------------------------------------------------------------------------------
-//- ( BOOL ) _RefreshScrollContentSize;
-
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief when device is rotated, execute this method to update new layout.
@@ -1451,38 +1447,6 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for update layout.
-////  ------------------------------------------------------------------------------------------------
-//- ( BOOL ) _RefreshScrollContentSize
-//{
-//    if ( nil == scrollView )
-//    {
-//        return NO;
-//    }
-//    
-//    NSLog( @"show scroll view content size : %@", NSStringFromCGSize( [scrollView contentSize] ) );
-//    
-//    CGRect                          viewRect;
-//    CGSize                          correctContentSize;
-//    
-//    viewRect                        = CGRectZero;
-//    
-//    
-//    if ( nil != stickerPageView )
-//    {
-//        viewRect                    = [stickerPageView frame];
-//        correctContentSize          = viewRect.size;
-//        correctContentSize.width    += viewRect.origin.x;
-//        correctContentSize.height   += viewRect.origin.y;
-//        
-//        [scrollView                 setContentSize: correctContentSize];
-//        return YES;
-//    }
-//    
-//    
-//    return YES;
-//}
-
-
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _DeviceOrientationIsRotation
 {
@@ -1885,6 +1849,12 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
     {
         SAFE_ARC_RELEASE( stickerPageView );
         stickerPageView             = nil;
+    }
+    
+    if ( nil != progressView )
+    {
+        SAFE_ARC_RELEASE( progressView );
+        progressView                = nil;
     }
     
     if ( nil != popMenu )

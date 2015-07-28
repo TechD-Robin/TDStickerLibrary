@@ -450,37 +450,36 @@
         
     }];
     
-    
     return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _SendTheViewToBack
 {
-    __weak id                       blockSelf;
-    __weak id                       blockSticker;
-    __weak id                       blockBlur;
-    
-    blockSelf                       = self;
-    blockSticker                    = stickerImageView;
-    blockBlur                       = blurImageView;
     [UIView animateWithDuration: [customization soloViewHideAnimateDuration] animations: ^
     {
-        [blockSticker               setFrame: stickerOnScreenFrame];
-        if ( nil != blockBlur )
+        if ( nil != stickerImageView )
         {
-            [blockBlur              setFrame: stickerOnScreenFrame];
-            [blockBlur              setAlpha: 0.0f];
+            [stickerImageView       setFrame: stickerOnScreenFrame];
+        }
+        
+        if ( nil != blurImageView )
+        {
+            [blurImageView          setFrame: stickerOnScreenFrame];
+            [blurImageView          setAlpha: 0.0f];
         }
     }
     completion: ^ ( BOOL finished )
     {
-        [blockSelf                  setHidden: YES];
-        [blockSelf                  removeFromSuperview];
-        if ( nil != blockBlur )
+        [self                       setHidden: YES];
+        [self                       removeFromSuperview];
+        if ( nil != blurImageView )
         {
-            [blockBlur              setHidden: YES];
-            [blockBlur              removeFromSuperview];
+            [blurImageView          setHidden: YES];
+            [blurImageView          removeFromSuperview];
+            
+            SAFE_ARC_RELEASE( blurImageView );
+            blurImageView           = nil;
         }
         
         if ( nil != finishCallbackBlock )
@@ -488,13 +487,13 @@
             finishCallbackBlock( finished );
         }
         
+        if ( nil != stickerImageView )
+        {
+            SAFE_ARC_RELEASE( stickerImageView );
+            stickerImageView        = nil;
+        }
     }];
     
-    SAFE_ARC_RELEASE( stickerImageView );
-    SAFE_ARC_RELEASE( blurImageView );
-    
-    SAFE_ARC_ASSIGN_POINTER_NIL( stickerImageView );
-    SAFE_ARC_ASSIGN_POINTER_NIL( blurImageView );
     return YES;
 }
 
@@ -600,65 +599,65 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _SimulateProgressSendTheViewToBack
 {
-    __weak id                       blockSelf;
-    __weak id                       blockSticker;
-    __weak id                       blockBlur;
-    __weak id                       blockMessage;
-    
-    blockSelf                       = self;
-    blockSticker                    = stickerImageView;
-    blockBlur                       = blurImageView;
-    blockMessage                    = progressMessage;
     [UIView animateWithDuration: [customization introProgressDismissAnimateDuration] animations: ^
     {
-        [blockSticker               setFrame: stickerOnScreenFrame];
-        if ( nil != blockBlur )
+        if ( nil != stickerImageView )
         {
-            [blockBlur              setFrame: stickerOnScreenFrame];
-            [blockBlur              setAlpha: 0.0f];
+            [stickerImageView       setFrame: stickerOnScreenFrame];
+        }
+        
+        if ( nil != blurImageView )
+        {
+            [blurImageView          setFrame: stickerOnScreenFrame];
+            [blurImageView          setAlpha: 0.0f];
         }
 
-        if ( nil != blockMessage )
+        if ( nil != progressMessage )
         {
             CGRect                  viewRect;
 
             viewRect                = stickerOnScreenFrame;
             viewRect.origin.x       = 0.0f;
-            viewRect.origin.y       = ( viewRect.size.height - [blockMessage bounds].size.height );
-            viewRect.size           = [blockMessage bounds].size;
+            viewRect.origin.y       = ( viewRect.size.height - [progressMessage bounds].size.height );
+            viewRect.size           = [progressMessage bounds].size;
 
-            [blockMessage           setFrame: viewRect];
-            [blockMessage           setAlpha: 0.0f];
+            [progressMessage        setFrame: viewRect];
+            [progressMessage        setAlpha: 0.0f];
         }
     }
     completion: ^ ( BOOL finished )
     {
-        [blockSelf                  setHidden: YES];
-        [blockSelf                  removeFromSuperview];
-        if ( nil != blockBlur )
+        [self                       setHidden: YES];
+        [self                       removeFromSuperview];
+        if ( nil != blurImageView )
         {
-            [blockBlur              setHidden: YES];
-            [blockBlur              removeFromSuperview];
+            [blurImageView          setHidden: YES];
+            [blurImageView          removeFromSuperview];
+            
+            SAFE_ARC_RELEASE( blurImageView );
+            blurImageView           = nil;
         }
-        if ( nil != blockMessage )
+        if ( nil != progressMessage )
         {
-            [blockMessage           setHidden: YES];
-            [blockMessage           removeFromSuperview];
+            [progressMessage        setHidden: YES];
+            [progressMessage        removeFromSuperview];
+            
+            SAFE_ARC_RELEASE( progressMessage );
+            progressMessage        = nil;
         }
 
         if ( nil != finishCallbackBlock )
         {
             finishCallbackBlock( finished );
         }
+        
+        if ( nil != stickerImageView )
+        {
+            SAFE_ARC_RELEASE( stickerImageView );
+            stickerImageView        = nil;
+        }
     }];
     
-    SAFE_ARC_RELEASE( stickerImageView );
-    SAFE_ARC_RELEASE( blurImageView );
-    SAFE_ARC_RELEASE( progressMessage );
-    
-    SAFE_ARC_ASSIGN_POINTER_NIL( stickerImageView );
-    SAFE_ARC_ASSIGN_POINTER_NIL( blurImageView );
-    SAFE_ARC_ASSIGN_POINTER_NIL( progressMessage );
     return YES;
 }
 
@@ -764,6 +763,22 @@
     {
         SAFE_ARC_RELEASE( blurImageView );
         blurImageView               = nil;
+    }
+    
+    if ( nil != finishCallbackBlock )
+    {
+        finishCallbackBlock         = nil;
+    }
+    
+    if ( nil != progressingMessages )
+    {
+        progressingMessages         = nil;
+    }
+    
+    if ( nil != progressMessage )
+    {
+        SAFE_ARC_RELEASE( progressMessage );
+        progressMessage             = nil;
     }
     
     SAFE_ARC_SUPER_DEALLOC();

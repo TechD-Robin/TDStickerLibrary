@@ -1501,6 +1501,11 @@
         soloView                    = nil;
     }
     
+    if ( nil != soloViewIndexPath )
+    {
+        soloViewIndexPath           = nil;
+    }
+    
     SAFE_ARC_SUPER_DEALLOC();
 }
 
