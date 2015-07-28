@@ -539,6 +539,9 @@
     
     
     //  run animation.
+    __weak id                       blockSelf;
+    
+    blockSelf                       = self;
     if ( nil != blurImageView )
     {
         [blurImageView              setAlpha: 0.0f];
@@ -547,7 +550,7 @@
     [self                           setHidden: NO];
     [UIView animateWithDuration: [customization introProgressShowAnimateDuration] animations: ^
     {
-        [self                       _UpdateSimulateProgressFrame];
+        [blockSelf                  _UpdateSimulateProgressFrame];
         if ( nil != blurImageView )
         {
             [blurImageView          setAlpha: [customization introProgressBlurLayerAlphaOnTop]];
@@ -561,9 +564,8 @@
     completion: ^ ( BOOL finished )
     {
         //  use tag to count.
-        [self                       setTag: 1];
-        [self                       performSelector: @selector( _AnimateProgressMessage ) withObject: nil afterDelay: 0.5f];
-         
+        [blockSelf                  setTag: 1];
+        [blockSelf                  performSelector: @selector( _AnimateProgressMessage ) withObject: nil afterDelay: 0.5f];
     }];
     
     return YES;
@@ -599,6 +601,9 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _SimulateProgressSendTheViewToBack
 {
+    __weak id                       blockSelf;
+    
+    blockSelf                       = self;
     [UIView animateWithDuration: [customization introProgressDismissAnimateDuration] animations: ^
     {
         if ( nil != stickerImageView )
@@ -627,8 +632,8 @@
     }
     completion: ^ ( BOOL finished )
     {
-        [self                       setHidden: YES];
-        [self                       removeFromSuperview];
+        [blockSelf                  setHidden: YES];
+        [blockSelf                  removeFromSuperview];
         if ( nil != blurImageView )
         {
             [blurImageView          setHidden: YES];

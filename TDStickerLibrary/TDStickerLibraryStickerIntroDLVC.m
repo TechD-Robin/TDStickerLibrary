@@ -1768,11 +1768,14 @@ static  NSInteger   const kTDStickerLibraryIntroImageDefaultIndex       = 0;
         return YES;
     }
     
-    if ( [[self idExtensionDelegate] respondsToSelector: @selector( showExtensionProgress )] == NO )
+    if ( [[self idExtensionDelegate] respondsToSelector: @selector( dismissExtensionProgress )] == NO )
     {
         return YES;
     }
     [[self                          idExtensionDelegate] dismissExtensionProgress];
+    
+    SAFE_ARC_RELEASE( progressView );
+    progressView                    = nil;
     return YES;
 }
 
