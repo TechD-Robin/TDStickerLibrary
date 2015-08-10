@@ -256,8 +256,8 @@
 
 //  ------------------------------------------------------------------------------------------------
 /**
- *  @brief create a introducton view controller.
- *  create a introducton view controller, that will show sticker's introductioin.
+ *  @brief create a Introduction view controller.
+ *  create a Introduction view controller, that will show sticker's introductioin.
  *
  *  @param section                  section index.
  *

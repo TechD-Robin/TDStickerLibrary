@@ -216,6 +216,7 @@
 		2A07B3F01B5673FF0011E01D /* TDStickerLibraryExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryExtension.h; sourceTree = "<group>"; };
 		2A29D00F1ADAE1460096161D /* TDStickerLibraryUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUpdate.h; sourceTree = "<group>"; };
 		2A29D0101ADAE1460096161D /* TDStickerLibraryUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUpdate.m; sourceTree = "<group>"; };
+		2A40E8871B793D8D007914F0 /* TDStickerLibrary.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = TDStickerLibrary.podspec; sourceTree = "<group>"; };
 		2A41225C1B135CA3004262E2 /* TDSystemCustomization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSystemCustomization.h; path = Objects/TDSystemCustomization.h; sourceTree = "<group>"; };
 		2A41225D1B135CA3004262E2 /* TDSystemCustomization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSystemCustomization.m; path = Objects/TDSystemCustomization.m; sourceTree = "<group>"; };
 		2A4122621B138877004262E2 /* SystemCustomization.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SystemCustomization.bundle; path = Assets/SystemCustomization.bundle; sourceTree = "<group>"; };
@@ -765,6 +766,7 @@
 				2AADF5051A695E600026EF9D /* Libraries */,
 				2AAB795D1AEEA16C00DA71A8 /* Resources */,
 				2AADF4BA1A69599E0026EF9D /* Products */,
+				2A40E8871B793D8D007914F0 /* TDStickerLibrary.podspec */,
 			);
 			sourceTree = "<group>";
 		};

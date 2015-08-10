@@ -38,7 +38,7 @@ typedef     void (^FinishedIntroDLVCCallbackBlock)(NSString * stickerID, NSInteg
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 /**
- *  the Sticker Library Sticker IntroDLVC(Introducton & Download View Controller) is a functional view controller,
+ *  the Sticker Library Sticker IntroDLVC(Introduction & Download View Controller) is a functional view controller,
  *  that for sticker preview or download.
  */
 @interface TDStickerLibraryStickerIntroDLVC : UIViewController
@@ -61,7 +61,7 @@ typedef     void (^FinishedIntroDLVCCallbackBlock)(NSString * stickerID, NSInteg
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief create a Sticker Library Sticker IntroDLVC.
- *  create a Sticker Library Sticker IntroDLVC(Introducton & Download View Controller).
+ *  create a Sticker Library Sticker IntroDLVC(Introduction & Download View Controller).
  *
  *  @param custom                   the customization object for the Sticker Library.
  *  @param pageInfo                 the page information object.
