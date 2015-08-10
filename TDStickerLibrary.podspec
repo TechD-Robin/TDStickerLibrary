@@ -19,11 +19,11 @@ Pod::Spec.new do |s|
 
   s.resources     = ['TDStickerLibrary/Assets/StickerLibraryDefault.bundle'] 
 
+  s.dependency    "TDResourceManager",    "~> 0.0.3"
   s.dependency    "fork_ZipArchive",      "~> 1.3.2"
   s.dependency    "TDFoundation",         "~> 0.0.4" 
   #s.dependency    "Foundation+TechD",     "~> 0.0.3"
 
-  s.dependency    "TDResourceManager",    "~> 0.0.3"
 
   s.dependency    "TDMath",               "~> 0.0.1"
   s.dependency    "UIKit+TechD",          "~> 0.0.2"
