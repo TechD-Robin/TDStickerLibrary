@@ -29,6 +29,19 @@ Pod::Spec.new do |s|
   s.dependency    "UIKit+TechD",          "~> 0.0.2"
   s.dependency    "TDDownloadManager",    "~> 0.0.6"
 
+  #  先寫起來, 下次再試, 目前版本可以運作, 先繼續測 ... （2015-08-11）
+  #s.subspec 'Data' do |ss| 
+  #  ss.source_files = 'TDStickerLibrary/Data/*.{h,m}' 
+  #  ss.frameworks   = 'Foundation', 'CoreGraphics', 'UIKit'
+  #
+  #  ss.dependency   "TDResourceManager",    "~> 0.0.3"
+  #  ss.dependency   "fork_ZipArchive",      "~> 1.3.2"
+  #  ss.dependency   "TDFoundation",         "~> 0.0.4" 
+  #
+  #  ss.dependency   "UIKit+TechD",          "~> 0.0.2"
+  #
+  #end
+
   s.subspec 'TDBaseObjects' do |ss| 
     ss.source_files = 'Libraries/TDBaseObjects/**/*.{h,m}' 
     ss.frameworks   = 'UIKit' 
