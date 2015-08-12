@@ -76,7 +76,8 @@ Drag the `TDStickerLibrary/` and `Libraries/` folder to your project.
   1. Download `Resources/**/*.*` these file.
   2. Create a `Resources/` directory to your project.
   3. Drag the `Configure/` (step 1's sub-directory) folder into `Resources/` folder, and at **'Added folders :'** choose ***`Create folder references`***.
-  4. Rebuild & run project.
+  4. Reference **Quick Run**
+  5. Rebuild & run project.
 
   > **NOTE:**
   > these code is not yet include update mechanism.
@@ -110,7 +111,7 @@ Drag the `TDStickerLibrary/` and `Libraries/` folder to your project.
 
   > **NOTE:**
   >
-  > 1. check other configure your can customize from `TDStickerLibraryCustomization.h`.
+  > 1. check these configure your can customize from `TDStickerLibraryCustomization.h`.
   >
   > 2. you must customize these properties `sysStyleXXX` like `sysStyleBundleName` for system style by you self.
 
@@ -126,6 +127,88 @@ Drag the `TDStickerLibrary/` and `Libraries/` folder to your project.
 
 
 
+* **Update Data**
+  1. Setup your update file to server.
+  2. Get the update file's URL.
+  3. Use this URL to your update method.
+  4. sample 
+
+     ````objective-c 
+- ( void ) updateConfigure 
+{
+            NSArray                       * searchKeys;
+            NSString                      * updateTabSearchKey;
+            NSString                      * urlString;
+            TDStickerLibraryUpdate        * updateProcedure;
+            TDStickerLibraryCustomization * customization;
+    
+            updateTabSearchKey              = @"UpdateTab";
+            urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXX0JqNEdqcEZSTU0&export=download";
+            customization                   = [TDStickerLibraryCustomization new];
+            NSParameterAssert( nil != customization );
+    
+            [customization                  setSystemConfigureTabUpdateDefaultKey: updateTabSearchKey];
+            [customization                  setSystemConfigureTabUpdateZpwiaopsrpsded: @"StickerLibrary"];
+            updateProcedure                 = [TDStickerLibraryUpdate stickerLibraryUpdateWithCustomization: customization];
+            NSParameterAssert( nil != updateProcedure );
+    
+            searchKeys                      = [NSArray arrayWithObjects: updateTabSearchKey, nil];
+            [updateProcedure                startUpdateSystemConfigure: urlString forSearch: searchKeys];
+    
+            __weak __typeof(updateProcedure)    weakUpdateProcedure;
+            weakUpdateProcedure                 = updateProcedure;
+            [updateProcedure                    setUpdateCompletionBlock: ^(NSDictionary * updateResponses, NSError * error, BOOL finished)
+            {
+                NSLog( @"resopnses : %@", updateResponses );
+                NSLog( @"error : %@", error );
+                NSLog( @"finished : %d", finished );
+         
+                [weakUpdateProcedure            stopProcedure];
+            }];
+}
+````
+  
+  > **NOTE:**
+  >
+  > after added the update procedure, about some of customize configure of **`TDStickerLibraryViewController`**, must same the update's configure;
+  >
+  >
+  
+  ````objective-c 
+- (IBAction)startAction:(id)sender
+{
+    
+        TDStickerLibraryViewController* controller;
+        TDStickerLibraryCustomization * customization;
+    
+        customization                   = [TDStickerLibraryCustomization new];
+        NSParameterAssert( nil != customization );
+    
+        [customization                  setSystemConfigureTabUpdateDefaultKey:          @"UpdateTab"];
+        [customization                  setSystemConfigureTabUpdateZpwiaopsrpsded:      @"StickerLibrary"];
+        [customization                  setSystemConfigureTabPageUpdateZpwiaopsrpsded:  @"StickerLibrary"];
+        [customization                  setStickerDownloadZpwiaopsrpsded:               @"StickerLibrary"];
+    
+        controller                      = [TDStickerLibraryViewController stickerLibarayWithCustomization: customization];
+        NSParameterAssert( nil != controller );
+    
+        [controller                     setFinishedStickerLibraryCallbackBlock: ^(UIImage * stickerImage)
+        {
+            NSLog( @"sticker image : %@", stickerImage );
+        }];
+    
+        [self                           presentViewController: controller animated: YES completion: nil];
+}
+````
+
+## Documents
+
+* **Configure Files Schema** 
+  1. [Table Schema - StickerLibrary - en.ods](ExtensionFiles/Documents/Table Schema - StickerLibrary - en.ods)
+
+  > **NOTE:**
+  >
+  > .ods file editor : [OpenOffice](https://www.openoffice.org/)
 
 
 ## Author
