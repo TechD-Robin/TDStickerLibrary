@@ -231,13 +231,13 @@
     [self                           setSysStyleDisabledTintedColor: nil];
     [self                           setSysStyleDisabledTintedColorAlpha: 0.0f];
     
-    [self                           setSysStyleAlertTintedColor: nil];
+    [self                           setSysStyleAlertTintedColor: [UIColor redColor]];
     [self                           setSysStyleAlertTintedColorAlpha: 0.0f];
 
-    [self                           setSysStyleHighlightedAlertTintedColor: nil];
-    [self                           setSysStyleHighlightedAlertTintedColorAlpha: 0.0f];
+    [self                           setSysStyleHighlightedAlertTintedColor: [UIColor redColor]];
+    [self                           setSysStyleHighlightedAlertTintedColorAlpha: 0.32f];
     
-    [self                           setSysStyleTitleTextColor: nil];
+    [self                           setSysStyleTitleTextColor: [UIColor lightGrayColor]];
     [self                           setSysStyleMasterVisionBGC: [UIColor clearColor]];
     [self                           setSysStyleNavigationBGC: [[UIColor grayColor] colorWithAlphaComponent: 0.33f]];
     
@@ -362,6 +362,17 @@
     NSParameterAssert( nil != defaultResources );
     
     [defaultResources               setLocalizedStringTable: kTDStickerLibraryDefaultLocalizedStringTable];
+    
+    [self                           setSysStyleTintedColor:                 [defaultResources sysStyleTintedColor]];
+    [self                           setSysStyleTintedColorAlpha:            [defaultResources sysStyleTintedColorAlpha]];
+    
+    [self                           setSysStyleHighlightedTintedColor:      [defaultResources sysStyleHighlightedTintedColor]];
+    [self                           setSysStyleHighlightedTintedColorAlpha: [defaultResources sysStyleHighlightedTintedColorAlpha]];
+    
+    [self                           setSysStyleDisabledTintedColor:         [defaultResources sysStyleDisabledTintedColor]];
+    [self                           setSysStyleDisabledTintedColorAlpha:    [defaultResources sysStyleDisabledTintedColorAlpha]];
+    
+    
 }
 
 //  ------------------------------------------------------------------------------------------------

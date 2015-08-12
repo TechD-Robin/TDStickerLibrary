@@ -73,7 +73,8 @@
     
     sysCustomization                = [TDSystemCustomization customization];
     
-    sysCustomization->styleBackgroundColor              = [UIColor blackColor];
+//    sysCustomization->styleBackgroundColor              = [UIColor blackColor];
+    
     sysCustomization->styleTintedColor                  = [UIColor cyanColor];
     sysCustomization->styleTintedColorAlpha             = 0.32f;
     
@@ -236,23 +237,24 @@
     [customization                  setSysStyleDeleteDisabledImageName:         sysCustomization->styleDeleteDisabledImageName];
     
     
-    [customization                  setSysStyleTintedColor:                     sysCustomization->styleTintedColor];
-    [customization                  setSysStyleTintedColorAlpha:                sysCustomization->styleTintedColorAlpha];
+//    [customization                  setSysStyleTintedColor:                     sysCustomization->styleTintedColor];
+//    [customization                  setSysStyleTintedColorAlpha:                sysCustomization->styleTintedColorAlpha];
+//    
+//    [customization                  setSysStyleHighlightedTintedColor:          sysCustomization->styleHighlightedTintedColor];
+//    [customization                  setSysStyleHighlightedTintedColorAlpha:     sysCustomization->styleHighlightedTintedColorAlpha];
+//    
+//    [customization                  setSysStyleDisabledTintedColor:             sysCustomization->styleDisabledTintedColor];
+//    [customization                  setSysStyleDisabledTintedColorAlpha:        sysCustomization->styleDisabledTintedColorAlpha];
+//    
+//    [customization                  setSysStyleAlertTintedColor:                    sysCustomization->styleAlertTintedColor];
+//    [customization                  setSysStyleAlertTintedColorAlpha:               sysCustomization->styleAlertTintedColorAlpha];
+//
+//    [customization                  setSysStyleHighlightedAlertTintedColor:         sysCustomization->styleHighlightedAlertTintedColor];
+//    [customization                  setSysStyleHighlightedAlertTintedColorAlpha:    sysCustomization->styleHighlightedAlertTintedColorAlpha];
+//    
+//    
+//    [customization                  setSysStyleTitleTextColor:                      sysCustomization->styleTitleTextColor];
     
-    [customization                  setSysStyleHighlightedTintedColor:          sysCustomization->styleHighlightedTintedColor];
-    [customization                  setSysStyleHighlightedTintedColorAlpha:     sysCustomization->styleHighlightedTintedColorAlpha];
-    
-    [customization                  setSysStyleDisabledTintedColor:             sysCustomization->styleDisabledTintedColor];
-    [customization                  setSysStyleDisabledTintedColorAlpha:        sysCustomization->styleDisabledTintedColorAlpha];
-    
-    [customization                  setSysStyleAlertTintedColor:                    sysCustomization->styleAlertTintedColor];
-    [customization                  setSysStyleAlertTintedColorAlpha:               sysCustomization->styleAlertTintedColorAlpha];
-
-    [customization                  setSysStyleHighlightedAlertTintedColor:         sysCustomization->styleHighlightedAlertTintedColor];
-    [customization                  setSysStyleHighlightedAlertTintedColorAlpha:    sysCustomization->styleHighlightedAlertTintedColorAlpha];
-    
-    
-    [customization                  setSysStyleTitleTextColor:                      sysCustomization->styleTitleTextColor];
     [customization                  setStatusBarHidden:                             YES];
     [customization                  setStatusBarStyle:                              UIStatusBarStyleLightContent];
     

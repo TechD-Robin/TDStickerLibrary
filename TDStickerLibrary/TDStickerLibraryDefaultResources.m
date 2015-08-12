@@ -80,13 +80,13 @@
 - ( void ) _InitAttributes
 {
     //  sys style.
-    [self                           setSysStyleTintedColor: nil];
-    [self                           setSysStyleTintedColorAlpha: 0.0f];
+    [self                           setSysStyleTintedColor: [UIColor cyanColor]];
+    [self                           setSysStyleTintedColorAlpha: 0.32f];
     
-    [self                           setSysStyleHighlightedTintedColor: nil];
-    [self                           setSysStyleHighlightedTintedColorAlpha: 0.0f];
+    [self                           setSysStyleHighlightedTintedColor: [UIColor cyanColor]];
+    [self                           setSysStyleHighlightedTintedColorAlpha: 0.32f];
     
-    [self                           setSysStyleDisabledTintedColor: nil];
+    [self                           setSysStyleDisabledTintedColor: [UIColor lightGrayColor]];
     [self                           setSysStyleDisabledTintedColorAlpha: 0.0f];
 }
 
