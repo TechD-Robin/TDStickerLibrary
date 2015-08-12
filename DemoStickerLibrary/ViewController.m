@@ -259,6 +259,9 @@
     
 //    [customization                  setSysStyleMasterVisionBGC:                     [UIColor purpleColor]];
     
+    [customization                  setSystemConfigureUpdateFilename:               @"SystemConfigureUpdate.json"];
+    [customization                  setSystemConfigureTabUpdateDefaultKey:          @"UpdateTab"];
+    
     [customization                  setSystemConfigureTabPageUpdateZpwiaopsrpsded:  @"StickerLibrary"];
     [customization                  setSystemConfigureTabUpdateZpwiaopsrpsded:      @"StickerLibrary"];
     [customization                  setStickerDownloadZpwiaopsrpsded:               @"StickerLibrary"];
@@ -345,6 +348,7 @@
     NSParameterAssert( nil != customization );
     
     [customization                  setSystemConfigureUpdateFilename: @"SystemConfigureUpdate.json"];
+    [customization                  setSystemConfigureTabUpdateDefaultKey:          @"UpdateTab"];
     [customization                  setSystemConfigureUpdateDirectory: TDDocumentDirectory];
     [customization                  setSystemConfigureTabUpdateZpwiaopsrpsded: @"StickerLibrary"];
 

@@ -279,32 +279,28 @@
     }
     
     TDPreUpdateJSONInfo           * jsonInfo;
-    TDGetPathDirectory              configureDirectory;
-    NSString                      * subPath;
-    NSString                      * updateKey;
     NSString                      * updateFile;
     
     updateFile                      = nil;
-    subPath                         = @"Download/Configure";
-    updateKey                       = @"UpdateTab";
-    configureDirectory              = TDDocumentDirectory;
-    
-    
-    jsonInfo                        = [TDPreUpdateJSONInfo loadData: @"SystemConfigureUpdate.json" forDirectories: configureDirectory inDirectory: subPath encoding: NSUTF8StringEncoding];
+    jsonInfo                        = [TDPreUpdateJSONInfo loadData: [customization systemConfigureUpdateFilename]
+                                                     forDirectories: [customization systemConfigureUpdateDirectory]
+                                                        inDirectory: [customization systemConfigureUpdateSubpath]
+                                                           encoding: NSUTF8StringEncoding];
     if ( nil == jsonInfo )
     {
         [tabConfigure               sortInfoData];
         return;
     }
     
-    updateFile                      = [jsonInfo updateConfigureFilenameForKey: updateKey];
+    updateFile                      = [jsonInfo updateConfigureFilenameForKey: [customization systemConfigureTabUpdateDefaultKey]];
     if ( nil != updateFile )
     {
         [customization              setSystemConfigureTabUpdateFilename: updateFile];
     }
     
     [tabConfigure                   updateDataFromZip: [customization systemConfigureTabUpdateFilename]
-                                       forDirectories: TDDocumentDirectory inDirectory: subPath
+                                       forDirectories: [customization systemConfigureUpdateDirectory]
+                                          inDirectory: [customization systemConfigureUpdateSubpath]
                                          inZippedPath: [customization systemConfigureTabUpdateInZippedPrefix]
                                                  with: [customization systemConfigureTabUpdateZpwiaopsrpsded]];
     

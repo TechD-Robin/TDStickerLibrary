@@ -239,6 +239,11 @@ typedef NS_ENUM( NSInteger, TDStickerLibraryPageSectionSorting ){
 @property( nonatomic, assign ) NSString                   * systemConfigureTabPageUpdateZpwiaopsrpsded;
 
 /**
+ *  update's default key of tab's configure.
+ */
+@property( nonatomic, assign ) NSString                   * systemConfigureTabUpdateDefaultKey;
+
+/**
  *  update's file name of tab's configure.
  */
 @property( nonatomic, assign ) NSString                   * systemConfigureTabUpdateFilename;

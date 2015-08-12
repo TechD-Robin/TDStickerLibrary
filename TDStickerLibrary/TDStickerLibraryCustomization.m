@@ -256,6 +256,7 @@
     [self                           setSystemConfigureUpdateDirectory:              TDCachesDirectory];
     [self                           setSystemConfigureTabPageUpdateZpwiaopsrpsded:  nil];
     
+    [self                           setSystemConfigureTabUpdateDefaultKey:          @"TabUpdate"];
     [self                           setSystemConfigureTabUpdateFilename:            @"StickerLibraryTabUpdate"];
     [self                           setSystemConfigureTabUpdateInZippedPrefix:      @"StickerLibraryTabUpdate"];
     [self                           setSystemConfigureTabUpdateZpwiaopsrpsded:      nil];
@@ -588,6 +589,7 @@
 @synthesize systemConfigureUpdateDirectory              = _systemConfigureUpdateDirectory;
 @synthesize systemConfigureTabPageUpdateZpwiaopsrpsded  = _systemConfigureTabPageUpdateZpwiaopsrpsded;
 
+@synthesize systemConfigureTabUpdateDefaultKey      = _systemConfigureTabUpdateDefaultKey;
 @synthesize systemConfigureTabUpdateFilename        = _systemConfigureTabUpdateFilename;
 @synthesize systemConfigureTabUpdateInZippedPrefix  = _systemConfigureTabUpdateInZippedPrefix;
 @synthesize systemConfigureTabUpdateZpwiaopsrpsded  = _systemConfigureTabUpdateZpwiaopsrpsded;
