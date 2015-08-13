@@ -3,6 +3,8 @@
 
 ## Usage
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/n3Nfy4H0dvk" frameborder="0" allowfullscreen></iframe>
+
 ## Dependencies
 
 * TDResourceManager
@@ -184,10 +186,10 @@ Drag the `TDStickerLibrary/` and `Libraries/` folder to your project.
         customization                   = [TDStickerLibraryCustomization new];
         NSParameterAssert( nil != customization );
     
-        [customization                  setSystemConfigureTabUpdateDefaultKey:          @"UpdateTab"];
-        [customization                  setSystemConfigureTabUpdateZpwiaopsrpsded:      @"StickerLibrary"];
-        [customization                  setSystemConfigureTabPageUpdateZpwiaopsrpsded:  @"StickerLibrary"];
-        [customization                  setStickerDownloadZpwiaopsrpsded:               @"StickerLibrary"];
+        [customization                  setSystemConfigureTabUpdateDefaultKey:          @"UpdateTab"];          //  equal update's configure.
+        [customization                  setSystemConfigureTabUpdateZpwiaopsrpsded:      @"StickerLibrary"];     //  maybe equal update's configure. 
+        [customization                  setSystemConfigureTabPageUpdateZpwiaopsrpsded:  @"StickerLibrary"];     //  maybe equal update's configure. 
+        [customization                  setStickerDownloadZpwiaopsrpsded:               @"StickerLibrary"];     //  maybe equal update's configure. 
     
         controller                      = [TDStickerLibraryViewController stickerLibarayWithCustomization: customization];
         NSParameterAssert( nil != controller );
@@ -204,7 +206,7 @@ Drag the `TDStickerLibrary/` and `Libraries/` folder to your project.
 ## Documents
 
 * **Configure Files Schema** 
-  1. [Table Schema - StickerLibrary - en.ods](ExtensionFiles/Documents/Table Schema - StickerLibrary - en.ods)
+  1. [Table Schema - StickerLibrary - en.ods](ExtensionFiles/Documents/Table Schema - StickerLibrary - en.ods), [Table Schema - StickerLibrary - zh-Hant.ods](ExtensionFiles/Documents/Table Schema - StickerLibrary - zh-Hant.ods)
 
   > **NOTE:**
   >
@@ -218,7 +220,6 @@ Functionality/TDStickerLibrary, robinhsu599+dev@gmail.com
 ## License
 
 See the LICENSE file for more info.
-
 
 
 
