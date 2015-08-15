@@ -1,0 +1,22 @@
+{
+    "Face"     : 
+    [ 
+        { 
+            "ID"            : "20150702001", 
+            "Mode"          : "0", 
+            "Title"         : "dou-shou-qi", 
+            "Author"        : "Oca Studios", 
+            "E-Mail"        : "ocastudios@ocastudios.com", 
+            "Website"       : "http://ocastudios.com/classics/doushouqi/", 
+            "IntroImage"    : "doushouqi-leopard",
+            "Description"   : "", 
+            "SubDirectory"  : "1001page.face/doushouqi", 
+            "Images"        : ["doushouqi-cat", "doushouqi-wolf",       "doushouqi-lion",   "doushouqi-leopard", 
+                               "doushouqi-dog", "doushouqi-elephant",   "doushouqi-rat",    "doushouqi-tiger"   ], 
+            "Configure"     : "", 
+            "DataLink"      : "" 
+            
+        } 
+    
+    ] 
+} 

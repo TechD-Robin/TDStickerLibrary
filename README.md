@@ -1,7 +1,6 @@
 # Functionality/TDStickerLibrary
 
-
-## Usage
+The Sticker Library is a multi-page for sticker collection view for iOS.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/n3Nfy4H0dvk" frameborder="0" allowfullscreen></iframe>
 
@@ -18,7 +17,7 @@
 * ARC
 
 
-## Installation
+## Usage
 
 From [CocoaPods](http://cocoapods.org):
 
@@ -36,7 +35,8 @@ pod 'TDStickerLibrary',     :git => 'git://git.techd.idv.tw/Functionality/TDStic
 
 Without CocoaPods:
 
-Drag the `TDStickerLibrary/` and `Libraries/` folder to your project.
+1. Download this repository from here.
+2. Drag the `TDStickerLibrary/` and `Libraries/` folder to your project.
 
 
 ## Getting Started
@@ -115,7 +115,7 @@ Drag the `TDStickerLibrary/` and `Libraries/` folder to your project.
   >
   > 1. check these configure your can customize from `TDStickerLibraryCustomization.h`.
   >
-  > 2. you must customize these properties `sysStyleXXX` like `sysStyleBundleName` for system style by you self.
+  > 2. you must customize these properties <span style="color:red">`sysStyleXXX`</span> like `sysStyleBundleName` for system style by you self.
 
 
 * **Get Sticker** get the sticker image from user touch
@@ -206,11 +206,20 @@ Drag the `TDStickerLibrary/` and `Libraries/` folder to your project.
 ## Documents
 
 * **Configure Files Schema** 
-  1. [Table Schema - StickerLibrary - en.ods](ExtensionFiles/Documents/Table Schema - StickerLibrary - en.ods), [Table Schema - StickerLibrary - zh-Hant.ods](ExtensionFiles/Documents/Table Schema - StickerLibrary - zh-Hant.ods)
+  1. [Table Schema - StickerLibrary - en.ods](ReferenceFiles/Documents/Table Schema - StickerLibrary - en.ods), [Table Schema - StickerLibrary - zh-Hant.ods](ReferenceFiles/Documents/Table Schema - StickerLibrary - zh-Hant.ods)
 
   > **NOTE:**
   >
   > .ods file editor : [OpenOffice](https://www.openoffice.org/)
+  
+* **System Configure JSON Sample** 
+  1. System default configure of the Tab Menu : [StickerLibraryTabDefault.json](ReferenceFiles/Configure - sample/StickerLibraryTabDefault.json) 
+  2. The System Update configure : [StickerLibrarySystemUpdate.json](ReferenceFiles/Configure - sample/StickerLibrarySystemUpdate.json)
+  3. A Page configure : [1001.page.face.json](ReferenceFiles/Configure - sample/1001page.face.json), [1002page.weather.json](ReferenceFiles/Configure - sample/1002page.weather.json), [1003page.emotion.json](ReferenceFiles/Configure - sample/1003page.emotion.json).
+
+* **Preview Image Crop PList Sample**   
+  [warszawianka-weather.plist](ReferenceFiles/Configure - sample/warszawianka-weather.plist) 
+
 
 
 ## Author
@@ -219,7 +228,8 @@ Functionality/TDStickerLibrary, robinhsu599+dev@gmail.com
 
 ## License
 
-See the LICENSE file for more info.
+See the [LICENSE](LICENSE) file for more info.
 
+>**Copyright &copy; 2015 Robin Hsu/Tech.D.Robin**
 
 

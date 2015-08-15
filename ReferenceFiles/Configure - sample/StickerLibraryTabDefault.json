@@ -1,0 +1,23 @@
+{ 
+    "Tab"   : 
+    [ 
+        { 
+            "Name"          :   "Face", 
+            "Description"   :   "Face sticker", 
+            "Enabled"       :   "1", 
+            "Images"        :   ["StickerLibraryTabDefault/ic_face_grey600_36dp", "StickerLibraryTabDefault/ic_face_white_36dp"], 
+            "Configure"     :   "1001page.face" 
+        }, 
+        
+        { 
+            "Name"          :   "Emotion", 
+            "Description"   :   "Emotion sticker", 
+            "Enabled"       :   "1", 
+            "Images"        :   ["StickerLibraryTabDefault/ic_insert_emoticon_grey600_36dp", "StickerLibraryTabDefault/ic_insert_emoticon_white_36dp"], 
+            "Configure"     :   "1003page.emotion" 
+        }, 
+    
+    ] 
+} 
+
+

@@ -1,0 +1,33 @@
+{
+    "Emotion"   : 
+    [ 
+        {   
+            "ID"            : "20150709001", 
+            "Mode"          : "2", 
+            "Title"         : "nicubunu's emotion", 
+            "Author"        : "nicubunu", 
+            "E-Mail"        : "", 
+            "Website"       : "https://openclipart.org/user-cliparts/nicubunu", 
+            "IntroImage"    : "starry12@2x", 
+            "Description"   : "nicubunu's emotion icon in openclipart.org", 
+            "SubDirectory"  : "1003page.emotion", 
+            "Images"        : ["nicubunu-emotion.png"], 
+            "Configure"     : "nicubunu-emotion", 
+        }, 
+        
+        {   
+            "ID"            : "20150709002", 
+            "Mode"          : "2", 
+            "Title"         : "rg1024's emotion", 
+            "Author"        : "rg1024", 
+            "E-Mail"        : "", 
+            "Website"       : "https://openclipart.org/user-cliparts/rg1024", 
+            "Description"   : "rg1024's emotion icon in openclipart.org", 
+            "SubDirectory"  : "1003page.emotion", 
+            "Images"        : ["rg1024-emotion.png"], 
+            "Configure"     : "rg1024-emotion", 
+        } 
+        
+    
+    ] 
+} 

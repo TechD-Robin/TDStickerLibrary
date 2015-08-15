@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+===================================================================
+
+Sprite sheet file created for UIKit using TexturePacker
+http://www.codeandweb.com/texturepacker
+
+===================================================================
+$TexturePacker:SmartUpdate:c63e33011f4cd46a93cdf3a0d7e72ae6:41cceca1fa266e000237e98ffdadb64a:fecaf1463599e26505aab32d53429a7e$
+-->
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+
+                        <key>weather-few-clouds-night</key>
+			<dict>
+				<key>x</key><real>20</real>
+				<key>y</key><real>20</real>
+				<key>w</key><real>128</real>
+				<key>h</key><real>90</real>
+				
+				
+			</dict>
+                        <key>weather-overcast</key>
+			<dict>
+				<key>x</key><real>168</real>
+				<key>y</key><real>20</real>
+				<key>w</key><real>128</real>
+				<key>h</key><real>90</real>
+				
+				
+			</dict>
+                        <key>weather-severe-alert</key>
+			<dict>
+				<key>x</key><real>316</real>
+				<key>y</key><real>20</real>
+				<key>w</key><real>128</real>
+				<key>h</key><real>114</real>
+				
+				
+			</dict>
+                        <key>weather-showers</key>
+			<dict>
+				<key>x</key><real>464</real>
+				<key>y</key><real>20</real>
+				<key>w</key><real>128</real>
+				<key>h</key><real>119</real>
+				
+				
+			</dict>
+                        <key>weather-snow</key>
+			<dict>
+				<key>x</key><real>20</real>
+				<key>y</key><real>159</real>
+				<key>w</key><real>128</real>
+				<key>h</key><real>120</real>
+				
+				
+			</dict>
+                        <key>weather-showers-scattered</key>
+			<dict>
+				<key>x</key><real>168</real>
+				<key>y</key><real>159</real>
+				<key>w</key><real>128</real>
+				<key>h</key><real>120</real>
+				
+				
+			</dict>
+                        <key>weather-clear-night</key>
+			<dict>
+				<key>x</key><real>316</real>
+				<key>y</key><real>159</real>
+				<key>w</key><real>128</real>
+				<key>h</key><real>128</real>
+				
+				
+			</dict>
+                        <key>weather-few-clouds</key>
+			<dict>
+				<key>x</key><real>464</real>
+				<key>y</key><real>159</real>
+				<key>w</key><real>128</real>
+				<key>h</key><real>128</real>
+				
+				
+			</dict>
+                        <key>weather-clear</key>
+			<dict>
+				<key>x</key><real>20</real>
+				<key>y</key><real>307</real>
+				<key>w</key><real>128</real>
+				<key>h</key><real>128</real>
+				
+				
+			</dict>
+                        <key>weather-storm</key>
+			<dict>
+				<key>x</key><real>168</real>
+				<key>y</key><real>307</real>
+				<key>w</key><real>123</real>
+				<key>h</key><real>128</real>
+				
+				
+			</dict>
+		</dict>
+		<key>meta</key>
+		<dict>
+			<key>image</key>
+			<string>warszawianka-weather.png</string>
+			<key>width</key>
+			<integer>612</integer>
+			<key>height</key>
+			<integer>455</integer>
+		</dict>
+	</dict>
+</plist>

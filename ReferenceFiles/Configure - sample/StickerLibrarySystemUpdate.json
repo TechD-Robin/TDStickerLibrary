@@ -1,0 +1,15 @@
+{ 
+    "UpdateSystem"  : 
+    {
+        "Name"          :   "UpdateSystem", 
+        "Timestamp"     :   "15030201" 
+    },  
+
+    "UpdateTab"     : 
+    { 
+        "Name"          :   "StickerLibraryTabUpdate", 
+        "Timestamp"     :   "15071001", 
+        "DataLink"      :   "https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXeE5JLWM1TzZvNmc&export=download"
+    } 
+    
+} 

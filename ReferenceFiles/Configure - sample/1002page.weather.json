@@ -1,0 +1,39 @@
+{
+    "Weather"     : 
+    [ 
+        {   
+            "ID"            : "20150709001", 
+            "Mode"          : "3", 
+            "Title"         : "warszawianka's weather", 
+            "Author"        : "warszawianka", 
+            "E-Mail"        : "", 
+            "Website"       : "https://openclipart.org/user-cliparts/warszawianka", 
+            "IntroImage"    : "weather-clear", 
+            "Description"   : "warszawianka's weather icon in openclipart.org", 
+            "SubDirectory"  : "1002page.weather", 
+            "Images"        : ["warszawianka-weather.png"], 
+            "Configure"     : "warszawianka-weather", 
+            "Timestamp"     : "15070901", 
+            "DataLink"      : "https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXY3FoRnpLenQydUE&export=download" 
+        }, 
+        
+        { 
+            "ID"            : "20150707001", 
+            "Mode"          : "3", 
+            "Title"         : "gnokii's weather", 
+            "Author"        : "gnokii", 
+            "E-Mail"        : "", 
+            "Website"       : "https://openclipart.org/user-cliparts/gnokii", 
+            "IntroImage"    : "sunny-to-cloudy", 
+            "Description"   : "gnokii's weather icon in openclipart.org", 
+            "SubDirectory"  : "1002page.weather", 
+            "Images"        : ["gnokii-weather.png"], 
+            "Configure"     : "gnokii-weather", 
+            "Timestamp"     : "15070701", 
+            "DataLink"      : "https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXYU00LU00Tk5pS1E&export=download" 
+            
+        } 
+        
+        
+    ] 
+} 
