@@ -255,7 +255,8 @@
 //    
 //    [customization                  setSysStyleTitleTextColor:                      sysCustomization->styleTitleTextColor];
     
-    [customization                  setStatusBarHidden:                             YES];
+    [customization                  setStatusBarHidden:                             NO];
+    [customization                  setBannerHeight:                                0.0f];
     [customization                  setStatusBarStyle:                              UIStatusBarStyleLightContent];
     
     
@@ -386,8 +387,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     callbackImageView               = nil;
-//    [[self                          view] setBackgroundColor: [UIColor grayColor]];
-    [[self                          view] setBackgroundColor: [UIColor clearColor]];
+    [[self                          view] setBackgroundColor: [UIColor darkGrayColor]];
+//    [[self                          view] setBackgroundColor: [UIColor clearColor]];
 
     
 //    [[self                          view] setAutoresizingMask: UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
