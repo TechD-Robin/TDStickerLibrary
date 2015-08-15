@@ -28,8 +28,8 @@ pod 'TDStickerLibrary'
 # Get the latest on develop
 pod 'TDStickerLibrary',     :git => 'git://git.techd.idv.tw/Functionality/TDStickerLibrary.git',       :branch => 'develop'
 
-# For version 0.1.0
-pod 'TDStickerLibrary',     :git => 'git://git.techd.idv.tw/Functionality/TDStickerLibrary.git',       :tag    => '0.1.0' 
+# For version 0.1.1
+pod 'TDStickerLibrary',     :git => 'git://git.techd.idv.tw/Functionality/TDStickerLibrary.git',       :tag    => '0.1.1' 
 ```
 
 
