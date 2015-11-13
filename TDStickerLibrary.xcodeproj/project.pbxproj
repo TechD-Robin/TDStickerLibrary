@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A1022701BF5EA7A00AF47F7 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A10226F1BF5EA7A00AF47F7 /* libz.1.dylib */; };
 		2A29D0111ADAE1460096161D /* TDStickerLibraryUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A29D0101ADAE1460096161D /* TDStickerLibraryUpdate.m */; };
 		2A41225E1B135CA3004262E2 /* TDSystemCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A41225D1B135CA3004262E2 /* TDSystemCustomization.m */; };
 		2A4122631B138877004262E2 /* SystemCustomization.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2A4122621B138877004262E2 /* SystemCustomization.bundle */; };
@@ -170,7 +171,6 @@
 		2AADF4BF1A69599E0026EF9D /* TDStickerLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF4BE1A69599E0026EF9D /* TDStickerLibrary.m */; };
 		2AADF4C51A69599E0026EF9D /* libTDStickerLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AADF4B91A69599E0026EF9D /* libTDStickerLibrary.a */; };
 		2AADF5081A695E7B0026EF9D /* TDStickerLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AADF5071A695E7B0026EF9D /* TDStickerLibraryViewController.m */; };
-		2AB706301A6FE00C006C6845 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB7062F1A6FE00C006C6845 /* libz.dylib */; };
 		2AB706891A6FE42F006C6845 /* TDStickerLibraryTabInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB706881A6FE42F006C6845 /* TDStickerLibraryTabInfo.m */; };
 		2AB7068F1A700918006C6845 /* TDStickerLibraryCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7068E1A700918006C6845 /* TDStickerLibraryCustomization.m */; };
 		2ABD8E371A714E9300626356 /* TDBaseTabMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABD8E361A714E9300626356 /* TDBaseTabMenuItem.m */; };
@@ -214,6 +214,7 @@
 
 /* Begin PBXFileReference section */
 		2A07B3F01B5673FF0011E01D /* TDStickerLibraryExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryExtension.h; sourceTree = "<group>"; };
+		2A10226F1BF5EA7A00AF47F7 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = /usr/lib/libz.1.dylib; sourceTree = "<absolute>"; };
 		2A29D00F1ADAE1460096161D /* TDStickerLibraryUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStickerLibraryUpdate.h; sourceTree = "<group>"; };
 		2A29D0101ADAE1460096161D /* TDStickerLibraryUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStickerLibraryUpdate.m; sourceTree = "<group>"; };
 		2A40E8871B793D8D007914F0 /* TDStickerLibrary.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = TDStickerLibrary.podspec; sourceTree = "<group>"; };
@@ -411,7 +412,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2AB706301A6FE00C006C6845 /* libz.dylib in Frameworks */,
+				2A1022701BF5EA7A00AF47F7 /* libz.1.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,6 +621,7 @@
 		2A88D4B61B03D80600F6D0D5 /* fork_ZipArchive */ = {
 			isa = PBXGroup;
 			children = (
+				2A10226F1BF5EA7A00AF47F7 /* libz.1.dylib */,
 				2AB7062F1A6FE00C006C6845 /* libz.dylib */,
 				2A88D4B81B03D82F00F6D0D5 /* LICENSE */,
 				2A88D4C31B03D82F00F6D0D5 /* README.md */,
