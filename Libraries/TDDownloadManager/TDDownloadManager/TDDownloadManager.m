@@ -426,8 +426,9 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     }
     
     //  move file.
-    //  iOS file system's letter is not to differentiate between lowercase and uppercase, so always set to lowercase.
-    destinationFile                 = [destinationFile lowercaseString];
+    //  comment this, because have different result at physical device and simulator.
+    //    //  iOS file system's letter is not to differentiate between lowercase and uppercase, so always set to lowercase.
+    //    destinationFile                 = [destinationFile lowercaseString];
     destinationFile                 = [@"file://" stringByAppendingString: destinationFile];
     destinationFile                 =  [destinationFile stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
     destinationURL                  = [NSURL URLWithString: destinationFile];
