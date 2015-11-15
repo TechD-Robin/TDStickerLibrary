@@ -1,14 +1,16 @@
-# Functionality/TDStickerLibrary
+# TechD-Robin/TDStickerLibrary
 
-The Sticker Library is a multi-page for sticker collection view for iOS.
+
+The Sticker Library is a sticker's collection view of multi-page for iOS.
+
+The Sticker Library provide several functionality :
+
+* sticker's easy browse & preview.
+
+* update & download newer.
+
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/n3Nfy4H0dvk" frameborder="0" allowfullscreen></iframe>
-
-## Dependencies
-
-* TDResourceManager
-* TDDownloadManager
-* UIKit+TechD
 
 
 ## Requirements
@@ -17,36 +19,57 @@ The Sticker Library is a multi-page for sticker collection view for iOS.
 * ARC
 
 
-## Usage
 
-From [CocoaPods](http://cocoapods.org):
+## Install
+
+### Download
+
+1. Click `Download ZIP` or here : [download][downloadLink]
+2. Add both `TDStickerLibrary/` and `Libraries/` folder to your project.
+
+### [CocoaPods][cocoaPodsLink]
+
+add `Podfile` in project's root directory, content like below :
 
 ```ruby
 # For latest release in cocoapods
-pod 'TDStickerLibrary'
+platform :ios, '8.0'
+pod "TDStickerLibrary"
 
+```
+
+```ruby
 # Get the latest on develop
-pod 'TDStickerLibrary',     :git => 'git://git.techd.idv.tw/Functionality/TDStickerLibrary.git',       :branch => 'develop'
+platform :ios, '8.0'
+pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibrary.git',    :branch => 'develop'
+```
 
+```ruby
 # For version 0.1.1
-pod 'TDStickerLibrary',     :git => 'git://git.techd.idv.tw/Functionality/TDStickerLibrary.git',       :tag    => '0.1.1' 
+platform :ios, '8.0'
+pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibrary.git',    :tag => '0.1.1'
+
+# or
+#pod 'TDStickerLibrary', '~> 0.1.1'
+
 ```
 
 
-Without CocoaPods:
 
-1. Download this repository from here.
-2. Drag the `TDStickerLibrary/` and `Libraries/` folder to your project.
+## Dependencies
+
+* [TDResourceManager][dependenceTDResourceManager]
+
+* [TDDownloadManager][dependenceTDDownloadManager]
+
+* [UIKit+TechD][dependenceUIKit+TechD]
+
 
 
 ## Getting Started
 
-````objective-c
-#import "TDStickerLibrary.h"    // import main header file
-````
-
 * **Demo Project**
-  * There's a demo project: `DemoStickerLibrary/`.
+  * A demo project in `DemoStickerLibrary/` folder.
 
   > **NOTE:**
   > the demo project is include base mechanism:
@@ -54,10 +77,16 @@ Without CocoaPods:
   > 1. browse sticker library.
   >
   > 2. get the sticker image from user touch.
-  > 
+  >
   > 3. update sticker library data.
 
+
 * **Quick Run**
+
+* ````objective-c
+#import "TDStickerLibrary.h"    // import main header file
+````
+
 
 * ````objective-c
         TDStickerLibraryViewController* controller;
@@ -86,17 +115,17 @@ Without CocoaPods:
 
 ## Getting  Advance
 
-* **Customization** customize your UI configure 
+* **Customization** customize your UI configure
 * ````objective-c
         TDStickerLibraryViewController* controller;
         TDStickerLibraryCustomization * customization;
-    
+
         customization                   = [TDStickerLibraryCustomization new];
         if ( nil == customization )
         {
             return;
         }
-    
+
         [customization                  setSysStyleMasterVisionBGC:     [UIColor purpleColor]];
         [customization                  setSysStyleTitleTextColor:      [UIColor lightGrayColor]];
         [customization                  setBannerHeight:                0.0f];
@@ -133,30 +162,30 @@ Without CocoaPods:
   1. Setup your update file to server.
   2. Get the update file's URL.
   3. Use this URL to your update method.
-  4. sample 
+  4. sample
 
-     ````objective-c 
-- ( void ) updateConfigure 
+     ````objective-c
+- ( void ) updateConfigure
 {
             NSArray                       * searchKeys;
             NSString                      * updateTabSearchKey;
             NSString                      * urlString;
             TDStickerLibraryUpdate        * updateProcedure;
             TDStickerLibraryCustomization * customization;
-    
+
             updateTabSearchKey              = @"UpdateTab";
             urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXX0JqNEdqcEZSTU0&export=download";
             customization                   = [TDStickerLibraryCustomization new];
             NSParameterAssert( nil != customization );
-    
+
             [customization                  setSystemConfigureTabUpdateDefaultKey: updateTabSearchKey];
             [customization                  setSystemConfigureTabUpdateZpwiaopsrpsded: @"StickerLibrary"];
             updateProcedure                 = [TDStickerLibraryUpdate stickerLibraryUpdateWithCustomization: customization];
             NSParameterAssert( nil != updateProcedure );
-    
+
             searchKeys                      = [NSArray arrayWithObjects: updateTabSearchKey, nil];
             [updateProcedure                startUpdateSystemConfigure: urlString forSearch: searchKeys];
-    
+
             __weak __typeof(updateProcedure)    weakUpdateProcedure;
             weakUpdateProcedure                 = updateProcedure;
             [updateProcedure                    setUpdateCompletionBlock: ^(NSDictionary * updateResponses, NSError * error, BOOL finished)
@@ -164,72 +193,127 @@ Without CocoaPods:
                 NSLog( @"resopnses : %@", updateResponses );
                 NSLog( @"error : %@", error );
                 NSLog( @"finished : %d", finished );
-         
+
                 [weakUpdateProcedure            stopProcedure];
             }];
 }
 ````
-  
+
   > **NOTE:**
   >
   > after added the update procedure, about some of customize configure of **`TDStickerLibraryViewController`**, must same the update's configure;
   >
   >
-  
-  ````objective-c 
+
+  ````objective-c
 - (IBAction)startAction:(id)sender
 {
-    
+
         TDStickerLibraryViewController* controller;
         TDStickerLibraryCustomization * customization;
-    
+
         customization                   = [TDStickerLibraryCustomization new];
         NSParameterAssert( nil != customization );
-    
+
         [customization                  setSystemConfigureTabUpdateDefaultKey:          @"UpdateTab"];          //  equal update's configure.
-        [customization                  setSystemConfigureTabUpdateZpwiaopsrpsded:      @"StickerLibrary"];     //  maybe equal update's configure. 
-        [customization                  setSystemConfigureTabPageUpdateZpwiaopsrpsded:  @"StickerLibrary"];     //  maybe equal update's configure. 
-        [customization                  setStickerDownloadZpwiaopsrpsded:               @"StickerLibrary"];     //  maybe equal update's configure. 
-    
+        [customization                  setSystemConfigureTabUpdateZpwiaopsrpsded:      @"StickerLibrary"];     //  maybe equal update's configure.
+        [customization                  setSystemConfigureTabPageUpdateZpwiaopsrpsded:  @"StickerLibrary"];     //  maybe equal update's configure.
+        [customization                  setStickerDownloadZpwiaopsrpsded:               @"StickerLibrary"];     //  maybe equal update's configure.
+
         controller                      = [TDStickerLibraryViewController stickerLibarayWithCustomization: customization];
         NSParameterAssert( nil != controller );
-    
+
         [controller                     setFinishedStickerLibraryCallbackBlock: ^(UIImage * stickerImage)
         {
             NSLog( @"sticker image : %@", stickerImage );
         }];
-    
+
         [self                           presentViewController: controller animated: YES completion: nil];
 }
 ````
 
 ## Documents
 
-* **Configure Files Schema** 
-  1. [Table Schema - StickerLibrary - en.ods](ReferenceFiles/Documents/Table Schema - StickerLibrary - en.ods), [Table Schema - StickerLibrary - zh-Hant.ods](ReferenceFiles/Documents/Table Schema - StickerLibrary - zh-Hant.ods)
+
+* **Configure Files Schema**  
+
+  * [Table Schema - StickerLibrary - en.ods](ReferenceFiles/Documents/Table Schema - StickerLibrary - en.ods) 
+  * [Table Schema - StickerLibrary - zh-Hant.ods](ReferenceFiles/Documents/Table Schema - StickerLibrary - zh-Hant.ods)
 
   > **NOTE:**
   >
-  > .ods file editor : [OpenOffice](https://www.openoffice.org/)
-  
-* **System Configure JSON Sample** 
-  1. System default configure of the Tab Menu : [StickerLibraryTabDefault.json](ReferenceFiles/Configure - sample/StickerLibraryTabDefault.json) 
-  2. The System Update configure : [StickerLibrarySystemUpdate.json](ReferenceFiles/Configure - sample/StickerLibrarySystemUpdate.json)
-  3. A Page configure : [1001.page.face.json](ReferenceFiles/Configure - sample/1001page.face.json), [1002page.weather.json](ReferenceFiles/Configure - sample/1002page.weather.json), [1003page.emotion.json](ReferenceFiles/Configure - sample/1003page.emotion.json).
+  > .ods file editor : [OpenOffice][OpenOfficeLink]
+
+
+* **System Configure JSON Sample**  
+
+  1. System default configure of the Tab Menu : 
+   * [StickerLibraryTabDefault.json](ReferenceFiles/Configure - sample/StickerLibraryTabDefault.json)
+  2. The System Update configure : 
+   * [StickerLibrarySystemUpdate.json](ReferenceFiles/Configure - sample/StickerLibrarySystemUpdate.json)
+  3. A Page configure : 
+   * [1001.page.face.json](ReferenceFiles/Configure - sample/1001page.face.json), 
+   * [1002page.weather.json](ReferenceFiles/Configure - sample/1002page.weather.json), 
+   * [1003page.emotion.json](ReferenceFiles/Configure - sample/1003page.emotion.json).
+
 
 * **Preview Image Crop PList Sample**   
-  [warszawianka-weather.plist](ReferenceFiles/Configure - sample/warszawianka-weather.plist) 
+
+  * [warszawianka-weather.plist](ReferenceFiles/Configure - sample/warszawianka-weather.plist)
 
 
+## Special Thanks
 
-## Author
+* for be imported repositories :
 
-Functionality/TDStickerLibrary, robinhsu599+dev@gmail.com
+  * [ZipArchive][dependenceZipArchive]
+  * [AFNetworking][dependenceAFNetworking]
+
+* for stickers sample :
+  * 
+  *
+  *
+
+
+## Special Request
+
+ Say sorry for my English, is very weak.
+
+ Also, please help me to fix these English syntax or error words, if you have free time and want to do.
+
+ ** Thanks very much! **
+
+## Contribute
+coming soon ~. ~
+
+
+## Donate
+coming soon ? .?
+
 
 ## License
 
-See the [LICENSE](LICENSE) file for more info.
+`TDStickerLibrary` is released under the [MIT License][mitLink]. See `LICENSE` for details.
 
->**Copyright &copy; 2015 Robin Hsu/Tech.D.Robin**
+>**Copyright &copy; 2015-Robin Hsu/Tech.D.Robin**
+
+Please provide attribution, it is greatly appreciated.
+
+
+----
+[downloadLink]: https://github.com/TechD-Robin/TDStickerLibrary/archive/master.zip
+[cocoaPodsLink]: https://cocoapods.org/
+[OpenOfficeLink]: https://www.openoffice.org/
+
+[dependenceTDResourceManager]: https://github.com/TechD-Robin/TDResourceManager
+[dependenceTDDownloadManager]: https://github.com/TechD-Robin/TDDownloadManager
+[dependenceUIKit+TechD]: https://github.com/TechD-Robin/UIKit-TechD
+
+[dependenceAFNetworking]: https://github.com/AFNetworking/AFNetworking
+
+[dependenceZipArchive]: https://github.com/mattconnolly/ZipArchive
+
+
+[mitLink]:http://opensource.org/licenses/MIT
 
 
