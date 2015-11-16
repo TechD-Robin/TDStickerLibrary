@@ -269,27 +269,48 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
   * [ZipArchive][dependenceZipArchive]
   * [AFNetworking][dependenceAFNetworking]
 
+
 * for stickers sample :
-  * 
-  *
-  *
+
+  * [Oca Studios][Oca Studios]
+  * [nicubunu][nicubunu]
+  * [rg1024][rg1024]    
+  * [gnokii][gnokii]    
+  * [warszawianka][warszawianka]  
 
 
 ## Special Request
 
- Say sorry for my English, is very weak.
+ Sorry for my English, is very weak.
 
  Also, please help me to fix these English syntax or error words, if you have free time and want to do.
 
  ** Thanks very much! **
 
 ## Contribute
+
 coming soon ~. ~
 
 
-## Donate
-coming soon ? .?
+(You can support contributors of this project individually.)
 
+
+## Donate 
+
+Support the development of this library and author.
+
+![donateWithPayPal][donateWithPayPal] 
+* [USD $1][USD $1] a black tea of traditional taste of Taiwan. 
+* [USD $5][USD $5] a good lunch 
+* [USD $20][USD $20] anti-hungry 72 hr 
+* [USD $50][USD $50] get a wonderful week 
+* [other USD][other USD] a kindness support for development 
+
+** Bitcoin **
+* Bitcoin address `1GkUKb31JDwimpu2MJoQ1R7rjS8taX97aE`
+* [Bitcoin URI][donateBitcoinURI]
+
+Thanks for each donator.
 
 ## License
 
@@ -310,9 +331,23 @@ Please provide attribution, it is greatly appreciated.
 [dependenceUIKit+TechD]: https://github.com/TechD-Robin/UIKit-TechD
 
 [dependenceAFNetworking]: https://github.com/AFNetworking/AFNetworking
-
 [dependenceZipArchive]: https://github.com/mattconnolly/ZipArchive
 
+[Oca Studios]: http://ocastudios.com/classics/doushouqi
+[nicubunu]: https://openclipart.org/user-cliparts/nicubunu
+[rg1024]: https://openclipart.org/user-cliparts/rg1024
+[gnokii]: https://openclipart.org/user-cliparts/gnokii
+[warszawianka]: https://openclipart.org/user-cliparts/warszawianka
+
+[donateSimply]: https://www.paypalobjects.com/en_US/TW/i/btn/btn_donate_SM.gif
+[donateWithPayPal]: https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_pp_142x27.png
+[USD $1]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LNBCYLQ7EGWGU
+[USD $5]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MS3JH5B6NQ6LU
+[USD $20]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=J3E8Y3CE5ZEC6
+[USD $50]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3N79SPMPQBJ9U
+[other USD]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=S7YNRSFEF2HUG
+
+[donateBitcoinURI]: bitcoin:1GkUKb31JDwimpu2MJoQ1R7rjS8taX97aE?label=GitHub%2C%20donate&message=Receive%20from%20GitHub%20TDSticker%20Library%27s%20donator%20
 
 [mitLink]:http://opensource.org/licenses/MIT
 
