@@ -1,20 +1,42 @@
-# Categories/Foundation+TechD
+
+# TechD-Robin/Foundation-TechD (Foundation+TechD)
+
+This library is base functional library of Tech.D, is a Category. <br>
+There are extended methods for framework of Foundation. 
 
 
-## Usage
+## Install
+
+### Download
+
+Click `Download ZIP` or here : [download][downloadLink]
 
 
-## Requirements
+### [CocoaPods][cocoaPodsLink]
 
+add `Podfile` in project's root direcotry, content like below : 
 
-## Installation
+```ruby
+platform :ios, '8.0'
+pod "Foundation+TechD", "~> 0.0.3"
 
+```
 
-## Author
+```ruby
+platform :ios, '8.0'
+pod 'Foundation+TechD',   :git => 'https://github.com/TechD-Robin/Foundation-TechD.git',    :branch => 'master'
+```
 
-Categories/Foundation+TechD, robinhsu599+dev@gmail.com
 
 ## License
 
-See the LICENSE file for more info.
+`Foundation+TechD` is released under the [MIT License][mitLink]. See `LICENSE` for details.
 
+
+## Annotation
+I always use the repository name `Foundation+TechD`, just publish to `GitHub` but it cannot accept to use the character `+`.
+
+----
+[downloadLink]:https://github.com/TechD-Robin/Foundation-TechD/archive/master.zip
+[cocoaPodsLink]:https://cocoapods.org/
+[mitLink]:http://opensource.org/licenses/MIT

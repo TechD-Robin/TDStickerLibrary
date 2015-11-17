@@ -545,7 +545,7 @@
     {
         if ( nil != assetsBundle )
         {
-            SAFE_ARC_RELEASE( assetsBundle )
+            SAFE_ARC_RELEASE( assetsBundle );
             assetsBundle            = nil;
         }
         stateFlags.initiatedAssetsBundle = NO;

@@ -1,20 +1,39 @@
-# Libraries/TDMath
+
+# TechD-Robin/TDMath
+
+These are base Math formula of Tech.D.
 
 
-## Usage
+
+## Install
+
+### Download
+
+Click `Download ZIP` or here : [download][downloadLink]
 
 
-## Requirements
+### [CocoaPods][cocoaPodsLink]
 
+add `Podfile` in project's root direcotry, content like below : 
 
-## Installation
+```ruby
+platform :ios, '8.0'
+pod "TDMath", "~> 0.0.1"
 
+```
 
-## Author
+```ruby
+platform :ios, '8.0'
+pod 'TDMath',   :git => 'https://github.com/TechD-Robin/TDMath.git',    :branch => 'develop'
+```
 
-Libraries/TDMath, robinhsu599+dev@gmail.com
 
 ## License
 
-See the LICENSE file for more info.
+`TDMath` is released under the [MIT License][mitLink]. See `LICENSE` for details.
 
+
+----
+[downloadLink]:https://github.com/TechD-Robin/TDMath/archive/master.zip
+[cocoaPodsLink]:https://cocoapods.org/
+[mitLink]:http://opensource.org/licenses/MIT

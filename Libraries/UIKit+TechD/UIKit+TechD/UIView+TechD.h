@@ -25,6 +25,15 @@
 - ( UIViewController * ) viewController;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief grab the layer's contents into image object.
+ *  grab the layer's contents into image object.
+ *
+ *  @return image|nil               the image or nil.
+ */
+- ( UIImage *) grabLayerToImage;
+
+//  ------------------------------------------------------------------------------------------------
 
 @end
 

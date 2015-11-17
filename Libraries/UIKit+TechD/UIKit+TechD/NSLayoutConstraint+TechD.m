@@ -48,9 +48,50 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
++ ( BOOL ) constraintForWidthStretchy:(UIView *)subView bottom:(CGFloat)bottom height:(CGFloat)height in:(UIView *)superView
+{
+    if ( ( nil == subView ) || ( nil == superView ) )
+    {
+        return NO;
+    }
+    
+    NSLayoutConstraint            * layoutBottom;
+    NSLayoutConstraint            * layoutLeft;
+    NSLayoutConstraint            * layoutRight;
+    NSLayoutConstraint            * layoutHeight;
+    
+    layoutBottom                    = [NSLayoutConstraint constraintWithItem: subView attribute: NSLayoutAttributeBottom relatedBy: NSLayoutRelationEqual
+                                                                      toItem: superView attribute:  NSLayoutAttributeBottom multiplier: 1.0f constant: bottom ];
+    
+    layoutLeft                      = [NSLayoutConstraint constraintWithItem: subView attribute: NSLayoutAttributeLeft relatedBy: NSLayoutRelationEqual
+                                                                      toItem: superView attribute: NSLayoutAttributeLeft multiplier: 1.0f constant: 0.0f];
+    
+    layoutRight                     = [NSLayoutConstraint constraintWithItem: subView attribute: NSLayoutAttributeRight relatedBy: NSLayoutRelationEqual
+                                                                      toItem: superView attribute: NSLayoutAttributeRight multiplier: 1.0f constant: 0.0f];
+    
+    layoutHeight                    = [NSLayoutConstraint constraintWithItem: subView attribute: NSLayoutAttributeHeight relatedBy: NSLayoutRelationEqual
+                                                                      toItem: nil attribute: NSLayoutAttributeHeight multiplier: 1.0f constant: height ];
+    
+    [subView                        setClipsToBounds: YES];
+    [subView                        setTranslatesAutoresizingMaskIntoConstraints: NO];
+    [superView                      addConstraint: layoutBottom];
+    [superView                      addConstraint: layoutLeft];
+    [superView                      addConstraint: layoutRight];
+    [superView                      addConstraint: layoutHeight];
+    
+    return YES;
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 
 
 @end
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+
+
+
+
+

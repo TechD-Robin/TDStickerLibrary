@@ -34,6 +34,28 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( UIImage *) grabLayerToImage
+{
+    UIImage                       * image;
+    
+    // Create a "canvas" (image context) to draw in.
+    //UIGraphicsBeginImageContext( [self bounds].size );
+    UIGraphicsBeginImageContextWithOptions( [self bounds].size, [self isOpaque], 0.0f );
+    
+    // Make the CALayer to draw in our "canvas".
+    [[self                          layer] renderInContext: UIGraphicsGetCurrentContext()];
+    
+    // Fetch an UIImage of our "canvas".
+    image                           = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // Stop the "canvas" from accepting any input.
+    UIGraphicsEndImageContext();
+    
+    // Return the image.
+    return image;
+}
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 @end

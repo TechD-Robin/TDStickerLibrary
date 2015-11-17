@@ -1,20 +1,57 @@
-# Libraries/TDFoundation
+
+# TechD-Robin/TDFoundation
+
+The `TDFoundation` is base functional library of Tech.D. <br>
+
+There are several utilities & methods to simplify call.
+
+* Load sprite data of iOS's XML format, like a [Texture Packer][TexturePackerLink] export.
+
+* Load a `JSON` data.
+
+* file & path system
 
 
-## Usage
+
+## Install
+
+### Download
+
+Click `Download ZIP` or here : [download][downloadLink]
 
 
-## Requirements
+### [CocoaPods][cocoaPodsLink]
 
+add `Podfile` in project's root direcotry, content like below : 
 
-## Installation
+```ruby
+platform :ios, '8.0'
+pod "TDFoundation", "~> 0.0.4"
 
+```
 
-## Author
+```ruby
+platform :ios, '8.0'
+pod 'TDFoundation',   :git => 'https://github.com/TechD-Robin/TDFoundation.git',    :branch => 'develop'
+```
 
-Libraries/TDFoundation, robinhsu599+dev@gmail.com
+## Dependencies
+
+[Foundation+TechD][dependenceFoundation+TechD]
+
 
 ## License
 
-See the LICENSE file for more info.
+`TDFoundation` is released under the [MIT License][mitLink]. See `LICENSE` for details.
+
+
+----
+[TexturePackerLink]: https://www.codeandweb.com/texturepacker
+[downloadLink]:https://github.com/TechD-Robin/TDFoundation/archive/master.zip
+[cocoaPodsLink]:https://cocoapods.org/
+
+[dependenceFoundation+TechD]: https://github.com/TechD-Robin/Foundation-TechD.git
+
+[mitLink]:http://opensource.org/licenses/MIT
+
 
