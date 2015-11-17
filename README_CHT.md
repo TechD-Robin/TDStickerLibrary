@@ -1,35 +1,36 @@
 # TechD-Robin/TDStickerLibrary
 
+(中文毒我)
 
-The Sticker Library is a sticker's collection view of multi-page for iOS.
+Sticker Library 是一鍋給 iOS 裝置使用的多分頁式的貼紙瀏覽的函式庫。
 
-The Sticker Library provide several functionality :
+Sticker Library 提供的幾項主要功能：
 
-* sticker's easy browse & preview.
+* 簡單的貼紙瀏覽以及預覽功能
 
-* update & download newer.
+* 貼紙資料的下載與更新
 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/n3Nfy4H0dvk" frameborder="0" allowfullscreen></iframe>
 
 
-## Requirements
+## 環境需求
 
 * iOS 8.0+
 * ARC
 
 
 
-## Install
+## 函式庫安裝
 
-### Download
+### 下載
 
-1. Click `Download ZIP` or here : [download][downloadLink]
-2. Add both `TDStickerLibrary/` and `Libraries/` folder to your project.
+1. 點選畫面右邊的`Download ZIP`，或者直接 [點這邊下載][downloadLink]
+2. 將函式庫的 `TDStickerLibrary/` 和 `Libraries/` 這兩個目錄新增到您的專案內
 
-### [CocoaPods][cocoaPodsLink]
+### 透過 [CocoaPods][cocoaPodsLink]
 
-add `Podfile` in project's root directory, content like below :
+在專案的根目錄裡頭新增一個 `Podfile` 檔案，並且新增類似下面描述的檔案內容：
 
 ```ruby
 # For latest release in cocoapods
@@ -56,7 +57,9 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
 
 
 
-## Dependencies
+## 專案相依性
+
+本函式庫直接引用下述的其他函式庫：
 
 * [TDResourceManager][dependenceTDResourceManager]
 
@@ -69,28 +72,27 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
 * [TDMath][dependenceTDMath]
 
 
+## 入門使用 － ⋯ 花您三十分鐘就上手？
 
-## Getting Started
+* ** 展示用專案 **
+  * 專案內容被擺在 `DemoStickerLibrary/` 這個資料夾內。
 
-* **Demo Project**
-  * A demo project in `DemoStickerLibrary/` folder.
 
-  > **NOTE:**
-  > the demo project is include base mechanism:
+  > **注意事項：**
+  > 展示用專案包含下述幾項基本的機制流程
   >
-  > 1. browse sticker library.
+  > 1. 瀏覽貼紙圖庫
   >
-  > 2. get the sticker image from user touch.
+  > 2. 使用者點選後，取得貼紙的圖像資訊
   >
-  > 3. update sticker library data.
+  > 3. 貼紙圖庫的更新
 
 
-* **Quick Run**
+* **簡單又快速的引用執行**
 
   ````objective-c
   #import "TDStickerLibrary.h"    // import main header file
   ````
-
   ````objective-c
   TDStickerLibraryViewController* controller;
   controller                      = [TDStickerLibraryViewController stickerLibaray];
@@ -102,24 +104,25 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
 
   //  will get a empty sticker libery.
   ````
+> **注意事項：**
+> 太過簡單地導入的關係，您將得到一個 啥密碗糕貼圖都沒有的貼紙圖庫！
 
-  > **NOTE:**
-  > will get a empty sticker libery.
+
+* **簡單版本的引用範例**
+  1. 先透過下載或是解壓縮取得本專案內容的目錄：`Resources/**/*.*`
+  2. 在您的專案列表之下新增一個目錄：`Resources/`
+  3. 將步驟一所取得的 `Resources/Configure` 目錄內容，拖拉進步驟二的 `Resources/` 目錄之下；記得在對話方塊 **'Added folders :'** 要透過什麼方式增加這些內容的地方勾選 ***`Create folder references`***
+  4. (把頭轉回去)參考上一節的設定 **簡單又快速的引用執行**
+  5. 執行您專案的 `Rebuild` & `Run`
+
+  > **注意事項：**
+  > 本回合的引用範例，並沒有包含更新機制
 
 
-* **Easy Sample**
-  1. Download `Resources/**/*.*` these file.
-  2. Create a `Resources/` directory to your project.
-  3. Drag the `Configure/` (step 1's sub-directory) folder into `Resources/` folder, and at **'Added folders :'** choose ***`Create folder references`***.
-  4. Reference **Quick Run**
-  5. Rebuild & run project.
+## 進階版使用法 － ⋯ 師父領進門，造化看個人？
 
-  > **NOTE:**
-  > these code is not yet include update mechanism.
+* ** 客製化 ** 自訂您的介面設定
 
-## Getting  Advance
-
-* **Customization** customize your UI configure
   ````objective-c
   TDStickerLibraryViewController* controller;
   TDStickerLibraryCustomization * customization;
@@ -144,36 +147,35 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
   [self                           presentViewController: controller animated: YES completion: nil];
   ````
 
-  > **NOTE:**
+  > **注意事項：**
   >
-  > 1. check these configure your can customize from `TDStickerLibraryCustomization.h`.
+  > 1. 您可以在 `TDStickerLibraryCustomization.h` 裡找到關於這些可以自訂的相關設定
   >
-  > 2. you must customize these properties <span style="color:red">`sysStyleXXX`</span> like `sysStyleBundleName` for system style by you self.
+  > 2. 您 *** <FONT COLOR="orange"> 必須 </FONT> *** 自行完成這些參數的設定：屬性名稱的前綴字為 *** <FONT COLOR="red"> sysStyle </FONT> *** 的變數；比方說，這一個變數 `sysStyleBundleName`
+  >
 
-
-* **Get Sticker** get the sticker image from user touch
+* ** 取得貼紙資訊 ** 使用者點選後，取得貼紙的圖像資訊
 
   ````objective-c
   [controller                     setFinishedStickerLibraryCallbackBlock: ^(UIImage * stickerImage)
   {
       NSLog( @"sticker image : %@", stickerImage );
-  }]; 
-  ````
+  }];
+    ````
 
 
-
-* **Update Data**
-  1. Setup your update file to server.
-  2. Get the update file's URL.
-  3. Use this URL to your update method.
-  4. sample
+* ** 資料更新 **
+  1. 在可用的伺服器上，設定與上傳您的相關設定檔案
+  2. 取得該設定檔的 `URL address`
+  3. 將該 `URL address` 設定至更新流程所使用的屬性上頭
+  4. 範例參考
 
     ````objective-c
     - ( void ) updateConfigure
     {
          NSArray                       * searchKeys;
          NSString                      * updateTabSearchKey;
-         NSString                      * urlString;
+          NSString                      * urlString;
          TDStickerLibraryUpdate        * updateProcedure;
          TDStickerLibraryCustomization * customization;
 
@@ -203,11 +205,11 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
     }
     ````
 
-    > **NOTE:**
+    > **注意事項：**
     >
-    > after added the update procedure, about some of customize configure of **`TDStickerLibraryViewController`**, must same the update's configure;
-    >
-    >
+    > 完成上面的更新程序的設定之後，請記得讓 **`TDStickerLibraryViewController`** 這個主要的元件控制器的客製化內容，與上述的內容保持一致。不然，您更新了 A ，卻一直要主體元件去抓 B 的資料，這樣倒是挺麻煩的 ⋯
+
+    主體元件執行程序：
 
     ````objective-c
     - (IBAction)startAction:(id)sender
@@ -233,31 +235,32 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
          }];
 
          [self                           presentViewController: controller animated: YES completion: nil];
-    }
+   }
     ````
 
-## Documents
+## 相關文件
+
 
 
 * **Configure Files Schema**  
 
-  * [Table Schema - StickerLibrary - en.ods](ReferenceFiles/Documents/Table Schema - StickerLibrary - en.ods) 
+  * [Table Schema - StickerLibrary - en.ods](ReferenceFiles/Documents/Table Schema - StickerLibrary - en.ods)
   * [Table Schema - StickerLibrary - zh-Hant.ods](ReferenceFiles/Documents/Table Schema - StickerLibrary - zh-Hant.ods)
 
- > **NOTE:**
- >
- > .ods file editor : [OpenOffice][OpenOfficeLink]
+  > **NOTE:**
+  >
+  > .ods file editor : [OpenOffice][OpenOfficeLink]
 
 
 * **System Configure JSON Sample**  
 
-  1. System default configure of the Tab Menu : 
+  1. System default configure of the Tab Menu :
    * [StickerLibraryTabDefault.json](ReferenceFiles/Configure - sample/StickerLibraryTabDefault.json)
-  2. The System Update configure : 
+  2. The System Update configure :
    * [StickerLibrarySystemUpdate.json](ReferenceFiles/Configure - sample/StickerLibrarySystemUpdate.json)
-  3. A Page configure : 
-   * [1001.page.face.json](ReferenceFiles/Configure - sample/1001page.face.json), 
-   * [1002page.weather.json](ReferenceFiles/Configure - sample/1002page.weather.json), 
+  3. A Page configure :
+   * [1001.page.face.json](ReferenceFiles/Configure - sample/1001page.face.json),
+   * [1002page.weather.json](ReferenceFiles/Configure - sample/1002page.weather.json),
    * [1003page.emotion.json](ReferenceFiles/Configure - sample/1003page.emotion.json).
 
 
@@ -266,15 +269,15 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
   * [warszawianka-weather.plist](ReferenceFiles/Configure - sample/warszawianka-weather.plist)
 
 
-## Special Thanks
+## 特別感謝
 
-* for be imported repositories :
+* 引用的第三方函式庫 :
 
   * [ZipArchive][dependenceZipArchive]
   * [AFNetworking][dependenceAFNetworking]
 
 
-* for stickers sample :
+* 範例內容的貼紙作者 :
 
   * [Oca Studios][Oca Studios]
   * [nicubunu][nicubunu]
@@ -283,60 +286,69 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
   * [warszawianka][warszawianka]  
 
 
-## Special Request
+## 特別需求
 
- Sorry for my English, is very weak.
+由於個人的英文，並不是普通等級的弱點項目而已，是非常弱的弱的弱 ⋯ ⋯ ⋯
 
- Also, please help me to fix these English syntax or error words, if you have free time and want to do.
+所以，如果您在解讀並理解了相對應的程序流程或內容，以致於發現個人使用的英文單字、詞彙或者是語法上的錯誤的，在您閒暇並且有意願的前提之下，請您不吝告知，或者依循 GitHub 的 叉它的(fork) 流程加以修正並通知在下，以便於其他可能或嘗試使用此函式庫的使用者，更容易上手。
 
- ** Thanks very much! **
+以上，關於此 `特別需求`，在此先行感謝啦。
+
 
 ## Contribute
 
-coming soon ~. ~
+除了，上一回合的 `特別需求` 之外，暫時還沒有對此 `Contribute` 有太特殊的想法。
+
+故，敬請期待，或者歡迎與個人討論 ~. ~
+
+(coming soon ~. ~)
 
 
-(You can support contributors of this project individually.)
+## 捐贈 ～  
+
+歡迎贊助此函式庫的持續性的開發，或者是稍稍地打賞給 ~ 店小二 ~  
 
 
-## Donate 
+* ![donateWithPayPal][donateWithPayPal]
+ * [新台幣 30 元][TWD 30] 一杯古早味紅茶
+ * [新台幣 100 元][TWD 100] 一頓豐盛的雞腿便當
+ * [新台幣 500 元][TWD 500] 不飢餓 72 小時
+ * [新台幣 1000 元][TWD 1000] 平平安安地度過一週
+ * [隨緣][other TWD] 隨喜 ～
 
-Support the development of this library and author.
-
-![donateWithPayPal][donateWithPayPal] 
-* [USD $1][USD $1] a black tea of traditional taste of Taiwan. 
-* [USD $5][USD $5] a good lunch 
-* [USD $20][USD $20] anti-hungry 72 hr 
-* [USD $50][USD $50] get a wonderful week 
-* [other USD][other USD] a kindness support for development 
-
-** Bitcoin **
-* Bitcoin address `1GkUKb31JDwimpu2MJoQ1R7rjS8taX97aE`
-* [Bitcoin URI][donateBitcoinURI]
+* ** Bitcoin **
+ * Bitcoin address `1GkUKb31JDwimpu2MJoQ1R7rjS8taX97aE`
+ * [Bitcoin URI][donateBitcoinURI]
 
 
-*** <FONT COLOR="orange"> Otherwise ~ </FONT> ***
+ *** <FONT COLOR="orange"> 除此之外 ～ </FONT> ***
 
-You can choose to donate these foundations, like below  :
+* 也請您考慮將本來打算打賞給店小二的小費，轉贈予 `社會福利機構或團體`
+ * [熊米屋愛心烘焙坊/社團法人基隆市智障者家長協會][Taiwan papid]
+ * [財團法人綠色和平基金會][Taiwan Greenpeace Foundation]
+ * [維基百科][wikipedia]
+ * 各國的世界展望會，如[台灣世界展望會][Taiwan worldvision] 或者[香港世界宣明會][HongKong worldvision] 等等 ～
+ * [台灣兒童暨家庭扶助基金會][Taiwan ccf]
+ * [兒童福利聯盟文教基金會][Taiwan children]
+ * [社團法人中華民國保護動物協會][Taiwan APA]
+ * [財團法人流浪動物之家基金會][Taiwan hsapf]
+ * [社團法人台灣黑熊保育協會][Taiwan Bear]
+ * [台灣導盲犬協會][Taiwan guidedog]
+ * 您的居住地附近的各種議題的社會福利機構
 
-* [World Food Programme][World Food Programme]  
-* [Greenpeace Foundation][Greenpeace Foundation]
-* [UNHCR][UNHCR]  
-* [unicef][unicef] 
-* [wikipedia][wikipedia]  
-* [World Vision][World Vision]  
-* a social welfare foundations around your life.
-
-The list is reference, don't limit about this please.
+ 上述主要是個人曾經關注過的單位或者機構，請您務必不侷限於此參考名單
 
 
-Thanks for each donator.
+在此感謝每一位贊助者
+
+> 此轉捐贈概念是在玩 Arduino 期間，在網路上搜尋資料的過程，從某本電子書裡頭看到的發行理念。
+
 
 ## License
 
 `TDStickerLibrary` is released under the [MIT License][mitLink]. See `LICENSE` for details.
 
->**Copyright &copy; 2015-Robin Hsu/Tech.D.Robin**
+> **Copyright &copy; 2015-Robin Hsu/Tech.D.Robin**
 
 Please provide attribution, it is greatly appreciated.
 
@@ -369,17 +381,27 @@ Please provide attribution, it is greatly appreciated.
 [USD $50]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3N79SPMPQBJ9U
 [other USD]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=S7YNRSFEF2HUG
 
+[TWD 30]:    https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HKTPTDXCSG5XU
+[TWD 100]:   https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DNRR9B2MYEJKG
+[TWD 500]:   https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NAG4NPVMGQCKQ
+[TWD 1000]:  https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GP8S422D6HSAE
+[other TWD]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VX3STCMKJWHKJ
+
+[Taiwan papid]: http://papid.com.tw/
+[Taiwan Greenpeace Foundation]: http://www.greenpeace.org/taiwan/zh/
+[wikipedia]: https://www.wikimedia.org/
+[Taiwan worldvision]: http://www.worldvision.org.tw/
+[HongKong worldvision]: http://www.worldvision.org.hk/
+[Taiwan ccf]:http://www.ccf.org.tw/
+[Taiwan children]: http://www.children.org.tw/
+[Taiwan hsapf]: http://www.hsapf.org.tw/
+[Taiwan APA]: http://www.apatw.org/
+[Taiwan Bear]: http://www.taiwanbear.org.tw/
+[Taiwan guidedog]: http://www.guidedog.org.tw/
+
+[programmer magazine]: http://programmermagazine.github.io/home/
+[ccckmit]: http://ccckmit.wikidot.com/
+
 [donateBitcoinURI]: bitcoin:1GkUKb31JDwimpu2MJoQ1R7rjS8taX97aE?label=GitHub%2C%20donate&message=Receive%20from%20GitHub%20TDSticker%20Library%27s%20donator%20
 
-
-[World Food Programme]:  http://www.wfp.org/
-[Greenpeace Foundation]:  http://www.greenpeace.org/
-[UNHCR]: http://www.unrefugees.org/
-[unicef]: http://www.unicef.org/
-[wikipedia]:  https://www.wikimedia.org/
-[World Vision]:  http://www.worldvision.org/
-
-
 [mitLink]:http://opensource.org/licenses/MIT
-
-
