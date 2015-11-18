@@ -13,6 +13,8 @@ Sticker Library 提供的幾項主要功能：
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/n3Nfy4H0dvk" frameborder="0" allowfullscreen></iframe>
 
+[展示畫面 - youtube](https://www.youtube.com/embed/n3Nfy4H0dvk)
+
 
 ## 環境需求
 
@@ -25,10 +27,10 @@ Sticker Library 提供的幾項主要功能：
 
 ### 下載
 
-1. 點選畫面右邊的`Download ZIP`，或者直接 [點這邊下載][downloadLink]
+1. 點選畫面右邊的`Download ZIP`，或者直接 [點這邊下載](https://github.com/TechD-Robin/TDStickerLibrary/archive/master.zip)
 2. 將函式庫的 `TDStickerLibrary/` 和 `Libraries/` 這兩個目錄新增到您的專案內
 
-### 透過 [CocoaPods][cocoaPodsLink]
+### 透過 [CocoaPods](https://cocoapods.org/)
 
 在專案的根目錄裡頭新增一個 `Podfile` 檔案，並且新增類似下面描述的檔案內容：
 
@@ -61,15 +63,15 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
 
 本函式庫直接引用下述的其他函式庫：
 
-* [TDResourceManager][dependenceTDResourceManager]
+* [TDResourceManager](https://github.com/TechD-Robin/TDResourceManager)
 
-* [TDDownloadManager][dependenceTDDownloadManager]
+* [TDDownloadManager](https://github.com/TechD-Robin/TDDownloadManager)
 
-* [TDFoundation][dependenceTDFoundation]
+* [TDFoundation](https://github.com/TechD-Robin/TDFoundation)
 
-* [UIKit+TechD][dependenceUIKit+TechD]
+* [UIKit+TechD](https://github.com/TechD-Robin/UIKit-TechD)
 
-* [TDMath][dependenceTDMath]
+* [TDMath](https://github.com/TechD-Robin/TDMath)
 
 
 ## 入門使用 － ⋯ 花您三十分鐘就上手？
@@ -249,19 +251,21 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
 
   > **NOTE:**
   >
-  > .ods file editor : [OpenOffice][OpenOfficeLink]
+  > .ods file editor : [OpenOffice](https://www.openoffice.org/)
 
 
 * **System Configure JSON Sample**  
 
   1. System default configure of the Tab Menu :
-   * [StickerLibraryTabDefault.json](ReferenceFiles/Configure - sample/StickerLibraryTabDefault.json)
+     * [StickerLibraryTabDefault.json](ReferenceFiles/Configure - sample/StickerLibraryTabDefault.json)
+
   2. The System Update configure :
-   * [StickerLibrarySystemUpdate.json](ReferenceFiles/Configure - sample/StickerLibrarySystemUpdate.json)
+     * [StickerLibrarySystemUpdate.json](ReferenceFiles/Configure - sample/StickerLibrarySystemUpdate.json)
+
   3. A Page configure :
-   * [1001.page.face.json](ReferenceFiles/Configure - sample/1001page.face.json),
-   * [1002page.weather.json](ReferenceFiles/Configure - sample/1002page.weather.json),
-   * [1003page.emotion.json](ReferenceFiles/Configure - sample/1003page.emotion.json).
+     * [1001.page.face.json](ReferenceFiles/Configure - sample/1001page.face.json),
+     * [1002page.weather.json](ReferenceFiles/Configure - sample/1002page.weather.json),
+     * [1003page.emotion.json](ReferenceFiles/Configure - sample/1003page.emotion.json).
 
 
 * **Preview Image Crop PList Sample**   
@@ -273,17 +277,17 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
 
 * 引用的第三方函式庫 :
 
-  * [ZipArchive][dependenceZipArchive]
-  * [AFNetworking][dependenceAFNetworking]
+  * [ZipArchive](https://github.com/mattconnolly/ZipArchive)
+  * [AFNetworking](https://github.com/AFNetworking/AFNetworking)
 
 
 * 範例內容的貼紙作者 :
 
-  * [Oca Studios][Oca Studios]
-  * [nicubunu][nicubunu]
-  * [rg1024][rg1024]    
-  * [gnokii][gnokii]    
-  * [warszawianka][warszawianka]  
+  * [Oca Studios](http://ocastudios.com/classics/doushouqi)
+  * [nicubunu](https://openclipart.org/user-cliparts/nicubunu)
+  * [rg1024](https://openclipart.org/user-cliparts/rg1024)    
+  * [gnokii](https://openclipart.org/user-cliparts/gnokii)    
+  * [warszawianka](https://openclipart.org/user-cliparts/warszawianka)  
 
 
 ## 特別需求
@@ -309,31 +313,31 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
 歡迎贊助此函式庫的持續性的開發，或者是稍稍地打賞給 ~ 店小二 ~  
 
 
-* ![donateWithPayPal][donateWithPayPal]
- * [新台幣 30 元][TWD 30] 一杯古早味紅茶
- * [新台幣 100 元][TWD 100] 一頓豐盛的雞腿便當
- * [新台幣 500 元][TWD 500] 不飢餓 72 小時
- * [新台幣 1000 元][TWD 1000] 平平安安地度過一週
- * [隨緣][other TWD] 隨喜 ～
+* ![donateWithPayPal](https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_pp_142x27.png)
+ * [新台幣 30 元](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HKTPTDXCSG5XU) 一杯古早味紅茶
+ * [新台幣 100 元](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DNRR9B2MYEJKG) 一頓豐盛的雞腿便當
+ * [新台幣 500 元](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NAG4NPVMGQCKQ) 不飢餓 72 小時
+ * [新台幣 1000 元](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GP8S422D6HSAE) 平平安安地度過一週
+ * [隨緣](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VX3STCMKJWHKJ) 隨喜 ～
 
 * ** Bitcoin **
  * Bitcoin address `1GkUKb31JDwimpu2MJoQ1R7rjS8taX97aE`
- * [Bitcoin URI][donateBitcoinURI]
+ * Bitcoin URI `bitcoin:1GkUKb31JDwimpu2MJoQ1R7rjS8taX97aE?label=GitHub%2C%20donate&message=Receive%20from%20GitHub%20TDSticker%20Library%27s%20donator%20`
 
 
  *** <FONT COLOR="orange"> 除此之外 ～ </FONT> ***
 
 * 也請您考慮將本來打算打賞給店小二的小費，轉贈予 `社會福利機構或團體`
- * [熊米屋愛心烘焙坊/社團法人基隆市智障者家長協會][Taiwan papid]
- * [財團法人綠色和平基金會][Taiwan Greenpeace Foundation]
- * [維基百科][wikipedia]
- * 各國的世界展望會，如[台灣世界展望會][Taiwan worldvision] 或者[香港世界宣明會][HongKong worldvision] 等等 ～
- * [台灣兒童暨家庭扶助基金會][Taiwan ccf]
- * [兒童福利聯盟文教基金會][Taiwan children]
- * [社團法人中華民國保護動物協會][Taiwan APA]
- * [財團法人流浪動物之家基金會][Taiwan hsapf]
- * [社團法人台灣黑熊保育協會][Taiwan Bear]
- * [台灣導盲犬協會][Taiwan guidedog]
+ * [熊米屋愛心烘焙坊/社團法人基隆市智障者家長協會](http://papid.com.tw/)
+ * [財團法人綠色和平基金會](http://www.greenpeace.org/taiwan/zh/)
+ * [維基百科](https://www.wikimedia.org/)
+ * 各國的世界展望會，如[台灣世界展望會](http://www.worldvision.org.tw/) 或者[香港世界宣明會](http://www.worldvision.org.hk/) 等等 ～
+ * [台灣兒童暨家庭扶助基金會](http://www.ccf.org.tw/)
+ * [兒童福利聯盟文教基金會](http://www.children.org.tw/)
+ * [社團法人中華民國保護動物協會](http://www.apatw.org/)
+ * [財團法人流浪動物之家基金會](http://www.hsapf.org.tw/)
+ * [社團法人台灣黑熊保育協會](http://www.taiwanbear.org.tw/)
+ * [台灣導盲犬協會](http://www.guidedog.org.tw/)
  * 您的居住地附近的各種議題的社會福利機構
 
  上述主要是個人曾經關注過的單位或者機構，請您務必不侷限於此參考名單
@@ -346,62 +350,11 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
 
 ## License
 
-`TDStickerLibrary` is released under the [MIT License][mitLink]. See `LICENSE` for details.
+`TDStickerLibrary` is released under the [MIT License](http://opensource.org/licenses/MIT). See `LICENSE` for details.
 
 > **Copyright &copy; 2015-Robin Hsu/Tech.D.Robin**
 
 Please provide attribution, it is greatly appreciated.
 
-
 ----
-[downloadLink]: https://github.com/TechD-Robin/TDStickerLibrary/archive/master.zip
-[cocoaPodsLink]: https://cocoapods.org/
-[OpenOfficeLink]: https://www.openoffice.org/
 
-[dependenceTDResourceManager]: https://github.com/TechD-Robin/TDResourceManager
-[dependenceTDDownloadManager]: https://github.com/TechD-Robin/TDDownloadManager
-[dependenceTDFoundation]: https://github.com/TechD-Robin/TDFoundation
-[dependenceUIKit+TechD]: https://github.com/TechD-Robin/UIKit-TechD
-[dependenceTDMath]:https://github.com/TechD-Robin/TDMath
-
-[dependenceAFNetworking]: https://github.com/AFNetworking/AFNetworking
-[dependenceZipArchive]: https://github.com/mattconnolly/ZipArchive
-
-[Oca Studios]: http://ocastudios.com/classics/doushouqi
-[nicubunu]: https://openclipart.org/user-cliparts/nicubunu
-[rg1024]: https://openclipart.org/user-cliparts/rg1024
-[gnokii]: https://openclipart.org/user-cliparts/gnokii
-[warszawianka]: https://openclipart.org/user-cliparts/warszawianka
-
-[donateSimply]: https://www.paypalobjects.com/en_US/TW/i/btn/btn_donate_SM.gif
-[donateWithPayPal]: https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_pp_142x27.png
-[USD $1]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LNBCYLQ7EGWGU
-[USD $5]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MS3JH5B6NQ6LU
-[USD $20]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=J3E8Y3CE5ZEC6
-[USD $50]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3N79SPMPQBJ9U
-[other USD]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=S7YNRSFEF2HUG
-
-[TWD 30]:    https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HKTPTDXCSG5XU
-[TWD 100]:   https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DNRR9B2MYEJKG
-[TWD 500]:   https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NAG4NPVMGQCKQ
-[TWD 1000]:  https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GP8S422D6HSAE
-[other TWD]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VX3STCMKJWHKJ
-
-[Taiwan papid]: http://papid.com.tw/
-[Taiwan Greenpeace Foundation]: http://www.greenpeace.org/taiwan/zh/
-[wikipedia]: https://www.wikimedia.org/
-[Taiwan worldvision]: http://www.worldvision.org.tw/
-[HongKong worldvision]: http://www.worldvision.org.hk/
-[Taiwan ccf]:http://www.ccf.org.tw/
-[Taiwan children]: http://www.children.org.tw/
-[Taiwan hsapf]: http://www.hsapf.org.tw/
-[Taiwan APA]: http://www.apatw.org/
-[Taiwan Bear]: http://www.taiwanbear.org.tw/
-[Taiwan guidedog]: http://www.guidedog.org.tw/
-
-[programmer magazine]: http://programmermagazine.github.io/home/
-[ccckmit]: http://ccckmit.wikidot.com/
-
-[donateBitcoinURI]: bitcoin:1GkUKb31JDwimpu2MJoQ1R7rjS8taX97aE?label=GitHub%2C%20donate&message=Receive%20from%20GitHub%20TDSticker%20Library%27s%20donator%20
-
-[mitLink]:http://opensource.org/licenses/MIT
