@@ -11,6 +11,7 @@ The Sticker Library provide several functionality :
 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/n3Nfy4H0dvk" frameborder="0" allowfullscreen></iframe>
+[library present - youtube][library present]
 
 
 ## Requirements
@@ -252,10 +253,15 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
 * **System Configure JSON Sample**  
 
   1. System default configure of the Tab Menu : 
+ 
    * [StickerLibraryTabDefault.json](ReferenceFiles/Configure - sample/StickerLibraryTabDefault.json)
+
   2. The System Update configure : 
+ 
    * [StickerLibrarySystemUpdate.json](ReferenceFiles/Configure - sample/StickerLibrarySystemUpdate.json)
+
   3. A Page configure : 
+ 
    * [1001.page.face.json](ReferenceFiles/Configure - sample/1001page.face.json), 
    * [1002page.weather.json](ReferenceFiles/Configure - sample/1002page.weather.json), 
    * [1003page.emotion.json](ReferenceFiles/Configure - sample/1003page.emotion.json).
@@ -342,6 +348,8 @@ Please provide attribution, it is greatly appreciated.
 
 
 ----
+[library present]: https://www.youtube.com/embed/n3Nfy4H0dvk
+
 [downloadLink]: https://github.com/TechD-Robin/TDStickerLibrary/archive/master.zip
 [cocoaPodsLink]: https://cocoapods.org/
 [OpenOfficeLink]: https://www.openoffice.org/
