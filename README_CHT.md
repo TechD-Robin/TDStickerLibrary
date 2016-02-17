@@ -11,9 +11,7 @@ Sticker Library 提供的幾項主要功能：
 * 貼紙資料的下載與更新
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/n3Nfy4H0dvk" frameborder="0" allowfullscreen></iframe>
-
-[展示畫面 - youtube](https://www.youtube.com/embed/n3Nfy4H0dvk)
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/n3Nfy4H0dvk/0.jpg)](http://www.youtube.com/watch?v=n3Nfy4H0dvk)
 
 
 ## 環境需求
@@ -259,8 +257,10 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
   1. System default configure of the Tab Menu :
      * [StickerLibraryTabDefault.json](ReferenceFiles/Configure - sample/StickerLibraryTabDefault.json)
 
+
   2. The System Update configure :
      * [StickerLibrarySystemUpdate.json](ReferenceFiles/Configure - sample/StickerLibrarySystemUpdate.json)
+
 
   3. A Page configure :
      * [1001.page.face.json](ReferenceFiles/Configure - sample/1001page.face.json),
@@ -279,6 +279,11 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
 
   * [ZipArchive](https://github.com/mattconnolly/ZipArchive)
   * [AFNetworking](https://github.com/AFNetworking/AFNetworking)
+
+
+* 引用的介面圖示 :
+
+  * [google's material-design-icons](https://github.com/google/material-design-icons)
 
 
 * 範例內容的貼紙作者 :
@@ -345,14 +350,14 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
 
 在此感謝每一位贊助者
 
-> 此轉捐贈概念是在玩 Arduino 期間，在網路上搜尋資料的過程，從某本電子書裡頭看到的發行理念。
+> 此轉捐贈概念是在玩 Arduino 期間，在網路上搜尋資料的過程發現，源自於任教金門大學的 [陳鍾誠老師](http://ccckmit.wikidot.com/)、[程式人雜誌](http://programmermagazine.github.io/home/) 的發起人，於發行此雜誌時所賦予的理念：「開放公益出版品」
 
 
 ## License
 
 `TDStickerLibrary` is released under the [MIT License](http://opensource.org/licenses/MIT). See `LICENSE` for details.
 
-> **Copyright &copy; 2015-Robin Hsu/Tech.D.Robin**
+> **Copyright &copy; 2015-present Robin Hsu/Tech.D.Robin**
 
 Please provide attribution, it is greatly appreciated.
 

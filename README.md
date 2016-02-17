@@ -10,8 +10,9 @@ The Sticker Library provide several functionality :
 * update & download newer.
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/n3Nfy4H0dvk" frameborder="0" allowfullscreen></iframe>
-[library present - youtube][library present]
+
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/n3Nfy4H0dvk/0.jpg)](http://www.youtube.com/watch?v=n3Nfy4H0dvk)
+
 
 
 ## Requirements
@@ -280,6 +281,11 @@ pod 'TDStickerLibrary',   :git => 'https://github.com/TechD-Robin/TDStickerLibra
   * [AFNetworking][dependenceAFNetworking]
 
 
+* UI Icons
+
+  * [google's material-design-icons][google's material-design-icons]
+
+
 * for stickers sample :
 
   * [Oca Studios][Oca Studios]
@@ -342,7 +348,7 @@ Thanks for each donator.
 
 `TDStickerLibrary` is released under the [MIT License][mitLink]. See `LICENSE` for details.
 
->**Copyright &copy; 2015-Robin Hsu/Tech.D.Robin**
+>**Copyright &copy; 2015-present Robin Hsu/Tech.D.Robin**
 
 Please provide attribution, it is greatly appreciated.
 
@@ -362,6 +368,8 @@ Please provide attribution, it is greatly appreciated.
 
 [dependenceAFNetworking]: https://github.com/AFNetworking/AFNetworking
 [dependenceZipArchive]: https://github.com/mattconnolly/ZipArchive
+
+[google's material-design-icons]: https://github.com/google/material-design-icons
 
 [Oca Studios]: http://ocastudios.com/classics/doushouqi
 [nicubunu]: https://openclipart.org/user-cliparts/nicubunu
